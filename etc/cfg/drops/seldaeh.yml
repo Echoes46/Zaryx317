@@ -1,0 +1,116 @@
+---
+npc_id: 8888
+constant:
+  accessibility: 0
+  items:
+    - item: 11681
+      minimum: 10
+      maximum: 50
+common:
+  accessibility: 1
+  items:
+    - name: "blood rune"
+      minimum: 80
+      maximum: 100
+    - name: "death rune"
+      minimum: 80
+      maximum: 100
+    - name: "mithril ore noted"
+      minimum: 60
+      maximum: 90
+    - name: "adamantite ore noted"
+      minimum: 30
+      maximum: 40
+    - item: 1748
+      minimum: 15
+      maximum: 25
+    - item: 1749
+      minimum: 15
+      maximum: 25
+    - item: 1620
+      minimum: 15
+      maximum: 25
+    - item: 1618
+      minimum: 15
+      maximum: 25
+    - item: 1632
+      minimum: 10
+      maximum: 20
+    - name: "dragon bones noted"
+      minimum: 10
+      maximum: 15
+    - name: "red spiders eggs noted"
+      minimum: 25
+      maximum: 35
+    - item: 3052
+      minimum: 15
+      maximum: 25
+uncommon:
+  accessibility: 10
+  items:
+    - item: 21905
+      minimum: 15
+      maximum: 40
+    - name: "runite ore noted"
+      minimum: 12
+      maximum: 25
+    - name: "crystal key"
+      minimum: 1
+      maximum: 1
+    - name: "snapdragon seed"
+      minimum: 3
+      maximum: 5
+    - name: "cadantine seed"
+      minimum: 3
+      maximum: 5
+    - name: "dwarf weed seed"
+      minimum: 3
+      maximum: 5
+    - name: "uncut ruby"
+      minimum: 1
+      maximum: 1
+    - name: "uncut diamond"
+      minimum: 1
+      maximum: 1
+    - item: 13438
+      minimum: 1
+      maximum: 1
+rare:
+  accessibility: 100
+  items:
+    - item: 20128
+      minimum: 1
+      maximum: 1
+    - item: 20131
+      minimum: 1
+      maximum: 1
+    - item: 20137
+      minimum: 1
+      maximum: 1
+    - item: 20211
+      minimum: 1
+      maximum: 1
+    - item: 20140
+      minimum: 1
+      maximum: 1
+    - item: 20134
+      minimum: 1
+      maximum: 1
+    - item: 28274
+      minimum: 1
+      maximum: 1
+very_rare:
+  accessibility: 475
+  items:
+    - item: 6805
+      minimum: 1
+      maximum: 1
+    - item: 13302
+      minimum: 1
+      maximum: 1
+extremely_rare:
+  accessibility: 1800
+  items:
+    - item: 30022
+      minimum: 1
+      maximum: 1

@@ -1,0 +1,46 @@
+---
+id: 389
+name: "Trivia store"
+items:
+  - id: 30002
+    price: 15
+  - id: 693
+    price: 15
+  - id: 989 #crystal key
+    price: 20
+  - id: 23083 #brimstone key
+    price: 20
+  - id: 23933
+    price: 30
+  - id: 7968 #25% skilling pet
+    price: 25
+  - id: 24460 #faster clues
+    price: 25
+  - id: 7629 #doubler slayer points
+    price: 40
+  - id: 2528
+    price: 50
+  - id: 2841
+    price: 50
+  - id: 24364
+    price: 75
+  - id: 22093 #vote key
+    price: 200
+  - id: 11739 #vote m box
+    price: 200
+  - id: 12785 #row
+    price: 200
+  - id: 12783 #row scroll
+    price: 200
+  - id: 12791
+    price: 300
+  - id: 11666 #elite void token
+    price: 500
+  - id: 8167 #nomad chest
+    price: 750
+  - id: 6805 #spin
+    price: 800
+  - id: 33072 #perk
+    price: 800
+  - id: 33073 #perk
+    price: 900

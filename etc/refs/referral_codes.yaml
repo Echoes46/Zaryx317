@@ -1,0 +1,26 @@
+- code: Welcome to Zaryx!
+  rewards:
+  - id: 6199
+    amount: 1
+- code: Level-Up
+  rewards:
+  - id: 2528
+    amount: 2
+- code: Yum-Yum
+  rewards:
+  - id: 392
+    amount: 200
+- code: Im Over-Head
+  rewards:
+  - id: 2435
+    amount: 20
+  - id: 536
+    amount: 50
+- code: Tickets-Please
+  rewards:
+  - id: 696
+    amount: 2
+- code: Pet-This
+  rewards:
+    - id: 8167
+      amount: 1

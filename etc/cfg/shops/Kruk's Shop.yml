@@ -1,0 +1,11 @@
+id: 193
+name: "Kruk's Raid Shop"
+items:
+  - id: 2400 #silverlight key
+    price: 6000
+  - id: 27285 #eyes
+    price: 50000
+  - id: 12579 #arbo box
+    price: 60000
+  - id: 8167 #nomad box
+    price: 17500

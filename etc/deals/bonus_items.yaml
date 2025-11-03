@@ -1,0 +1,31 @@
+offer1:
+  buyItem:
+    - id: 13346
+      amount: 5
+  reward:             #Top Left
+    - id: 13346
+      amount: 1
+
+offer2:
+  buyItem:
+    - id: 13346
+      amount: 10
+  reward:            #Top Right
+    - id: 13346
+      amount: 4
+
+offer3:
+  buyItem:
+    - id: 12588
+      amount: 5
+  reward:           #Bottom Left
+    - id: 12588
+      amount: 1
+
+offer4:
+  buyItem:
+    - id: 12588
+      amount: 10
+  reward:            #Bottom Right
+    - id: 12588
+      amount: 4

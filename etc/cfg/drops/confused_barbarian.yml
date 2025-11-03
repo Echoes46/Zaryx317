@@ -1,0 +1,91 @@
+---
+npc_id: 2920
+constant:
+  accessibility: 0
+  items:
+    - item: 33237
+      minimum: 90
+      maximum: 150
+common:
+  accessibility: 3
+  items:
+    - item: 33237
+      minimum: 300
+      maximum: 500
+    - item: 13307
+      minimum: 400
+      maximum: 550
+    - item: 11681 #scrap paper
+      minimum: 40
+      maximum: 80
+    - item: 691
+      minimum: 1
+      maximum: 1
+
+uncommon:
+  accessibility: 10
+  items:
+    - item: 33237
+      minimum: 450
+      maximum: 650
+    - item: 13307
+      minimum: 600
+      maximum: 750
+    - item: 30001 #resource box medium
+      minimum: 1
+      maximum: 1
+    - item: 30002 #resource box large
+      minimum: 1
+      maximum: 1
+    - item: 11681 #scrap paper
+      minimum: 80
+      maximum: 120
+    - item: 692 #25k nomad
+      minimum: 1
+      maximum: 1
+
+rare:
+  accessibility: 35
+  items:
+    - item: 33237
+      minimum: 600
+      maximum: 750
+    - item: 13307
+      minimum: 800
+      maximum: 1000
+    - item: 30001 #resource box medium
+      minimum: 1
+      maximum: 1
+    - item: 30002 #resource box large
+      minimum: 1
+      maximum: 1
+    - item: 11681 #scrap paper
+      minimum: 130
+      maximum: 200
+    - item: 693 #25k nomad
+      minimum: 1
+      maximum: 2
+very_rare:
+  accessibility: 70
+  items:
+    - item: 24365
+      minimum: 1
+      maximum: 1
+    - item: 13307
+      minimum: 1250
+      maximum: 2000
+    - item: 11681 #scrap paper
+      minimum: 300
+      maximum: 500
+    - item: 696 #25k nomad
+      minimum: 1
+      maximum: 1
+extremely_rare:
+  accessibility: 200
+  items:
+    - item: 26090
+      minimum: 1
+      maximum: 1
+    - item: 2401
+      minimum: 1
+      maximum: 1

@@ -1,0 +1,91 @@
+---
+npc_id: 5566
+constant:
+  accessibility: 0
+  items:
+    - item: 33237 #dragon bones
+      minimum: 10
+      maximum: 20
+common:
+  accessibility: 3
+  items:
+    - item: 33237
+      minimum: 15
+      maximum: 60
+    - item: 13307
+      minimum: 150
+      maximum: 250
+    - item: 11681 #scrap paper
+      minimum: 10
+      maximum: 15
+    - item: 691
+      minimum: 1
+      maximum: 1
+
+uncommon:
+  accessibility: 10
+  items:
+    - item: 33237
+      minimum: 80
+      maximum: 120
+    - item: 13307
+      minimum: 280
+      maximum: 390
+    - item: 30001 #resource box medium
+      minimum: 1
+      maximum: 1
+    - item: 30002 #resource box large
+      minimum: 1
+      maximum: 1
+    - item: 11681 #scrap paper
+      minimum: 30
+      maximum: 60
+    - item: 692 #25k nomad
+      minimum: 1
+      maximum: 1
+
+rare:
+  accessibility: 35
+  items:
+    - item: 33237
+      minimum: 150
+      maximum: 250
+    - item: 13307
+      minimum: 400
+      maximum: 500
+    - item: 30001 #resource box medium
+      minimum: 1
+      maximum: 1
+    - item: 30002 #resource box large
+      minimum: 1
+      maximum: 1
+    - item: 11681 #scrap paper
+      minimum: 80
+      maximum: 120
+    - item: 693 #25k nomad
+      minimum: 1
+      maximum: 1
+very_rare:
+  accessibility: 70
+  items:
+    - item: 13307
+      minimum: 600
+      maximum: 750
+    - item: 11681 #scrap paper
+      minimum: 150
+      maximum: 200
+    - item: 696 #25k nomad
+      minimum: 1
+      maximum: 1
+    - item: 24365
+      minimum: 1
+      maximum: 1
+extremely_rare:
+  accessibility: 500
+  items:
+    - item: 26090
+      minimum: 1
+      maximum: 1
+    - item: 2401
+      minimum: 1
+      maximum: 1

@@ -1,0 +1,27 @@
+---
+id: 600
+name: "Scrap Shop"
+items:
+  - id: 8167 #nomad chest
+    price: 15000
+  - id: 6199 #mystery
+    price: 1500
+  - id: 6828 #smb
+    price: 10000
+  - id: 11739 #vote
+    price: 17500
+  - id: 13346 #ultra
+    price: 20000
+  - id: 12582 #cox
+    price: 25000
+  - id: 19891 #tob
+    price: 25000
+  - id: 12579 #arbo
+    price: 40000
+  - id: 6831 #f2p division
+    price: 50000
+  - id: 6829 #psp division
+    price: 80000
+  - id: 12588 #dono
+    price: 100000
+

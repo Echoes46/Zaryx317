@@ -1,0 +1,123 @@
+---
+id: 119
+name: "Blood money Shop"
+items:
+
+  - id: 12934 #zulrah scales
+    price: 2
+  - id: 23867 #crystal dust
+    price: 20
+  - id: 13442 #angler fish
+    price: 25
+  - id: 374 #swordish
+    price: 25
+  - id: 12696 #combat pot
+    price: 250
+  - id: 11212 #dragon arrow
+    price: 10
+  - id: 19484 #dragon javelin
+    price: 10
+  - id: 5698 #dragon dagger
+    price: 1250
+  - id: 9144 #rune bolts
+    price: 5
+  - id: 892 #rune arrow
+    price: 2
+  - id: 2572 #ring of wealth
+    price: 25000
+  - id: 9185 #rune c'bow
+    price: 5000
+  - id: 861 #magic shortbow
+    price: 1000
+  - id: 10551 #fighter torso
+    price: 50000
+  - id: 4151 #whip
+    price: 10000
+  - id: 4587 #dragon scim
+    price: 2500
+  - id: 11907 #Trident of seas
+    price: 10000
+  - id: 24288 #dragon hai hat
+    price: 25000
+  - id: 24291 #dragon hai top
+    price: 25000
+  - id: 24294 #dragon hai bottom
+    price: 25000
+  - id: 11926 #odium ward
+    price: 50000
+  - id: 11924 #malediction ward
+    price: 50000
+  - id: 7462 #barrows gloves
+    price: 25000
+  - id: 11840 #D boots
+    price: 4000
+  - id: 6920
+    price: 5000
+  - id: 6735 #Warriors Ring
+    price: 15000
+  - id: 6733 #Archers ring
+    price: 15000
+  - id: 6737 #Berserkers ring
+    price: 15000
+  - id: 6731 #Seers ring
+    price: 15000
+  - id: 4153 #g maul
+    price: 10000
+  - id: 12849 #granite clamp
+    price: 10000
+  - id: 24229 #ornate maul handle
+    price: 10000
+  - id: 12004 #kraken tentacle
+    price: 15000
+  - id: 19478 #light ballista
+    price: 25000
+  - id: 19481 #heavy ballista
+    price: 50000
+  - id: 12954 #dragon defender
+    price: 50000
+  - id: 21183 #slaughter bracelet
+    price: 50000
+  - id: 23824 #slaughter charge
+    price: 200
+  - id: 6585 #fury
+    price: 25000
+  - id: 22557 #avarice
+    price: 25000
+  - id: 12002 #occult
+    price: 25000
+  - id: 11128 #berserker
+    price: 25000
+  - id: 4675 #berserker
+    price: 7500
+  - id: 6739 #dragon axe
+    price: 50000
+  - id: 11920 #dragon pick
+    price: 50000
+  - id: 21028 #dragon harpoon
+    price: 50000
+  - id: 12846 #teleport scroll
+    price: 12500
+  - id: 12786 #magic shortbow scroll
+    price: 5000
+  - id: 7629 #x2 slayer scroll
+    price: 5000
+  - id: 12783 #ring of wealth scroll
+    price: 5000
+  - id: 12791 #Rune pouch
+    price: 50000
+  - id: 19564 #Royal seed pod
+    price: 50000
+  - name: "cannon base"
+    price: 17500
+  - name: "cannon stand"
+    price: 17500
+  - name: "cannon barrels"
+    price: 17500
+  - name: "cannon furnace"
+    price: 17500
+  - name: "cannonball"
+    price: 2
+  - id: 8167
+    price: 45000
+  - id: 6679
+    price: 50000

@@ -1,0 +1,162 @@
+---
+id: 121
+name: "Boss Points Shop"
+items:
+  - id: 956
+    price: 1000
+
+  - id: 11730 #Overload
+    price: 50
+
+  - id: 12696 #super combat potion
+    price: 25
+
+  - id: 13442 #angler fish
+    price: 2
+
+  - id: 9341 #dragon-stone bolts
+    price: 2
+
+  - id: 11212 #dragon arrows
+    price: 2
+
+  - id: 11230 #dragon dart
+    price: 2
+
+  - id: 19484 #dragon javelin
+    price: 2
+
+  - id: 12934 #zulrah scales
+    price: 3
+
+  - id: 4185 #porazdir key
+    price: 750
+
+  - id: 6792 #serens key
+    price: 750
+
+  - id: 11826 #Armadyl helmet
+    price: 2500
+
+  - id: 11828 #Armadyl chestplate
+    price: 2500
+
+  - id: 11830 #Armadyl chainskirt
+    price: 2500
+
+  - id: 11907 #Trident of the seas
+    price: 500
+
+  - id: 11832 #Bandos chestplate
+    price: 2500
+
+  - id: 11834 #Bandos tassets
+    price: 2500
+
+  - id: 11836 #Bandos boots
+    price: 2500
+
+  - id: 10551 #Fighter Torso
+    price: 350
+
+  - id: 28067 #fighter torso(or)
+    price: 1500
+
+  - id: 12954 #Dragon defender
+    price: 1000
+
+  - id: 4151 #abyssal whip
+    price: 250
+
+  - id: 7462 #Barrows gloves
+    price: 750
+
+  - id: 11840 #dragon boots
+    price: 250
+
+  - id: 6920 #Infinity boots
+    price: 250
+
+  - id: 4675 #Ancients staff
+    price: 250
+
+  - id: 12829 #Spirit shield
+    price: 250
+
+  - id: 6889 #Mage book
+    price: 350
+
+  - id: 11926 #odium ward
+    price: 1500
+
+  - id: 11924 #malediction ward
+    price: 1500
+
+  - id: 6735 #Warriors ring
+    price: 250
+
+  - id: 6733 #Archers ring
+    price: 250
+
+  - id: 6737 #Berserkers ring
+    price: 250
+
+  - id: 6731 #Seers ring
+    price: 250
+
+  - id: 6570 #Fire Cape
+    price: 1000
+
+  - id: 6585 #Amulet of fury
+    price: 350
+
+  - id: 12002 #Occulet necklace
+    price: 450
+
+  - id: 11128 #Berserker necklace
+    price: 350
+
+  - id: 12004 #Kraken tentacle
+    price: 500
+
+  - id: 19478 #Light ballista
+    price: 500
+
+  - id: 19481 #Heavy ballista
+    price: 1000
+
+  - id: 11824 #Zamorakian Spear
+    price: 1000
+
+  - id: 2572 #Ring of wealth
+    price: 750
+
+  - id: 2841 #bonus exp scroll
+    price: 1000
+
+  - id: 24365 #Island scroll (30min)
+    price: 500
+
+  - id: 11666 #Full Elite Void Token
+    price: 1000
+
+  - id: 12783 #ring of wealth scroll
+    price: 500
+
+  - id: 7629 #x2 slayer point scroll
+    price: 250
+
+  - id: 12786 #Magic short-bow scroll
+    price: 500
+
+  - id: 536 #Dragon bones
+    price: 20
+
+  - id: 696 #(250,000) upgrade point certificate
+    price: 125
+
+  - id: 12791 #Rune pouch
+    price: 1000
+
+  - id: 20909 #Buchu seed
+    price: 100

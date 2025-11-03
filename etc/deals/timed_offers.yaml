@@ -1,0 +1,39 @@
+offer1:
+  description: Purchase Infinite aggression to get the rewards!
+  totalTime: 1709928785441
+  itemIdToBuy: 11429
+  itemAmountToBuy: 1
+  rewards:
+    - id: 11481
+      amount: 1
+    - id: 22999
+      amount: 1
+    - id: 6805
+      amount: 5
+
+offer2:
+  description: Purchase Infinite aggression to get the rewards!
+  totalTime: 1709928785441
+  itemIdToBuy: 11429
+  itemAmountToBuy: 1
+  rewards:
+    - id: 11481
+      amount: 1
+    - id: 22999
+      amount: 1
+    - id: 6805
+      amount: 5
+
+offer3:
+  description: Purchase 100x Mini ultra box to get the rewards!
+  totalTime: 1709992159689
+  itemIdToBuy: 6678
+  itemAmountToBuy: 100
+  rewards:
+    - id: 6679
+      amount: 50
+    - id: 6677
+      amount: 25
+    - id: 6678
+      amount: 10
+

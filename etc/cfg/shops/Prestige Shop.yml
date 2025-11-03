@@ -1,0 +1,36 @@
+---
+id: 120
+name: "Prestige Shop"
+items:
+  - id: 696
+    price: 50
+  - id: 2528
+    price: 250
+  - id: 6199
+    price: 250
+  - id: 19897
+    price: 250
+  - id: 6828
+    price: 250
+  - id: 6805
+    price: 500
+  - id: 8167
+    price: 500
+  - id: 26546
+    price: 500
+  - id: 26547
+    price: 500
+  - id: 26548
+    price: 500
+  - id: 25110
+    price: 1500
+  - id: 25112
+    price: 1500
+  - id: 25114
+    price: 1500
+  - id: 11481
+    price: 2500
+  - id: 22999
+    price: 2500
+  - id: 25481
+    price: 2500

@@ -1,0 +1,143 @@
+---
+npc_id:
+  - 3718
+  - 3719
+constant:
+  accessibility: 0
+  items:
+    - name: "big bones"
+      minimum: 1
+      maximum: 1
+    - name: "shark"
+      minimum: 2
+      maximum: 6
+common:
+  accessibility: 1
+  items:
+    - name: "shark"
+      minimum: 2
+      maximum: 7
+    - name: "adamantite ore noted"
+      minimum: 5
+      maximum: 80
+    - name: "grimy toadflax noted"
+      minimum: 3
+      maximum: 7
+    - name: "grimy snapdragon noted"
+      minimum: 2
+      maximum: 7
+    - name: "mithril ore noted"
+      minimum: 50
+      maximum: 100
+    - name: "magic logs noted"
+      minimum: 5
+      maximum: 10
+    - name: "air rune"
+      minimum: 100
+      maximum: 400
+    - name: "mind rune"
+      minimum: 200
+      maximum: 400
+    - name: "mystic fire staff"
+      minimum: 1
+      maximum: 1
+    - name: "mystic water staff"
+      minimum: 1
+      maximum: 1
+    - name: "mystic air staff"
+      minimum: 1
+      maximum: 1
+    - name: "mystic earth staff"
+      minimum: 1
+      maximum: 1
+    - name: "yew logs noted"
+      minimum: 20
+      maximum: 75
+    - name: "monkfish"
+      minimum: 1
+      maximum: 3
+uncommon:
+  accessibility: 10
+  items:
+    - name: "saradomin brew4"
+      minimum: 2
+      maximum: 7
+    - name: "anglerfish"
+      minimum: 2
+      maximum: 4
+    - name: "raw anglerfish noted"
+      minimum: 15
+      maximum: 35
+    - name: "ancient staff noted"
+      minimum: 1
+      maximum: 1
+    - name: "raw monkfish noted"
+      minimum: 20
+      maximum: 75
+    - name: "grimy ranarr weed noted"
+      minimum: 5
+      maximum: 25
+    - name: "coins"
+      minimum: 1000000
+      maximum: 5000000
+    - item: 11681
+      minimum: 7
+      maximum: 15
+
+rare:
+  accessibility: 75
+  items:
+    - name: "coins"
+      minimum: 5000000
+      maximum: 10000000
+    - name: "casket noted"
+      minimum: 1
+      maximum: 7
+    - name: "super combat potion3"
+      minimum: 1
+      maximum: 2
+    - name: "overload 4"
+      minimum: 1
+      maximum: 2
+    - name: "infinity top"
+      minimum: 1
+      maximum: 1
+    - name: "infinity hat"
+      minimum: 1
+      maximum: 1
+    - name: "infinity boots"
+      minimum: 1
+      maximum: 1
+    - name: "infinity gloves"
+      minimum: 1
+      maximum: 1
+    - name: "light infinity hat"
+      minimum: 1
+      maximum: 1
+    - name: "light infinity top"
+      minimum: 1
+      maximum: 1
+    - name: "light infinity bottoms"
+      minimum: 1
+      maximum: 1
+    - name: "dark infinity hat"
+      minimum: 1
+      maximum: 1
+    - name: "dark infinity top"
+      minimum: 1
+      maximum: 1
+    - name: "dark infinity bottoms"
+      minimum: 1
+      maximum: 1
+    - name: "master wand"
+      minimum: 1
+      maximum: 1
+very_rare:
+  accessibility: 300
+  items:
+    - item: 24777
+      minimum: 1
+      maximum: 1
+    - item: 13271
+      minimum: 1
+      maximum: 1

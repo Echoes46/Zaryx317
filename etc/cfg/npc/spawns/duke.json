@@ -1,0 +1,29 @@
+[
+  {
+    "id": 12166,
+    "position": {
+      "x": 3036,
+      "y": 6452,
+      "height": 0
+    },
+    "walkingType": "FACE_SOUTH"
+  },
+  {
+    "id": 12223,
+    "position": {
+      "x": 1129,
+      "y": 3418,
+      "height": 0
+    },
+    "walkingType": "WALK"
+  },
+  {
+    "id": 12205,
+    "position": {
+      "x": 2655,
+      "y": 6368,
+      "height": 0
+    },
+    "walkingType": "FACE_NORTH"
+  }
+]

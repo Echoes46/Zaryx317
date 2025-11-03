@@ -1,0 +1,146 @@
+---
+npc_id: 738
+constant:
+  accessibility: 0
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 1
+    - item: 26882
+      minimum: 1
+      maximum: 1
+common:
+  accessibility: 1
+  items:
+    - item: 995
+      minimum: 2500000
+      maximum: 3000000
+    - item: 13307
+      minimum: 1500
+      maximum: 3000
+    - item: 6679
+      minimum: 1
+      maximum: 1
+    - item: 6679
+      minimum: 1
+      maximum: 1
+    - item: 28418
+      minimum: 1
+      maximum: 1
+    - item: 23933
+      minimum: 3
+      maximum: 7
+    - item: 23083
+      minimum: 1
+      maximum: 2
+    - item: 6828
+      minimum: 1
+      maximum: 1
+    - item: 989
+      minimum: 5
+      maximum: 12
+uncommon:
+  accessibility: 20
+  items:
+    - item: 26545
+      minimum: 1
+      maximum: 2
+    - item: 6805
+      minimum: 1
+      maximum: 1
+    - item: 2400
+      minimum: 1
+      maximum: 2
+    - item: 2401
+      minimum: 1
+      maximum: 2
+    - item: 2996
+      minimum: 50
+      maximum: 150
+    - item: 6679
+      minimum: 1
+      maximum: 2
+    - item: 6679
+      minimum: 1
+      maximum: 2
+    - item: 11739
+      minimum: 1
+      maximum: 2
+    - item: 13346
+      minimum: 1
+      maximum: 1
+    - item: 12582
+      minimum: 1
+      maximum: 1
+    - item: 19891
+      minimum: 1
+      maximum: 1
+    - item: 12579
+      minimum: 1
+      maximum: 1
+    - item: 8167
+      minimum: 1
+      maximum: 1
+    - item: 22088
+      minimum: 1
+      maximum: 1
+    - item: 22089
+      minimum: 1
+      maximum: 1
+    - item: 22090
+      minimum: 1
+      maximum: 1
+    - item: 22091
+      minimum: 1
+      maximum: 1
+rare:
+  accessibility: 100
+  items:
+    - item: 12588
+      minimum: 1
+      maximum: 1
+    - item: 22087
+      minimum: 1
+      maximum: 1
+    - item: 6829
+      minimum: 1
+      maximum: 1
+    - item: 6831
+      minimum: 1
+      maximum: 1
+    - item: 33206
+      minimum: 1
+      maximum: 1
+    - item: 33149
+      minimum: 1
+      maximum: 1
+    - item: 28338
+      minimum: 1
+      maximum: 1
+    - item: 28945
+      minimum: 1
+      maximum: 1
+very_rare:
+  accessibility: 300
+  items:
+    - item: 6678
+      minimum: 1
+      maximum: 1
+    - item: 26386
+      minimum: 1
+      maximum: 1
+    - item: 26939
+      minimum: 1
+      maximum: 1
+extremely_rare:
+  accessibility: 600
+  items:
+    - item: 27352
+      minimum: 1
+      maximum: 1
+    - item: 27354
+      minimum: 1
+      maximum: 1
+    - item: 27383
+      minimum: 1
+      maximum: 1

@@ -1,0 +1,38 @@
+---
+identifier: "10_2021"
+date: [2021, 7, 1]
+rewards:
+  - id: 995 #coins
+    amount: 250000
+  - id: 691 # 10k nomad
+    amount: 8
+  - id: 24365 #unicow scroll
+    amount: 1
+  - id: 21046 #Chest rate bonus
+    amount: 20
+  - id: 23933 #Vote crystals
+    amount: 5
+  - id: 22093 #Vote keys
+    amount: 5
+  - id: 6792 #Seren keys
+    amount: 3
+  - id: 692 #25k Nomad
+    amount: 8
+  - id: 4185 #Porazdir keys
+    amount: 3
+  - id: 22885 #kronos seed
+    amount: 1
+  - id: 2528 #lamps
+    amount: 5
+  - id: 20790 #Row (i1)
+    amount: 1
+  - id: 693 #50k Nomad
+    amount: 5
+  - id: 13302 #Wildyman chest keys
+    amount: 2
+  - id: 696 #250k Nomad
+    amount: 5
+  - id: 22883 #Iasor Seed
+    amount: 1
+  - id: 6805 #Fortune spin
+    amount: 1

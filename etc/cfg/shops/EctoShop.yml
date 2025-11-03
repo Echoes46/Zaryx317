@@ -1,0 +1,24 @@
+---
+id: 310
+name: "EctoShop"
+items:
+  - id: 33070
+    price: 35000
+  - id: 33261
+    price: 10000
+  - id: 33262
+    price: 10000
+  - id: 33263
+    price: 10000
+  - id: 33264
+    price: 7500
+  - id: 33265
+    price: 5000
+  - id: 22947
+    price: 10000
+  - id: 9920
+    price: 5000
+  - id: 13116
+    price: 12500
+  - id: 22111
+    price: 15000

@@ -1,0 +1,50 @@
+---
+id: 195
+name: "Zaryx AFK Shop"
+items:
+  - id: 7478 #afk token
+    price: 1
+  - id: 6769 #$5
+    price: 700000
+  - id: 2528 #exp lamp
+    price: 10000
+  - id: 11157 #exp lamp
+    price: 10000
+  - id: 26858 #hat of the eye
+    price: 100000
+  - id: 26860 #robe top  of the eye
+    price: 100000
+  - id: 26862 #robe bottoms  of the eye
+    price: 100000
+  - id: 33065 #beaver pet
+    price: 2000000
+  - id: 22093 #vote key
+    price: 50000
+  - id: 11739 #vote m box
+    price: 50000
+  - id: 8167 #nomad chest
+    price: 750000
+  - id: 10025 #magic box
+    price: 1000
+  - id: 989 #crystal key
+    price: 5000
+  - id: 23083 #brimstone key
+    price: 5000
+  - id: 6792 #Seren's key
+    price: 50000
+  - id: 4185 #porozdir key
+    price: 50000
+  - id: 23490 #larran's key
+    price: 50000
+  - id: 22374 #hespori key
+    price: 150000
+  - id: 7968 #25% skilling pet
+    price: 25000
+  - id: 24460 #faster clues
+    price: 25000
+  - id: 7629 #doubler slayer points
+    price: 25000
+  - id: 12785 #row
+    price: 100000
+  - id: 12783 #row scroll
+    price: 50000
