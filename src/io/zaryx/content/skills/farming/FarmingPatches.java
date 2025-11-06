@@ -66,6 +66,7 @@ public enum FarmingPatches {
 	DZ250(new Position(2581, 3862, 0), new Position(2582, 3863, 0), Farming.HARVEST_CHOPPING, Items.TROWEL, Items.SPADE, SeedType.SPIRIT_TREE),
 	DZ250N(new Position(2576, 3857, 0), new Position(2585, 3861, 0), Farming.HARVEST_CHOPPING, Items.TROWEL, Items.SPADE, SeedType.SPIRIT_TREE),
 	DZ250S(new Position(2578, 3864, 0), new Position(2587, 3868, 0), Farming.HARVEST_CHOPPING, Items.TROWEL, Items.SPADE, SeedType.SPIRIT_TREE),
+    DZ2500S(new Position(2403, 3794, 0), new Position(2403, 3794, 0), Farming.HARVEST_ANIMATION, Items.SEED_DIBBER, Items.SECATEURS, SeedType.HERB),
 	/**
 	 * StrongHold Fruit tree - 2473, 3443, 0
 	 * Maze Fruit Tree - 2489, 3182, 0

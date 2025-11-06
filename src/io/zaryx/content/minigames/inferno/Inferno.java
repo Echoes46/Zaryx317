@@ -25,11 +25,25 @@ import io.zaryx.util.Misc;
 public class Inferno extends Tzkalzuk {
 
     private static final int DEFAULT_WAVE = 59;
+    private static final int FIRE_CAPE = 6570;
 
+    /* Updated by Khaos */
     public static void startInferno(Player player, int wave) {
+        // Check for Fire Cape
+        boolean hasCape =
+                player.getItems().playerHasItem(FIRE_CAPE)
+                        || player.getItems().isWearingItem(FIRE_CAPE);
+
+        if (!hasCape) {
+            player.sendMessage("You need a fire cape to enter the Inferno.");
+            return;
+        }
+
+         player.getItems().deleteItem(FIRE_CAPE, 1);
+         player.sendMessage("You sacrifice your fire cape and step into the Inferno...");
+
         new Inferno(player, Boundary.INFERNO).create(wave);
     }
-
     public static void moveToExit(Player player) {
         if (player.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || player.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
             player.setTeleportToX(3141);

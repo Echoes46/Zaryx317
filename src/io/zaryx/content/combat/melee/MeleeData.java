@@ -665,7 +665,7 @@ public class MeleeData {
 			return 5063;
 		}
 		if (weaponName.contains("scim")) {
-			return 39;
+			return 395; /* Updated by Khaos */
 		}
 	    if (weaponName.contains("sulphur blades")) {
 			return 2068;

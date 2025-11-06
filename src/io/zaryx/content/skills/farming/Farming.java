@@ -192,6 +192,9 @@ public class Farming {
 				config = (config(FarmingPatches.HOME_HERB) << 24)
 						+ (config(FarmingPatches.HOME_FLOWER) << 16);
 				break;
+            case DZ2500S:
+                config = (config(FarmingPatches.DZ2500S) << 24);
+                break;
 //			case FARMING_GUILD_SPIRIT_TREE:
 //				config = (config(FarmingPatches.FARMING_GUILD_ALLOTMENT_SOUTH) << 24)
 //						+ (config(FarmingPatches.FARMING_GUILD_ALLOTMENT_NORTH) << 16)

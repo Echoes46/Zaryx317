@@ -340,6 +340,7 @@ public class TeleportInterface {
 
     }
 
+    /* Updated by Khaos */
     public static void showList(Player player, Teleport[] list) {
         int id = 31067;
         int config = 31068;
@@ -353,13 +354,24 @@ public class TeleportInterface {
             id += 3;
         }
         if (player.getPosition().inWild()) {
-            player.sendMessage("You cant teleport whilst in the wilderness.");
-        } else player.getPA().showInterface(31000);
+            int wildLevel = Boundary.getWildernessLevel(
+                    player.getPosition().getX(),
+                    player.getPosition().getY()
+            );
+            if (wildLevel > 20) {
+                player.sendMessage("You can only use this teleport up to level 20 Wilderness.");
+                return;
+            }
+        }
+
+        player.getPA().showInterface(31000);
+
         SortedMap<String, BOSSES> map = new TreeMap<String, BOSSES>();
         for (BOSSES value : BOSSES.values()) {
             map.put(value.name, value);
         }
     }
+
 
     public static void sendDrops(Player player, int npcId) {
         for (int i = 0; i < 108; i++) {

@@ -227,6 +227,14 @@ public final class Position {
 
 		return Math.abs(position.getX() - this.getX()) <= distance && Math.abs(position.getY() - this.getY()) <= distance;
 	}
+    /* added by Khaos */
+    @JsonIgnore
+    public int getWildernessLevel() {
+        if (!inWild()) {
+            return 0;
+        }
+        return Boundary.getWildernessLevel(getX(), getY());
+    }
 
 
 	@JsonIgnore

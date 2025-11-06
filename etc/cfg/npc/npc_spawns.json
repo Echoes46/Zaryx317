@@ -5363,6 +5363,15 @@
     "walkingType": "STAND"
   },
   {
+    "id": 1306,
+    "position": {
+      "x": 3090,
+      "y": 3512,
+      "height": 0
+    },
+    "walkingType": "STAND"
+  },
+  {
     "id": 905,
     "position": {
       "x": 3189,

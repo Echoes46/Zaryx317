@@ -1013,6 +1013,7 @@ public class Region {
         return (region2.getClip(x, y, z) & 131072) == 0;
     }
 
+
     public int id() {
         return id;
     }
