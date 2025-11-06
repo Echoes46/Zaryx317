@@ -58,7 +58,7 @@ public class Boundary {
 
 	public static final Boundary[] XMAS_ZONES = {XMAS_ZONE_1, XMAS_ZONE_2, XMAS_ZONE_3, XMAS_ZONE_4};
 
-	public static final Boundary VOTE_BOSS = new Boundary(2618, 3899, 2695, 3974);
+	public static final Boundary VOTE_BOSS = new Boundary(3710, 3960, 3760, 3990);
 
 	public static final Boundary Ferox1 = new Boundary(3129, 3610, 3140, 3643);
 	public static final Boundary Ferox2 = new Boundary(3124, 3616, 3128, 3643);

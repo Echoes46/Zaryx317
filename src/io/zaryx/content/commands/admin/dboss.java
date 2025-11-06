@@ -135,7 +135,7 @@ public class dboss extends Command {
             targets.clear();
             return;
         }
-    // targets were being targeted in the wrong boundary.
+
         targets = PlayerHandler.getPlayers().stream()
                 .filter(Objects::nonNull)
                 .filter(p -> !p.isDead)

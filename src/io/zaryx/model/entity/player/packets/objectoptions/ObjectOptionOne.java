@@ -220,7 +220,6 @@ public class ObjectOptionOne {
 		if (c.getBlastFurnace().getBarDispenser().handleObject(c, objectType)) {
 			return;
 		}
-
 		if (objectType == 41214) {
 			c.start(new DialogueBuilder(c).option("Would you like to buy seeds? (25k UpgradePoints per seed)",
 					new DialogueOption("Yes", p -> {
@@ -275,7 +274,15 @@ public class ObjectOptionOne {
 			}
 			return;
 		}
-
+        /* Added by Khaos */
+        if (object.getObjectId() == 47593) {
+            if (c.getX() > 2069) {
+                c.getPA().movePlayer(2069, 6368, 0);
+            } else {
+                c.getPA().movePlayer(2071, 6368, 0);
+            }
+            return;
+        }
 		if (object.getObjectId() == 11726) {
 			if (c.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
 				int pX = c.getX();
