@@ -56,7 +56,6 @@ import io.zaryx.model.multiplayersession.duel.DuelSessionRules.Rule;
 import io.zaryx.model.multiplayersession.flowerpoker.FlowerData;
 import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -1348,7 +1347,6 @@ public class ItemOptionOne implements PacketType {
                     c.getItems().addItem(6769, 5);//5 scroll
                     c.getItems().addItem(2396, 2);//25 scroll
                     c.getDH().sendStatement("Box has been logged for staff, please give away responsibly!");
-                    Discord.writeServerSyncMessage("[YOUTUBE STREAM BOX T2] Opened by " + c.getDisplayName() + ".");
                     PlayerHandler.executeGlobalStaffMessage("[@red@Staff Message@bla@] <col=255>" + c.getDisplayName() + " has opened a stream box t2!");
                 } else {
                     c.sendMessage("Please clear your inventory before opening.");

@@ -22,9 +22,12 @@ import io.zaryx.content.worldevent.WorldEventContainer;
 import io.zaryx.content.worldevent.WorldEventInformation;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
 import io.zaryx.content.wogw.Wogw;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -357,7 +360,15 @@ public class QuestTab {
                         if (staff.size() > 0) {
                             String message = "@blu@[Help] " + player.getDisplayName()
                                     + " needs help, PM or TELEPORT and help them.";
-                            Discord.writeServerSyncMessage(message);
+                            if (DiscordBot.INSTANCE != null) {
+                                EmbedBuilder embed = new EmbedBuilder();
+                                embed.setTitle(" [ PLAYER HELP ] ");
+                                embed.setColor(Color.BLUE);
+                                embed.setTimestamp(java.time.Instant.now());
+                                embed.addField("Player: ", player.getDisplayName() + " needs help. - " + message, false);
+                                DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                                DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+                            }
                             PlayerHandler.sendMessage(message, staff);
                         } else {
                             player.sendMessage("@red@You've activated the help command but there are no staff-members online.");

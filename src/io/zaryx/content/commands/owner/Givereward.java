@@ -5,7 +5,6 @@ import io.zaryx.model.definitions.ItemDef;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
 import io.zaryx.util.offlinestorage.ItemCollection;
 
 public class Givereward extends Command {

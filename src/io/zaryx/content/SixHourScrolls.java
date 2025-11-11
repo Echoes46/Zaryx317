@@ -6,8 +6,10 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -141,7 +143,14 @@ public class SixHourScrolls {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You search the table and find a "+ ItemAssistant.getItemName(item.getId()) + " @red@scroll!");
         PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Scroll Table!");
-        Discord.writeAchievements("```News: "+ c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the loyalty chest!```");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ LOYALTY CHEST ]");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField(c.getDisplayName() + " has received: "+ ItemAssistant.getItemName(item.getId()) + " from the Loyalty Chest!", "\u200B", false);
+            DiscordBot.INSTANCE.writeAchievements99(embed.build());
+        }
         c.twoHourClaimable = false;
     }
 }

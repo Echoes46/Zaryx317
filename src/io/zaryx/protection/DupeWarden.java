@@ -10,10 +10,13 @@ import io.zaryx.model.entity.player.Right;
 import io.zaryx.model.items.bank.BankItem;
 import io.zaryx.model.items.bank.BankTab;
 import io.zaryx.model.shops.ShopAssistant;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -145,17 +148,39 @@ public class DupeWarden {
 
             if (!Configuration.DISABLE_DUPE_WARDEN) {
                 String time = calculatePlayTime(player);
-                Discord.sendCriticalWarning(player, time, this.totalNomad, total, true);
+                if (DiscordBot.INSTANCE != null) {
+                    EmbedBuilder embed = new EmbedBuilder();
+                    embed.setTitle("CRITICAL NOMAD WEALTH WARNING!");
+                    embed.setColor(Color.BLUE);
+                    embed.setThumbnail("https://oldschool.runescape.wiki/images/Sanguine_scythe_of_vitur.png?7313d");
+                    embed.setTimestamp(java.time.Instant.now());
+                    embed.addField("Player", player.getDisplayName(), false);
+                    embed.addField("Location",
+                            player.getLocation().toString(),
+                            false);
+                    embed.addField("Message", String.valueOf(this.totalNomad), false);
+                    DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                    DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+                }
             }
         } else {
             logger.warn("Dupe Warden spotted CRITICAL increase of wealth for {}! {}/{}/{} ({}) => {}/{}/{} ({}), increase of {}/{}/{} ({}).",
                     player.getDisplayName(), this.inv, this.equip, this.bank, this.total,
                     inv, equip, bank, total, signed(inv - this.inv), signed(equip - this.equip),
                     signed(bank - this.bank), signed(total - this.total));
-
-            if (!Configuration.DISABLE_DUPE_WARDEN) {
-                String time = calculatePlayTime(player);
-                Discord.sendCriticalWarning(player, time, this.total, total, false);
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle("CRITICAL NOMAD WEALTH WARNING!");
+                embed.setColor(Color.BLUE);
+                embed.setThumbnail("https://oldschool.runescape.wiki/images/Sanguine_scythe_of_vitur.png?7313d");
+                embed.setTimestamp(java.time.Instant.now());
+                embed.addField("Player", player.getDisplayName(), false);
+                embed.addField("Location",
+                        player.getLocation().toString(),
+                        false);
+                embed.addField("Message", String.valueOf(this.totalNomad), false);
+                DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
             }
         }
     }

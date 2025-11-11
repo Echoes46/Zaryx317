@@ -1,5 +1,6 @@
 package io.zaryx.model.entity.player.packets;
 
+import java.awt.*;
 import java.util.Objects;
 
 import io.zaryx.Server;
@@ -13,7 +14,9 @@ import io.zaryx.model.multiplayersession.MultiplayerSessionStage;
 import io.zaryx.model.multiplayersession.MultiplayerSessionType;
 import io.zaryx.model.multiplayersession.duel.DuelSession;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class ItemOnPlayer implements PacketType {
 
@@ -85,7 +88,15 @@ public class ItemOnPlayer implements PacketType {
 			c.sendMessage("You gave " + other.getDisplayName() + " some " + ItemAssistant.getItemName(itemId) + ".");
 			other.sendMessage("You were given some " + ItemAssistant.getItemName(itemId) + " from " + c.getDisplayName() + ".");
 			if (!c.getRights().isOrInherits(Right.GAME_DEVELOPER)) {
-				Discord.writeServerSyncMessage("[USE ON] " + c.getDisplayName() + " Gave " + other.getDisplayName() + " " + ItemAssistant.getItemName(itemId) + " x " + Misc.formatCoins(c.getItems().getItemAmount(itemId)));
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle("[ USE ON PLAYER ]");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("[ USE ON ] " + c.getDisplayName() + " Gave " + other.getDisplayName() + " " + ItemAssistant.getItemName(itemId) + " x " + Misc.formatCoins(c.getItems().getItemAmount(itemId)), "", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 			}
 			other.getItems().addItem(itemId, c.getItems().isStackable(itemId) ? c.getItems().getItemAmount(itemId) : 1);
 			c.getItems().deleteItem(itemId, c.getItems().isStackable(itemId) ? c.getItems().getItemAmount(itemId) : 1);

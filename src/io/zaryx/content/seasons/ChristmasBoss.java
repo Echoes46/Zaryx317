@@ -17,8 +17,11 @@ import io.zaryx.model.entity.npc.NPCSpawning;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -285,8 +288,14 @@ public class ChristmasBoss {
             for (String s : map.keySet()) {
                 if (map.containsKey(s) && map.get(s) > 1) {
                     for (Player player : PlayerHandler.getPlayers()) {
-                        if (player.getUUID().equalsIgnoreCase(s)) {
-                            Discord.writeServerSyncMessage("```[Evil Snowman] " + player.getDisplayName() + " has tried to take more than 2 account's there!```");
+                        if (DiscordBot.INSTANCE != null) {
+                            EmbedBuilder embed = new EmbedBuilder();
+                            embed.setTitle(" EVIL SNOWMAN MULTI-LOGGING ");
+                            embed.setColor(Color.BLUE);
+                            embed.setTimestamp(java.time.Instant.now());
+                            embed.addField("Player: ", player.getDisplayName() + " has tried to take more than 2 account's there!", false);
+                            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                            DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
                         }
                     }
                 }

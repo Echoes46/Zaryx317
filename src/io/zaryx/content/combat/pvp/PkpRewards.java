@@ -9,7 +9,11 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.entity.player.mode.Mode;
 import io.zaryx.model.entity.player.mode.ModeType;
 import io.zaryx.model.items.GameItem;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.awt.*;
+import java.time.Instant;
 
 public class PkpRewards {
 
@@ -25,7 +29,15 @@ public class PkpRewards {
                 || !Boundary.isIn(killer, Boundary.LUMBRIDGE_OUTLAST)
                 || !Boundary.isIn(killer, Boundary.SWAMP_OUTLAST)
                 || !Boundary.isIn(killer, Boundary.WG_Boundary)) {
-            Discord.writeServerSyncMessage("[Kill]" + killer.getDisplayName() + " killed " + dying.getDisplayName() + " at" + killer.absX + ", " + killer.absY);
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle(" [ PVP KILLS ] ");
+                embed.setImage("https://oldschool.runescape.wiki/images/thumb/Dying_animation.gif/220px-Dying_animation.gif?30e7c");
+                embed.setColor(Color.WHITE);
+                embed.setTimestamp(Instant.now());
+                embed.addField(killer.getDisplayName() + " killed " + dying.getDisplayName() + " at " + killer.absX + ", " + killer.absY, "\u200B", false);
+                DiscordBot.INSTANCE.writePvpKill(embed.build());
+            }
         }
 
         boolean canReceiveRewards = WildAntiFarm.canReceiveRewards(killer, dying);

@@ -1,4 +1,4 @@
-package io.zaryx.content.commands.owner;
+package io.zaryx.content.commands.admin;
 
 import io.zaryx.content.commands.Command;
 import io.zaryx.model.definitions.NpcDef;

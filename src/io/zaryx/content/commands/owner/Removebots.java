@@ -4,8 +4,6 @@ import io.zaryx.content.commands.Command;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.entity.player.Right;
-import io.zaryx.util.discord.Discord;
-
 import java.util.Optional;
 
 public class Removebots extends Command {
@@ -20,7 +18,7 @@ public class Removebots extends Command {
         PlayerHandler.nonNullStream().forEach(plr -> {
             if (plr.isBot()) {
 
-                Discord.writeSuggestionMessage(plr.getDisplayName() + " is a bot!");
+                //Discord.writeSuggestionMessage(plr.getDisplayName() + " is a bot!");
                 plr.forceLogout();
             }
         });

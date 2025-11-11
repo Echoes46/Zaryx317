@@ -1,5 +1,6 @@
 package io.zaryx.content.commands.helper;
 
+import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,9 @@ import io.zaryx.model.multiplayersession.MultiplayerSessionFinalizeType;
 import io.zaryx.punishments.Punishment;
 import io.zaryx.punishments.PunishmentType;
 import io.zaryx.punishments.Punishments;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 /**
  * Ban a given IP.
@@ -51,7 +54,14 @@ public class Banip extends Command {
 					MultiplayerSession session = Server.getMultiplayerSessionListener().getMultiplayerSession(c2);
 					session.finish(MultiplayerSessionFinalizeType.WITHDRAW_ITEMS);
 				}
-				Discord.writeSuggestionMessage(c.getDisplayName() + " Banned " + c2.getDisplayName());
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" PLAYER BAN ");
+					embed.setColor(Color.RED);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("Player: ", c.getDisplayName() + " Banned " + c2.getDisplayName(), false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				}
 				c2.forceLogout();
 				c.sendMessage("You have IP banned the user: " + c2.getDisplayName() + " with the host: " + c2.connectedFrom);
 			}

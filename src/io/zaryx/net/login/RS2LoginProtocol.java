@@ -28,14 +28,17 @@ import io.zaryx.punishments.Punishments;
 import io.zaryx.sql.dailytracker.TrackerType;
 import io.zaryx.util.ISAACCipher;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
 import io.zaryx.util.logging.global.InvalidLoginIpLog;
 import io.zaryx.util.logging.global.LoginLog;
 import io.zaryx.util.logging.global.LoginRequestLog;
 import io.zaryx.util.logging.global.SuccessfulLoginIpLog;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.security.SecureRandom;
@@ -335,7 +338,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 						Server.getLogging().batchWrite(new SuccessfulLoginIpLog(ipAddress));
 						log(ipAddress, "Success [" + log.toString() + "]");
 						list.add(login);
-						Discord.writeServerSyncMessage("```" + login.getDisplayName()  + " : " + name + " : " + login.getIpAddress() + " : " + login.getMacAddress() + " : " + login.getUUID() + "```"); //Remove this if it doesn't work
 					} else {
 						log(ipAddress, "Login block not fully received");
 					}
@@ -461,8 +463,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
 			if (player.getMacAddress() == null || player.getMacAddress().length() == 0) {
 				returnCode = LoginReturnCode.CLIENT_OUT_OF_DATE;
-				Discord.writeServerSyncMessage(String.format("Player has logged in without a mac address, possibly using modified client or spoofing mac, loginName=%s, displayName=%s",
-				player.getLoginName(), player.getDisplayName()));
 				player.setMacAddress(player.getIpAddress());
 			}
 
@@ -574,7 +574,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
 				logger.debug("Registered {}", player);
 				logger.info("New player registered: {}", name);
-				Discord.writeOnlineNotification("```New player logged in: '" + name + "'.```" + "there is currently " + PlayerHandler.getPlayerCount() + " players online.");
 				TrackerType.NEW_JOINS.addTrackerData(1);
 			}
 

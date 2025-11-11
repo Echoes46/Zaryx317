@@ -61,7 +61,6 @@ public class ActiveVolcano {
 
         ACTIVE = next;
         progress = true;
-       // Discord.writeBugMessage("[WILDY] There's been a disturbance reported at the Volcano! ::volcano <@&1121030169767985172>");
         new Broadcast("<img=95> [WILDY] There's been a disturbance reported at the Volcano get there now! ::volcano").submit(); // ok lets just change this message and push to git
         addBoulder();
         timeRemaining = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(20);

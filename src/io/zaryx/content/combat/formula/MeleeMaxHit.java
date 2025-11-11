@@ -13,7 +13,8 @@ import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.EquipmentSet;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import io.zaryx.content.skills.Skill;
@@ -279,8 +280,8 @@ public class MeleeMaxHit {
 			attackLevel += c.getLevelForXP(c.playerXP[Player.playerAttack]) * 1.25;
 		}
 
-		if (Discord.jda != null) {
-			Guild guild = Discord.jda.getGuildById(1248350477117165598L);
+		if (DiscordBot.getJda() != null) {
+			Guild guild = DiscordBot.getJda().getGuildById(DiscordChannelType.GUILD_ID.getGuildId());
 
 			if (guild != null) {
 				for (Member booster : guild.getBoosters()) {

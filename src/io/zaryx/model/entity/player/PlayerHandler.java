@@ -18,12 +18,16 @@ import io.zaryx.net.login.LoginReturnCode;
 import io.zaryx.net.login.RS2LoginProtocol;
 import io.zaryx.util.Misc;
 import io.zaryx.util.Stream;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
 import io.zaryx.util.logging.global.LoginLog;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -280,7 +284,6 @@ public class PlayerHandler {
 				}
 			} catch (Exception e) {
 
-				Discord.writeSuggestionMessage(playerLoggingIn.getDisplayName() + " playerhandler / " + e);
 				playerLoggingIn.forceLogout();
 				playerLoggingIn.getPA().sendLogout();
 				playerLoggingIn.initialized = false;
@@ -681,10 +684,17 @@ public class PlayerHandler {
 		sendMessage(message, staff);
 	}
 
-	public static void staffMessage(boolean discord, String message) {
-		if (discord) {
-			Discord.writeServerSyncMessage(message);
-		}
+	public static void staffMessage(String message) {
+		if (DiscordBot.INSTANCE != null) {
+		            EmbedBuilder embed = new EmbedBuilder();
+		            embed.setTitle(" STAFF MESSAGE ");
+		            embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Dungeon_entrance_logo.png/150px-Dungeon_entrance_logo.png?1b922");
+		            embed.setColor(Color.BLUE);
+		            embed.setTimestamp(java.time.Instant.now());
+		            embed.addField(message, "\u200B", false);
+		            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+		            DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+		        }
 
 		executeGlobalStaffMessage(message);
 	}

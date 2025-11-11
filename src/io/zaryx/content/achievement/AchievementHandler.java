@@ -1,5 +1,6 @@
 package io.zaryx.content.achievement;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,9 +13,11 @@ import io.zaryx.content.achievement.inter.AchieveV2;
 import io.zaryx.model.entity.npc.NPC;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.mode.ModeType;
+import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
 import io.zaryx.util.logging.player.ClaimAchievementLog;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
@@ -228,8 +231,15 @@ public class AchievementHandler {
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.jda.getTextChannelById(1241359589216354334L).sendMessage("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle("[ ACHIEVEMENT COMPLETION ]");
+                embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Achievement_Diaries.png/130px-Achievement_Diaries.png?1e549");
+                embed.setColor(Color.GREEN);
+                embed.setTimestamp(java.time.Instant.now());
+                embed.addField(player.getDisplayName() + " has completed: " + achievements.get(index).getFormattedName(), "\u200B", false);
+                DiscordBot.INSTANCE.writeAchievements99(embed.build());
+            }
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         } else if (player.achievementPage == 1) {
@@ -256,8 +266,15 @@ public class AchievementHandler {
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.jda.getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle("[ ACHIEVEMENT COMPLETION ]");
+                embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Achievement_Diaries.png/130px-Achievement_Diaries.png?1e549");
+                embed.setColor(Color.GREEN);
+                embed.setTimestamp(java.time.Instant.now());
+                embed.addField(player.getDisplayName() + " has completed: " + achievements.get(index).getFormattedName(), "\u200B", false);
+                DiscordBot.INSTANCE.writeAchievements99(embed.build());
+            }
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         } else if (player.achievementPage == 2) {
@@ -284,8 +301,15 @@ public class AchievementHandler {
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.jda.getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle("[ ACHIEVEMENT COMPLETION ]");
+                embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Achievement_Diaries.png/130px-Achievement_Diaries.png?1e549");
+                embed.setColor(Color.GREEN);
+                embed.setTimestamp(java.time.Instant.now());
+                embed.addField(player.getDisplayName() + " has completed: " + achievements.get(index).getFormattedName(), "\u200B", false);
+                DiscordBot.INSTANCE.writeAchievements99(embed.build());
+            }
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         } else if (player.achievementPage == 3) {
@@ -311,8 +335,15 @@ public class AchievementHandler {
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.jda.getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle("[ ACHIEVEMENT COMPLETION ]");
+                embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Achievement_Diaries.png/130px-Achievement_Diaries.png?1e549");
+                embed.setColor(Color.GREEN);
+                embed.setTimestamp(java.time.Instant.now());
+                embed.addField(player.getDisplayName() + " has completed: " + achievements.get(index).getFormattedName(), "\u200B", false);
+                DiscordBot.INSTANCE.writeAchievements99(embed.build());
+            }
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         }
@@ -327,8 +358,15 @@ public class AchievementHandler {
                 setClaimed(achievement.getTier().getId(), achievement.getId(), true);
                 c.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                         + " achievement '" + achievement.getFormattedName() + "'.</col>");
-                //Discord.jda.getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-                Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievement.getFormattedName() + "```");
+                if (DiscordBot.INSTANCE != null) {
+                    EmbedBuilder embed = new EmbedBuilder();
+                    embed.setTitle("[ ACHIEVEMENT COMPLETION ]");
+                    embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Achievement_Diaries.png/130px-Achievement_Diaries.png?1e549");
+                    embed.setColor(Color.GREEN);
+                    embed.setTimestamp(java.time.Instant.now());
+                    embed.addField(c.getDisplayName() + " has completed: " + achievement.getFormattedName(), "\u200B", false);
+                    DiscordBot.INSTANCE.writeAchievements99(embed.build());
+                }
                 Server.getLogging().write(new ClaimAchievementLog(c, achievement));
             }
             AchieveV2.Update(player, player.achievementPage);

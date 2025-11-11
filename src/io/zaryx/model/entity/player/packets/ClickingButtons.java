@@ -73,7 +73,7 @@ import io.zaryx.model.shops.ShopAssistant;
 import io.zaryx.model.world.Clan;
 import io.zaryx.sql.refsystem.RefManager;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordIntegration;
+import io.zaryx.util.discord.DiscordBot;
 import io.zaryx.util.logging.player.ClickButtonLog;
 import io.zaryx.util.logging.player.ReceivedPacketLog;
 import io.zaryx.util.offlinestorage.ItemCollection;
@@ -251,17 +251,17 @@ public class ClickingButtons implements PacketType {
 		}
 
 		if (actionButtonId == 146130) {
-			DiscordIntegration.buttonClick(c);
+			DiscordBot.buttonClick(c);
 			return;
 		}
 
 		if (actionButtonId == 146128) {
-			DiscordIntegration.disconnectUser(c);
+			DiscordBot.disconnectUser(c);
 			return;
 		}
 
 		if (actionButtonId == 146129) {
-			DiscordIntegration.syncUser(c);
+			DiscordBot.syncUser(c);
 			return;
 		}
 

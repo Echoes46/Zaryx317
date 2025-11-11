@@ -26,7 +26,8 @@ import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.Right;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -203,8 +204,8 @@ public class MagicCombatFormula implements CombatFormula {
 
         effectiveLevel += 8.0;
 
-        if (Discord.jda != null) {
-            Guild guild = Discord.jda.getGuildById(1248350477117165598L);
+        if (DiscordBot.getJda() != null) {
+            Guild guild = DiscordBot.getJda().getGuildById(DiscordChannelType.GUILD_ID.getGuildId());
 
             if (guild != null) {
                 for (Member booster : guild.getBoosters()) {

@@ -1,5 +1,6 @@
 package io.zaryx.content.referral;
 
+import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +15,9 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.zaryx.Server;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.util.JsonUtil;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class ReferralRegister {
 
@@ -28,10 +31,15 @@ public class ReferralRegister {
         setUsedReferral(player);
         player.referallFlag += 5;
         player.gfx100(199);
-//        Discord.writeServerSyncMessage("```[Referral]: " + player.getDisplayName()
-//                + " came from " + (qualifier == null ? source.toString() : qualifier) + ".```");
-//        Discord.writeReferralMessage("```[Referral]: " + player.getDisplayName()
-//                + " came from " + (qualifier == null ? source.toString() : qualifier) + ".```");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle(" REFERRAL REGISTER ");
+            embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Poll_booth_%28blue%2C_open%29.png/131px-Poll_booth_%28blue%2C_open%29.png?ed83c");
+            embed.setColor(Color.BLUE);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("Player: ", player.getDisplayName() + " came from " + (qualifier == null ? source.toString() : qualifier), false);
+            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+        }
 
         SERVICE.submit(() -> {
             LocalDateTime time = LocalDateTime.now();

@@ -4,10 +4,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.zaryx.Configuration;
 import io.zaryx.Server;
+import io.zaryx.content.commands.all.Discord;
 import io.zaryx.model.entity.player.save.PlayerSave;
 import io.zaryx.sql.DatabaseCredentials;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordIntegration;
+import io.zaryx.util.discord.DiscordBot;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -52,7 +53,7 @@ public class PlayerSaveBackup {
                     DeleteFiles deleteFiles = new DeleteFiles();
                     deleteFiles.delete(1, ".zip");
                     backup(LocalDateTime.now());
-                    DiscordIntegration.saveConnectedAccounts();
+                    DiscordBot.saveConnectedAccounts();
                 }
             } catch (Exception e) {
                 logger.error("Error occurred while creating player save backup.", e);

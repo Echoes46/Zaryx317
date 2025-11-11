@@ -6,8 +6,10 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -192,6 +194,13 @@ public class BountyChest {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You unlock the chest and find some " + ItemAssistant.getItemName(item.getId()) + "!");
         PlayerHandler.executeGlobalMessage("@red@" + c.getLoginName() + " @blu@has received: @red@" + ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Bounty Chest!");
-        Discord.writeAchievements("```News: " + c.getLoginName() + "  has received: " + ItemAssistant.getItemName(item.getId()) + " from the Bounty Chest!```");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ BOUNTY CHEST ]");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField(c.getDisplayName() + " has received: " + ItemAssistant.getItemName(item.getId()) + " from the Bounty Chest!", "\u200B", false);
+            DiscordBot.INSTANCE.writeAchievements99(embed.build());
+        }
     }
 }

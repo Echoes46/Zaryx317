@@ -18,8 +18,10 @@ import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.sql.dailytracker.TrackerType;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,16 @@ public class dboss extends Command {
 
     public static void spawnBoss() {
         spawnNPC();
-        Discord.writeIngameEvents("```[Donor Boss] Has just spawned! ::db```");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ DONOR BOSS ]");
+            embed.setImage("https://oldschool.runescape.wiki/images/thumb/Boss.png/150px-Boss.png?fb192");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("Donor Boss has spawned, use ::db to fight!", "\u200B", false);
+            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
+            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
+        }
         TrackerType.DONOR_BOSS.addTrackerData(1);
     }
 
@@ -163,7 +174,16 @@ public class dboss extends Command {
         donaboss.getHealth().setMaximumHealth(3000);
         donaboss.getHealth().reset();
         announce();
-        Discord.writeIngameEvents("```[DONO BOSS] the dono boss [Galvek] has spawned!, use ::vb or ::db``` <@&1248350477154783321>");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ DONOR BOSS ]");
+            embed.setImage("https://oldschool.runescape.wiki/images/thumb/Boss.png/150px-Boss.png?fb192");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("Donor Boss has spawned, use ::db to fight!", "\u200B", false);
+            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
+            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
+        }
     }
 
     public static void announce() {
@@ -187,8 +207,15 @@ public class dboss extends Command {
             if (map.containsKey(s) && map.get(s) > 1) {
                 for (Player player : PlayerHandler.getPlayers()) {
                     if (player.getUUID().equalsIgnoreCase(s)) {
-                        Discord.writeServerSyncMessage("```[Donor Boss] " + player.getDisplayName()
-                                + " has tried to take more than 2 account's there!```");
+                        if (DiscordBot.INSTANCE != null) {
+                            EmbedBuilder embed = new EmbedBuilder();
+                            embed.setTitle("DONOR BOSS MULTI-LOGGING ");
+                            embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Dungeon_entrance_logo.png/150px-Dungeon_entrance_logo.png?1b922");
+                            embed.setColor(Color.BLUE);
+                            embed.setTimestamp(java.time.Instant.now());
+                            embed.addField("Player: ", player.getDisplayName() + " has tried to take more than 2 account's to the Donor Boss!", false);
+                            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                        }
                     }
                 }
             }

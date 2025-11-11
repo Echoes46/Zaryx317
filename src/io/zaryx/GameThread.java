@@ -19,7 +19,7 @@ import io.zaryx.net.ChannelHandler;
 import io.zaryx.net.login.RS2LoginProtocol;
 import io.zaryx.sql.dailytracker.DailyDataTracker;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordIntegration;
+import io.zaryx.util.discord.DiscordBot;
 import io.zaryx.util.task.TaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class GameThread extends Thread {
         tickables.add(i -> Server.playerHandler.process());
         tickables.add(i -> Server.shopHandler.process());
         tickables.add(i -> CrystalTree.Tick());
-        tickables.add(i -> DiscordIntegration.givePoints());
+        tickables.add(i -> DiscordBot.givePoints());
         tickables.add(i -> ActiveVolcano.Tick());
         tickables.add(i -> ShootingStars.Tick());
         tickables.add(i -> Server.getGlobalObjects().pulse());

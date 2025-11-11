@@ -11,7 +11,11 @@ import io.zaryx.model.entity.player.mode.ModeType;
 import io.zaryx.model.entity.player.mode.group.ExpModeType;
 import io.zaryx.model.entity.player.mode.group.GroupIronman;
 import io.zaryx.model.entity.player.mode.wildygroup.GroupWildyMan;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.function.Consumer;
 
 public class TutorialDialogue extends DialogueBuilder {
@@ -96,6 +100,14 @@ public class TutorialDialogue extends DialogueBuilder {
 
         player.start(new DialogueBuilder(player).setNpcId(TUTORIAL_NPC).npc("Enjoy your stay on " + Configuration.SERVER_NAME + "!"));
         PlayerHandler.executeGlobalMessage("[@blu@New Player@bla@] " + player.getDisplayNameFormatted() + " @bla@has logged in! Welcome!");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle(" NEW PLAYER WELCOME ");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("Player: ", player.getDisplayName() + " has has logged in! Welcome!", false);
+            DiscordBot.INSTANCE.writePlayersOnline(embed.build());
+        }
     }
 
     public TutorialDialogue(Player player, boolean repeat, boolean tutorial) {

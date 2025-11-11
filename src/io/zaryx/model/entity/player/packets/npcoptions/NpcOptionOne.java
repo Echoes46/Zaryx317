@@ -47,6 +47,7 @@ import io.zaryx.model.items.GameItem;
 import io.zaryx.sql.refsystem.RefManager;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
+import io.zaryx.util.discord.DiscordBot;
 
 /*
  * @author Matt //dogshit
@@ -221,12 +222,15 @@ public class NpcOptionOne {
 				break;
 
 			case 2309:
-				player.start(
-						new DialogueBuilder(player).statement(
-								"Hello "+player.getDisplayName()+".",
-								"This will bring you to our discord server!").exit(player1 -> player1.getPA().closeAllWindows()));
-				player.getPA().sendFrame126(Configuration.DISCORD_INVITE, 12000);
+				DiscordBot.updateDiscordInterface(player);
+				player.getPA().showInterface(37500);
 				break;
+				//player.start(
+				//		new DialogueBuilder(player).statement(
+				//				"Hello "+player.getDisplayName()+".",
+				//				"This will bring you to our discord server!").exit(player1 -> player1.getPA().closeAllWindows()));
+				//player.getPA().sendFrame126(Configuration.DISCORD_INVITE, 12000);
+				//break;
 			case 3444:
 //				BloodExchangeBurnPrice.openExchangeRateShop(player);
 				break;

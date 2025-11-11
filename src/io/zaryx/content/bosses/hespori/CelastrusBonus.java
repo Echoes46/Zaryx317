@@ -3,8 +3,10 @@ package io.zaryx.content.bosses.hespori;
 import io.zaryx.content.QuestTab;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class CelastrusBonus implements HesporiBonus {
@@ -12,7 +14,16 @@ public class CelastrusBonus implements HesporiBonus {
     public void activate(Player player) {
         Hespori.activeCelastrusSeed = true;
         Hespori.CELASTRUS_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Celastrus has sprouted and is granting 1 hour of 2x Brimstone keys!``` <@&1248350477154783321>");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ HESPORI SEED ]");
+            embed.setThumbnail("https://oldschool.runescape.wiki/images/Hespori_seed_5.png?a6e6d");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("The Celastrus Seed has sprouted and is granting 2x brimstone Keys for 1 hour!", "\u200B", false);
+            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
+            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
+        }
         PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] @red@" + player.getDisplayNameFormatted()+ " @bla@planted a Celastrus seed which" +
                 " granted @red@1 hour of 2x Brimstone keys!");
         QuestTab.updateAllQuestTabs();

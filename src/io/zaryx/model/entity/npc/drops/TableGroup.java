@@ -9,8 +9,12 @@ import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.util.Misc;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.lang3.Range;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,6 +93,15 @@ public class TableGroup extends ArrayList<Table> {
                             player.getCollectionLog().handleDrop(player, drop.getNpcIds().get(0), item.getId(), item.getAmount());
                             String itemName = ItemDef.forId(item.getId()).getName();
                             String message = "<img=18> [DROP] " + player.getDisplayName() + " has received " + item.getAmount() + "x " + itemName + " from " + npc.getDefinition().getName() + "!";
+                            if (DiscordBot.INSTANCE != null) {
+                                EmbedBuilder embed = new EmbedBuilder();
+                                embed.setTitle(" RARE DROP ");
+                                embed.setColor(Color.BLUE);
+                                embed.setTimestamp(java.time.Instant.now());
+                                embed.addField("Player: ", player.getDisplayName() + " has received " + item.getAmount() + "x " + itemName + " from " + npc.getDefinition().getName() + "!", false);
+                                DiscordBot.INSTANCE.writeRareDrop(embed.build());
+
+                            }
                             new Broadcast(message).submit();
                         }
 

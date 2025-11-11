@@ -20,7 +20,6 @@ import io.zaryx.model.multiplayersession.MultiplayerSessionType;
 import io.zaryx.model.multiplayersession.duel.DuelSession;
 import io.zaryx.model.shops.ShopAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
 import io.zaryx.util.logging.player.ItemDroppedLog;
 
 import java.util.Objects;

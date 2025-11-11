@@ -39,12 +39,15 @@ import io.zaryx.model.multiplayersession.MultiplayerSessionStage;
 import io.zaryx.model.multiplayersession.MultiplayerSessionType;
 import io.zaryx.model.multiplayersession.duel.DuelSession;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
 import io.zaryx.util.logging.player.DeathItemsHeld;
 import io.zaryx.util.logging.player.DeathItemsKept;
 import io.zaryx.util.logging.player.DeathItemsLost;
 import io.zaryx.util.logging.player.DeathLog;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -645,12 +648,18 @@ public class PlayerDeath {
             return;
         } else if (c.getInstance() != null) {
             c.getPA().movePlayer(Configuration.RESPAWN_X, Configuration.RESPAWN_Y, 0);
-            Discord.writeServerSyncMessage(c.getDisplayName() + " Died within an unset instance " + c.getInstance().getBoundaries() + " / " + c.getInstance().toString());
             onRespawn(c);
             return;
         }
 
-//        Discord.writeDeathHandler("```[DeathLog]" + c.getDisplayName() + " has just died!```");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle(" [ PLAYER DEATH ] ");
+            embed.setColor(Color.BLUE);
+            embed.setTimestamp(Instant.now());
+            embed.addField(c.getDisplayName() + " has just died.", "\u200B", false);
+            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+        }
 
         if (c.wildLevel > 0) {
             Entity killer = c.getKiller();

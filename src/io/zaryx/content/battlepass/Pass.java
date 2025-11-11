@@ -4,7 +4,6 @@ import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.seasons.Halloween;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
-import io.zaryx.util.discord.Discord;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -183,9 +182,6 @@ public class Pass {
 
             if (player.tier == 101) {
                 player.sendMessage("<col=660000>[Season pass]<col=100666> You have completed the Season pass!");
-                if (player.getIpAddress() != null && player.getMacAddress() != null && player.getUUID() != null)
-                    Discord.writeServerSyncMessage("[Division]: " + player.getDisplayName() + ", P2W: " + player.member + ", Gamemode: " + player.getMode().getType().name().toLowerCase());
-                return;
             }
         }
 

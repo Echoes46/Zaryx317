@@ -21,8 +21,12 @@ import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.sql.dailytracker.TrackerType;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,7 +146,16 @@ public class vboss extends Command {
     }
 
     public static void announce() {
-        Discord.writeIngameEvents("```[VOTE BOSS] the vote boss has spawned!, use ::vb or ::db``` <@&1248350477154783321>");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ VOTE BOSS ]");
+            embed.setImage("https://oldschool.runescape.wiki/images/thumb/Boss.png/150px-Boss.png?fb192");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("Vote Boss has spawned, use ::vb to fight!", "\u200B", false);
+            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
+            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
+        }
         new Broadcast("<img=11> [VOTE BOSS] the vote boss has spawned!, use ::vb or ::db").addTeleport(new Position(2651, 3926, 0)).copyMessageToChatbox().submit();
     }
 
@@ -160,7 +173,15 @@ public class vboss extends Command {
             if (map.containsKey(s) && map.get(s) > 1) {
                 for (Player player : PlayerHandler.getPlayers()) {
                     if (player.getUUID().equalsIgnoreCase(s)) {
-                        Discord.writeServerSyncMessage("```[Vote Boss] "+player.getDisplayName() + " has tried to take more than 2 account's there!```");
+                        if (DiscordBot.INSTANCE != null) {
+                            EmbedBuilder embed = new EmbedBuilder();
+                            embed.setTitle(" VOTE BOSS MULTI-LOGGING ");
+                            embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Poll_booth_%28blue%2C_open%29.png/131px-Poll_booth_%28blue%2C_open%29.png?ed83c");
+                            embed.setColor(Color.BLUE);
+                            embed.setTimestamp(java.time.Instant.now());
+                            embed.addField("Player: ", player.getDisplayName() + " has tried to take more than 2 account's there!", false);
+                            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                        }
                     }
                 }
             }

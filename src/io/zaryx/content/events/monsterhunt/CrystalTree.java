@@ -6,8 +6,11 @@ import io.zaryx.model.entity.player.Position;
 import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+
+import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class CrystalTree {
@@ -95,9 +98,16 @@ public class CrystalTree {
         }
         ACTIVE = next;
         progress = true;
-
-
-        Discord.writeIngameEvents("```[Crystal Tree] There's been a sighting of a crystal tree around "+getLocation()+ "! ::tree``` <@&1248350477154783321>");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ WORLD EVENT: CRYSTAL TREE ]");
+            embed.setImage("https://oldschool.runescape.wiki/images/thumb/Crystal_tree_%28choppable%29.png/125px-Crystal_tree_%28choppable%29.png?0c819");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("There's been a sighting of a Crystal Tree around! Location: " + getLocation(), "'::tree'", false);
+            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
+            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
+        }
         new Broadcast("<img=43> There's been a sighting of a crystal tree around "+getLocation()+"! ::tree").submit();
         addWildCrystalTree();
         timeRemaining = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30);

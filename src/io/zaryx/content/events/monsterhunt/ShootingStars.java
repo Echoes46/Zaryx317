@@ -6,8 +6,11 @@ import io.zaryx.model.entity.player.Position;
 import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class ShootingStars {
@@ -98,8 +101,16 @@ public class ShootingStars {
         ACTIVE = next;
         progress = true;
 
-
-        Discord.writeIngameEvents("```[Shooting Star] There's been a sighting of a star around "+getLocation()+ "! ::star``` <@&1248350477154783321>");
+        if (DiscordBot.INSTANCE != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setTitle("[ WORLD EVENT: SHOOTING STAR ]");
+            embed.setImage("https://oldschool.runescape.wiki/images/Shooting_Star_crashing.gif?2f51a");
+            embed.setColor(Color.GREEN);
+            embed.setTimestamp(java.time.Instant.now());
+            embed.addField("There's been a sighting of a star around! Location: " + getLocation(), "'::star'", false);
+            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
+            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
+        }
         new Broadcast("<img=43> There's been a sighting of a star around "+getLocation()+"! ::star").submit();
         addStar();
         timeRemaining = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30);

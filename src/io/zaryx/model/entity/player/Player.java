@@ -207,17 +207,21 @@ import io.zaryx.util.ISAACCipher;
 import io.zaryx.util.Misc;
 import io.zaryx.util.Stopwatch;
 import io.zaryx.util.Stream;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
 import io.zaryx.util.logging.player.ChangeAddressLog;
 import io.zaryx.util.logging.player.ConnectionLog;
 import lombok.Getter;
 import lombok.Setter;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -1504,9 +1508,34 @@ public class Player extends Entity {
         addQueuedLoginAction(plr -> {
             String message = Misc.replaceBracketsWithArguments("{} changed {} address", getNamesDescription(), type);
             if (staffAlertMessage) {
-                Discord.writeAddressSwapMessage(message);
+                if (DiscordBot.INSTANCE != null) {
+                    EmbedBuilder embed = new EmbedBuilder();
+                    embed.setTitle("Address Change Detected");
+                    embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Poll_booth_%28blue%2C_open%29.png/131px-Poll_booth_%28blue%2C_open%29.png?ed83c");
+                    embed.setColor(staffAlertMessage ? Color.BLUE : Color.BLUE);
+                    embed.setTimestamp(java.time.Instant.now());
+                    embed.addField("Player:", getDisplayName(), false);
+                    embed.addField("Address Type:", type, true);
+                    embed.addField("Previous:", previous == null ? "Unknown" : previous, true);
+                    embed.addField("Current:", current == null ? "Unknown" : current, true);
+                    embed.addField("Alert Type:", staffAlertMessage ? "Staff Alert" : "Standard Log", false);
+                    DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                    DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+                }
             } else {
-                Discord.writeServerSyncMessage(message);
+                if (DiscordBot.INSTANCE != null) {
+                    EmbedBuilder embed = new EmbedBuilder();
+                    embed.setTitle("Address Change Detected");
+                    embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Poll_booth_%28blue%2C_open%29.png/131px-Poll_booth_%28blue%2C_open%29.png?ed83c");
+                    embed.setColor(staffAlertMessage ? Color.BLUE : Color.BLUE);
+                    embed.setTimestamp(java.time.Instant.now());
+                    embed.addField("Player:", getDisplayName(), false);
+                    embed.addField("Address Type:", type, true);
+                    embed.addField("Previous:", previous == null ? "Unknown" : previous, true);
+                    embed.addField("Current:", current == null ? "Unknown" : current, true);
+                    embed.addField("Alert Type:", staffAlertMessage ? "Staff Alert" : "Standard Log", false);
+                    DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                }
             }
 
             Server.getLogging().write(new ChangeAddressLog(this, type, previous, current));
@@ -2167,6 +2196,16 @@ public class Player extends Entity {
         }
         if (completedTutorial) {
             sendMessage("@bla@Welcome back to " + Configuration.SERVER_NAME + ", " + getDisplayNameFormatted() + ".");
+            if (DiscordBot.INSTANCE != null) {
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle(" PLAYER LOGIN ");
+                embed.setImage("https://oldschool.runescape.wiki/images/Push_up.gif?58331");
+                embed.setColor(Color.GREEN);
+                embed.setTimestamp(java.time.Instant.now());
+                embed.addField("Player: ", getDisplayName() + " has just logged in.", false);
+                embed.addField("Player Count: ", String.valueOf(PlayerHandler.getPlayerCount()), false);
+                DiscordBot.INSTANCE.writePlayersOnline(embed.build());
+            }
             //sendMessage("<url>https://runecrest.com</url>Click here to visit our website!");
         } else {
             sendMessage("@bla@Welcome to " + Configuration.SERVER_NAME + ", don't forget to join the <col=255>::discord</col>!");

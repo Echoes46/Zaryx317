@@ -19,7 +19,7 @@ import io.zaryx.model.entity.npc.pets.PetHandler;
 import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.PacketType;
 import io.zaryx.model.entity.player.Player;
-import io.zaryx.util.discord.DiscordIntegration;
+import io.zaryx.util.discord.DiscordBot;
 
 /**
  * Click NPC
@@ -365,7 +365,7 @@ public class ClickNPC implements PacketType {
 			}
 
 			if (c.npcType == 2309) {
-				DiscordIntegration.updateDiscordInterface(c);
+				DiscordBot.updateDiscordInterface(c);
 				c.getPA().showInterface(37500);
 				return;
 			}

@@ -20,7 +20,6 @@ import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -173,6 +172,7 @@ public class TheatreOfBloodChest implements Lootable {
             rareChance -= 20;
         }
 
+        /*
         if (Discord.jda != null) {
             Guild guild = Discord.jda.getGuildById(1001818107343556648L);
 
@@ -185,6 +185,8 @@ public class TheatreOfBloodChest implements Lootable {
                 }
             }
         }
+
+         */
 
         rareChance = (int) (rareChance - (DropManager.getModifier1(player) < 10 ? DropManager.getModifier1(player) : DropManager.getModifier1(player) / 10));
         if (rareChance <= 0) {

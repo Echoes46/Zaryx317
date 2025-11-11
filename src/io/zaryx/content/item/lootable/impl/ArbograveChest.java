@@ -8,7 +8,6 @@ import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -61,6 +60,7 @@ public class ArbograveChest implements Lootable {
             rareChance = 45;
         }
 
+        /*
         if (Discord.jda != null) {
             Guild guild = Discord.jda.getGuildById(1248350477117165598L);
 
@@ -73,6 +73,7 @@ public class ArbograveChest implements Lootable {
                 }
             }
         }
+         */
 
 
         int chance = Misc.trueRand(rareChance);

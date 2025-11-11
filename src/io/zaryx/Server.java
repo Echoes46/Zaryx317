@@ -30,7 +30,7 @@ import io.zaryx.util.OutstreamStyle;
 import io.zaryx.util.TeeOutputStream;
 import io.zaryx.util.TimeStampedPrintStream;
 import io.zaryx.util.dateandtime.GameCalendar;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
 import io.zaryx.util.logging.GameLogging;
 import org.flywaydb.core.Flyway;
 import org.slf4j.LoggerFactory;
@@ -230,8 +230,6 @@ public class Server {
         loadData();
     }
 
-    public static Discord discord;
-
     public static void main(String... args) {
         disableWarning();
         new GameThread(() -> {
@@ -243,8 +241,7 @@ public class Server {
                 if (configuration == null) {
                     setConfiguration(loadConfiguration());
                 }
-                discord = new Discord();
-                discord.init();
+                DiscordBot.init();
                 // Set log level for debug mode
                 ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
                 root.setLevel(isDebug() || isTest() ? ch.qos.logback.classic.Level.ALL : ch.qos.logback.classic.Level.INFO);

@@ -4,7 +4,11 @@ import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.ConnectedFrom;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.DiscordChannelType;
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.awt.*;
 
 public class CheatEngineBlock {
 
@@ -14,13 +18,27 @@ public class CheatEngineBlock {
 			Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.```");
 			Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.```");
 			Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.```");
-			Discord.writeServerSyncMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@trading post!```");
-			Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@trading post!```");
+			if (DiscordBot.INSTANCE != null) {
+				EmbedBuilder embed = new EmbedBuilder();
+				embed.setTitle(" [ TRADING POST ABUSE ALERT ] ");
+				embed.setColor(Color.BLUE);
+				embed.setTimestamp(java.time.Instant.now());
+				embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the trading post!", false);
+				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+			}
 			c.getPA().closeAllWindows();
 			return true;
 		} else {
-			Discord.writeServerSyncMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " triggered trading post in edge but no jail.```");
-			Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " triggered trading post in edge but no jail.```");
+			if (DiscordBot.INSTANCE != null) {
+				EmbedBuilder embed = new EmbedBuilder();
+				embed.setTitle(" [ TRADING POST ABUSE ALERT ] ");
+				embed.setColor(Color.BLUE);
+				embed.setTimestamp(java.time.Instant.now());
+				embed.addField("Player: ", c.getDisplayName() + " triggered trading post in edge but no jail.", false);
+				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+			}
 			return false;
 		}
 	}
@@ -32,23 +50,44 @@ public class CheatEngineBlock {
 				Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.```");
 				Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.```");
 				Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.```");
-				Discord.writeServerSyncMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@Bank!```");
-				Discord.writeCheatEngineMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@Bank!```");
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" [ BANK ABUSE ALERT ] ");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the Bank!", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
 				c.heightLevel = 0;
 				c.getPA().closeAllWindows();
 				return true;
 			} else {
-				Discord.writeServerSyncMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " triggered trading post in edge but no jail.```");
-				Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " triggered trading post in edge but no jail.```");
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" [ BANK ABUSE ALERT ] ");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("Player: ", c.getDisplayName() + " triggered trading post in edge but no jail.", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
 				c.heightLevel = 0;
 				c.forceLogout();
 				ConnectedFrom.addConnectedFrom(c, c.connectedFrom);
-				Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
-				Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" [ BANK ABUSE ALERT ] ");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 				c.getPA().closeAllWindows();
 				return false;
 			}
@@ -60,23 +99,44 @@ public class CheatEngineBlock {
 				Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.```");
 				Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.```");
 				Misc.println("```" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.```");
-				Discord.writeServerSyncMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " @blu@is using a cheat engine for the @red@Presets!```");
-				Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " @blu@is using a cheat engine for the @red@Presets!```");
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" [ PRESET ABUSE ] ");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the Presets!", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
 				c.heightLevel = 0;
 				c.getPA().closeAllWindows();
 				return true;
 			} else {
-				Discord.writeServerSyncMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " triggered trading post in edge but no jail.```");
-				Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " triggered trading post in edge but no jail.```");
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" [ PRESET ABUSE ] ");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("Player: ", c.getDisplayName() + " triggered trading post in edge but no jail.", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
 				c.heightLevel = 0;
 				c.forceLogout();
 				ConnectedFrom.addConnectedFrom(c, c.connectedFrom);
-				Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
-				Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
+				if (DiscordBot.INSTANCE != null) {
+					EmbedBuilder embed = new EmbedBuilder();
+					embed.setTitle(" [ PRESET ABUSE ] ");
+					embed.setColor(Color.BLUE);
+					embed.setTimestamp(java.time.Instant.now());
+					embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
+					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+				}
 				c.getPA().closeAllWindows();
 				return false;
 			}
@@ -86,15 +146,29 @@ public class CheatEngineBlock {
 			Misc.println("```"+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.```");
 			Misc.println("```"+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.```");
 			Misc.println("```"+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.```");
-			Discord.writeServerSyncMessage("```[CHEAT ENGINE] "+ c.getDisplayName() +" is using a cheat engine for the @red@donator boxes!```");
-			Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@donator boxes!```");
+			if (DiscordBot.INSTANCE != null) {
+				EmbedBuilder embed = new EmbedBuilder();
+				embed.setTitle(" [ DONATOR BOX ABUSE ] ");
+				embed.setColor(Color.BLUE);
+				embed.setTimestamp(java.time.Instant.now());
+				embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the donator boxes!", false);
+				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+			}
 			c.setTeleportToX(2086);
 			c.setTeleportToY(4466);
 			c.heightLevel = 0;
 			c.forceLogout();
 			ConnectedFrom.addConnectedFrom(c, c.connectedFrom);
-			Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
-			Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
+			if (DiscordBot.INSTANCE != null) {
+				EmbedBuilder embed = new EmbedBuilder();
+				embed.setTitle(" [ DONATOR BOX ABUSE ] ");
+				embed.setColor(Color.BLUE);
+				embed.setTimestamp(java.time.Instant.now());
+				embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
+				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+			}
 			c.getPA().closeAllWindows();
 			return true;
 		}
@@ -103,15 +177,28 @@ public class CheatEngineBlock {
 			Misc.println("```"+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.```");
 			Misc.println("```"+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.```");
 			Misc.println("```"+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.```");
-
-			Discord.writeServerSyncMessage("```[CHEAT ENGINE] "+ c.getDisplayName() +" is using a cheat engine for the lamps!```");
-			Discord.writeCheatEngineMessage("```[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the lamps!```");
+			if (DiscordBot.INSTANCE != null) {
+				EmbedBuilder embed = new EmbedBuilder();
+				embed.setTitle(" [ EXPERIENCE ABUSE ] ");
+				embed.setColor(Color.BLUE);
+				embed.setTimestamp(java.time.Instant.now());
+				embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the lamps!", false);
+				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+			}
 			c.setTeleportToX(2086);
 			c.setTeleportToY(4466);
 			c.forceLogout();
 			ConnectedFrom.addConnectedFrom(c, c.connectedFrom);
-			Discord.writeCheatEngineMessage("```I Kicked " + c.getDisplayName() + "```");
-			Discord.writeCheatEngineMessage("I Kicked " + c.getDisplayName() + "```");
+			if (DiscordBot.INSTANCE != null) {
+				EmbedBuilder embed = new EmbedBuilder();
+				embed.setTitle(" [ EXPERIENCE ABUSE ] ");
+				embed.setColor(Color.BLUE);
+				embed.setTimestamp(java.time.Instant.now());
+				embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
+				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
+			}
 			c.heightLevel = 0;
 			c.getPA().closeAllWindows();
 			return true;
