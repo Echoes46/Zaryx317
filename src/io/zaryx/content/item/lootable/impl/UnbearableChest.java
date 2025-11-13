@@ -136,9 +136,7 @@ public class UnbearableChest implements Lootable {
             itemList = items.get(LootRarity.RARE);
             GameItem chooseRandomItem = Misc.getRandomItem(itemList);
             ItemDef def = ItemDef.forId(chooseRandomItem.getId());
-            if (!c.getDisplayName().equalsIgnoreCase("thimble") && !c.getDisplayName().equalsIgnoreCase("top hat")) {
-                PlayerHandler.executeGlobalMessage("@bla@[<col=7f0000>UNBEARABLE@bla@] <col=990000>" + c.getDisplayName() + "@bla@ has just received a <col=990000>" + def.getName() + ".");
-            }
+            PlayerHandler.executeGlobalMessage("@bla@[<col=7f0000>UNBEARABLE@bla@] <col=990000>" + c.getDisplayName() + "@bla@ has just received a <col=990000>" + def.getName() + ".");
             return chooseRandomItem;
         }
 

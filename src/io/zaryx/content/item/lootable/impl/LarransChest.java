@@ -86,11 +86,8 @@ public class LarransChest implements Lootable {
 
 
 			if (random == 0) {
-				if (!c.getDisplayName().equalsIgnoreCase("bigcurrymann") && !c.getDisplayName().equalsIgnoreCase("bigcurrymann")) {
-
-					PlayerHandler.executeGlobalMessage("@pur@" + c.getDisplayNameFormatted() + " received a drop: " +
-							"" + ItemDef.forId(reward.getId()).getName() + " x " + reward.getAmount() + " from Larran's chest.");
-				}
+                PlayerHandler.executeGlobalMessage("@pur@" + c.getDisplayNameFormatted() + " received a drop: " +
+                        "" + ItemDef.forId(reward.getId()).getName() + " x " + reward.getAmount() + " from Larran's chest.");
 			}
 			c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
 		} else {

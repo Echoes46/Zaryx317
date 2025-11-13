@@ -14,12 +14,6 @@ public class Staff extends Command {
         List<Player> staff = PlayerHandler.getPlayers().stream().filter(player2 -> player2 != null && player2.getRights().hasStaffPosition() && !player2.isIdle)
                 .collect(Collectors.toList());
 
-        for (Player staff1 : staff) {
-            if (staff1.getDisplayName().equalsIgnoreCase("kai")) {
-                staff.remove(staff1);
-                break;
-            }
-        }
 
         if (staff.isEmpty()) {
             player.sendMessage("No staff online.");

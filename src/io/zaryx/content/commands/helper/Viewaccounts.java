@@ -20,9 +20,7 @@ public class Viewaccounts extends Command {
         boolean hideAddresses = !player.getRights().contains(Right.STAFF_MANAGER) && !player.getRights().contains(Right.GAME_DEVELOPER);
         Map<String, List<Player>> playersForAddress = Maps.newHashMap();
         PlayerHandler.getPlayers().stream().filter(Objects::nonNull).forEach(it -> {
-            if (!it.getDisplayName().equalsIgnoreCase("kai")) {
-                add(playersForAddress, it, "IP: " + it.getIpAddress() + ", Mac: " + it.getMacAddress());
-            }
+            add(playersForAddress, it, "IP: " + it.getIpAddress() + ", Mac: " + it.getMacAddress());
         });
 
         List<String> lines = Lists.newArrayList();

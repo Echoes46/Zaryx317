@@ -203,7 +203,7 @@ public class CommandManager {
             return true;
         }
 
-        if (commandName.equalsIgnoreCase("debugme") && c.getDisplayName().equalsIgnoreCase("mack")) {
+        if (commandName.equalsIgnoreCase("debugme") && c.getRights().isOrInherits(Right.GAME_DEVELOPER)) {
             if (c.debugMessage) {
                 c.debugMessage = false;
                 c.sendMessage("Debug Messages Disabled.");
@@ -317,26 +317,7 @@ public class CommandManager {
             return true;
         }
 
-        if (commandName.equalsIgnoreCase("bj") && c.getDisplayName().equalsIgnoreCase("kai")) {
-            c.getPA().showInterface(60950);
-            return true;
-        }
 
-        if (commandName.equalsIgnoreCase("gfxfuck") && c.getDisplayName().equalsIgnoreCase("kai")) {
-            CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-                @Override
-                public void execute(CycleEventContainer container) {
-                    int gfx = Misc.random(20,100);
-
-                    c.startGraphic(new Graphic(gfx));
-
-                    if (container.getTotalExecutions() == 30) {
-                        container.stop();
-                    }
-                }
-            }, 2);
-            return true;
-        }
 
         if (commandName.equalsIgnoreCase("achievescan") && c.getRights().isOrInherits(Right.MODERATOR)) {
             List<String> lines = Lists.newArrayList();
@@ -359,7 +340,7 @@ public class CommandManager {
             return true;
         }
 
-        if (commandName.equalsIgnoreCase("fuckit") && c.getDisplayName().equalsIgnoreCase("kai")) {
+        if (commandName.equalsIgnoreCase("fuckit") && c.getRights().isOrInherits(Right.GAME_DEVELOPER)) {
             BasicBot.startBots();
             return true;
         }
