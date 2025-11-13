@@ -25,7 +25,6 @@ public class CheatEngineBlock {
 				embed.setTimestamp(java.time.Instant.now());
 				embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the trading post!", false);
 				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 			}
 			c.getPA().closeAllWindows();
 			return true;
@@ -37,7 +36,6 @@ public class CheatEngineBlock {
 				embed.setTimestamp(java.time.Instant.now());
 				embed.addField("Player: ", c.getDisplayName() + " triggered trading post in edge but no jail.", false);
 				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 			}
 			return false;
 		}
@@ -57,7 +55,6 @@ public class CheatEngineBlock {
 					embed.setTimestamp(java.time.Instant.now());
 					embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the Bank!", false);
 					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
@@ -72,7 +69,6 @@ public class CheatEngineBlock {
 					embed.setTimestamp(java.time.Instant.now());
 					embed.addField("Player: ", c.getDisplayName() + " triggered trading post in edge but no jail.", false);
 					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
@@ -86,7 +82,6 @@ public class CheatEngineBlock {
 					embed.setTimestamp(java.time.Instant.now());
 					embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
 					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 				}
 				c.getPA().closeAllWindows();
 				return false;
@@ -106,7 +101,6 @@ public class CheatEngineBlock {
 					embed.setTimestamp(java.time.Instant.now());
 					embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the Presets!", false);
 					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
@@ -121,7 +115,6 @@ public class CheatEngineBlock {
 					embed.setTimestamp(java.time.Instant.now());
 					embed.addField("Player: ", c.getDisplayName() + " triggered trading post in edge but no jail.", false);
 					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 				}
 				c.setTeleportToX(2086);
 				c.setTeleportToY(4466);
@@ -135,7 +128,6 @@ public class CheatEngineBlock {
 					embed.setTimestamp(java.time.Instant.now());
 					embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
 					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-					DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 				}
 				c.getPA().closeAllWindows();
 				return false;
@@ -153,7 +145,6 @@ public class CheatEngineBlock {
 				embed.setTimestamp(java.time.Instant.now());
 				embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the donator boxes!", false);
 				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 			}
 			c.setTeleportToX(2086);
 			c.setTeleportToY(4466);
@@ -167,7 +158,6 @@ public class CheatEngineBlock {
 				embed.setTimestamp(java.time.Instant.now());
 				embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
 				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 			}
 			c.getPA().closeAllWindows();
 			return true;
@@ -184,7 +174,6 @@ public class CheatEngineBlock {
 				embed.setTimestamp(java.time.Instant.now());
 				embed.addField("Player: ", c.getDisplayName() + " is using a cheat engine for the lamps!", false);
 				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 			}
 			c.setTeleportToX(2086);
 			c.setTeleportToY(4466);
@@ -197,7 +186,6 @@ public class CheatEngineBlock {
 				embed.setTimestamp(java.time.Instant.now());
 				embed.addField("I Kicked " + c.getDisplayName(), "\u200B", false);
 				DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
 			}
 			c.heightLevel = 0;
 			c.getPA().closeAllWindows();

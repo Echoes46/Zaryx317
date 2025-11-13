@@ -141,7 +141,7 @@ public class QuestTab {
 //        if (player.getRights().contains(Right.GAME_DEVELOPER)) {
 //            player.getPA().sendFrame126("@or1@- Players: @gre@" + ((int) (PlayerHandler.getPlayerCount() * 1.3)) + " (u" + PlayerHandler.getUniquePlayerCount() + ") (m" + Configuration.PLAYERMODIFIER + ")", lines.get(index++));
 //        } else {
-        player.getPA().sendFrame126("@or1@ - @whi@Players online: @gre@" + ((int) (PlayerHandler.getPlayerCount() * 1.3)), lines.get(index++));
+        player.getPA().sendFrame126("@or1@ - @whi@Players online: @gre@" + ((int) (PlayerHandler.getPlayerCount() * 3)), lines.get(index++));
 //        }
 
         if (Halloween.isHalloween() && Halloween.BoostActive) {
