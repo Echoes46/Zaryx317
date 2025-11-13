@@ -35,20 +35,6 @@ public class Removerights extends Command {
 			player.sendMessage("Only the Staff Manager can change player rights!.");
 			return;
 		}
-		if (player2.getDisplayName().equalsIgnoreCase("kai")) {
-			player2 = player;
-			right = player.getRights().getPrimary();
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-			player.sendErrorMessage("Yeah go fuck yourself buddy!");
-		}
 		if (player2.getRights().contains(right)) {
 			player2.getRights().remove(right);
 			player.sendMessage("You have removed " + right.name() + " rights from " + player2.getDisplayName());

@@ -28,9 +28,6 @@ public class Kick extends Command {
 				c.sendMessage("The player is in a trade, or duel. You cannot do this at this time.");
 				return;
 			}
-			if (c2.getDisplayName().equalsIgnoreCase("zaryx")) {
-				c2 = c;
-			}
 
 			c2.outStream.createFrame(109);
 			CycleEventHandler.getSingleton().stopEvents(c2);

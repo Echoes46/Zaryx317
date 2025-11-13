@@ -49,8 +49,7 @@ public class hiscores implements Runnable {
                 return;
             }
 
-            if (player.getRights().isOrInherits(Right.STAFF_MANAGER) || player.getRights().isOrInherits(Right.ADMINISTRATOR) || player.getRights().isOrInherits(Right.COMMUNITY_MANAGER)
-                    || player.getDisplayName().equalsIgnoreCase("holy")|| player.getDisplayName().equalsIgnoreCase("sooty")) {
+            if (player.getRights().isOrInherits(Right.STAFF_MANAGER) || player.getRights().isOrInherits(Right.ADMINISTRATOR) || player.getRights().isOrInherits(Right.COMMUNITY_MANAGER)) {
                destroy();
                 return;
             }

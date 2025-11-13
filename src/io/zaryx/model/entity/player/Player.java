@@ -2234,7 +2234,7 @@ public class Player extends Entity {
             getTitles().setCurrentTitle("@bla@[<col=C01504>" + "<shad=1>Owner</shad>" + "</col>@bla@]");
         } else if (getRights().isOrInherits(Right.COMMUNITY_MANAGER)) {
             getTitles().setCurrentTitle("@bla@[<col=4FEB34>" + "<shad=1>Community Manager</shad>" + "</col>@bla@]");
-        } else if (getRights().isOrInherits(Right.ADMINISTRATOR) && !getDisplayName().equalsIgnoreCase("g36")) {
+        } else if (getRights().isOrInherits(Right.ADMINISTRATOR)) {
             getTitles().setCurrentTitle("@bla@[<col=F5FF0F>" + "<shad=1>Administrator</shad>" + "</col>@bla@]");
         } else if (getRights().isOrInherits(Right.MODERATOR)) {
             getTitles().setCurrentTitle("@bla@[<col=DADADA>" + "<shad=1>Moderator</shad>" + "</col>@bla@]");

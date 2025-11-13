@@ -229,10 +229,8 @@ public class TheatreOfBloodChest implements Lootable {
         List<GameItem> rareItemList = items.get(LootRarity.RARE);
         for (GameItem reward : rewards) {
             if (rareItemList.stream().anyMatch(rareItem -> reward.getId() == rareItem.getId())) {
-                if (!player.getDisplayName().equalsIgnoreCase("thimble") && !player.getDisplayName().equalsIgnoreCase("top hat")) {
-                    PlayerHandler.executeGlobalMessage("@pur@" + player.getDisplayNameFormatted() + " received a drop: "
-                            + ItemDef.forId(reward.getId()).getName() + " x " + reward.getAmount() + " from Theatre of Blood.");
-                }
+                PlayerHandler.executeGlobalMessage("@pur@" + player.getDisplayNameFormatted() + " received a drop: "
+                        + ItemDef.forId(reward.getId()).getName() + " x " + reward.getAmount() + " from Theatre of Blood.");
                 player.getCollectionLog().handleDrop(player, Npcs.THE_MAIDEN_OF_SUGADINTI, rewards.get(0).getId(), 1);
             }
         }
