@@ -57,6 +57,10 @@ public class DialogueHandler {
 				sendOption2("Yes, Let's go.", "No thanks.");
 				c.dialogueAction = 2002;
 				break;
+			case 10000:
+				sendOption2("Leave raid without reward", "Stay and fight");
+				c.dialogueAction = 2003;
+				break;
 		case LootingBag.ITEM_ON_ITEM_DIALOGUE_ID:
 			sendOption5("Deposit 1", "Deposit 5", "Deposit 10", "Deposit X", "Deposit All"); //TODO
 			c.dialogueAction = LootingBag.ITEM_ON_ITEM_DIALOGUE_ID;

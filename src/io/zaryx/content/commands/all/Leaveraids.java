@@ -10,6 +10,11 @@ public class Leaveraids extends Commands {
 
 	@Override
 	public void execute(Player player, String commandName, String input) {
+		if (player.getRaidsInstance() == null) {
+			player.sendErrorMessage("You are not in a raid...");
+			return;
+		}
+		player.setRaidsInstance(null);
 		if (player.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || player.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
 			player.getPA().spellTeleport(3183, 3725, 0, true);
 

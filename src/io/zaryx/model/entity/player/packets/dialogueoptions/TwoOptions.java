@@ -56,6 +56,14 @@ public class TwoOptions {
 				c.sendMessage("Please be careful within another player's instance.");
 				c.getPA().closeAllWindows();
 				break;
+			case 2003:
+				if (c.getRaidsInstance() == null) {
+					break;
+				}
+				c.setRaidsInstance(null);
+				c.getPA().spellTeleport(1234, 3567, 0,true);
+				c.getPA().closeAllWindows();
+				break;
 		case 1004:
 			c.getPA().startTeleport(2715, 10207, 0, "modern", false);
 			c.sendMessage("@red@The Icelords have stolen santa`s presents.");
@@ -1183,7 +1191,8 @@ public class TwoOptions {
 	public static void handleOption2(Player c) { //under this code is the dialogues OpTion two codIng ooh okay, and its the same id
 
 		switch (c.dialogueAction) {
-		case 1004:
+			case 1004:
+			 case 2003:
 			c.getPA().closeAllWindows();
 			break;
 		case 354:
