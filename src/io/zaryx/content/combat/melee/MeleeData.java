@@ -675,7 +675,8 @@ public class MeleeData {
 		}
 
 		switch (c.getEquipmentToShow(Player.playerWeapon)) { // if you don't want to use strings
-
+            case 33005:
+                return 4230;
 			case 9703:
 				return 412;
 			case 27660:

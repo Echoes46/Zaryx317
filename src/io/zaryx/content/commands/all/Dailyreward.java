@@ -9,14 +9,14 @@ import io.zaryx.model.entity.player.Player;
 public class Dailyreward extends Command {
     @Override
     public void execute(Player player, String commandName, String input) {
-        if (!Boundary.EDGEVILLE_PERIMETER.in(player)) {
-            player.sendMessage("You must be in Edgeville to use this command.");
+        if (!Boundary.HOME.in(player)) {
+            player.sendMessage("You must be in the Home area to use this command.");
         } else {
             player.getDailyRewards().openInterface();
         }
     }
 
     public Optional<String> getDescription() {
-        return Optional.of("Opens the daily reward interface (only in edgeville).");
+        return Optional.of("Opens the daily reward interface (only in Home area).");
     }
 }
