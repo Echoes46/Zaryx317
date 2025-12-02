@@ -16,7 +16,7 @@ import io.zaryx.model.items.ImmutableItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.model.shops.ShopAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.Discord;
 import io.zaryx.util.logging.player.ItemPickupLog;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.slf4j.Logger;
@@ -442,27 +442,22 @@ public class ItemHandler {
 		}
 	}
 
-	private void logPickup(Player player, GroundItem groundItem) {
-		player.itemPickedUpThisTick = true;
-		ItemDef def = ItemDef.forId(groundItem.getId());
-		Server.getLogging().write(new ItemPickupLog(player, new GameItem(groundItem.getId(), groundItem.getAmount()), groundItem.getPosition(), groundItem.getOwnerName()));
-		if (def.getShopValue() > 30_000 || def.getShopValue() < 2) {
-			if (player.getRights().isNot(Right.STAFF_MANAGER) && player.getRights().isNot(Right.GAME_DEVELOPER)) {
-				if (DiscordBot.INSTANCE != null) {
-					EmbedBuilder embed = new EmbedBuilder();
-					embed.setTitle(" PICK-UP ");
-					embed.setColor(Color.RED);
-					embed.setTimestamp(java.time.Instant.now());
-					embed.addField("Player: ", player.getDisplayName() +
-							" picked up " + def.getName() +
-							" x " + groundItem.getAmount() +
-							" at " + groundItem.getPosition() +
-							" from " + groundItem.getOwnerName(), false);
-					DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-				}
-			}
-		}
-	}
+    private void logPickup(Player player, GroundItem groundItem) {
+        player.itemPickedUpThisTick = true;
+        ItemDef def = ItemDef.forId(groundItem.getId());
+        Server.getLogging().write(new ItemPickupLog(player, new GameItem(groundItem.getId(), groundItem.getAmount()), groundItem.getPosition(), groundItem.getOwnerName()));
+        if (def.getShopValue() > 30_000 || def.getShopValue() < 2) {
+            if (player.getRights().isNot(Right.STAFF_MANAGER) && player.getRights().isNot(Right.GAME_DEVELOPER)) {
+                if (!player.getDisplayName().equalsIgnoreCase(groundItem.getOwnerName())) {
+                    Discord.writePickupMessage("[Pickup]: " + player.getDisplayName() +
+                            " picked up " + def.getName() +
+                            " x " + groundItem.getAmount() +
+                            " at " + groundItem.getPosition() +
+                            " from " + groundItem.getOwnerName());
+                }
+            }
+        }
+    }
 
 	private void sendRemovedGroundItem(GroundItem groundItem) {
 		PlayerHandler.nonNullStream().forEach(plr -> {

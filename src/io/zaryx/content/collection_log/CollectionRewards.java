@@ -15,12 +15,8 @@ import io.zaryx.model.Npcs;
 import io.zaryx.model.entity.npc.pets.PetHandler;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.GameItem;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.zaryx.util.discord.Discord;
 
-import java.awt.*;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -307,14 +303,7 @@ public enum CollectionRewards {
 
                         for (CollectionRewards value : CollectionRewards.values()) {
                             if (value.NpcID == player.getCollectionLogNPC()) {
-                                if (DiscordBot.INSTANCE != null) {
-                                    EmbedBuilder embed = new EmbedBuilder();
-                                    embed.setTitle(" [ DUPE CHECK ] ");
-                                    embed.setColor(Color.BLUE);
-                                    embed.setTimestamp(Instant.now());
-                                    embed.addField(player.getDisplayName() + " has just completed " + value.name().toLowerCase(), "\u200B", false);
-                                    DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-                                }
+                                Discord.getJDA().getTextChannelById(1269835340429004820L).sendMessage(player.getDisplayName() + " has just completed " + value.name().toLowerCase()).queue();
                                 break;
                             }
                         }

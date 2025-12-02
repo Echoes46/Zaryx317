@@ -18,23 +18,19 @@ import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.sql.dailytracker.TrackerType;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.zaryx.util.discord.Discord;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class dboss extends Command {
 
     @Override
     public void execute(Player c, String commandName, String input) {
-        PlayerHandler.executeGlobalMessage("@red@[DONO BOSS]@blu@ " + c.getDisplayName()
-                + " has just spawned a dono boss!! use ::vb or ::db");
+        PlayerHandler.executeGlobalMessage("@red@[DONO BOSS]@blu@ "+c.getDisplayName() + " has just spawned a dono boss!! use ::vb or ::db");
         spawnBoss();
     }
 
@@ -43,95 +39,76 @@ public class dboss extends Command {
         return Optional.of("Spawn's a donation boss manually.");
     }
 
+
     public static void spawnBoss() {
+//        PlayerHandler.executeGlobalMessage("@red@[DONO BOSS]@blu@ the dono boss has spawned south of Dwarven mine, outside Falador!");
         spawnNPC();
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("[ DONOR BOSS ]");
-            embed.setImage("https://oldschool.runescape.wiki/images/thumb/Boss.png/150px-Boss.png?fb192");
-            embed.setColor(Color.GREEN);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Donor Boss has spawned, use ::db to fight!", "\u200B", false);
-            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
-            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
-        }
+        Discord.writeIngameEvents("```[Donor Boss] Has just spawned! ::db```");
         TrackerType.DONOR_BOSS.addTrackerData(1);
+        /*if (Durial321.spawned || Durial321.alive) {
+            return;
+        }
+        Durial321.init();*/
     }
 
     public static void Attack(NPC npc) {
-        if (npc == null || npc.isDead) {
+        if (donaboss.isDead) {
             return;
         }
-
-        donaboss = npc;
-
         updateTargets();
         if (targets.isEmpty()) {
-            npc.attackTimer = 4;
             return;
         }
-
-        int rng = Misc.random(1, 100);
-
-        if (rng <= 30) {
-            // Basic fire
-            npc.startAnimation(7904, AnimationPriority.HIGH);
-            npc.setAttackType(CombatType.MAGE);
-            npc.projectileId = 1469;
-            npc.endGfx = -1;
-            npc.hitDelayTimer = 4;
-            npc.attackTimer = 10;
-            npc.maxHit = 5;
-
-        } else if (rng <= 50) { // 31–50: Arc AoE
-            npc.startAnimation(7901, AnimationPriority.HIGH);
-            npc.setAttackType(CombatType.MAGE);
-            npc.projectileId = 1471;
-            npc.endGfx = -1;
-            npc.hitDelayTimer = 4;
-            npc.attackTimer = 10;
-            npc.maxHit = 5;
+        int rng = Misc.random(0,100);
+        if (rng > 0 && rng <= 30) {
+            donaboss.startAnimation(7904, AnimationPriority.HIGH);
+            donaboss.setAttackType(CombatType.MAGE);
+            donaboss.projectileId = 1469;
+            donaboss.endGfx = -1;
+            donaboss.hitDelayTimer = 4;
+            donaboss.attackTimer = 10;
+            donaboss.maxHit = 5;
+            //FIRE Attack
+        } else if (rng >= 31 && rng < 45) {
+            donaboss.startAnimation(7901, AnimationPriority.HIGH);
+            donaboss.setAttackType(CombatType.MAGE);
+            donaboss.projectileId = 1471;
+            donaboss.endGfx = -1;
+            donaboss.hitDelayTimer = 4;
+            donaboss.attackTimer = 10;
+            donaboss.maxHit = 5;
+            //Arc Attack
             arcAttack();
-
-        } else if (rng <= 70) { // 51–70: Boulder AoE
-            npc.startAnimation(7908, AnimationPriority.HIGH);
-            npc.setAttackType(CombatType.MAGE);
-            npc.projectileId = 1478;
-            npc.endGfx = -1;
-            npc.hitDelayTimer = 4;
-            npc.attackTimer = 10;
-            npc.maxHit = 5;
+        } else if (rng >= 45 && rng < 65) {
+            donaboss.startAnimation(7908, AnimationPriority.HIGH);
+            donaboss.setAttackType(CombatType.MAGE);
+            donaboss.projectileId = 1478;
+            donaboss.endGfx = -1;
+            donaboss.hitDelayTimer = 4;
+            donaboss.attackTimer = 10;
+            donaboss.maxHit = 5;
+            //Boulder
             boulderAttack();
-
-        } else if (rng <= 85) { // 71–85: Poison AoE
-            npc.startAnimation(7905, AnimationPriority.HIGH);
-            npc.setAttackType(CombatType.MAGE);
-            npc.projectileId = 1470;
-            npc.endGfx = -1;
-            npc.hitDelayTimer = 4;
-            npc.attackTimer = 10;
-            npc.maxHit = 5;
+        } else if (rng >= 65 && rng < 85) {
+            donaboss.startAnimation(7905, AnimationPriority.HIGH);
+            donaboss.setAttackType(CombatType.MAGE);
+            donaboss.projectileId = 1470;
+            donaboss.endGfx = -1;
+            donaboss.hitDelayTimer = 4;
+            donaboss.attackTimer = 10;
+            donaboss.maxHit = 5;
+            //Poison Attack
             poiAttack();
-
-        } else if (rng <= 95) { // 86–95: Purple fire AoE
-            npc.startAnimation(7907, AnimationPriority.HIGH);
-            npc.setAttackType(CombatType.MAGE);
-            npc.projectileId = 1479;
-            npc.endGfx = -1;
-            npc.hitDelayTimer = 4;
-            npc.attackTimer = 10;
-            npc.maxHit = 5;
+        } else if (rng >= 85) {
+            donaboss.startAnimation(7907, AnimationPriority.HIGH);
+            donaboss.setAttackType(CombatType.MAGE);
+            donaboss.projectileId = 1479;
+            donaboss.endGfx = -1;
+            donaboss.hitDelayTimer = 4;
+            donaboss.attackTimer = 10;
+            donaboss.maxHit = 5;
+            //Purple Fire
             fireAttack();
-
-        } else { // 96–100: Bone AoE
-            npc.startAnimation(7907, AnimationPriority.HIGH); // adjust anim if you want unique bones anim
-            npc.setAttackType(CombatType.MAGE);
-            npc.projectileId = 1489;
-            npc.endGfx = -1;
-            npc.hitDelayTimer = 4;
-            npc.attackTimer = 10;
-            npc.maxHit = 5;
-            boneAttack();
         }
     }
 
@@ -140,57 +117,38 @@ public class dboss extends Command {
     public static final Boundary BOUNDARY = Boundary.VOTE_BOSS;
     private static NPC donaboss;
 
-    /* Updated by Khaos */
     public static void updateTargets() {
-        if (donaboss == null || donaboss.isDead) {
-            targets.clear();
+        if (donaboss.isDead) {
             return;
         }
+        if (!targets.isEmpty()) {
+            targets.clear();
+        }
 
-        targets = PlayerHandler.getPlayers().stream()
-                .filter(Objects::nonNull)
-                .filter(p -> !p.isDead)
-                .filter(p -> Boundary.isIn(p, BOUNDARY))
-                .filter(p -> p.getHeight() == donaboss.getHeight())
-                .collect(Collectors.toList());
+        targets = PlayerHandler.getPlayers().stream().filter(plr ->
+                !plr.isDead && new Boundary(2618, 3971, 2690, 3901).in(plr) && plr.getHeight() == 0).collect(Collectors.toList());
     }
 
     public static void spawnNPC() {
-        targets.clear();
-        damageCount.clear();
-
+        if (!targets.isEmpty()) {
+            targets.clear();
+        }
+        if (!damageCount.isEmpty()) {
+            damageCount.clear();
+        }
         Npcs npcType = Npcs.DONA_BOSS;
-        donaboss = NPCSpawning.spawnNpcOld(
-                8096,
-                3736, 3975, 0, 0,
-                npcType.getHp(),
-                npcType.getMaxHit(),
-                npcType.getAttack(),
-                npcType.getDefence()
-        );
+        donaboss = NPCSpawning.spawnNpcOld(8096, 3736, 3975, 0, 0, npcType.getHp(), npcType.getMaxHit(), npcType.getAttack(), npcType.getDefence());
         donaboss.getBehaviour().setRespawn(false);
         donaboss.getBehaviour().setAggressive(true);
         donaboss.getBehaviour().setRunnable(true);
         donaboss.getHealth().setMaximumHealth(3000);
         donaboss.getHealth().reset();
         announce();
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("[ DONOR BOSS ]");
-            embed.setImage("https://oldschool.runescape.wiki/images/thumb/Boss.png/150px-Boss.png?fb192");
-            embed.setColor(Color.GREEN);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Donor Boss has spawned, use ::db to fight!", "\u200B", false);
-            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
-            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
-        }
+        Discord.writeIngameEvents("```[DONO BOSS] the dono boss [Galvek] has spawned!, use ::vb or ::db``` <@&1248350477154783321>");
     }
 
     public static void announce() {
-        new Broadcast("<img=11> [DONO BOSS] the dono boss [Galvek] has spawned!, use ::vb or ::db")
-                .addTeleport(new Position(3738, 3967, 0))
-                .copyMessageToChatbox()
-                .submit();
+        new Broadcast("<img=11> [DONO BOSS] the dono boss [Galvek] has spawned!, use ::vb or ::db").addTeleport(new Position(2974, 3405, 0)).copyMessageToChatbox().submit();
     }
 
     public static void handleRewards() {
@@ -207,15 +165,7 @@ public class dboss extends Command {
             if (map.containsKey(s) && map.get(s) > 1) {
                 for (Player player : PlayerHandler.getPlayers()) {
                     if (player.getUUID().equalsIgnoreCase(s)) {
-                        if (DiscordBot.INSTANCE != null) {
-                            EmbedBuilder embed = new EmbedBuilder();
-                            embed.setTitle("DONOR BOSS MULTI-LOGGING ");
-                            embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Dungeon_entrance_logo.png/150px-Dungeon_entrance_logo.png?1b922");
-                            embed.setColor(Color.BLUE);
-                            embed.setTimestamp(java.time.Instant.now());
-                            embed.addField("Player: ", player.getDisplayName() + " has tried to take more than 2 account's to the Donor Boss!", false);
-                            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-                        }
+                        Discord.writeServerSyncMessage("```[Donor Boss] "+player.getDisplayName() + " has tried to take more than 2 account's there!```");
                     }
                 }
             }
@@ -230,13 +180,7 @@ public class dboss extends Command {
                     amountOfDrops++;
                 }
                 Pass.addExperience(player, 10);
-                Server.getDropManager().create(
-                        player,
-                        donaboss,
-                        new Location3D(player.getX(), player.getY(), player.getHeight()),
-                        amountOfDrops,
-                        8096
-                );
+                Server.getDropManager().create(player, donaboss, new Location3D(player.getX(), player.getY(), player.getHeight()), amountOfDrops, 8096);
             }
         });
         PlayerHandler.executeGlobalMessage("@red@[DONO BOSS]@blu@ the dono boss [@red@Galvek@blu@] has been defeated!");
@@ -244,16 +188,18 @@ public class dboss extends Command {
     }
 
     public static void despawn() {
-        targets.clear();
-        damageCount.clear();
-        /*
-        if (donaboss != null) {
-            if (donaboss.getIndex() > 0) {
-                donaboss.unregister();
-            }
-            donaboss = null;
+        //if (donaboss != null) {
+        //    if (donaboss.getIndex() > 0) {
+        //        donaboss.unregister();
+        //    }
+        //    donaboss = null;
+        //}
+        if (!targets.isEmpty()) {
+            targets.clear();
         }
-        */
+        if (!damageCount.isEmpty()) {
+            damageCount.clear();
+        }
     }
 
     public static boolean isSpawned() {
@@ -269,14 +215,18 @@ public class dboss extends Command {
         DONA_BOSS(8096, "Galvek", 3000, 33, 250, 1);
 
         private final int npcId;
+
         private final String monsterName;
+
         private final int hp;
+
         private final int maxHit;
+
         private final int attack;
+
         private final int defence;
 
-        Npcs(final int npcId, final String monsterName, final int hp,
-             final int maxHit, final int attack, final int defence) {
+        Npcs(final int npcId, final String monsterName, final int hp, final int maxHit, final int attack, final int defence) {
             this.npcId = npcId;
             this.monsterName = monsterName;
             this.hp = hp;
@@ -312,36 +262,40 @@ public class dboss extends Command {
 
     public static void arcAttack() {
         updateTargets();
-        if (donaboss == null || donaboss.isDead || targets.isEmpty()) {
+        if (donaboss.isDead) {
+            return;
+        }
+        if (targets.isEmpty()) {
             return;
         }
 
         for (Player possibleTargets : targets) {
             possibleTargets.gfx0(1466);
             int dam;
-            if (possibleTargets.protectingMagic()) {
+            if (possibleTargets.protectingMagic())
                 dam = 0;
-            } else {
-                dam = Misc.random(0, 10);
-            }
+            else
+                dam = Misc.random(0,10);
             possibleTargets.appendDamage(dam, (dam > 0 ? Hitmark.HIT : Hitmark.MISS));
         }
     }
 
     public static void poiAttack() {
         updateTargets();
-        if (donaboss == null || donaboss.isDead || targets.isEmpty()) {
+        if (donaboss.isDead) {
+            return;
+        }
+        if (targets.isEmpty()) {
             return;
         }
 
         for (Player possibleTargets : targets) {
             possibleTargets.gfx0(1471);
             int dam;
-            if (possibleTargets.protectingMagic()) {
+            if (possibleTargets.protectingMagic())
                 dam = 0;
-            } else {
-                dam = Misc.random(0, 10);
-            }
+            else
+                dam = Misc.random(0,10);
             possibleTargets.appendDamage(dam, (dam > 0 ? Hitmark.HIT : Hitmark.MISS));
             if (!possibleTargets.getHealth().getStatus().isPoisoned()) {
                 possibleTargets.getHealth().proposeStatus(HealthStatus.POISON, 3, Optional.of(donaboss));
@@ -351,54 +305,60 @@ public class dboss extends Command {
 
     public static void boulderAttack() {
         updateTargets();
-        if (donaboss == null || donaboss.isDead || targets.isEmpty()) {
+        if (donaboss.isDead) {
+            return;
+        }
+        if (targets.isEmpty()) {
             return;
         }
 
         for (Player possibleTargets : targets) {
             possibleTargets.gfx0(1473);
             int dam;
-            if (possibleTargets.protectingMagic()) {
+            if (possibleTargets.protectingMagic())
                 dam = 0;
-            } else {
-                dam = Misc.random(0, 10);
-            }
+            else
+                dam = Misc.random(0,10);
             possibleTargets.appendDamage(dam, (dam > 0 ? Hitmark.HIT : Hitmark.MISS));
         }
     }
 
     public static void fireAttack() {
         updateTargets();
-        if (donaboss == null || donaboss.isDead || targets.isEmpty()) {
+        if (donaboss.isDead) {
+            return;
+        }
+        if (targets.isEmpty()) {
             return;
         }
 
         for (Player possibleTargets : targets) {
             possibleTargets.gfx0(1478);
             int dam;
-            if (possibleTargets.protectingMagic()) {
+            if (possibleTargets.protectingMagic())
                 dam = 0;
-            } else {
-                dam = Misc.random(0, 10);
-            }
+            else
+                dam = Misc.random(0,10);
             possibleTargets.appendDamage(dam, (dam > 0 ? Hitmark.HIT : Hitmark.MISS));
         }
     }
 
     public static void boneAttack() {
         updateTargets();
-        if (donaboss == null || donaboss.isDead || targets.isEmpty()) {
+        if (donaboss.isDead) {
+            return;
+        }
+        if (targets.isEmpty()) {
             return;
         }
 
         for (Player possibleTargets : targets) {
             possibleTargets.gfx0(1489);
             int dam;
-            if (possibleTargets.protectingMagic()) {
+            if (possibleTargets.protectingMagic())
                 dam = 0;
-            } else {
-                dam = Misc.random(0, 10);
-            }
+            else
+                dam = Misc.random(0,10);
             possibleTargets.appendDamage(dam, (dam > 0 ? Hitmark.HIT : Hitmark.MISS));
         }
     }

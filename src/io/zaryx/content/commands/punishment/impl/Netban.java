@@ -10,10 +10,8 @@ import io.zaryx.model.entity.player.Right;
 import io.zaryx.model.entity.player.save.PlayerAddresses;
 import io.zaryx.model.entity.player.save.PlayerSaveOffline;
 import io.zaryx.util.dateandtime.TimeSpan;
-import io.zaryx.util.discord.DiscordBot;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.zaryx.util.discord.Discord;
 
-import java.awt.*;
 import java.io.File;
 
 import static io.zaryx.punishments.PunishmentType.MAC_BAN;
@@ -37,14 +35,8 @@ public class Netban implements PunishmentCommandParser {
             Server.getPunishments().add(MAC_BAN, duration, addresses.getMac());
         if (addresses.getUUID() != null)
             Server.getPunishments().add(MAC_BAN, duration, addresses.getUUID());
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle(" PLAYER BANNING ");
-            embed.setColor(Color.RED);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Staff Member: ", staff.getDisplayName() + " Banned " + player.getDisplayName(), false);
-            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-        }
+
+        Discord.writeSuggestionMessage(staff.getDisplayName() + " Banned " + player.getDisplayName());
         PlayerHandler.nonNullStream().filter(it -> addresses.equals(it.getValidAddresses()) && it.getRights().isNot(Right.STAFF_MANAGER)).forEach(Player::forceLogout);
         staff.sendMessage("Banned all known addresses for {}.", player.getDisplayNameFormatted());
     }

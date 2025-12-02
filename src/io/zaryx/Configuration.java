@@ -11,11 +11,41 @@ import java.util.concurrent.TimeUnit;
 
 public class Configuration {
 
+    // ===== Deployment / Ports =====
+    public enum Deployment { DEV, PROD }
+
+    public static final int PORT_PROD_DEFAULT = 43596;
+    public static final int PORT_DEV_DEFAULT  = 43598;
+
+    // Optional explicit env: -Denv=prod|dev
+    private static Deployment parseEnvProp() {
+        String p = System.getProperty("env", "").trim();
+        if (!p.isEmpty()) {
+            try { return Deployment.valueOf(p.toUpperCase()); } catch (IllegalArgumentException ignored) {}
+        }
+        return null;
+    }
+    private static final Deployment ENV_PROP = parseEnvProp();
+
+    private static int defaultPortFor(Deployment d) {
+        return (d == Deployment.PROD) ? PORT_PROD_DEFAULT : PORT_DEV_DEFAULT;
+    }
+
+    /** Final game port: --port wins; else env-based default (dev if no env given) */
+    public static final int GAME_PORT = Integer.parseInt(
+            System.getProperty("port",
+                    String.valueOf(defaultPortFor(ENV_PROP == null ? Deployment.DEV : ENV_PROP)))
+    );
+
+    /** Final deployment: prefer explicit env; else infer by port */
+    public static final Deployment DEPLOYMENT =
+            (ENV_PROP != null) ? ENV_PROP
+                    : (GAME_PORT == PORT_PROD_DEFAULT ? Deployment.PROD : Deployment.DEV);
+
+    public static boolean isProd() { return DEPLOYMENT == Deployment.PROD; }
+    public static boolean isDev()  { return DEPLOYMENT == Deployment.DEV; }
+
 	public static final int CLIENT_VERSION = 369;
-    public static final String DISCORD_BOT_TOKEN =
-            System.getenv("DISCORD_BOT_TOKEN") != null
-                    ? System.getenv("DISCORD_BOT_TOKEN")
-                    : System.getProperty("discord.token", "");
 
     public static String SERVER_NAME = "Zaryx 317";
 	public static final int PORT_DEFAULT = 43596;

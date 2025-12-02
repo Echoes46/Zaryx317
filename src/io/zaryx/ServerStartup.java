@@ -52,7 +52,8 @@ import io.zaryx.objects.DoubleDoors;
 import io.zaryx.objects.ForceDoors;
 import io.zaryx.punishments.PunishmentCycleEvent;
 import io.zaryx.util.Reflection;
-import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.Discord;
+import io.zaryx.util.discord.DiscordIntegration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -117,8 +118,8 @@ public class ServerStartup {
         CollectionLog.init();
         Region.load();
         Server.getGlobalObjects().loadGlobalObjectFile();
-        DiscordBot.loadConnectedAccounts();
-        DiscordBot.init();
+        Discord.init();
+        DiscordIntegration.loadConnectedAccounts();
         Doors.getSingleton().load();
         DoubleDoors.getSingleton().load();
         // Keep this below region load and object loading

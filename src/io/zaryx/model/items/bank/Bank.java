@@ -18,8 +18,7 @@ import io.zaryx.model.multiplayersession.MultiplayerSessionStage;
 import io.zaryx.model.multiplayersession.MultiplayerSessionType;
 import io.zaryx.model.multiplayersession.duel.DuelSession;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Bank {
@@ -151,16 +150,10 @@ public class Bank {
 									player1.sendErrorMessage(player.getDisplayName() + " Has just been jailed for dupe check!");
 								}
 							}
-							if (DiscordBot.INSTANCE != null) {
-								EmbedBuilder embed = new EmbedBuilder();
-								embed.setTitle(" [ DUPE CHECK ] ");
-								embed.setColor(Color.BLUE);
-								embed.setTimestamp(java.time.Instant.now());
-								embed.addField("Player: ", player.getDisplayName() + " Has just been jailed for a dupe check!", false);
-								DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-								DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
-							}
-							return false;
+                            Discord.writeCheatEngineMessage("<@everyone> " + player.getDisplayName() + " Has just been jailed for dupe check!");
+                            Discord.writeCheatEngineMessage("<@everyone> " + player.getDisplayName() + " Has just been jailed for dupe check!");
+                            Discord.writeCheatEngineMessage("<@everyone> " + player.getDisplayName() + " Has just been jailed for dupe check!");
+                            return false;
 						}
 					}
 				}

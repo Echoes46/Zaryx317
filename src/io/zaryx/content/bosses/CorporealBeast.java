@@ -14,8 +14,7 @@ import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.util.Location3D;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
@@ -64,23 +63,15 @@ public class CorporealBeast {
 			p.getPA().sendConfig(999, 0);
 		});
 
-		for (String s : map.keySet()) {
-			if (map.containsKey(s) && map.get(s) > 1) {
-				for (Player player : PlayerHandler.getPlayers()) {
-					if (player.getUUID().equalsIgnoreCase(s)) {
-						if (DiscordBot.INSTANCE != null) {
-							EmbedBuilder embed = new EmbedBuilder();
-							embed.setTitle("[ CORPOREAL BEAST MULTI LOGGING ]");
-							embed.setColor(Color.BLUE);
-							embed.setTimestamp(java.time.Instant.now());
-							embed.addField(player.getDisplayName() + " has tried to take more than 2 account's there!", "\u200B", false);
-							DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-							DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
-						}
-					}
-				}
-			}
-		}
+        for (String s : map.keySet()) {
+            if (map.containsKey(s) && map.get(s) > 1) {
+                for (Player player : PlayerHandler.getPlayers()) {
+                    if (player.getUUID().equalsIgnoreCase(s)) {
+                        Discord.writeServerSyncMessage("```[Corporeal Beast] "+player.getDisplayName() + " has tried to take more than 2 account's there!```");
+                    }
+                }
+            }
+        }
 
 		map.values().removeIf(integer -> integer > 1);
 

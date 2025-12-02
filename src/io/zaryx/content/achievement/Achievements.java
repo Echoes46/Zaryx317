@@ -9,8 +9,7 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ImmutableItem;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import org.apache.commons.lang3.text.WordUtils;
@@ -603,8 +602,8 @@ public class Achievements {
     }
 
     public static void increase(Player player, AchievementType type, int amount) {
-        if (DiscordBot.getJda() != null) {
-            Guild guild = DiscordBot.getJda().getGuildById(DiscordChannelType.GUILD_ID.getChannelId());
+        if (Discord.getJDA() != null) {
+            Guild guild = Discord.getJDA().getGuildById(1248350477117165598L);
 
             if (guild != null) {
                 for (Member booster : guild.getBoosters()) {

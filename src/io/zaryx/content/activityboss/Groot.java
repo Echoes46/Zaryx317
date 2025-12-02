@@ -21,8 +21,7 @@ import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.sql.dailytracker.TrackerType;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
@@ -144,16 +143,7 @@ public class Groot {
         alive = true;
         spawned = true;
         announce();
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("[ GROOT ]");
-            embed.setImage("https://oldschool.runescape.wiki/images/Tangleroot_%28follower%29.png?32716");
-            embed.setColor(Color.GREEN);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Groot has just spawned! Type ::groot to access him!", "\u200B", false);
-            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
-            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
-        }
+        Discord.writeIngameEvents("```[Groot] has spawned!, use ;;groot to access him!``` <@&1248350477154783321>");
         TrackerType.GROOT.addTrackerData(1);
     }
 
@@ -194,16 +184,7 @@ public class Groot {
                 if (map.containsKey(s) && map.get(s) > 1) {
                     for (Player player : PlayerHandler.getPlayers()) {
                         if (player.getUUID().equalsIgnoreCase(s)) {
-                            if (DiscordBot.INSTANCE != null) {
-                                EmbedBuilder embed = new EmbedBuilder();
-                                embed.setTitle(" [ GROOT MULTI-LOGGING ] ");
-                                embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Dungeon_entrance_logo.png/150px-Dungeon_entrance_logo.png?1b922");
-                                embed.setColor(Color.BLUE);
-                                embed.setTimestamp(java.time.Instant.now());
-                                embed.addField("Player: ",  player.getDisplayName() + " has tried to take more than 2 account's there!", false);
-                                DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-                                DiscordBot.INSTANCE.sendMessage(DiscordChannelType.STAFF_LOGS, "@everyone");
-                            }
+                            Discord.writeServerSyncMessage("```[@gre@Groot@bla@] " + player.getDisplayName() + " has tried to take more than 2 account's there!```");
                         }
                     }
                 }

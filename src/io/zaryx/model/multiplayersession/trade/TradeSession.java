@@ -17,8 +17,7 @@ import io.zaryx.model.multiplayersession.MultiplayerSessionFinalizeType;
 import io.zaryx.model.multiplayersession.MultiplayerSessionStage;
 import io.zaryx.model.multiplayersession.MultiplayerSessionType;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import io.zaryx.util.logging.player.ItemTradeLog;
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -77,39 +76,17 @@ public class TradeSession extends MultiplayerSession {
 					"Receiver : " + recipient.playerName + " "
 							+ Arrays.toString(itemList), " Trader:"
 							+ player.playerName + " " + Arrays.toString(player.getTradeContainer().containerCopy()));*/
-				finish(MultiplayerSessionFinalizeType.GIVE_ITEMS);
-				player.sendMessage("Trade successfully completed with " + recipient.getDisplayName());
-				recipient.sendMessage("Trade successfully completed with " + player.getDisplayName());
+                finish(MultiplayerSessionFinalizeType.GIVE_ITEMS);
+                player.sendMessage("Trade successfully completed with " + recipient.getDisplayName());
+                recipient.sendMessage("Trade successfully completed with " + player.getDisplayName());
 
-				String gave1 = items.get(player).stream().map(GameItem::getFormattedString).collect(Collectors.joining(", "));
-				String gave2 = items.get(recipient).stream().map(GameItem::getFormattedString).collect(Collectors.joining(", "));
+                String gave1 = items.get(player).stream().map(GameItem::getFormattedString).collect(Collectors.joining(", "));
+                String gave2 = items.get(recipient).stream().map(GameItem::getFormattedString).collect(Collectors.joining(", "));
 
-				if (DiscordBot.INSTANCE != null) {
-					EmbedBuilder embed = new EmbedBuilder();
-					embed.setTitle("[ TRADE ]");
-					embed.setColor(Color.WHITE);
-					embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Grand_Exchange_logo.png/150px-Grand_Exchange_logo.png?88cff");
-					embed.setTimestamp(java.time.Instant.now());
-					embed.addField("Location", player.getLocation().toString(), false);
-					StringBuilder tradeInfo = new StringBuilder();
-					tradeInfo.append("**")
-							.append(player.getDisplayName())
-							.append(" → ")
-							.append(recipient.getDisplayName())
-							.append(":** ")
-							.append(gave1.isEmpty() ? "Nothing" : gave1)
-							.append("\n\n")
-							.append("**")
-							.append(recipient.getDisplayName())
-							.append(" → ")
-							.append(player.getDisplayName())
-							.append(":** ")
-							.append(gave2.isEmpty() ? "Nothing" : gave2);
-					embed.addField("Items Traded", tradeInfo.toString(), false);
-					DiscordBot.INSTANCE.sendTradeLogs(embed.build());
-				}
-				return;
-			}
+                Discord.writeServerSyncMessage("```[TRADE] " + player.getDisplayName() + " gave to " + recipient.getDisplayName() + ": " + gave1 + "```");
+                Discord.writeServerSyncMessage("```[TRADE] " + recipient.getDisplayName() + " gave to " + player.getDisplayName() + ": " + gave2 + "```");
+                return;
+            }
 			stage.setAttachment(player);
 			player.getPA().sendFrame126("Waiting for other player...", 3535);
 			recipient.getPA().sendFrame126("Other player has accepted", 3535);

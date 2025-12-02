@@ -6,10 +6,8 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.zaryx.util.discord.Discord;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -36,23 +34,23 @@ public class BountyChest {
                         new GameItem(1127, 1 + Misc.random(2)),             // Rune Platebody
                         new GameItem(1079, 1 + Misc.random(2)),             // Rune Platelegs
                         new GameItem(1215, 1 + Misc.random(2)),             // Dragon Dagger
-        new GameItem(6679, 10),
-                new GameItem(33220),
-                new GameItem(33220),
-                new GameItem(33221),
-                new GameItem(33221),
-                new GameItem(33222),
-                new GameItem(33222),
-                new GameItem(26219),
-                new GameItem(25739),
-                new GameItem(27275),
-                new GameItem(25731),
-                new GameItem(20997),
-                new GameItem(25398),
-                new GameItem(25389),
-                new GameItem(33226),
-                new GameItem(33226),
-                new GameItem(25401),
+                        new GameItem(6679, 10),
+                        new GameItem(33220),
+                        new GameItem(33220),
+                        new GameItem(33221),
+                        new GameItem(33221),
+                        new GameItem(33222),
+                        new GameItem(33222),
+                        new GameItem(26219),
+                        new GameItem(25739),
+                        new GameItem(27275),
+                        new GameItem(25731),
+                        new GameItem(20997),
+                        new GameItem(25398),
+                        new GameItem(25389),
+                        new GameItem(33226),
+                        new GameItem(33226),
+                        new GameItem(25401),
                         new GameItem(696, 20),
                         new GameItem(2401, 1),
                         new GameItem(24365, 1),
@@ -82,20 +80,20 @@ public class BountyChest {
                         new GameItem(11840, 1 + Misc.random(1)),            // Dragon Boots
                         new GameItem(11732, 1 + Misc.random(1)),             // Dragon Platelegs
 
-        new GameItem(200, 3),   //Guam
-                new GameItem(202, 3),   //Marrentil
-                new GameItem(204, 3),   //Tarromin
-                new GameItem(206, 3),   //Harralander
-                new GameItem(208, 3),   //Ranarr
-                new GameItem(3050, 3),  //Toadflax
-                new GameItem(210, 3),   //Irit
-                new GameItem(212, 3),   //Avantoe
-                new GameItem(214, 3),   //Kwuarm
-                new GameItem(3052, 3),  //Snapdragon
-                new GameItem(216, 3),   //Cadanite
-                new GameItem(2486, 3),  //Lantadyme
-                new GameItem(218, 3),   //Dwarf weed
-                new GameItem(220, 3)    //Torstol
+                        new GameItem(200, 3),   //Guam
+                        new GameItem(202, 3),   //Marrentil
+                        new GameItem(204, 3),   //Tarromin
+                        new GameItem(206, 3),   //Harralander
+                        new GameItem(208, 3),   //Ranarr
+                        new GameItem(3050, 3),  //Toadflax
+                        new GameItem(210, 3),   //Irit
+                        new GameItem(212, 3),   //Avantoe
+                        new GameItem(214, 3),   //Kwuarm
+                        new GameItem(3052, 3),  //Snapdragon
+                        new GameItem(216, 3),   //Cadanite
+                        new GameItem(2486, 3),  //Lantadyme
+                        new GameItem(218, 3),   //Dwarf weed
+                        new GameItem(220, 3)    //Torstol
                 ));
 
         items.put(LootRarity.RARE,
@@ -103,30 +101,30 @@ public class BountyChest {
                         new GameItem(12437, 1),                             // Ancient Relic
                         new GameItem(12831, 1),                             // Blessed Spirit Shield
                         new GameItem(6739, 1),                               // Dragon Axe
-        new GameItem(33800),
-                new GameItem(33802),
-                new GameItem(33804),
-                new GameItem(33810),
-                new GameItem(33800),
-                new GameItem(33802),
-                new GameItem(33804),
-                new GameItem(33810),
-                new GameItem(33186),
-                new GameItem(33187),
-                new GameItem(33188),
-                new GameItem(33183),
-                new GameItem(33009),
-                new GameItem(33001),
-                new GameItem(33002),
-                new GameItem(28919),
-                new GameItem(33806),
-                new GameItem(33808),
-                new GameItem(33814),
-                new GameItem(33005),
-                new GameItem(28583),
-                new GameItem(26939),
+                        new GameItem(33800),
+                        new GameItem(33802),
+                        new GameItem(33804),
+                        new GameItem(33810),
+                        new GameItem(33800),
+                        new GameItem(33802),
+                        new GameItem(33804),
+                        new GameItem(33810),
+                        new GameItem(33186),
+                        new GameItem(33187),
+                        new GameItem(33188),
+                        new GameItem(33183),
+                        new GameItem(33009),
+                        new GameItem(33001),
+                        new GameItem(33002),
+                        new GameItem(28919),
+                        new GameItem(33806),
+                        new GameItem(33808),
+                        new GameItem(33814),
+                        new GameItem(33005),
+                        new GameItem(28583),
+                        new GameItem(26939),
 
-                new GameItem(761),
+                        new GameItem(761),
                         new GameItem(696, 40),  //10m Nomad
 
                         new GameItem(8125, 1),   //5m Nomad
@@ -194,13 +192,6 @@ public class BountyChest {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You unlock the chest and find some " + ItemAssistant.getItemName(item.getId()) + "!");
         PlayerHandler.executeGlobalMessage("@red@" + c.getLoginName() + " @blu@has received: @red@" + ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Bounty Chest!");
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("[ BOUNTY CHEST ]");
-            embed.setColor(Color.GREEN);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField(c.getDisplayName() + " has received: " + ItemAssistant.getItemName(item.getId()) + " from the Bounty Chest!", "\u200B", false);
-            DiscordBot.INSTANCE.writeAchievements99(embed.build());
-        }
+        Discord.writeAchievements("```News: " + c.getLoginName() + "  has received: " + ItemAssistant.getItemName(item.getId()) + " from the Bounty Chest!```");
     }
 }

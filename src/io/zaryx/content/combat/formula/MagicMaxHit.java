@@ -13,8 +13,7 @@ import io.zaryx.model.entity.npc.NPCHandler;
 import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -38,17 +37,17 @@ public class MagicMaxHit {
 		}
 
 
-		if (DiscordBot.getJda() != null) {
-			Guild guild = DiscordBot.getJda().getGuildById(DiscordChannelType.GUILD_ID.getGuildId());
+        if (Discord.getJDA() != null) {
+            Guild guild = Discord.getJDA().getGuildById(1248350477117165598L);
 
-			if (guild != null) {
-				for (Member booster : guild.getBoosters()) {
-					if (c.getDiscordUser() == booster.getUser().getIdLong() && !c.getPosition().inWild()) {
-						modifier += 1.50;
-					}
-				}
-			}
-		}
+            if (guild != null) {
+                for (Member booster : guild.getBoosters()) {
+                    if (c.getDiscordUser() == booster.getUser().getIdLong() && !c.getPosition().inWild()) {
+                        modifier += 1.50;
+                    }
+                }
+            }
+        }
 
 		if (c.npcAttackingIndex > 0 && c.getSlayer().getTask().isPresent()) {
 			NPC npc = NPCHandler.npcs[c.npcAttackingIndex];

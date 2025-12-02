@@ -18,11 +18,9 @@ import io.zaryx.model.entity.player.Right;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.Discord;
 import io.zaryx.util.logging.player.FireOfExchangeLog;
-import net.dv8tion.jda.api.EmbedBuilder;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -125,18 +123,14 @@ public class FireOfExchange {
         }
 
         int itemAmount = c.currentExchangeItemAmount;
-            c.getItems().deleteItem2(c.currentExchangeItem, itemAmount);
+        c.getItems().deleteItem2(c.currentExchangeItem, itemAmount);
         c.foundryPoints += exchangePrice;
         TOTAL_POINTS_EXCHANGED += exchangePrice;
         List<Player> staff = PlayerHandler.nonNullStream().filter(Objects::nonNull).filter(p -> (p.getRights().isOrInherits(Right.STAFF_MANAGER)|| p.getRights().isOrInherits(Right.MODERATOR))).collect(Collectors.toList());
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle(" [ NOMAD ] ");
-            embed.setColor(Color.RED);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Player: ", c.getDisplayName() +" dissolved " + ItemAssistant.getItemName(c.currentExchangeItem) +  " x" + c.currentExchangeItemAmount + "```", false);
-            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-        }
+        Discord.writeIngameEvents("```[NOMAD] "+ c.getDisplayName() +" dissolved " + ItemAssistant.getItemName(c.currentExchangeItem)
+                +  " x" + c.currentExchangeItemAmount + "```");
+        //Discord.writeFoeMessage("[NOMAD] "+ c.getDisplayName() +" dissolved " + ItemAssistant.getItemName(c.currentExchangeItem)
+        //        +  " x" + c.currentExchangeItemAmount + "");
 /*
         if (TOTAL_POINTS_EXCHANGED >= 100000) {
             PlayerHandler.executeGlobalMessage("@bla@[@red@FOUNDRY@bla@]@blu@ Another @red@100,000@blu@ points has been consumed by the foundry!");
@@ -145,11 +139,11 @@ public class FireOfExchange {
 */
 
         if (c.playerXP[Skill.FORTUNE.getId()] < 0) {
-           c.playerLevel[Skill.FORTUNE.getId()] = 99;
-           c.playerXP[Skill.FORTUNE.getId()] = c.getPA().getXPForLevel(99) + 1;
-           c.getPA().refreshSkill(Skill.FORTUNE.getId());
-           c.getPA().setSkillLevel(Skill.FORTUNE.getId(), c.playerLevel[Skill.FORTUNE.getId()], c.playerXP[Skill.FORTUNE.getId()]);
-           c.getPA().levelUp(Skill.FORTUNE.getId());
+            c.playerLevel[Skill.FORTUNE.getId()] = 99;
+            c.playerXP[Skill.FORTUNE.getId()] = c.getPA().getXPForLevel(99) + 1;
+            c.getPA().refreshSkill(Skill.FORTUNE.getId());
+            c.getPA().setSkillLevel(Skill.FORTUNE.getId(), c.playerLevel[Skill.FORTUNE.getId()], c.playerXP[Skill.FORTUNE.getId()]);
+            c.getPA().levelUp(Skill.FORTUNE.getId());
         }
 
         if (c.playerXP[Skill.FORTUNE.getId()] < 200_000_000) {

@@ -6,10 +6,8 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.zaryx.util.discord.Discord;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -88,14 +86,7 @@ public class CorpseCart {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You search the cart and find some "+ ItemAssistant.getItemName(item.getId()) + " @red@bones!");
         PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Corpse Cart!");
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("[ CORPSE CART ]");
-            embed.setColor(Color.GREEN);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField(c.getDisplayName() + " has received: "+ ItemAssistant.getItemName(item.getId()) + " from the Corpse Cart!", "\u200B", false);
-            DiscordBot.INSTANCE.writeAchievements99(embed.build());
-        }
+        Discord.writeAchievements("```News: "+ c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the @red@Corpse Cart!```");
         c.corpseCartClaim = false;
     }
 }

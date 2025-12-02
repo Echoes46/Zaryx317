@@ -30,9 +30,7 @@ import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.EquipmentSet;
 import io.zaryx.util.Misc;
-
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -652,8 +650,8 @@ public class MeleeCombatFormula implements CombatFormula {
 
 //        effectiveLevel += 8.0;
 
-        if (DiscordBot.getJda() != null) {
-            Guild guild = DiscordBot.getJda().getGuildById(DiscordChannelType.GUILD_ID.getGuildId());
+        if (Discord.getJDA() != null) {
+            Guild guild = Discord.getJDA().getGuildById(1248350477117165598L);
 
             if (guild != null) {
                 for (Member booster : guild.getBoosters()) {

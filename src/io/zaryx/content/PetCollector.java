@@ -8,11 +8,8 @@ import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ItemAssistant;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
-import io.zaryx.util.discord.DiscordChannelType;
-import net.dv8tion.jda.api.EmbedBuilder;
+import io.zaryx.util.discord.Discord;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -37,16 +34,9 @@ public class PetCollector {
             return;
         }
         c.getItems().deleteItem2(item, 1);
-       // c.getItems().addItem(995, loo(item));
+        // c.getItems().addItem(995, loo(item));
         new PetCollectorClaim().roll(c);
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle(" PET EXCHANGE ");
-            embed.setColor(Color.RED);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Player: ", c.getDisplayName() +" exchanged " + ItemAssistant.getItemName(item), false);
-            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
-        }
+        Discord.writeIngameEvents("[PET EXCHANGE] "+ c.getDisplayName() +" exchanged " + ItemAssistant.getItemName(item));
         c.sendMessage("You exchange your @blu@" + ItemAssistant.getItemName(item) + "@bla@ for @blu@" + Misc.formatCoins(getExchangeGpRate(item)) + " GP!");
     }
     public static void petCollectorDialogue(Player player) {

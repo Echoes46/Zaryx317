@@ -17,7 +17,7 @@ import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.sql.dailytracker.TrackerType;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
-import io.zaryx.util.discord.DiscordBot;
+import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
@@ -67,16 +67,9 @@ public class Durial321 {
 
             for (String s : map.keySet()) {
                 if (map.containsKey(s) && map.get(s) > 1) {
-                    for
-                    (Player player : PlayerHandler.getPlayers()) {
-                        if (DiscordBot.INSTANCE != null) {
-                            EmbedBuilder embed = new EmbedBuilder();
-                            embed.setTitle("FALLADOR MASSACRE MULTI-LOGGING ");
-                            embed.setThumbnail("https://oldschool.runescape.wiki/images/thumb/Dungeon_entrance_logo.png/150px-Dungeon_entrance_logo.png?1b922");
-                            embed.setColor(Color.BLUE);
-                            embed.setTimestamp(java.time.Instant.now());
-                            embed.addField("Player: ", player.getDisplayName() + " has tried to take more than 2 account's to the Fallador Massacre!", false);
-                            DiscordBot.INSTANCE.sendStaffLogs(embed.build());
+                    for (Player player : PlayerHandler.getPlayers()) {
+                        if (player.getUUID().equalsIgnoreCase(s)) {
+                            Discord.writeServerSyncMessage("```[Durial321] " + player.getDisplayName() + " has tried to take more than 2 account's there!```");
                         }
                     }
                 }
@@ -100,16 +93,7 @@ public class Durial321 {
 
     public static void init() {
         PlayerHandler.executeGlobalMessage("@cr22@[@red@Durial321@bla@] @red@The Falador Massacre event is active!@cr22@ ::fally");
-        if (DiscordBot.INSTANCE != null) {
-            EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("[ FALADOR MASSACRE ]");
-            embed.setImage("https://oldschool.runescape.wiki/images/World_666_event.png?00276");
-            embed.setColor(Color.GREEN);
-            embed.setTimestamp(java.time.Instant.now());
-            embed.addField("Durial321 Has just spawned inside Falador! ::fally!", "\u200B", false);
-            DiscordBot.INSTANCE.sendWorldEvent(embed.build());
-            //DiscordBot.INSTANCE.sendMessage(DiscordChannelType.WORLD_EVENTS, "@everyone");
-        }
+        Discord.writeIngameEvents("[Durial321] Has just spawned inside Falador! ::fally");
         TrackerType.DURIAL.addTrackerData(1);
         spawned = true;
         alive = true;
