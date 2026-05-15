@@ -12,7 +12,7 @@ public class AchieveBonus implements HesporiBonus {
     public void activate(Player player) {
         Hespori.activeAchieveSeed = true;
         Hespori.ACHIEVE_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Hespori Seed has sprouted and is granting 1 hours, 2x achievement points!``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```The Hespori Seed has sprouted and is granting 1 hours, 2x achievement points!```");
         PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] The Hespori Seed has sprouted and is granting 1 hours, 2x achievement points!");
         QuestTab.updateAllQuestTabs();
     }

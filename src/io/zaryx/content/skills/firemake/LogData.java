@@ -23,7 +23,9 @@ public enum LogData {
 	BRUMA_ROOT(20696, 1, 135),
 	JUNIPER(13355, 1, 135),
 	DREAM(9067, 40, 30),
-	BRUMA_LOG(20695, 1, 60);
+	BRUMA_LOG(20695, 1, 60),
+    BLOOD_MONEY(13307,1,1),
+    BLOOD_MONEY2(2484,1,1);
 
 	private final int logId;
     private final int levelRequirement;

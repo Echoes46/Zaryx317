@@ -87,7 +87,8 @@ public class AttackNpcCheck {
             return false;
         }
 
-        if (Boundary.isIn(c, Boundary.RAIDROOMS) || (Boundary.isIn(c, Boundary.TOBROOMS))) {
+        if ((Boundary.isIn(c, Boundary.RAIDROOMS) || Boundary.isIn(c, Boundary.TOBROOMS))
+                && hasTricksterEquipped) {
 
             c.sendMessage("@red@You must take off trickster to attack this npc in raids!");
             return false;

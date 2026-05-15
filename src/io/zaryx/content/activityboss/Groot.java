@@ -143,7 +143,7 @@ public class Groot {
         alive = true;
         spawned = true;
         announce();
-        Discord.writeIngameEvents("```[Groot] has spawned!, use ;;groot to access him!``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```[Groot] has spawned!, use ;;groot to access him!```");
         TrackerType.GROOT.addTrackerData(1);
     }
 

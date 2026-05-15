@@ -99,7 +99,7 @@ public class ShootingStars {
         progress = true;
 
 
-        Discord.writeIngameEvents("```[Shooting Star] There's been a sighting of a star around "+getLocation()+ "! ::star``` <@&1417604731118948443>");
+        Discord.writeIngameEvents("```[Shooting Star] There's been a sighting of a star around "+getLocation()+ "! ::star```");
         new Broadcast("<img=43> There's been a sighting of a star around "+getLocation()+"! ::star").submit();
         addStar();
         timeRemaining = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30);

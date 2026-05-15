@@ -13,7 +13,7 @@ public class AttasBonus implements HesporiBonus {
     @Override
     public void activate(Player player) {
         Wogw.EXPERIENCE_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Attas has sprouted and is granting 1 hours bonus xp!``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```The Attas has sprouted and is granting 1 hours bonus xp!```");
         PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] The Attas has sprouted and is granting 1 hours bonus xp!");
         QuestTab.updateAllQuestTabs();
     }

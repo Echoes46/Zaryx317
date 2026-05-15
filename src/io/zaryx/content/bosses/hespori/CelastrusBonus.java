@@ -12,7 +12,7 @@ public class CelastrusBonus implements HesporiBonus {
     public void activate(Player player) {
         Hespori.activeCelastrusSeed = true;
         Hespori.CELASTRUS_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Celastrus has sprouted and is granting 1 hour of 2x Brimstone keys!``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```The Celastrus has sprouted and is granting 1 hour of 2x Brimstone keys!```");
         PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] @red@" + player.getDisplayNameFormatted()+ " @bla@planted a Celastrus seed which" +
                 " granted @red@1 hour of 2x Brimstone keys!");
         QuestTab.updateAllQuestTabs();

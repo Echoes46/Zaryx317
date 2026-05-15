@@ -77,6 +77,53 @@ public class ItemOnObject implements PacketType {
 		c.setTickable(new WalkToTickable(c, object.getPosition(), size.getX(), size.getY(), player1 -> {
 
 			c.getFarming().handleItemOnObject(itemId, objectId, objectX, objectY);
+            // Rotten Potato on Object — permanently removes the object
+            if (itemId == 5733 && c.getRights().getPrimary().isManagement()) {
+                Server.getGlobalObjects().remove(objectId, objectX, objectY, c.heightLevel);
+                java.util.Arrays.stream(io.zaryx.model.entity.player.PlayerHandler.players).forEach(p -> {
+                    if (p != null) p.getPA().object(-1, objectX, objectY, 0, 10, true);
+                });
+                // Remove from cfg file
+                try {
+                    String path = Server.getDataDirectory() + "/cfg/obj/global_objects.cfg";
+                    java.io.File file = new java.io.File(path);
+                    if (file.exists()) {
+                        java.util.List<String> lines = new java.util.ArrayList<>();
+                        boolean removed = false;
+                        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                if (!line.trim().isEmpty() && !line.trim().startsWith("//")) {
+                                    String[] parts = line.trim().split("\t");
+                                    if (parts.length >= 4) {
+                                        try {
+                                            if (Integer.parseInt(parts[0]) == objectId && Integer.parseInt(parts[1]) == objectX
+                                                    && Integer.parseInt(parts[2]) == objectY && Integer.parseInt(parts[3]) == c.heightLevel) {
+                                                removed = true;
+                                                continue;
+                                            }
+                                        } catch (NumberFormatException ignored) {}
+                                    }
+                                }
+                                lines.add(line);
+                            }
+                        }
+                        if (removed) {
+                            try (java.io.BufferedWriter writer = new java.io.BufferedWriter(new java.io.FileWriter(file))) {
+                                for (int i = 0; i < lines.size(); i++) {
+                                    writer.write(lines.get(i));
+                                    if (i < lines.size() - 1) writer.newLine();
+                                }
+                            }
+                        }
+                        c.sendMessage(removed ? "@gre@Object " + objectId + " permanently removed!" : "@yel@Object " + objectId + " removed visually");
+                    }
+                } catch (Exception e) {
+                    c.sendMessage("Error: " + e.getMessage());
+                }
+                return;
+            }
+
 			switch (c.objectId) {
 
 				case 40949:

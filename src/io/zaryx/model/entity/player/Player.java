@@ -244,6 +244,9 @@ public class Player extends Entity {
     public int[] bookofdarkness = new int[4];
 
     @Getter @Setter
+    private boolean noclip;
+
+    @Getter @Setter
     public boolean startedFaction;
 
     @Getter @Setter

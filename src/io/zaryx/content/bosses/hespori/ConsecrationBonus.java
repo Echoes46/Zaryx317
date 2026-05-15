@@ -12,7 +12,7 @@ public class ConsecrationBonus implements HesporiBonus {
     @Override
     public void activate(Player player) {
         Wogw.PC_POINTS_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Consecration has sprouted and is granting 1 hour of +5 PC points!``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```The Consecration has sprouted and is granting 1 hour of +5 PC points!```");
         PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] @blu@" + player.getDisplayNameFormatted() + " @bla@sprouted the Consecration and it is granting 1 hr of +5 PC points!");
         QuestTab.updateAllQuestTabs();
     }

@@ -97,7 +97,7 @@ public class CrystalTree {
         progress = true;
 
 
-        Discord.writeIngameEvents("```[Crystal Tree] There's been a sighting of a crystal tree around "+getLocation()+ "! ::tree``` <@&1417604931309011017>");
+        Discord.writeIngameEvents("```[Crystal Tree] There's been a sighting of a crystal tree around "+getLocation()+ "! ::tree```");
         new Broadcast("<img=43> There's been a sighting of a crystal tree around "+getLocation()+"! ::tree").submit();
         addWildCrystalTree();
         timeRemaining = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30);

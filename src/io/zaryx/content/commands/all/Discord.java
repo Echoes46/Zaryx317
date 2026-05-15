@@ -19,7 +19,7 @@ public class Discord extends Command {
 
 	@Override
 	public void execute(Player player, String commandName, String input) {
-		player.getPA().sendFrame126("https://discord.gg/Zaryx", 12000);
+		player.getPA().sendFrame126("https://discord.gg/KbcdQJC3UU", 12000);
 		
 	}
 

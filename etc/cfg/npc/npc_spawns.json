@@ -27,15 +27,6 @@
     "walkingType": "WALK"
   },
   {
-    "id": 2897,
-    "position": {
-      "x": 3086,
-      "y": 3495,
-      "height": 0
-    },
-    "walkingType": "FACE_EAST"
-  },
-  {
     "id": 2791,
     "position": {
       "x": 1969,

@@ -142,7 +142,7 @@ public class vboss extends Command {
     }
 
     public static void announce() {
-        Discord.writeIngameEvents("```[VOTE BOSS] the vote boss has spawned!, use ::vb or ::db``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```[VOTE BOSS] the vote boss has spawned!, use ::vb or ::db```");
         new Broadcast("<img=11> [VOTE BOSS] the vote boss has spawned!, use ::vb or ::db").addTeleport(new Position(2651, 3926, 0)).copyMessageToChatbox().submit();
     }
 

@@ -144,7 +144,7 @@ public class dboss extends Command {
         donaboss.getHealth().setMaximumHealth(3000);
         donaboss.getHealth().reset();
         announce();
-        Discord.writeIngameEvents("```[DONO BOSS] the dono boss [Galvek] has spawned!, use ::vb or ::db``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```[DONO BOSS] the dono boss [Galvek] has spawned!, use ::vb or ::db```");
     }
 
     public static void announce() {

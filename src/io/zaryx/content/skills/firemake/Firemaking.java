@@ -40,7 +40,7 @@ public class Firemaking {
 			return;
 		}
 
-		if (log == null) {
+		if (log == null)  {
 			player.sendMessage("You can't just go lighting random items on fire!");
 			return;
 		}

@@ -18,6 +18,7 @@ public class PathFinder {
 	}
 
 	private static boolean walkable(Entity c, int curAbsX, int curAbsY, int height, Direction direction) {
+        if (c instanceof Player && ((Player) c).isNoclip()) return true;
 		switch (direction) {
 			case SOUTH:
 				return !c.getRegionProvider().isOccupiedByFullBlockNpc(curAbsX, curAbsY - 1, height)

@@ -12,7 +12,7 @@ public class NoxiferBonus implements HesporiBonus {
     public void activate(Player player) {
         Hespori.activeNoxiferSeed = true;
         Hespori.NOXIFER_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Noxifer has sprouted and is granting 1 hour of 2x Slayer points!``` <@&1248350477154783321>");
+        Discord.writeIngameEvents("```The Noxifer has sprouted and is granting 1 hour of 2x Slayer points!```");
         PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] @red@" + player.getDisplayNameFormatted() + " @bla@planted a Noxifer seed which" +
                 " granted @red@1 hour of 2x Slayer points.");
         QuestTab.updateAllQuestTabs();

@@ -118,6 +118,7 @@ public class ServerStartup {
         CollectionLog.init();
         Region.load();
         Server.getGlobalObjects().loadGlobalObjectFile();
+        loadWalkableTiles();
         Discord.init();
         DiscordIntegration.loadConnectedAccounts();
         Doors.getSingleton().load();
@@ -171,5 +172,38 @@ public class ServerStartup {
 
 
     }
-
+    private static void loadWalkableTiles() {
+        String path = Server.getDataDirectory() + "/cfg/obj/walkable_tiles.cfg";
+        java.io.File file = new java.io.File(path);
+        if (!file.exists()) return;
+        int count = 0;
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.trim().isEmpty() || line.trim().startsWith("//")) continue;
+                String[] parts = line.trim().split("\t");
+                if (parts.length < 4) continue;
+                try {
+                    int x = Integer.parseInt(parts[0]);
+                    int y = Integer.parseInt(parts[1]);
+                    int z = Integer.parseInt(parts[2]);
+                    String state = parts[3];
+                    io.zaryx.model.collisionmap.Region region = io.zaryx.model.collisionmap.RegionProvider.getGlobal().get(x, y);
+                    if (region != null) {
+                        if (state.equals("walkable")) {
+                            region.setClipToZero(x, y, z);
+                        } else if (state.equals("blocked")) {
+                            region.addClip(x, y, z, 0x200000);
+                        }
+                        count++;
+                    }
+                } catch (NumberFormatException ignored) {}
+            }
+        } catch (Exception e) {
+            System.out.println("[WALKABLE] Error loading walkable tiles: " + e.getMessage());
+        }
+        if (count > 0) {
+            System.out.println("[WALKABLE] Loaded " + count + " custom walkable tiles.");
+        }
+    }
 }
