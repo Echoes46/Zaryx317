@@ -232,7 +232,9 @@ public class HourlyRewardBox {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You stick your hand in the chest and pull an item out of the chest.");
         PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@loyalty chest!");
-        Discord.writeAchievements("```News: "+ c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the loyalty chest!```");
+        Discord.writeAchievements("News: " + c.getLoginName()
+                + " has received: " + ItemAssistant.getItemName(item.getId())
+                + " from the loyalty chest!");
         c.loyaltyChestClaimable = false;
     }
 }

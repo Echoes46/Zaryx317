@@ -209,7 +209,7 @@ public class EnterAmountInput implements PacketType {
 			return;
 		}
 		if (c.attackSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}
@@ -237,7 +237,7 @@ public class EnterAmountInput implements PacketType {
 			}
 		}
 		if (c.defenceSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}
@@ -266,7 +266,7 @@ public class EnterAmountInput implements PacketType {
 			}
 		}
 		if (c.strengthSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}
@@ -295,7 +295,7 @@ public class EnterAmountInput implements PacketType {
 			}
 		}
 		if (c.healthSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}
@@ -324,7 +324,7 @@ public class EnterAmountInput implements PacketType {
 			}
 		}
 		if (c.rangeSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}
@@ -353,7 +353,7 @@ public class EnterAmountInput implements PacketType {
 			}
 		}
 		if (c.prayerSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}
@@ -384,7 +384,7 @@ public class EnterAmountInput implements PacketType {
 			}
 		}
 		if (c.mageSkill) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
 				c.sendMessage("You cannot change levels here.");
 				return;
 			}

@@ -1,5 +1,7 @@
 package io.zaryx.model.entity.npc.drops;
 
+// Updated by Khaos
+
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -1069,7 +1071,7 @@ public class DropManager {
 
         Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(npcId)).findFirst();
         group.ifPresent(g -> {
-            double modifier = getModifier1(player);
+            double modifier = getModifier(player);
 
             List<GameItem> drops = g.access(player, npc, modifier, repeats, npcId);
             for (GameItem item : drops) {
@@ -1083,130 +1085,48 @@ public class DropManager {
 
     public static double getModifier(Player player) {
         final double cap = 0.90;
-        double modifier = 0;
-        // Perks
+        double modifier = 0.0;
+
         final PerkSystem perkSystem = player.getPerkSytem();
         final List<GameItem> perkItems = perkSystem.gameItems;
-        if (perkItems.contains(GameItem.get(33112))) modifier -= 0.20;
-        if (perkItems.contains(GameItem.get(33108))) modifier -= 0.10;
 
-        // Game modes
-        if (player.experienceModeEquals(ExpModeType.OneTimes)) modifier -= 0.10;
-        if (player.experienceModeEquals(ExpModeType.FiveTimes)) modifier -= 0.07;//3%
-        if (player.getMode().getType().equals(ModeType.WILDYMAN)) modifier -= 0.25;
-        if (player.getMode().getType().equals(ModeType.GROUP_WILDYMAN)) modifier -= 0.25;
+        /*
+         * Drop-rate perks.
+         * These are checked by item id instead of GameItem object equality so removing/adding
+         * perks updates the modifier correctly as soon as PerkSystem.gameItems changes.
+         *
+         * 33108 = Swedish Swindle = 10% drop-rate boost
+         * 33112 = Pot of Gold = 20% drop-rate boost
+         *
+         * They do not stack with each other. Pot of Gold wins if both somehow exist.
+         */
+        boolean hasSwedishSwindle = perkItems.stream().anyMatch(item -> item.getId() == 33108);
+        boolean hasPotOfGold = perkItems.stream().anyMatch(item -> item.getId() == 33112);
 
-        if (player.isSaradominFaction()) modifier -= 0.10;
-
-
-        if (Wogw._20_PERCENT_DROP_RATE_TIMER > 0)  modifier -= 0.20;
-
-
-
-        //sets
-        if (player.azirset()) modifier -= 0.10;
-        if (player.forceset()) modifier -= 0.10;
-        if (player.reaperset()) modifier -= 0.10;
-
-
-        // equipment
-        if (player.hasItemEquipped(Items.RING_OF_WEALTH)) modifier -= 0.03;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I)) modifier -= 0.05;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I1)) modifier -= 0.07;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I2)) modifier -= 0.09;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I3)) modifier -= 0.11;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I4)) modifier -= 0.12;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I5)) modifier -= 0.15;
-        else if (player.hasItemEquipped(25975)) modifier -= 0.18;
-        else if (player.hasItemEquipped(26939)) modifier -= 0.18;
-            //crown of luck
-        else if (player.hasItemEquipped(33238)) modifier -= 0.90;
-
-
-        else if (player.hasItemEquipped(20788)) modifier -= 0.05;
-
-
-        else if (player.hasItemEquipped(26314)) modifier -= 0.25;
-        else if (player.hasItemEquipped(20787)) modifier -= 0.05;
-        else if (player.hasItemEquipped(20786)) modifier -= 0.05;
-        else if (player.hasItemEquipped(13069)) modifier -= 0.02;
-        else if ((player.hasItemEquipped(33056) || player.hasItemEquipped(23859))) modifier -= 0.05;
-
-        // inventory | equipment
-        if (player.getItems().hasItemOnOrInventory(21126)) modifier -= 0.10; // ring of pursuit
-
-        // lil' Descructor / Dark Roc / Cash Money
-        if (player.hasActivePet(25350)
-                ||  player.hasActivePet(30022)
-                || player.hasActivePet(30121)
-                || player.hasActivePet(27354)
-                || player.hasActivePet(27383)
-                || player.hasActivePet(27352)
-                || player.hasActivePet(30122)) modifier -= 0.20;
-
-        // Roc / Dark k'kik / Dark Corrupt Beast
-        if (player.hasActivePet(30114)
-                || player.hasActivePet(30021)
-                || player.hasActivePet(30120)
-                || player.hasActivePet(25348)) modifier -= 0.10;
-
-        if (player.hasActivePet(30014)
-                || player.hasActivePet(33159)
-                || player.hasActivePet(23760)
-                || player.hasActivePet(10533) // Guardian Angel
-                || player.hasActivePet(30020)) modifier -= 0.05;
-
-        // Misc boosts
-        if (VotePanelManager.hasDropBoost(player)) modifier -= 0.10;//10%
-        if (Hespori.KRONOS_TIMER > 0) modifier += 0.10;
-
-        // Location based boosts
-        if (player.isSkulled && Boundary.isIn(player, Boundary.REV_CAVE)) modifier -= 0.10;
-        // Donation Rank
-        if (player.getRights().contains(Right.Almighty_Donator)) modifier -= 0.15;
-        else if (player.getRights().contains(Right.Apex_Donator)) modifier -= 0.11;
-        else if (player.getRights().contains(Right.Platinum_Donator)) modifier -= 0.10;
-        else if (player.getRights().contains(Right.Gilded_Donator)) modifier -= 0.09;
-        else if (player.getRights().contains(Right.Supreme_Donator)) modifier -= 0.08;
-        else if (player.getRights().contains(Right.Major_Donator)) modifier -= 0.07;
-        else if (player.getRights().contains(Right.Extreme_Donator)) modifier -= 0.06;
-        else if (player.getRights().contains(Right.Great_Donator)) modifier -= 0.05;
-
-
-
-        if (modifier <= cap) modifier = cap;
-        return modifier;
-    }
-
-    public static double getModifier1(Player player) {
-        final double cap = 0.90;
-        double modifier = 0;
-        // Perks
-        final PerkSystem perkSystem = player.getPerkSytem();
-        final List<GameItem> perkItems = perkSystem.gameItems;
-        if (perkItems.contains(GameItem.get(33112))) modifier += 0.20;
-        if (perkItems.contains(GameItem.get(33108))) modifier += 0.10;
+        if (hasPotOfGold) {
+            modifier += 0.20;
+        } else if (hasSwedishSwindle) {
+            modifier += 0.10;
+        }
 
         // Game modes
         if (player.experienceModeEquals(ExpModeType.OneTimes)) modifier += 0.10;
-        if (player.experienceModeEquals(ExpModeType.FiveTimes)) modifier += 0.07;//3%
+        if (player.experienceModeEquals(ExpModeType.FiveTimes)) modifier += 0.07;
         if (player.getMode().getType().equals(ModeType.WILDYMAN)) modifier += 0.25;
         if (player.getMode().getType().equals(ModeType.GROUP_WILDYMAN)) modifier += 0.25;
 
+        // Faction
+        if (player.isSaradominFaction()) modifier += 0.10;
 
-        //sets
+        // World boost
+        if (Wogw._20_PERCENT_DROP_RATE_TIMER > 0) modifier += 0.20;
+
+        // Sets
         if (player.azirset()) modifier += 0.10;
         if (player.forceset()) modifier += 0.10;
         if (player.reaperset()) modifier += 0.10;
 
-
-
-        if (player.isSaradominFaction()) modifier += 0.10;
-        if (Wogw._20_PERCENT_DROP_RATE_TIMER > 0)  modifier += 0.20;
-
-
-
-        // equipment
+        // Equipment
         if (player.hasItemEquipped(Items.RING_OF_WEALTH)) modifier += 0.03;
         else if (player.hasItemEquipped(RING_OF_WEALTH_I)) modifier += 0.05;
         else if (player.hasItemEquipped(RING_OF_WEALTH_I1)) modifier += 0.07;
@@ -1217,50 +1137,52 @@ public class DropManager {
         else if (player.hasItemEquipped(25975)) modifier += 0.18;
         else if (player.hasItemEquipped(26939)) modifier += 0.18;
         else if (player.hasItemEquipped(33238)) modifier += 0.90;
-
-
         else if (player.hasItemEquipped(20788)) modifier += 0.05;
-
-
         else if (player.hasItemEquipped(26314)) modifier += 0.25;
         else if (player.hasItemEquipped(20787)) modifier += 0.05;
         else if (player.hasItemEquipped(20786)) modifier += 0.05;
         else if (player.hasItemEquipped(13069)) modifier += 0.02;
-        else if ((player.hasItemEquipped(33056) || player.hasItemEquipped(23859))) modifier += 0.05;
+        else if (player.hasItemEquipped(33056) || player.hasItemEquipped(23859)) modifier += 0.05;
 
-        // inventory | equipment
-        if (player.getItems().hasItemOnOrInventory(21126)) modifier += 0.10; // ring of pursuit
+        // Inventory / equipment
+        if (player.getItems().hasItemOnOrInventory(21126)) modifier += 0.10; // Ring of pursuit
 
-        // lil' Descructor / Dark Roc / Cash Money
+        // Pets: highest tiers
         if (player.hasActivePet(25350)
                 || player.hasActivePet(30022)
                 || player.hasActivePet(30121)
                 || player.hasActivePet(27354)
                 || player.hasActivePet(27383)
                 || player.hasActivePet(27352)
-                || player.hasActivePet(30122)) modifier += 0.20;
+                || player.hasActivePet(30122)) {
+            modifier += 0.20;
+        }
 
-        // Roc / Dark k'kik / Dark Corrupt Beast
+        // Pets: mid tiers
         if (player.hasActivePet(30114)
                 || player.hasActivePet(30021)
                 || player.hasActivePet(30120)
-                || player.hasActivePet(25348)) modifier += 0.10;
+                || player.hasActivePet(25348)) {
+            modifier += 0.10;
+        }
 
+        // Pets: low tiers
         if (player.hasActivePet(30014)
                 || player.hasActivePet(33159)
                 || player.hasActivePet(23760)
-                || player.hasActivePet(10533) // Guardian Angel
-                || player.hasActivePet(30020)) modifier += 0.05;
+                || player.hasActivePet(10533)
+                || player.hasActivePet(30020)) {
+            modifier += 0.05;
+        }
 
         // Misc boosts
-        if (VotePanelManager.hasDropBoost(player)) modifier += 0.10;//10%
+        if (VotePanelManager.hasDropBoost(player)) modifier += 0.10;
         if (Hespori.KRONOS_TIMER > 0) modifier += 0.10;
 
         // Location based boosts
         if (player.isSkulled && Boundary.isIn(player, Boundary.REV_CAVE)) modifier += 0.10;
 
-
-        // Donation Rank
+        // Donation rank
         if (player.getRights().contains(Right.Almighty_Donator)) modifier += 0.15;
         else if (player.getRights().contains(Right.Apex_Donator)) modifier += 0.11;
         else if (player.getRights().contains(Right.Platinum_Donator)) modifier += 0.10;
@@ -1270,9 +1192,7 @@ public class DropManager {
         else if (player.getRights().contains(Right.Extreme_Donator)) modifier += 0.06;
         else if (player.getRights().contains(Right.Great_Donator)) modifier += 0.05;
 
-        if (modifier >= cap) modifier = cap;
-
-        return modifier;
+        return Math.min(modifier, cap);
     }
 
     public void clearSearch(Player player) {
@@ -1525,7 +1445,7 @@ public class DropManager {
 
             player.lastDropTableSelected = System.currentTimeMillis();
 
-            double playerDropRate = getModifier1(player);
+            double playerDropRate = getModifier(player);
             double modifier = 1.0 + playerDropRate;  // 1.0 at no drop rate, scaling with playerDropRate
 
             player.getPA().resetScrollBar(DROP_TABLE__CONTAINER_INTERFACE_ID);
@@ -1660,16 +1580,19 @@ public class DropManager {
                 item.changeDrop(537, item.getAmount());
             }
         }
+
         if (player.getItems().isWearingItem(21816) && player.absorption && item.getId() == 21820 && (IntStream.of(revs).anyMatch(id -> id == npcId))) {
             int amount = item.getAmount();
             player.braceletIncrease(amount);
             item.changeDrop(-1, 1);
             player.sendMessage("@red@The bracelet has collected some ether for you.");
         }
+
 //		if (player.getItems().isWearingItem(21816) && player.absorption == false && item.getId() == 21820 && (IntStream.of(revs).anyMatch(id -> id == npcId))) {
 //			int ether = 6 + Misc.random(6);
 //			item.changeDrop(21820, ether); //basically just changes coins for ether
 //		}
+
         if (item.getId() == 995 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(995, item.getAmount());
@@ -1677,6 +1600,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the dropped @whi@ Coins");
             }
         }
+
         if (item.getId() == 10832 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(10832, item.getAmount());
@@ -1684,6 +1608,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the @whi@ Coin Bag");
             }
         }
+
         if (item.getId() == 10833 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(10833, item.getAmount());
@@ -1691,6 +1616,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the @whi@ Coin Bag");
             }
         }
+
         if (item.getId() == 10834 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(10834, item.getAmount());
@@ -1698,6 +1624,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the @whi@ Coin Bag");
             }
         }
+
         if (item.getId() == 10835 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(10835, item.getAmount());
@@ -1705,6 +1632,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the @whi@ Coin Bag");
             }
         }
+
         if (item.getId() == 11681 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(11681, item.getAmount());
@@ -1720,6 +1648,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the dropped @whi@ Blood Money");
             }
         }
+
         if (item.getId() == 696 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(696, item.getAmount());
@@ -1727,6 +1656,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the dropped @whi@ Upgrade Ticket");
             }
         }
+
         if (item.getId() == 693 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(693, item.getAmount());
@@ -1734,6 +1664,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the dropped @whi@ Upgrade Ticket");
             }
         }
+
         if (item.getId() == 692 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(692, item.getAmount());
@@ -1741,6 +1672,7 @@ public class DropManager {
                 player.sendMessage("@red@The ring of wealth has collected the dropped @whi@ Upgrade Ticket");
             }
         }
+
         if (item.getId() == 691 && player.collectCoins && (player.getItems().freeSlots() > 0 || player.getItems().playerHasItem(995))) {
             if ((player.getItems().isWearingItem(12785)) || (player.getItems().isWearingItem(26939)) || (player.getItems().isWearingItem(2572)) || (player.getItems().isWearingItem(26314)) || (player.getItems().isWearingItem(20790)) || (player.getItems().isWearingItem(20789)) || (player.getItems().isWearingItem(20788)) || (player.getItems().isWearingItem(20787)) || (player.getItems().isWearingItem(20786))) {
                 player.getItems().addItem(691, item.getAmount());
@@ -1757,7 +1689,6 @@ public class DropManager {
             }
         }
 
-
         if (item.getId() == 6529) {
             if (player.getRechargeItems().hasItem(11136)) {
                 item.changeDrop(6529, (int) (item.getAmount() * 1.20));
@@ -1772,16 +1703,18 @@ public class DropManager {
                 item.changeDrop(6529, (int) (item.getAmount() * 1.90));
             }
         }
+
         if (item.getId() == 6729 && player.getRechargeItems().hasItem(13132)) {
             item.changeDrop(6730, item.getAmount());
         }
 
-        if(player.playerEquipment[Player.playerHands] == 22975) {
+        if (player.playerEquipment[Player.playerHands] == 22975) {
             if (item.getId() == 22988 || item.getId() == 22971 || item.getId() == 22973 &&
                     player.getItems().getItemCount(22988, true) > 0 || player.getItems().getItemCount(22971, true) > 0
-                    || player.getItems().getItemCount(22973, true) > 0 || player.getItems().getItemCount(22969, true) > 0) { //if they got all of the items, it just give them there usual item id
+                    || player.getItems().getItemCount(22973, true) > 0 || player.getItems().getItemCount(22969, true) > 0) {
                 item.changeDrop(item.getId(), item.getAmount());
             }
+
             if (item.getId() == 22988 && player.getItems().getItemCount(22988, true) > 0 &&
                     player.getItems().getItemCount(22971, false) > 0 && player.getItems().getItemCount(22969, true) > 0 && player.getItems().getItemCount(22973, true) > 0) {
                 item.changeDrop(22971, item.getAmount());
@@ -1789,12 +1722,13 @@ public class DropManager {
             } else if (item.getId() == 22988 && player.getItems().getItemCount(22988, true) > 0 &&
                     player.getItems().getItemCount(22971, true) > 0 && player.getItems().getItemCount(22969, true) > 0 && player.getItems().getItemCount(22973, false) > 0) {
                 item.changeDrop(22973, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra tail for the Hydra fang."); //thats the hydra tail drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra tail for the Hydra fang.");
             } else if (item.getId() == 22988 && player.getItems().getItemCount(22988, true) > 0 &&
                     player.getItems().getItemCount(22971, true) > 0 && player.getItems().getItemCount(22969, false) > 0 && player.getItems().getItemCount(22973, true) > 0) {
                 item.changeDrop(22969, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra tail for the Hydra heart."); //thats the hydra tail drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra tail for the Hydra heart.");
             }
+
             if (item.getId() == 22971 && player.getItems().getItemCount(22971, true) > 0 &&
                     player.getItems().getItemCount(22988, true) > 0 && player.getItems().getItemCount(22969, true) > 0 && player.getItems().getItemCount(22973, false) > 0) {
                 item.changeDrop(22973, item.getAmount());
@@ -1802,12 +1736,13 @@ public class DropManager {
             } else if (item.getId() == 22971 && player.getItems().getItemCount(22971, true) > 0 &&
                     player.getItems().getItemCount(22988, false) > 0 && player.getItems().getItemCount(22969, true) > 0 && player.getItems().getItemCount(22973, true) > 0) {
                 item.changeDrop(22988, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra fang for the Hydra tail."); //thats the hydra fang drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra fang for the Hydra tail.");
             } else if (item.getId() == 22971 && player.getItems().getItemCount(22971, true) > 0 &&
                     player.getItems().getItemCount(22988, true) > 0 && player.getItems().getItemCount(22969, false) > 0 && player.getItems().getItemCount(22973, true) > 0) {
                 item.changeDrop(22969, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra fang for the Hydra heart."); //thats the hydra fang drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra fang for the Hydra heart.");
             }
+
             if (item.getId() == 22973 && player.getItems().getItemCount(22973, true) > 0 && player.getItems().getItemCount(22969, true) > 0 &&
                     player.getItems().getItemCount(22988, true) > 0 && player.getItems().getItemCount(22971, false) > 0) {
                 item.changeDrop(22971, item.getAmount());
@@ -1815,12 +1750,13 @@ public class DropManager {
             } else if (item.getId() == 22973 && player.getItems().getItemCount(22973, true) > 0 && player.getItems().getItemCount(22969, true) > 0 &&
                     player.getItems().getItemCount(22988, false) > 0 && player.getItems().getItemCount(22971, true) > 0) {
                 item.changeDrop(22988, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra eye for the Hydra tail."); //thats the hydra eye drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra eye for the Hydra tail.");
             } else if (item.getId() == 22973 && player.getItems().getItemCount(22973, true) > 0 && player.getItems().getItemCount(22969, false) > 0 &&
                     player.getItems().getItemCount(22988, true) > 0 && player.getItems().getItemCount(22971, true) > 0) {
                 item.changeDrop(22969, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra eye for the Hydra heart."); //thats the hydra eye drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra eye for the Hydra heart.");
             }
+
             if (item.getId() == 22969 && player.getItems().getItemCount(22973, true) > 0 && player.getItems().getItemCount(22969, true) > 0 &&
                     player.getItems().getItemCount(22988, true) > 0 && player.getItems().getItemCount(22971, false) > 0) {
                 item.changeDrop(22971, item.getAmount());
@@ -1828,15 +1764,54 @@ public class DropManager {
             } else if (item.getId() == 22969 && player.getItems().getItemCount(22971, true) > 0 && player.getItems().getItemCount(22969, true) > 0 &&
                     player.getItems().getItemCount(22988, false) > 0 && player.getItems().getItemCount(22971, true) > 0) {
                 item.changeDrop(22988, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra heart for the Hydra tail."); //thats the hydra eye drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra heart for the Hydra tail.");
             } else if (item.getId() == 22969 && player.getItems().getItemCount(22971, true) > 0 && player.getItems().getItemCount(22969, true) > 0 &&
                     player.getItems().getItemCount(22988, true) > 0 && player.getItems().getItemCount(22973, false) > 0) {
                 item.changeDrop(22973, item.getAmount());
-                player.sendMessage("@red@The Brimstone ring has swapped the Hydra heart for the Hydra eye."); //thats the hydra eye drop done
+                player.sendMessage("@red@The Brimstone ring has swapped the Hydra heart for the Hydra eye.");
             }
         }
+
         if (item.getId() == 13233 && !Boundary.isIn(player, Boundary.CERBERUS_BOSSROOMS)) {
             player.sendMessage("@red@Something hot drops from the body of your vanquished foe");
         }
+
+        /*
+         * Updated by Khaos
+         * Collection log support.
+         *
+         * This runs after all item.changeDrop(...) logic so the final item ID/amount
+         * is what gets logged. It also avoids logging items that were collected
+         * directly by a ring/perk and changed to -1.
+         */
+        /*
+         * Updated by Khaos
+         * Collection log support.
+         *
+         * Only logs items that are actually part of this NPC's collection log.
+         * This prevents common/resource drops from being added.
+         */
+        if (item.getId() > 0 && item.getAmount() > 0 && isCollectionLogDrop(npcId, item.getId())) {
+            player.getCollectionLog().handleDrop(player, npcId, item.getId(), item.getAmount());
+        }
+    }
+    /**
+     * Updated by Khaos
+     * Only allows items shown on the NPC's collection log to be logged.
+     */
+    private boolean isCollectionLogDrop(int npcId, int itemId) {
+        List<GameItem> drops = getNPCdrops(npcId);
+
+        if (drops == null || drops.isEmpty()) {
+            return false;
+        }
+
+        for (GameItem drop : drops) {
+            if (drop.getId() == itemId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

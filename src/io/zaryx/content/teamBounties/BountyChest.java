@@ -192,6 +192,8 @@ public class BountyChest {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You unlock the chest and find some " + ItemAssistant.getItemName(item.getId()) + "!");
         PlayerHandler.executeGlobalMessage("@red@" + c.getLoginName() + " @blu@has received: @red@" + ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Bounty Chest!");
-        Discord.writeAchievements("```News: " + c.getLoginName() + "  has received: " + ItemAssistant.getItemName(item.getId()) + " from the Bounty Chest!```");
+        Discord.writeAchievements("News: " + c.getLoginName()
+                + " has received: " + ItemAssistant.getItemName(item.getId())
+                + " from the Bounty Chest!");
     }
 }

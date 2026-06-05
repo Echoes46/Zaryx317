@@ -32,8 +32,6 @@ import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -45,8 +43,11 @@ import java.util.concurrent.TimeUnit;
  * - Registers slash command metadata in onReady
  * - Routes slash interactions to handlers in impl/*
  * - Sends log messages to channels
- * - Sends world event messages as embeds
+ * - Sends announcement/event messages as clean red embeds
+ * - Uses event-specific images when available
+ * - Uses a default announcement image when no specific image is found
  * - Keeps presence updated with online player count
+ * - Adds OSRS Wiki item images to Trading Post embeds when possible
  */
 public class Discord extends ListenerAdapter {
 
@@ -59,19 +60,29 @@ public class Discord extends ListenerAdapter {
     public static final long CHANNEL_PICKUP_LOGS     = 1416922612491092088L; // pickup-logs
     public static final long CHANNEL_XMAS_LOGS       = 1224876362683383838L; // xmas-logs
     public static final long CHANNEL_MOD_COMMS       = 1414043828943454309L; // mod-comms
-    public static final long CHANNEL_DEATH           = 1416922358643687424L; // death-logs
+    public static final long CHANNEL_DEATH           = 1427704620016336916L; // death-logs
     public static final long CHANNEL_DROPS           = 1414017693639512084L; // drop-logs
     public static final long CHANNEL_ACHIEVEMENTS    = 1416922210421182595L; // achievements
     public static final long CHANNEL_GIVELOG         = 1487289370582061056L; // give-log
     public static final long CHANNEL_CONNECT_ONLY    = 1429871489372389478L; // kept for /connect
     public static final long CHANNEL_PUNISHMENT      = 1417610944049053778L; // punishment logs mute/ban etc..
     private static final long CHANNEL_RARE_DROPS     = 1427687582774595695L; // rare drop logs
+    public static final long CHANNEL_TRADING_POST    = 1427762559754178734L; // trading-post
+    public static final long CHANNEL_TRIAL_OF_ARMS = 0L; // Trial of Arms
 
-    // ===== World Event Embed Images =====
-    // These must be direct public image links ending in .png, .jpg, .gif, or .webp
+    // ===== Announcement Embed Settings =====
+    private static final Color ANNOUNCEMENT_RED = new Color(190, 20, 20);
+
+    private static final String DEFAULT_ANNOUNCEMENT_IMAGE_URL = "https://i.ibb.co/dSyKMcg/Chat-GPT-Image-May-16-2026-05-16-55-PM.png";
+
     private static final String CRYSTAL_TREE_IMAGE_URL = "https://i.ibb.co/0p0kHj35/Crystal-tree-grown.png";
     private static final String SHOOTING_STAR_IMAGE_URL = "https://i.ibb.co/qLdPD5Xf/1024px-Crashed-Star-size-9.png";
     private static final String HESPORI_IMAGE_URL = "https://i.ibb.co/k60zWBrX/Hespori.png";
+    private static final String VOLCANO_BOULDER_URL = "https://i.ibb.co/3mBVqyQj/472px-Giant-Boulder-attached.png";
+
+    // ===== Trading Post Image Settings =====
+    private static final String OSRS_WIKI_IMAGE_BASE = "https://oldschool.runescape.wiki/images/";
+    private static final String TRADING_POST_FALLBACK_IMAGE_URL = OSRS_WIKI_IMAGE_BASE + "Coins_detail.png";
 
     // ===== Roles =====
     public static String OWNER_ROLE      = "1182565375045533797";
@@ -83,10 +94,8 @@ public class Discord extends ListenerAdapter {
     public static String MEMBER_ROLE     = "1183257193265508384";
 
     // ===== Internals =====
-    private static final Map<String, TextChannel> channelCache = new ConcurrentHashMap<>();
     private static JDA jda;
 
-    // Presence scheduler
     private static final ScheduledExecutorService presenceScheduler = Executors.newSingleThreadScheduledExecutor();
 
     // ===== Central command router =====
@@ -115,7 +124,6 @@ public class Discord extends ListenerAdapter {
         COMMANDS.put("message",           new io.zaryx.util.discord.impl.MessageBroadcast());
     }
 
-    // ===== JDA accessor =====
     public static JDA getJDA() {
         return jda;
     }
@@ -225,7 +233,7 @@ public class Discord extends ListenerAdapter {
             handler.handle(e);
         } catch (Throwable t) {
             logger.error("Error handling /" + e.getName(), t);
-            e.reply("❌ Something went wrong executing this command.").setEphemeral(true).queue();
+            e.reply("Something went wrong executing this command.").setEphemeral(true).queue();
         }
     }
 
@@ -311,11 +319,15 @@ public class Discord extends ListenerAdapter {
     }
 
     public static void writeIngameEvents(String message, Object... args) {
-        sendWorldEventEmbed(CHANNEL_BOT_INFO, message, args);
+        sendAnnouncementEmbed(CHANNEL_BOT_INFO, "[ WORLD EVENT ]", message, args);
     }
 
     public static void writeTournaments(String message, Object... args) {
-        sendChannelMessage(CHANNEL_BOT_INFO, message, args);
+        sendAnnouncementEmbed(CHANNEL_BOT_INFO, "[ TOURNAMENT ]", message, args);
+    }
+
+    public static void writeTrialOfArms(String message, Object... args) {
+        sendAnnouncementEmbed(CHANNEL_TRIAL_OF_ARMS, "[ TRIAL OF ARMS ]", message, args);
     }
 
     public static void writePickupMessage(String message, Object... args) {
@@ -392,8 +404,8 @@ public class Discord extends ListenerAdapter {
         });
     }
 
-    // ===== World event embed messages =====
-    private static void sendWorldEventEmbed(long channelId, String message, Object... args) {
+    // ===== Announcement embed messages =====
+    private static void sendAnnouncementEmbed(long channelId, String defaultTitle, String message, Object... args) {
         if (Configuration.DISABLE_DISCORD_MESSAGING) return;
         if (jda == null) return;
 
@@ -408,45 +420,51 @@ public class Discord extends ListenerAdapter {
                     return;
                 }
 
-                MessageEmbed embed = buildWorldEventEmbed(formattedMessage);
+                MessageEmbed embed = buildAnnouncementEmbed(defaultTitle, formattedMessage);
                 ch.sendMessageEmbeds(embed).queue();
 
             } catch (Exception e) {
-                logger.error("Discord sendWorldEventEmbed error", e);
+                logger.error("Discord sendAnnouncementEmbed error", e);
             }
         });
     }
 
-    private static MessageEmbed buildWorldEventEmbed(String message) {
-        String lower = message.toLowerCase();
+    private static MessageEmbed buildAnnouncementEmbed(String defaultTitle, String message) {
+        String safeMessage = message == null ? "" : message;
+        String lower = safeMessage.toLowerCase();
 
-        String title = "[ WORLD EVENT ]";
-        String description = message;
-        String imageUrl = null;
+        String title = defaultTitle;
+        String description = cleanAnnouncementMessage(safeMessage);
+        String imageUrl = DEFAULT_ANNOUNCEMENT_IMAGE_URL;
 
         if (lower.contains("crystal tree")) {
             title = "[ WORLD EVENT: CRYSTAL TREE ]";
-            description = cleanWorldEventMessage(message, "Crystal Tree", "tree");
+            description = cleanWorldEventMessage(safeMessage, "Crystal Tree", "tree");
             imageUrl = CRYSTAL_TREE_IMAGE_URL;
 
-        } else if (lower.contains("shooting star") || lower.contains("star")) {
+        } else if (lower.contains("shooting star") || lower.contains("crashed star") || lower.contains("star")) {
             title = "[ WORLD EVENT: SHOOTING STAR ]";
-            description = cleanWorldEventMessage(message, "Shooting Star", "star");
+            description = cleanWorldEventMessage(safeMessage, "Shooting Star", "star");
             imageUrl = SHOOTING_STAR_IMAGE_URL;
 
         } else if (lower.contains("hespori")) {
             title = "[ WORLD EVENT: HESPORI ]";
-            description = cleanWorldEventMessage(message, "Hespori", "worldevent");
+            description = cleanWorldEventMessage(safeMessage, "Hespori", "worldevent");
             imageUrl = HESPORI_IMAGE_URL;
+
+        } else if (lower.contains("volcano")) {
+            title = "[ WORLD EVENT: VOLCANO ]";
+            description = cleanWorldEventMessage(safeMessage, "Volcano", "worldevent");
+            imageUrl = VOLCANO_BOULDER_URL;
         }
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.setTitle(title);
         embed.setDescription(description);
-        embed.setColor(Color.GREEN);
+        embed.setColor(ANNOUNCEMENT_RED);
         embed.setTimestamp(Instant.now());
 
-        if (imageUrl != null && !imageUrl.contains("YOUR_")) {
+        if (isValidImageUrl(imageUrl)) {
             embed.setImage(imageUrl);
         }
 
@@ -454,14 +472,105 @@ public class Discord extends ListenerAdapter {
     }
 
     private static String cleanWorldEventMessage(String message, String eventName, String emojiName) {
-        String cleaned = message;
+        String cleaned = cleanAnnouncementMessage(message);
 
         cleaned = cleaned.replace("[" + eventName + "]", "");
         cleaned = cleaned.replace("[ " + eventName + " ]", "");
         cleaned = cleaned.replace("::" + emojiName, "");
-        cleaned = cleaned.trim();
 
-        return cleaned;
+        return cleaned.trim();
+    }
+
+    private static String cleanAnnouncementMessage(String message) {
+        if (message == null) return "";
+
+        String cleaned = message;
+
+        // Removes Discord code blocks so text does not appear inside a boxed code area.
+        cleaned = cleaned.replace("```", "");
+
+        // Removes single backtick inline-code formatting.
+        cleaned = cleaned.replace("`", "");
+
+        // Converts escaped new lines into real new lines if a caller sends "\\n".
+        cleaned = cleaned.replace("\\n", "\n");
+
+        return cleaned.trim();
+    }
+
+    private static boolean isValidImageUrl(String imageUrl) {
+        if (imageUrl == null) return false;
+
+        String url = imageUrl.trim();
+
+        if (url.isEmpty()) return false;
+        if (url.contains("PUT_DEFAULT")) return false;
+        if (url.contains("YOUR_")) return false;
+
+        String lower = url.toLowerCase();
+
+        return lower.startsWith("http")
+                && (lower.endsWith(".png")
+                || lower.endsWith(".jpg")
+                || lower.endsWith(".jpeg")
+                || lower.endsWith(".gif")
+                || lower.endsWith(".webp"));
+    }
+
+    // ===== Trading Post item image helpers =====
+    private static String getTradingPostItemImageUrl(String itemName) {
+        if (itemName == null || itemName.trim().isEmpty()) {
+            return TRADING_POST_FALLBACK_IMAGE_URL;
+        }
+
+        String cleanName = cleanItemNameForWiki(itemName);
+
+        if (cleanName.isEmpty()) {
+            return TRADING_POST_FALLBACK_IMAGE_URL;
+        }
+
+        String fileName = cleanName.replace(" ", "_") + "_detail.png";
+        fileName = encodeWikiImageFileName(fileName);
+
+        return OSRS_WIKI_IMAGE_BASE + fileName;
+    }
+
+    private static String cleanItemNameForWiki(String itemName) {
+        String cleanName = itemName == null ? "" : itemName.trim();
+
+        // Removes common RSPS color/image tags.
+        cleanName = cleanName.replaceAll("<[^>]*>", "");
+
+        // Removes item amount suffix if it ever gets passed in with the name.
+        cleanName = cleanName.replaceAll("\\s+x\\d+$", "");
+
+        // Normalizes repeated spaces.
+        cleanName = cleanName.replaceAll("\\s+", " ").trim();
+
+        if (cleanName.isEmpty()) {
+            return "";
+        }
+
+        // OSRS Wiki file names are usually capitalized like:
+        // Dragon_longsword_detail.png
+        // Water_rune_detail.png
+        // Fire_rune_detail.png
+        cleanName = Character.toUpperCase(cleanName.charAt(0)) + cleanName.substring(1);
+
+        return cleanName;
+    }
+
+    private static String encodeWikiImageFileName(String fileName) {
+        if (fileName == null) {
+            return "";
+        }
+
+        return fileName
+                .replace("'", "%27")
+                .replace("#", "%23")
+                .replace("+", "%2B")
+                .replace(",", "%2C")
+                .replace("&", "%26");
     }
 
     public static void sendCriticalWarning(Player player, String time, long oldTotalNomad, long newTotalNomad, boolean nomad) {
@@ -493,4 +602,69 @@ public class Discord extends ListenerAdapter {
             }
         });
     }
+
+    public static void writeTradingPostMessage(
+            String title,
+            String playerName,
+            String type,
+            String itemName,
+            int itemAmount,
+            long priceEach,
+            String currencyName
+    ) {
+        if (Configuration.DISABLE_DISCORD_MESSAGING) return;
+        if (jda == null) return;
+
+        long total = priceEach * itemAmount;
+        String itemImageUrl = getTradingPostItemImageUrl(itemName);
+
+        String description = "**Player:** " + playerName + "\n"
+                + "**Type:** " + type + "\n"
+                + "**Item:** " + itemName + " x" + Misc.formatCoins(itemAmount) + "\n"
+                + "**Price:** " + Misc.formatCoins(priceEach) + " " + currencyName + " each\n"
+                + "**Total:** " + Misc.formatCoins(total) + " " + currencyName;
+
+        Server.getIoExecutorService().submit(() -> {
+            try {
+                TextChannel ch = jda.getTextChannelById(CHANNEL_TRADING_POST);
+
+                if (ch == null) {
+                    logger.warn("Discord: channel not found for id {}", CHANNEL_TRADING_POST);
+                    return;
+                }
+
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setTitle(title);
+                embed.setDescription(description);
+                embed.setColor(ANNOUNCEMENT_RED);
+                embed.setTimestamp(Instant.now());
+
+                if (isValidImageUrl(itemImageUrl)) {
+                    embed.setThumbnail(itemImageUrl);
+                } else {
+                    embed.setThumbnail(TRADING_POST_FALLBACK_IMAGE_URL);
+                }
+
+                ch.sendMessageEmbeds(embed.build()).queue(
+                        success -> {},
+                        error -> {
+                            logger.warn("Discord Trading Post embed failed. Retrying with fallback coin image.", error);
+
+                            EmbedBuilder fallbackEmbed = new EmbedBuilder();
+                            fallbackEmbed.setTitle(title);
+                            fallbackEmbed.setDescription(description);
+                            fallbackEmbed.setColor(ANNOUNCEMENT_RED);
+                            fallbackEmbed.setTimestamp(Instant.now());
+                            fallbackEmbed.setThumbnail(TRADING_POST_FALLBACK_IMAGE_URL);
+
+                            ch.sendMessageEmbeds(fallbackEmbed.build()).queue();
+                        }
+                );
+
+            } catch (Exception e) {
+                logger.error("Discord writeTradingPostMessage error", e);
+            }
+        });
+    }
+
 }

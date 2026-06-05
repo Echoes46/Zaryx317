@@ -60,6 +60,7 @@ public class Starter {
 
     private static void standardStarter(Player c) {
         c.getItems().addItemUnderAnyCircumstance(22335, 1);
+        c.getItems().addItemUnderAnyCircumstance(882, 1000); //bronze arrows
         c.getItems().addItemUnderAnyCircumstance(24364, 1);
         c.getItems().addItemUnderAnyCircumstance(995, 300000);
         c.getItems().addItemUnderAnyCircumstance(22333, 1);
@@ -73,6 +74,7 @@ public class Starter {
     }
     private static void wildymanStarter(Player c) {
         c.getItems().addItemUnderAnyCircumstance(22335, 1);
+        c.getItems().addItemUnderAnyCircumstance(882, 1000); //bronze arrows
         c.getItems().addItemUnderAnyCircumstance(24364, 1);
         c.getItems().addItemUnderAnyCircumstance(19564, 1);
         c.getItems().addItemUnderAnyCircumstance(995, 300000);

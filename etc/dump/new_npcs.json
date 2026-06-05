@@ -160,5 +160,14 @@
       "height": 0
     },
     "walkingType": "WALK"
+  },
+  {
+    "id": 1501,
+    "position": {
+      "x": 3100,
+      "y": 3495,
+      "height": 0
+    },
+    "walkingType": "STAND"
   }
 ]

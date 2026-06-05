@@ -76,13 +76,17 @@ public class Region {
             if (array[z] != null) {
                 clone[z] = new int[array[z].length][];
                 for (int x = 0; x < array[z].length; x++) {
-                    clone[z][x] = new int[array[z][z].length];
+                    clone[z][x] = new int[array[z][x].length];
                     for (int y = 0; y < array[z][x].length; y++) {
                         clone[z][x][y] = array[z][x][y];
-                        if (provider.isOccupiedByFullBlockNpc(x, y, z))
+
+                        if (provider.isOccupiedByFullBlockNpc(x, y, z)) {
                             clone[z][x][y] -= RegionProvider.FULL_NPC_TILE_FLAG;
-                        if (provider.isOccupiedByNpc(x, y, z))
+                        }
+
+                        if (provider.isOccupiedByNpc(x, y, z)) {
                             clone[z][x][y] -= RegionProvider.NPC_TILE_FLAG;
+                        }
                     }
                 }
             }
@@ -602,18 +606,24 @@ public class Region {
 
     private static void loadMap(RegionData regionData) {
         try {
-            byte[] file1 = getBuffer(new File(Server.getDataDirectory() + "/mapdata/index4/" + regionData.getObjects() + ".gz"));
-            byte[] file2 = getBuffer(new File(Server.getDataDirectory() + "/mapdata/index4/" + regionData.getLandscape() + ".gz"));
-            if (file1 == null || file2 == null) {
+            byte[] landscape = getBuffer(new File(Server.getDataDirectory() + "/mapdata/index4/" + regionData.getLandscape() + ".gz"));
+            byte[] objects = getBuffer(new File(Server.getDataDirectory() + "/mapdata/index4/" + regionData.getObjects() + ".gz"));
+
+            if (landscape == null || objects == null) {
                 return;
             }
-            loadMaps(regionData.getRegionHash(), new ByteStream(file1), new ByteStream(file2));
+
+            loadMaps(regionData.getRegionHash(), new ByteStream(objects), new ByteStream(landscape));
         } catch (Exception e) {
             errors.add(regionData.getLandscape());
             errors.add(regionData.getObjects());
+
+            System.err.println("Error loading map region: " + regionData.getRegionHash()
+                    + ", objectFile: " + regionData.getObjects()
+                    + ", floorFile: " + regionData.getLandscape());
+
+            e.printStackTrace();
         }
-        //System.out.println("Error loading map region: " + regionData.getRegionHash() + ", objectFile: " + regionData.getObjects() + ", floorFile: " + regionData.getLandscape());
-        //e.printStackTrace();
     }
 
     private static final int[][] fixClips = {{2207, 3057},
@@ -628,76 +638,113 @@ public class Region {
         int absX = (regionId >> 8) * 64;
         int absY = (regionId & 255) * 64;
         int[][][] someArray = new int[8][64][64]; // new int[4][64][64];
-        for (int i = 0; i < 4; i++) {
-            for (int i2 = 0; i2 < 64; i2++) {
-                for (int i3 = 0; i3 < 64; i3++) {
-                    while (true) {
-                        int v = str2.getUShort();
-                        if (v == 0) {
-                            break;
-                        } else if (v == 1) {
-                            str2.skip(1);
-                            break;
-                        } else if (v <= 49) {
-                            str2.skip(2);
-                        } else if (v <= 81) {
-                            someArray[i][i2][i3] = v - 49;
-//                            System.out.println("loaded region " +regionId);
+
+        /*
+         * Safely read landscape/floor data.
+         * Some map files may be valid .gz archives but still contain incomplete
+         * or incompatible landscape data for this loader.
+         */
+        try {
+            for (int i = 0; i < 4; i++) {
+                for (int i2 = 0; i2 < 64; i2++) {
+                    for (int i3 = 0; i3 < 64; i3++) {
+                        while (true) {
+                            int v = str2.getUShort();
+
+                            if (v == 0) {
+                                break;
+                            } else if (v == 1) {
+                                str2.skip(1);
+                                break;
+                            } else if (v <= 49) {
+                                str2.skip(2);
+                            } else if (v <= 81) {
+                                someArray[i][i2][i3] = v - 49;
+                            }
                         }
                     }
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Skipping bad landscape data for region: " + regionId);
+            return;
         }
+
         for (int i = 0; i < 4; i++) {
             for (int i2 = 0; i2 < 64; i2++) {
                 for (int i3 = 0; i3 < 64; i3++) {
                     if ((someArray[i][i2][i3] & 1) == 1) {
                         int height = i;
+
                         if ((someArray[1][i2][i3] & 2) == 2 && height > 0) {
                             height--;
                         }
+
                         if (height >= 0 && height <= 7) {
                             int x = absX + i2;
                             int y = absY + i3;
+
                             if (Arrays.stream(fixClips).noneMatch(c -> c[0] == x && c[1] == y)) {
-                                RegionProvider.getGlobal().get(x, y).addClipping(x, y, height, 2097152);
+                                Region region = RegionProvider.getGlobal().get(x, y);
+
+                                if (region != null) {
+                                    region.addClipping(x, y, height, 2097152);
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
         int objectId = -1;
         int incr;
-        while ((incr = str1.readUnsignedIntSmartShortCompat()) != 0) {
-            objectId += incr;
-            int location = 0;
-            int incr2;
-            while ((incr2 = str1.get_unsignedsmart_byteorshort()) != 0) {
-                location += incr2 - 1;
-                int localX = (location >> 6 & 63);
-                int localY = (location & 63);
-                int height = location >> 12;
-                int objectData = str1.getUByte();
-                int type = objectData >> 2;
-                int direction = objectData & 3;
-                if (localX < 0 || localX >= 64 || localY < 0 || localY >= 64) {
-                    continue;
-                }
-                if ((someArray[1][localX][localY] & 2) == 2 && height > 0) {
-                    height--;
-                }
-                if (height >= 0 && height <= 7) { // 3
-                    int x = absX + localX;
-                    int y = absY + localY;
-                    Region region = RegionProvider.getGlobal().get(x, y);
-                    if (objectId == 30018) {//Skip adding the objects via map files ?
+
+        try {
+            while ((incr = str1.readUnsignedIntSmartShortCompat()) != 0) {
+                objectId += incr;
+                int location = 0;
+                int incr2;
+
+                while ((incr2 = str1.get_unsignedsmart_byteorshort()) != 0) {
+                    location += incr2 - 1;
+
+                    int localX = (location >> 6 & 63);
+                    int localY = (location & 63);
+                    int height = location >> 12;
+                    int objectData = str1.getUByte();
+                    int type = objectData >> 2;
+                    int direction = objectData & 3;
+
+                    if (localX < 0 || localX >= 64 || localY < 0 || localY >= 64) {
                         continue;
                     }
-                    region.addObject(objectId, x, y, height, type, direction);
-                    region.addWorldObject(objectId, absX + localX, absY + localY, height, type, direction);
+
+                    if ((someArray[1][localX][localY] & 2) == 2 && height > 0) {
+                        height--;
+                    }
+
+                    if (height >= 0 && height <= 7) {
+                        int x = absX + localX;
+                        int y = absY + localY;
+                        Region region = RegionProvider.getGlobal().get(x, y);
+
+                        if (region == null) {
+                            continue;
+                        }
+
+                        if (objectId == 30018) {
+                            continue;
+                        }
+
+                        region.addObject(objectId, x, y, height, type, direction);
+                        region.addWorldObject(objectId, x, y, height, type, direction);
+                    }
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Skipping bad object data for region: " + regionId);
+            return;
         }
 
         customMapFiles++;

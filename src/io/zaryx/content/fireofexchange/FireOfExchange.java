@@ -127,8 +127,8 @@ public class FireOfExchange {
         c.foundryPoints += exchangePrice;
         TOTAL_POINTS_EXCHANGED += exchangePrice;
         List<Player> staff = PlayerHandler.nonNullStream().filter(Objects::nonNull).filter(p -> (p.getRights().isOrInherits(Right.STAFF_MANAGER)|| p.getRights().isOrInherits(Right.MODERATOR))).collect(Collectors.toList());
-        Discord.writeIngameEvents("```[NOMAD] "+ c.getDisplayName() +" dissolved " + ItemAssistant.getItemName(c.currentExchangeItem)
-                +  " x" + c.currentExchangeItemAmount + "```");
+//        Discord.writeIngameEvents("```[NOMAD] "+ c.getDisplayName() +" dissolved " + ItemAssistant.getItemName(c.currentExchangeItem)
+//                +  " x" + c.currentExchangeItemAmount + "```");
         //Discord.writeFoeMessage("[NOMAD] "+ c.getDisplayName() +" dissolved " + ItemAssistant.getItemName(c.currentExchangeItem)
         //        +  " x" + c.currentExchangeItemAmount + "");
 /*

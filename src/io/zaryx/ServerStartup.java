@@ -46,6 +46,7 @@ import io.zaryx.model.entity.player.PlayerFactory;
 import io.zaryx.model.entity.player.save.PlayerSave;
 import io.zaryx.model.entity.player.save.backup.PlayerSaveBackup;
 import io.zaryx.model.lobby.LobbyManager;
+import io.zaryx.model.multiplayersession.flowerpoker.FlowerPokerHand;
 import io.zaryx.model.world.ShopHandler;
 import io.zaryx.objects.Doors;
 import io.zaryx.objects.DoubleDoors;
@@ -118,7 +119,7 @@ public class ServerStartup {
         CollectionLog.init();
         Region.load();
         Server.getGlobalObjects().loadGlobalObjectFile();
-        loadWalkableTiles();
+        FlowerPokerHand.initLaneBlocking();
         Discord.init();
         DiscordIntegration.loadConnectedAccounts();
         Doors.getSingleton().load();
@@ -147,6 +148,7 @@ public class ServerStartup {
         //ItemCollection.IO.init("offlinerewards");
 
         ForceDoors.Init();
+        loadWalkableTiles();
         BountySystem.loadActiveBounties();
 //        Server.loadSqlNetwork();
 //        Server.loadRealmSqlNetwork();
@@ -172,38 +174,83 @@ public class ServerStartup {
 
 
     }
-    private static void loadWalkableTiles() {
+    /**
+     * Updated by Khaos
+     */
+    public static void loadWalkableTiles() {
         String path = Server.getDataDirectory() + "/cfg/obj/walkable_tiles.cfg";
         java.io.File file = new java.io.File(path);
-        if (!file.exists()) return;
+
+        if (!file.exists()) {
+            System.out.println("[WALKABLE] walkable_tiles.cfg not found: " + file.getAbsolutePath());
+            return;
+        }
+
         int count = 0;
+        int skipped = 0;
+
         try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
             String line;
+
             while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty() || line.trim().startsWith("//")) continue;
-                String[] parts = line.trim().split("\t");
-                if (parts.length < 4) continue;
+                line = line.trim();
+
+                if (line.isEmpty() || line.startsWith("//")) {
+                    continue;
+                }
+
+                String[] parts = line.split("\\s+");
+
+                if (parts.length < 4) {
+                    skipped++;
+                    continue;
+                }
+
                 try {
                     int x = Integer.parseInt(parts[0]);
                     int y = Integer.parseInt(parts[1]);
                     int z = Integer.parseInt(parts[2]);
                     String state = parts[3];
-                    io.zaryx.model.collisionmap.Region region = io.zaryx.model.collisionmap.RegionProvider.getGlobal().get(x, y);
-                    if (region != null) {
-                        if (state.equals("walkable")) {
-                            region.setClipToZero(x, y, z);
-                        } else if (state.equals("blocked")) {
-                            region.addClip(x, y, z, 0x200000);
+
+                    io.zaryx.model.collisionmap.Region region =
+                            io.zaryx.model.collisionmap.RegionProvider.getGlobal().get(x, y);
+
+                    if (region == null) {
+                        skipped++;
+                        continue;
+                    }
+
+                    if (state.equalsIgnoreCase("walkable")) {
+                        // Clear base tile clipping.
+                        region.setClipToZero(x, y, z);
+
+                        // Clear object clipping that may still make the tile invalid as a destination.
+                        for (int type = 0; type <= 22; type++) {
+                            for (int face = 0; face < 4; face++) {
+                                region.removeObject(0, x, y, z, type, face);
+                                region.removeObject(-1, x, y, z, type, face);
+                            }
                         }
+
+                        // Clear again after object removals.
+                        region.setClipToZero(x, y, z);
+                        count++;
+
+                    } else if (state.equalsIgnoreCase("blocked")) {
+                        region.addClip(x, y, z, 0x200000);
                         count++;
                     }
-                } catch (NumberFormatException ignored) {}
+
+                } catch (NumberFormatException ignored) {
+                    skipped++;
+                }
             }
+
         } catch (Exception e) {
             System.out.println("[WALKABLE] Error loading walkable tiles: " + e.getMessage());
+            e.printStackTrace();
         }
-        if (count > 0) {
-            System.out.println("[WALKABLE] Loaded " + count + " custom walkable tiles.");
-        }
+
+        System.out.println("[WALKABLE] Loaded " + count + " custom walkable tile overrides. Skipped " + skipped + ".");
     }
 }

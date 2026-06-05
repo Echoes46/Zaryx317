@@ -26,16 +26,23 @@ public class ReferralRegister {
 
     static void register(Player player, ReferralSource source, String qualifier) {
         setUsedReferral(player);
+
         player.referallFlag += 5;
         player.gfx100(199);
-        Discord.writeServerSyncMessage("```[Referral]: " + player.getDisplayName()
-                + " came from " + (qualifier == null ? source.toString() : qualifier) + ".```");
-        Discord.writeReferralMessage("```[Referral]: " + player.getDisplayName()
-                + " came from " + (qualifier == null ? source.toString() : qualifier) + ".```");
+
+        String referralSource = qualifier == null ? source.toString() : qualifier;
+        String message = "[Referral]: " + player.getDisplayName()
+                + " came from " + referralSource + ".";
+
+        Discord.writeServerSyncMessage(message);
+        Discord.writeReferralMessage(message);
 
         SERVICE.submit(() -> {
             LocalDateTime time = LocalDateTime.now();
-            JsonUtil.toJson(new Referral(player.getLoginName(), time), getReferallFolder(source, qualifier) + "/" + TIME_FORMATTER.format(time) + ".json");
+            JsonUtil.toJson(
+                    new Referral(player.getLoginName(), time),
+                    getReferallFolder(source, qualifier) + "/" + TIME_FORMATTER.format(time) + ".json"
+            );
         });
     }
 

@@ -53,10 +53,16 @@ public class TournamentWorldEvent implements WorldEvent {
     @Override
     public void announce(List<Player> players) {
         String name = tourney.getTournamentType();
-        if (tourney.getTournamentType().equalsIgnoreCase("DYOG")) {
+
+        if (name.equalsIgnoreCase("DYOG")) {
             name = "Dig Your Own Grave";
         }
-        Discord.writeTournaments("```[TOURNAMENT] " + name + " style will begin soon, type ::outlast!``` <@&1417605952873566381>");
-        new Broadcast("<img=20> [SURVIVOR] " + name + " style will begin soon, type ::outlast!").addTeleport(new Position(2064, 6004, 0)).copyMessageToChatbox().submit();
+
+        Discord.writeTournaments(name + " style will begin soon, type ::outlast!");
+
+        new Broadcast("<img=20> [SURVIVOR] " + name + " style will begin soon, type ::outlast!")
+                .addTeleport(new Position(2064, 6004, 0))
+                .copyMessageToChatbox()
+                .submit();
     }
 }

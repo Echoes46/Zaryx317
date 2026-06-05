@@ -11,6 +11,7 @@ import io.zaryx.content.minigames.raids.WildPartyCox;
 import io.zaryx.content.minigames.tob.TobConstants;
 import io.zaryx.content.minigames.tob.instance.TobInstance;
 import io.zaryx.content.minigames.tob.party.TobPartyWild;
+import io.zaryx.content.minigames.trialofarms.TrialOfArms;
 import io.zaryx.content.skills.smithing.DoubleCannonballSmelting;
 import io.zaryx.content.*;
 import io.zaryx.content.WeaponGames.WGMedPack;
@@ -157,16 +158,7 @@ public class ObjectOptionOne {
 		if (c.getRights().isOrInherits(Right.STAFF_MANAGER) && c.debugMessage)
 			c.sendMessage("Clicked Object Option 1:  " + objectType + "");
 
-		ObjectDef objectDef = ObjectDef.get(objectType);
-/*		ObjectAction action = null;
-		ObjectAction[] actions = objectDef.defaultActions;*/
 
-/*		if(actions != null)
-			action = actions[0];
-		if(action != null) {
-			action.handle(c, object);
-			return;
-		}*/
 
 		c.getPA().resetVariables();
 		c.clickObjectType = 0;
@@ -220,25 +212,7 @@ public class ObjectOptionOne {
 		if (c.getBlastFurnace().getBarDispenser().handleObject(c, objectType)) {
 			return;
 		}
-		if (objectType == 41214) {
-			c.start(new DialogueBuilder(c).option("Would you like to buy seeds? (25k UpgradePoints per seed)",
-					new DialogueOption("Yes", p -> {
-						p.getPA().closeAllWindows();
-						p.getPA().sendEnterAmount("How many seeds would you like to buy? (25k per seed)", (pl, i) -> {
-							if (pl.foundryPoints < (25000L * i)) {
-								pl.getPA().closeAllWindows();
-								pl.sendErrorMessage("You don't have enough point's for that many seeds!");
-								return;
-							}
-							pl.getPA().closeAllWindows();
 
-							pl.foundryPoints -= (25000L * i);
-							pl.getItems().addItemUnderAnyCircumstance(299, i);
-							pl.sendErrorMessage("You have purchased " + i + " mithril seeds for " + (25000 * i) + "!");
-						});
-					}), new DialogueOption("Nope", p -> p.getPA().closeAllWindows())));
-			return;
-		}
 
 		if (PyramidPlunder.handleObjects(c, objectType)) {
 			return;
@@ -258,22 +232,22 @@ public class ObjectOptionOne {
 			return;
 		}
 
-		if (object.getObjectId() == 40439) {
-			int pX = c.getX();
-			int pY = c.getY();
-			int yOffset = pY > obY ? 1 : -1;
-			int y2 = pY = 1971;
-			if (obX == 1970 && c.getY() == 5972) {
-				c.moveTo(c.getPosition().translate(0, yOffset));
-			} else if (obX == 1970 && c.getY() == 5971) {
-				c.moveTo(c.getPosition().translate(0, +1));
-			} else if (obY == 5968 && c.getY() == 5969) {
-				c.moveTo(c.getPosition().translate(0, -1));
-			} else if (obY == 5968 && c.getY() == 5968) {
-				c.moveTo(c.getPosition().translate(0, +1));
-			}
-			return;
-		}
+        if (object.getObjectId() == 40439) {
+            int pY = c.getY();
+            int yOffset = pY > obY ? 1 : -1;
+
+            if (obX == 1970 && c.getY() == 5972) {
+                c.moveTo(c.getPosition().translate(0, yOffset));
+            } else if (obX == 1970 && c.getY() == 5971) {
+                c.moveTo(c.getPosition().translate(0, 1));
+            } else if (obY == 5968 && c.getY() == 5969) {
+                c.moveTo(c.getPosition().translate(0, -1));
+            } else if (obY == 5968 && c.getY() == 5968) {
+                c.moveTo(c.getPosition().translate(0, 1));
+            }
+            return;
+        }
+
         /* Added by Khaos */
         if (object.getObjectId() == 47593) {
             if (c.getX() > 2069) {
@@ -283,19 +257,32 @@ public class ObjectOptionOne {
             }
             return;
         }
-		if (object.getObjectId() == 11726) {
-			if (c.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
-				int pX = c.getX();
-				int pY = c.getY();
-				int yOffset = pY > obY ? -1 : 1;
-				if (obX == 3190 && obY == 3957) {
-					c.moveTo(c.getPosition().translate(0, yOffset));
-				}
-			} else {
-				c.sendMessage("You're not a wildyman you cannot access this area!");
-			}
-			return;
-		}
+
+        /* Added by Khaos */
+        if (object.getObjectId() == 43868) {
+            c.getPA().movePlayer(3127, 3833, 0);
+            return;
+        }
+
+        /* Added by Khaos */
+        if (object.getObjectId() == 47340) {
+            TrialOfArms.exitAndForfeit(c);
+            return;
+        }
+
+        if (object.getObjectId() == 11726) {
+            if (c.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
+                int pY = c.getY();
+                int yOffset = pY > obY ? -1 : 1;
+
+                if (obX == 3190 && obY == 3957) {
+                    c.moveTo(c.getPosition().translate(0, yOffset));
+                }
+            } else {
+                c.sendMessage("You're not a wildyman you cannot access this area!");
+            }
+            return;
+        }
 
 		if (Doors.getSingleton().handleDoor(object.getObjectId(), obX, obY, object.getHeight())) {
 			return;
@@ -1936,9 +1923,6 @@ public class ObjectOptionOne {
 				break;
 			case 31556:
 				c.getPA().movePlayer(3246, 10215);
-				break;
-			case 43868:
-				c.getPA().movePlayer(3126, 3833);
 				break;
 			case 31555:
 				c.getPA().movePlayer(3217, 10058, 0);

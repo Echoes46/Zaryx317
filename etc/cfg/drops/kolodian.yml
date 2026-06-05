@@ -33,12 +33,9 @@ uncommon:
     - item: 692 #25k nomad
       minimum: 1
       maximum: 3
-    - item: 6677 #Mini smb
+    - item: 6199 #Mystery Box
       minimum: 1
-      maximum: 1
-    - item: 6828 #Smb
-      minimum: 1
-      maximum: 1
+      maximum: 15
     - item: 989 #C Key
       minimum: 10
       maximum: 25

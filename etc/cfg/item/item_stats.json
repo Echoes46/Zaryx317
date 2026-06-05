@@ -62060,6 +62060,37 @@
       "dmagic": 15
     }
   },
+  //
+  "25398": {
+    "name": "Root-Tied Hat",
+    "equipable": true,
+    "weight": 0.4,
+    "equipment": {
+      "slot": 0,
+      "amagic": 14,
+      "dmagic": 14
+    }
+  },
+  "25389": {
+    "name": "Root-Tied Top",
+    "equipable": true,
+    "weight": 2.721,
+    "equipment": {
+      "slot": 4,
+      "amagic": 25,
+      "dmagic": 25
+    }
+  },
+  "25401": {
+    "name": "Root-Tied Bottoms",
+    "equipable": true,
+    "weight": 1.8,
+    "equipment": {
+      "slot": 7,
+      "amagic": 20,
+      "dmagic": 20
+    }
+  },
   "23056": {
     "name": "Mystic gloves (dusk)",
     "equipable": true,
@@ -76324,6 +76355,17 @@
     "equipable": true,
     "equipment": {
       "slot": 2
+    }
+  },
+  "39006": {
+    "name": "Bulky Whip",
+    "equipable": true,
+    "weight": 0.2,
+    "equipment": {
+      "slot": 3,
+      "aslash": 120,
+      "str": 95,
+      "aspeed": 4
     }
   }
 }

@@ -9,6 +9,7 @@ import io.zaryx.model.entity.player.*;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
+import io.zaryx.model.collisionmap.RegionProvider;
 import io.zaryx.util.logging.player.FlowerpokerResultLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,22 +56,55 @@ public class FlowerPokerHand {
 
     private static Set<Integer> lanes = new HashSet<>();
 
+    // Lane positions: player 1 = position, player 2 = position.x - 1
+    // Lane 1: (3095,3472) + (3094,3472)
+    // Lane 2: (3093,3472) + (3092,3472)
+    // Lane 3: (3091,3472) + (3090,3472)
+    // Lane 4: (3089,3472) + (3088,3472)
+    // Lane 5: (3087,3472) + (3086,3472)
+    // Lane 6: (3085,3472) + (3084,3472)
+    // Lane 7: (3083,3472) + (3082,3472)
     public static List<Position> positions = Arrays.asList(
-            new Position(3370, 3299, 0),
-            new Position(3370, 3303, 0),
-            new Position(3370, 3307, 0),
-            new Position(3370, 3311, 0),
-            new Position(3370, 3315, 0),
-            new Position(3370, 3319, 0),
-            new Position(3356, 3299, 0),
-            new Position(3356, 3303, 0),
-            new Position(3356, 3307, 0),
-            new Position(3356, 3311, 0),
-            new Position(3356, 3315, 0),
-            new Position(3356, 3319, 0));
+            new Position(3095, 3472, 0),
+            new Position(3093, 3472, 0),
+            new Position(3091, 3472, 0),
+            new Position(3089, 3472, 0),
+            new Position(3087, 3472, 0),
+            new Position(3085, 3472, 0),
+            new Position(3083, 3472, 0));
+
+    private static final int LANE_BLOCK_FLAG = 0x200000; // full tile block
+
+    /**
+     * Call at server startup to block all lane tiles.
+     * Players can only walk on lanes during active flower poker.
+     */
+    public static void initLaneBlocking() {
+        for (Position pos : positions) {
+            setLaneCollision(pos, true);
+        }
+        logger.info("Blocked all {} flower poker lanes", positions.size());
+    }
+
+    /**
+     * Block or unblock a lane's tiles (2 wide, 5 long going south)
+     */
+    private static void setLaneCollision(Position start, boolean block) {
+        for (int dy = 0; dy >= -4; dy--) {
+            for (int dx = 0; dx >= -1; dx--) {
+                int x = start.getX() + dx;
+                int y = start.getY() + dy;
+                if (block) {
+                    RegionProvider.getGlobal().addClipping(LANE_BLOCK_FLAG, x, y, 0);
+                } else {
+                    RegionProvider.getGlobal().get(x, y).removeClip(x, y, 0, LANE_BLOCK_FLAG);
+                }
+            }
+        }
+    }
 
     public static boolean canGamble() {
-        return lanes.size() <= 11;
+        return lanes.size() < 7;
     }
 
     public void assignLane(Player player) {
@@ -87,7 +121,7 @@ public class FlowerPokerHand {
          */
         Position lanePosition = null;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 7; i++) {
             if (!lanes.contains(i)) {
                 lanes.add(i);
                 setLane(player, i);
@@ -103,6 +137,9 @@ public class FlowerPokerHand {
             player.sendMessage("@red@Error, couldn't find lane - contact support.");
             return;
         }
+
+        // Unblock lane tiles for the active game
+        setLaneCollision(lanePosition, false);
 
         assignedStart = lanePosition;
         other.getFlowerPoker().assignedStart = lanePosition;
@@ -130,7 +167,7 @@ public class FlowerPokerHand {
 
     public boolean isAtDestination() {
         Position dest = assignedStart;
-        return player.getPosition().equals(new Position(dest.getX(), dest.getY())) && other.getPosition().equals(new Position(dest.getX(), dest.getY() + 1));
+        return player.getPosition().equals(new Position(dest.getX(), dest.getY())) && other.getPosition().equals(new Position(dest.getX() - 1, dest.getY()));
     }
 
     public void pathToLane(boolean tieReplant) {
@@ -144,7 +181,7 @@ public class FlowerPokerHand {
             @Override
             public void execute(CycleEventContainer exe) {
                 PathFinder.getPathFinder().findRoute(player, dest.getX(), dest.getY(), true, 1, 1, true);
-                PathFinder.getPathFinder().findRoute(other, dest.getX(), dest.getY() + 1, true, 1, 1, true);
+                PathFinder.getPathFinder().findRoute(other, dest.getX() - 1, dest.getY(), true, 1, 1, true);
 
                 if (isAtDestination()) {
                     currentForceText = "";
@@ -253,6 +290,11 @@ public class FlowerPokerHand {
             lanes.remove(lane1);
             lanes.remove(lane2);
 
+            // Re-block lane tiles
+            if (assignedStart != null) {
+                setLaneCollision(assignedStart, true);
+            }
+
             logger.debug("Removed lane a={} b={}", lane1, lane2);
 
             other.getFlowerPoker().other = null;
@@ -325,10 +367,14 @@ public class FlowerPokerHand {
         if (winner == otherHand) {
             other.forcedChat(otherHandToString + totalPotMessage);
             player.forcedChat(handToString + " - I LOSE");
+            other.startAnimation(862); // Cheer
+            player.startAnimation(860); // Cry
             giveItems(other);
         } else {
             player.forcedChat(handToString + totalPotMessage);
             other.forcedChat(otherHandToString + " - I LOSE");
+            player.startAnimation(862); // Cheer
+            other.startAnimation(860); // Cry
             giveItems(player);
         }
 
@@ -376,7 +422,7 @@ public class FlowerPokerHand {
         long saved = 0;
         for (GameItem item : prizePool) {
             if (item != null) {
-                    int foeBurnRate = FireOfExchangeBurnPrice.getBurnPrice(null, item.getId(), false);
+                int foeBurnRate = FireOfExchangeBurnPrice.getBurnPrice(null, item.getId(), false);
                 if (foeBurnRate > 0) {
                     saved += (long) foeBurnRate * item.getAmount();
                 }
@@ -426,34 +472,25 @@ public class FlowerPokerHand {
             person.sendMessage("<col=ff0000>You failed to plant the seed within 10 seconds, it has been auto planted for you.");
         }
 
-        if (Boundary.isIn(player, Boundary.FLOWER_POKER_AREA_EAST)) {
-            person.facePosition(new Position(person.getX()-1, person.getY()));
-        } else {
-            person.facePosition(new Position(person.getX()+1, person.getY()));
-        }
+        person.facePosition(new Position(person.getX(), person.getY() - 1));
         FlowerData chosenFlower = FlowerData.getRandomFlower();
 
         person.getItems().deleteItem(299, 1);
         person.getFlowerPoker().lastPlantTicks = 0;
         person.getFlowerPoker().currentPlants++;
         if (forced)
-        person.lastForcedSeedPlant = System.currentTimeMillis();
+            person.lastForcedSeedPlant = System.currentTimeMillis();
         person.getFlowerPoker().dealtHand.add(chosenFlower);
         if (manualClick)
-        person.lastManualSeedPlant = System.currentTimeMillis() + 1000;
+            person.lastManualSeedPlant = System.currentTimeMillis() + 1000;
 
         logger.debug("last plant" + person.lastManualSeedPlant+"  "+person.lastForcedSeedPlant+" ");
         displayResult(person);
         GlobalObject flower = new GlobalObject(chosenFlower.objectId, person.getX(), person.getY(), person.getHeight(), 3, 10, 100, -1);
         spawnedFlowers.add(flower);
         Server.getGlobalObjects().add(flower);
-        if (Boundary.isIn(player, Boundary.FLOWER_POKER_AREA_EAST)) {
-            PathFinder.getPathFinder().findRoute(person, person.getX()-1, person.getY(), false, 1, 1, true);
-            person.facePosition(person.absX-1, person.absY);
-        } else {
-            PathFinder.getPathFinder().findRoute(person, person.getX()+1, person.getY(), false, 1, 1, true);
-            person.facePosition(person.absX+1, person.absY);
-        }
+        PathFinder.getPathFinder().findRoute(person, person.getX(), person.getY() - 1, false, 1, 1, true);
+        person.facePosition(person.absX, person.absY - 1);
         if (finishedPlanting()) {
 
             CycleEventHandler.getSingleton().addEvent(FLOWER_OBJECT, new CycleEvent() {

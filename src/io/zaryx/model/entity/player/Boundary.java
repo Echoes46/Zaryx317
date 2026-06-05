@@ -352,24 +352,24 @@ public class Boundary {
 
 	public static final Boundary TzHaar_Foundry = new Boundary(2048, 4864, 2111, 4927);
 
-	public static final Boundary FLOWER_POKER_AREA = new Boundary(3355,3297,3371,3322);
-	public static final Boundary FLOWER_POKER_AREA_EAST = new Boundary(3365, 3298,3371,3321);
-	public static final Boundary FLOWER_POKER_AREA_WEST = new Boundary(3355,3297,3371,3322);
-	public static final Boundary FP_LANE_1 = new Boundary(3366, 3299,3370,3300);
-	public static final Boundary FP_LANE_2 = new Boundary(3366,3303,3370,3304);
-	public static final Boundary FP_LANE_3 = new Boundary(3366,3307,3370,3308);
-	public static final Boundary FP_LANE_4 = new Boundary(3366,3311,3370,3312);
-	public static final Boundary FP_LANE_5 = new Boundary(3366,3315,3370,3316);
-	public static final Boundary FP_LANE_6 = new Boundary(3366,3319,3370,3320);
-
-	public static final Boundary FP_LANE_7 = new Boundary(3356,3299,3360,3300);
-	public static final Boundary FP_LANE_8 = new Boundary(3356,3303,3360,3304);
-	public static final Boundary FP_LANE_9 = new Boundary(3356,3307,3360,3308);
-	public static final Boundary FP_LANE_10 = new Boundary(3356,3311,3360,3312);
-	public static final Boundary FP_LANE_11 = new Boundary(3356,3315,3360,3316);
-	public static final Boundary FP_LANE_12 = new Boundary(3356,3319,3360,3320);
-	public static final Boundary[] FP_LANES = {FP_LANE_1, FP_LANE_2, FP_LANE_3, FP_LANE_4,FP_LANE_5,FP_LANE_6,FP_LANE_7,FP_LANE_8,FP_LANE_9,FP_LANE_10,FP_LANE_11,FP_LANE_12};
+    public static final Boundary FLOWER_POKER_AREA = new Boundary(3075,3460,3100,3485);
+    public static final Boundary FLOWER_POKER_AREA_EAST = new Boundary(3090,3467,3097,3473);
+    public static final Boundary FLOWER_POKER_AREA_WEST = new Boundary(3082,3467,3089,3473);
+    public static final Boundary FP_LANE_1 = new Boundary(3095,3468,3096,3472);
+    public static final Boundary FP_LANE_2 = new Boundary(3093,3468,3094,3472);
+    public static final Boundary FP_LANE_3 = new Boundary(3091,3468,3092,3472);
+    public static final Boundary FP_LANE_4 = new Boundary(3089,3468,3090,3472);
+    public static final Boundary FP_LANE_5 = new Boundary(3087,3468,3088,3472);
+    public static final Boundary FP_LANE_6 = new Boundary(3085,3468,3086,3472);
+    public static final Boundary FP_LANE_7 = new Boundary(3083,3468,3084,3472);
+    public static final Boundary FP_LANE_8 = new Boundary(3083,3468,3084,3472);
+    public static final Boundary FP_LANE_9 = new Boundary(3083,3468,3084,3472);
+    public static final Boundary FP_LANE_10 = new Boundary(3083,3468,3084,3472);
+    public static final Boundary FP_LANE_11 = new Boundary(3083,3468,3084,3472);
+    public static final Boundary FP_LANE_12 = new Boundary(3083,3468,3084,3472);
+    public static final Boundary[] FP_LANES = {FP_LANE_1, FP_LANE_2, FP_LANE_3, FP_LANE_4,FP_LANE_5,FP_LANE_6,FP_LANE_7,FP_LANE_8,FP_LANE_9,FP_LANE_10,FP_LANE_11,FP_LANE_12};
 	public static final Boundary MAGE_ARENA = new Boundary(3092, 3912, 3117, 3954);
+    public static final Boundary TRIAL_OF_ARMS_BOUNDARY = new Boundary(3041, 3479, 3061, 3510);
 	/**
 	 * 3118 3923
 	 * 3128 3942
@@ -648,9 +648,20 @@ public class Boundary {
 	public static final Boundary HUNLLEF_CAVE = new Boundary(1161, 9924, 1183, 9946);
 	public static final Boundary EDGEVILLE_PERIMETER = new Boundary(1972, 5933, 2121, 6027);
 	public static final Boundary WILDY_BONE_ALTAR = new Boundary(2945, 3813, 2960, 3827);
-	public static final Boundary DUEL_AREA = new Boundary(3026, 3455, 3073, 3511);
-	public static final Boundary[] DUEL_ARENA = {new Boundary(3051, 3495, 3056, 3507), new Boundary(3029, 3495, 3049, 3507)};
-	public static final Boundary EMPTY = new Boundary(0, 0, 0, 0);
+    // Updated by Khaos
+
+    /*
+     * Duel lobby where players can challenge each other.
+     */
+    public static final Boundary DUEL_LOBBY = new Boundary(3355, 3267, 3379, 3285);
+
+    /*
+     * Duel fight arenas where players can attack each other.
+     */
+    public static final Boundary[] DUEL_ARENA = {
+            new Boundary(3334, 3246, 3351, 3256),
+            new Boundary(3370, 3246, 3387, 3256)
+    };	public static final Boundary EMPTY = new Boundary(0, 0, 0, 0);
 
 	/*
 	 * Minigame Lobbys
@@ -732,7 +743,7 @@ public class Boundary {
 	public static final Boundary XERIC = new Boundary(3217, 4817, 3247, 4851);
 	public static final Boundary XERIC_JAIL = new Boundary(3033, 4405, 3044, 4414);
 
-	public static final Boundary EDGEVILLE_EXTENDED = new Boundary(2944, 3436, 3207, 3549);
+	public static final Boundary EDGEVILLE_EXTENDED = new Boundary(3064, 3436, 3207, 3549);
 	public static final Boundary GODWARS_MAIN_AREA = new Boundary(2811, 5247, 2950, 5347);
 	public static final Boundary SWAMP_AREA = new Boundary(3395, 3163, 3853, 3595);
 	public static final Boundary WARRIORS_GUILD = new Boundary(2833, 3531, 2878, 3558);

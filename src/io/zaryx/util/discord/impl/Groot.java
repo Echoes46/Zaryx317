@@ -17,13 +17,13 @@ public class Groot extends ListenerAdapter implements SlashHandler {
             return;
         }
 
-        // Call your game logic
+        String staffName = e.getUser().getName();
+
         io.zaryx.content.activityboss.Groot.spawnGroot();
 
-        // Log + confirm
-        String staffName = e.getUser().getName();
         Discord.writeGiveLog("[Groot] " + staffName + " has spawned Groot!");
-        e.reply("🌳 **Groot spawned** by **" + staffName + "**.").queue();
+
+        e.reply("Groot spawned by " + staffName + ".").queue();
     }
     @Override
     public void handle(SlashCommandInteractionEvent e) {

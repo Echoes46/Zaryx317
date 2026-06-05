@@ -24,7 +24,7 @@ public class Outlast extends Command {
 			return;
 		}
 		c.sendMessage("@red@[OUTLAST]@blu@ Bank your items and enter the portal to join the tournament! Good Luck!");
-		c.getPA().spellTeleport(3063, 3487, 0, false);
+		c.getPA().spellTeleport(3078, 3488, 0, false);
 	}
 
 	@Override

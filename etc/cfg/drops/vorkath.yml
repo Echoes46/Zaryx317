@@ -159,3 +159,6 @@ very_rare:
   - item: 28325  #leviathans lure
     minimum: 1
     maximum: 1
+  - item: 2425  #Vorkath Head
+    minimum: 1
+    maximum: 1

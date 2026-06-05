@@ -45,7 +45,7 @@ public class MonsterKillLog {
     }
 
     public static void dialogue(Player c, Player c2) {
-        if (c.getPosition().inDuelArena() || c2.getPosition().inDuelArena()) {
+        if (c.getPosition().inDuelLobby() || c2.getPosition().inDuelLobby()) {
             return;
         }
         c.start(new DialogueBuilder(c).setNpcId(11278).option(new DialogueOption("View "+c2.getDisplayName()+ "'s Kill Log", p -> {

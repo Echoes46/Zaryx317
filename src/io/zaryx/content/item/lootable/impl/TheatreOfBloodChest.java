@@ -188,7 +188,7 @@ public class TheatreOfBloodChest implements Lootable {
 
          */
 
-        rareChance = (int) (rareChance - (DropManager.getModifier1(player) < 10 ? DropManager.getModifier1(player) : DropManager.getModifier1(player) / 10));
+        rareChance = (int) (rareChance - (DropManager.getModifier(player) < 10 ? DropManager.getModifier(player) : DropManager.getModifier(player) / 10));
         if (rareChance <= 0) {
             rareChance = 30;
         }

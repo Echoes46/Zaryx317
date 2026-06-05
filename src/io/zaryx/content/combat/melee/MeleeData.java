@@ -369,6 +369,7 @@ public class MeleeData {
 				break;
 			case 4151:
 			case 26484:
+            case 39006:
 			case 26482:
 			case 12773:
 			case 12774:
@@ -804,6 +805,7 @@ public class MeleeData {
 				return 410;
 			case 4151:
 			case 26484:
+            case 39006:
 			case 26482:
 			case 12773:
 			case 12774:

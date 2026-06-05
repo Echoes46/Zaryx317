@@ -234,7 +234,7 @@ public class LootingBag {
      * Checks whether or not a player is allowed to configure the looting bag
      */
     public boolean canUseLootingBag() {
-        if (/*player.underAttackBy > 0 || player.underAttackBy2 > 0 ||*/ player.getPosition().inDuelArena() || player.getPosition().inPcGame()
+        if (/*player.underAttackBy > 0 || player.underAttackBy2 > 0 ||*/ player.getPosition().inDuelLobby() || player.getPosition().inPcGame()
                 || player.getPosition().inPcBoat() || player.getPosition().isInJail() || player.getInterfaceEvent().isActive()
                 || player.getPA().viewingOtherBank || player.isDead || player.viewingRunePouch) {
             return false;

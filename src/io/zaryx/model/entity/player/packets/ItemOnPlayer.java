@@ -93,10 +93,10 @@ public class ItemOnPlayer implements PacketType {
         }
         switch (itemId) {
             case 6769://5 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(6769, 1)) {
@@ -104,10 +104,10 @@ public class ItemOnPlayer implements PacketType {
                 }
                 break;
             case 2403://10 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(2403, 1)) {
@@ -115,10 +115,10 @@ public class ItemOnPlayer implements PacketType {
                 }
                 break;
             case 2396://25 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(2396, 1)) {
@@ -126,10 +126,10 @@ public class ItemOnPlayer implements PacketType {
                 }
                 break;
             case 786://50 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(786, 1)) {
@@ -137,10 +137,10 @@ public class ItemOnPlayer implements PacketType {
                 }
                 break;
             case 761://100 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(761, 1)) {
@@ -148,10 +148,10 @@ public class ItemOnPlayer implements PacketType {
                 }
                 break;
             case 607://250 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(607, 1)) {
@@ -159,10 +159,10 @@ public class ItemOnPlayer implements PacketType {
                 }
                 break;
             case 608://500 scroll
-                if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+                if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                     return;
                 }
-                if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+                if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
                     return;
                 }
                 if (c.getItems().playerHasItem(608, 1)) {

@@ -18,22 +18,18 @@ public class PerkSystem {
     }
 
     public void attunePerk(int itemid) {
-
         SortedMap<String, Perks> map = new TreeMap<String, Perks>();
+
         for (Perks value : Perks.values()) {
             map.put(value.name(), value);
         }
-
-/*        for (Perks value : map.values()) {
-            System.out.println(value);
-        }*/
 
         if (!canAttune(itemid)) {
             return;
         }
 
         if (!player.getItems().hasItemOnOrInventory(itemid)) {
-            player.sendMessage("How the fuck? did you manage to get here?");
+            player.sendMessage("How did you manage to get here?");
             return;
         }
 
@@ -46,24 +42,35 @@ public class PerkSystem {
                 break;
             }
         }
-        updateInterface(false);
-    }
 
+        updateInterface(false);
+        refreshBonuses();
+    }
+    private void refreshBonuses() {
+        /*
+         * Refresh combat/equipment bonuses after perk changes.
+         * This makes perk effects apply instantly without relogging.
+         */
+        player.getItems().calculateBonuses();
+        player.getPA().requestUpdates();
+    }
     public void removePerk(int itemid) {
-            for (GameItem gameItem : player.getPerkSytem().gameItems) {
-                if (gameItem.getId() == itemid) {
-                    player.getPerkSytem().gameItems.remove(new GameItem(itemid, 1));
-                    player.sendMessage("You unattune " + ItemDef.forId(itemid).getName() + ".");
-                    player.getItems().addItemUnderAnyCircumstance(itemid, 1);
-                    Arrays.stream(Perks.values()).forEach(p -> {
-                        if (p.itemID == itemid) {
-                            perks.remove(p);
-                        }
-                    });
-                    break;
-                }
-            }
+        boolean removed = player.getPerkSytem().gameItems.removeIf(gameItem -> gameItem.getId() == itemid);
+
+        if (!removed) {
+            player.sendMessage("@red@You do not have this perk attuned.");
+            updateInterface(true);
+            refreshBonuses();
+            return;
+        }
+
+        player.sendMessage("You unattune " + ItemDef.forId(itemid).getName() + ".");
+        player.getItems().addItemUnderAnyCircumstance(itemid, 1);
+
+        perks.removeIf(perk -> perk.itemID == itemid);
+
         updateInterface(true);
+        refreshBonuses();
     }
 
     public List<GameItem> gameItems() {
@@ -71,45 +78,47 @@ public class PerkSystem {
     }
 
     public boolean canAttune(int itemid) {
-        if (player.getPerkSytem().gameItems.size() == 9) {
+        if (player.getPerkSytem().gameItems.size() >= 9) {
             player.sendMessage("You cannot attune anymore perk's you already have 9 attuned.");
             return false;
         }
-        int count = 0;
-        for (GameItem gameItem : player.getPerkSytem().gameItems) {
-            if (gameItem.getId() == 33112 && itemid == 33112 || gameItem.getId() == 33112 && itemid == 33108 || gameItem.getId() == 33108 && itemid == 33108 || gameItem.getId() == 33108 && itemid == 33112 || gameItem.getId() == 33122 && gameItem.getId() == 33226 || gameItem.getId() == 33226 && gameItem.getId() == 33122 || gameItem.getId() == 33222 && gameItem.getId() == 33106 || gameItem.getId() == 33106 && gameItem.getId() == 33222 || gameItem.getId() == 33105 && gameItem.getId() == 33220 || gameItem.getId() == 33220 && gameItem.getId() == 33105 || gameItem.getId() == 33221 && gameItem.getId() == 33107 || gameItem.getId() == 33107 && gameItem.getId() == 33221) {
-                count++;
-            }
-            if (count >= 1) {
-                player.sendMessage("@red@You can only equip one of these perks at a time!");
-                return false;
-            }
-        }
-
-
-        if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == itemid && itemid != 33112)) {
-            player.sendMessage("You cannot attune anymore of this perk, as you already have one attuned.");
-            return false;
-        }
-
-/*        int amt = 0;
-        for (Perks value : Perks.values()) {
-            if (player.getPerkSytem().gameItems.stream().anyMatch(i -> i.getId() == value.itemID) && value.perkType == PerkType.COMBAT && value.itemID == itemid) {
-                amt++;
-            }
-        }
-
-        if (amt >= 2) {
-            player.sendMessage("You can only equip 2 combat perk's at one time.");
-            return false;
-        }*/
 
         if (player.wildLevel > 0) {
             player.sendMessage("You cannot attune perk's while in the wilderness.");
             return false;
         }
 
+        boolean alreadyAttuned = player.getPerkSytem().gameItems.stream()
+                .anyMatch(item -> item.getId() == itemid);
+
+        if (alreadyAttuned) {
+            player.sendMessage("You cannot attune anymore of this perk, as you already have one attuned.");
+            return false;
+        }
+
+        for (GameItem gameItem : player.getPerkSytem().gameItems) {
+            int activeId = gameItem.getId();
+
+            if (conflicts(activeId, itemid)) {
+                player.sendMessage("@red@You can only equip one of these perks at a time!");
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    private boolean conflicts(int activeId, int newId) {
+        return isPair(activeId, newId, 33108, 33112)
+                || isPair(activeId, newId, 33122, 33226)
+                || isPair(activeId, newId, 33106, 33222)
+                || isPair(activeId, newId, 33105, 33220)
+                || isPair(activeId, newId, 33107, 33221);
+    }
+
+    private boolean isPair(int activeId, int newId, int first, int second) {
+        return (activeId == first && newId == second)
+                || (activeId == second && newId == first);
     }
 
     public void updateInterface(boolean remove) {

@@ -1,5 +1,6 @@
 package io.zaryx.model.entity.player;
 
+import com.everythingrs.hiscores.Hiscores;
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -334,6 +335,9 @@ public class Player extends Entity {
     public boolean corpseCartClaim = false;
     public int corpseCartDate = 0;
     public int playTime3 = 0;
+
+
+    public long tempCoinCoffer;
 
     public int getTodayDate() {
         Calendar cal = new GregorianCalendar();
@@ -1928,7 +1932,8 @@ public class Player extends Entity {
             session.writeAndFlush(new PacketBuilder(109).toPacket()).addListener(ChannelFutureListener.CLOSE);
             session = null;
         }
-        if (Boundary.isIn(this, Boundary.DONORV)){
+
+        if (Boundary.isIn(this, Boundary.DONORV)) {
             getPA().forceMove(2098, 6004, 0, true);
             return;
         }
@@ -1936,9 +1941,11 @@ public class Player extends Entity {
         if (party != null) {
             party.remove(this);
         }
+
         if (getPA().viewingOtherBank) {
             getPA().resetOtherBank();
         }
+
         if (this.clan != null) {
             this.clan.removeMember(this);
         }
@@ -1950,7 +1957,6 @@ public class Player extends Entity {
         getController().onLogout(this);
 
         clearUpPlayerNPCsForLogout();
-
         declineTrades();
 
         if (Configuration.BOUNTY_HUNTER_ACTIVE) {
@@ -1964,12 +1970,15 @@ public class Player extends Entity {
         potions.resetRangeDivine();
         potions.resetMageDivine();
         potions.resetCombatDivine();
+
         if (getCannon() != null) {
             getCannon().pickup(this, false);
         }
+
         if (getLeagueCannon() != null) {
             getLeagueCannon().pickup(this, false);
         }
+
         if (combatLevel >= 100) {
             if (Highpkarena.getState(this) != null) {
                 Highpkarena.removePlayer(this, true);
@@ -1979,6 +1988,7 @@ public class Player extends Entity {
                 Lowpkarena.removePlayer(this, true);
             }
         }
+
         Hunter.abandon(this, null, true);
 
         if (getXeric() != null) {
@@ -1986,27 +1996,31 @@ public class Player extends Entity {
             setXeric(null);
             getPA().movePlayer(Configuration.START_LOCATION_X, Configuration.START_LOCATION_Y, 0);
         }
+
         if (Boundary.isIn(this, Boundary.XERIC_LOBBY)) {
             XericLobby.removePlayer(this);
         }
+
         if (getDungInstance() != null) {
             getDungInstance().logout(this);
         }
+
         if (getRaidsInstance() != null) {
             getRaidsInstance().logout(this);
         }
-        if (Vorkath.inVorkath(this)) {
-            this.getPA().movePlayer(2272, 4052, 0);
-        }
+
         if (Vorkath.inVorkath(this)) {
             getPA().movePlayer(2272, 4052, 0);
         }
+
         if (getPA().viewingOtherBank) {
             getPA().resetOtherBank();
         }
+
         if (Boundary.isIn(this, PestControl.GAME_BOUNDARY)) {
             PestControl.removeGameMember(this);
         }
+
         if (Boundary.isIn(this, PestControl.LOBBY_BOUNDARY)) {
             PestControl.removeFromLobby(this);
         }
@@ -2019,37 +2033,64 @@ public class Player extends Entity {
         Server.getEventHandler().stop(this);
         CycleEventHandler.getSingleton().stopEvents(this);
 
-//        if (getMode().isGroupWildyman() || getMode().isWildyman() || getMode().isGroupIronman() || getMode().isIronman()) {
-//            Hiscores.update("7kf0qxIzkYsy2oGhGqwmEFxQuFYVawJuSkABfgmHExKgYLZ5aj7VzjXP6NK4WicRWP0ZmIKE", "Survivalists", getDisplayName(), getRights().getPrimary().getValue(), playerXP, debugMessage);
-//            System.out.println("Updating Ironmen Hiscores");
-//        } else {
-//            Hiscores.update("7kf0qxIzkYsy2oGhGqwmEFxQuFYVawJuSkABfgmHExKgYLZ5aj7VzjXP6NK4WicRWP0ZmIKE", "Normal Mode", getDisplayName(), getRights().getPrimary().getValue(), playerXP, debugMessage);
-//            System.out.println("Updating Regular Hiscores");
-//        }
-
-        if (getRights().isNot(Right.ADMINISTRATOR) || getRights().isNot(Right.STAFF_MANAGER) || getRights().isNot(Right.GAME_DEVELOPER)) {
-//            new Thread(new hiscores(this)).start();
-        }
-
-/*        if (Discord.jda != null) {
-            Discord.jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.playing("ArkCane with " + ((int) (PlayerHandler.getPlayerCount() * 1.3)) + " players!"));
-        }*/
+//        updateHiscoresOnLogout();
 
         Server.getDatabaseManager().batch(new OutlastLeaderboardAdd(new OutlastLeaderboardEntry(this)));
         getTaskMaster().saveAllMoneyMaking(this);
 
         removeFromInstance();
+
         if (clan != null) {
             clan.removeMember(this);
         }
+
         inStream = null;
-        //outStream = null;
         playerListSize = 0;
         npcListSize = 0;
-        for (int i = 0; i < maxPlayerListSize; i++) playerList[i] = null;
-        for (int i = 0; i < maxNPCListSize; i++) npcList[i] = null;
+
+        for (int i = 0; i < maxPlayerListSize; i++) {
+            playerList[i] = null;
+        }
+
+        for (int i = 0; i < maxNPCListSize; i++) {
+            npcList[i] = null;
+        }
+
         if (Server.isTest() && !isBot()) {
             logger.info(Misc.formatPlayerName(getLoginName()) + " is logging out..");
+        }
+    }
+
+    private void updateHiscoresOnLogout() {
+        try {
+            if (getRights().contains(Right.ADMINISTRATOR)
+                    || getRights().contains(Right.STAFF_MANAGER)
+                    || getRights().contains(Right.GAME_DEVELOPER)) {
+                return;
+            }
+
+            String secret = "SnW3mJ7q1vJlCk0LnYkeNVShHGX2caspdbvVQcKKLASJcT4EKxdK5AMBbrtOpNPwjopxx0CN";
+            String gameMode = "Normal Mode";
+
+            if (getMode().isGroupWildyman()
+                    || getMode().isWildyman()
+                    || getMode().isGroupIronman()
+                    || getMode().isIronman()) {
+                gameMode = "Survivalists";
+            }
+
+            Hiscores.update(
+                    secret,
+                    gameMode,
+                    getDisplayName(),
+                    getRights().getPrimary().getValue(),
+                    playerXP,
+                    true
+            );
+
+            System.out.println("Updated " + gameMode + " highscores for " + getLoginName() + ".");
+        } catch (Exception e) {
+            logger.error("Failed to update highscores for " + getLoginName() + ".", e);
         }
     }
 
@@ -3350,20 +3391,31 @@ public class Player extends Entity {
             return;
 
         // Player options in this if-else
+        // Player options in this if-else
         if (Boundary.isIn(this, FlowerPoker.BOUNDARIES)) {
             getPA().showOption(1, 0, "<img=29>Gamble with");
-        } else if (getPosition().inDuelArena() || Boundary.isIn(this, Boundary.DUEL_ARENA)) {
-            if (Boundary.isIn(this, Boundary.DUEL_ARENA)) {
-                getPA().showOption(3, 0, "Attack");
-                getPA().showOption(1, 0, "null");
-            } else {
-                getPA().showOption(1, 0, "Challenge");
-                getPA().showOption(3, 0, "null");
-            }
+            getPA().showOption(3, 0, "null");
+
+        } else if (Boundary.isIn(this, Boundary.DUEL_ARENA)) {
+            getPA().showOption(3, 0, "Attack");
+            getPA().showOption(1, 0, "null");
+
+        } else if (Boundary.isIn(this, Boundary.DUEL_LOBBY)) {
+            getPA().showOption(1, 0, "Challenge");
+            getPA().showOption(3, 0, "null");
+
+        } else if (Boundary.isIn(this, Boundary.TRIAL_OF_ARMS_BOUNDARY)) {
+            getPA().showOption(3, 0, "Attack");
+            getPA().showOption(1, 0, "null");
+
         } else if (getPosition().inWild() || getPosition().inClanWars() && getPosition().inWild() || inPits) {
             getPA().showOption(3, 0, "Attack");
+            getPA().showOption(1, 0, "null");
+
         } else if (Boundary.isIn(this, Boundary.EDGEVILLE_EXTENDED) && !Boundary.isIn(this, FlowerPoker.BOUNDARIES)) {
             getPA().showOption(1, 0, "PlayerOptions");
+            getPA().showOption(3, 0, "null");
+
         } else {
             getPA().showOption(3, 0, "null");
             getPA().showOption(1, 0, "null");
@@ -3404,6 +3456,11 @@ public class Player extends Entity {
             wildLevel = 54;
         } else if (getItems().isWearingItem(10501, 3) && !getPosition().inWild()) {
             getPA().showOption(3, 0, "Throw-At");
+
+        } else if (Boundary.isIn(this, Boundary.TRIAL_OF_ARMS_BOUNDARY)) {
+            getPA().walkableInterface(-1);
+            wildLevel = 126;
+
         } else if (getPosition().inEdgeville()) {
             if (Configuration.BOUNTY_HUNTER_ACTIVE) {
                 if (bountyHunter.hasTarget()) {
@@ -3437,7 +3494,7 @@ public class Player extends Entity {
         } else if (Boundary.isIn(this, PestControl.GAME_BOUNDARY)) {
             getPA().walkableInterface(21100);
             PestControl.drawInterface(this, "game");
-        } else if ((getPosition().inDuelArena() || Boundary.isIn(this, Boundary.DUEL_ARENA))) {
+        } else if ((getPosition().inDuelLobby() || Boundary.isIn(this, Boundary.DUEL_ARENA))) {
             getPA().walkableInterface(201);
             wildLevel = 126;
         } else if (getPosition().inGodwars()) {

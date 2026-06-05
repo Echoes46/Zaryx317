@@ -389,11 +389,10 @@ public final class Position {
 		return (x > 3040 && x < 3200 && y > 3460 && y < 3519);
 	}
 
-	@JsonIgnore
-	public boolean inDuelArena() {
-		return (x > 3026 && x < 3063 && y > 3455 && y < 3509)
-				|| (x > 3311 && x < 3323 && y > 3223 && y < 3248);
-	}
+    @JsonIgnore
+    public boolean inDuelLobby() {
+        return x >= 3355 && x <= 3379 && y >= 3267 && y <= 3285;
+    }
 
 	@JsonIgnore
 	public boolean inGodwars() {
@@ -413,6 +412,10 @@ public final class Position {
 				Boundary.isIn(this, Boundary.Ferox5)||Boundary.isIn(this, Boundary.Ferox6)) {
 			return false;
 		}
+        if (Boundary.isIn(this, Boundary.TRIAL_OF_ARMS_BOUNDARY)) {
+            return true;
+        }
+
 		if (Boundary.isIn(this, new Boundary(2112, 5504, 2175, 5567))) {
 			return true;
 		}

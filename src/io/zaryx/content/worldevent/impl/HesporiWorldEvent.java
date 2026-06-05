@@ -56,7 +56,7 @@ public class HesporiWorldEvent implements WorldEvent {
 
     @Override
     public void announce(List<Player> players) {
-        Discord.writeIngameEvents("[Hespori] Hespori world boss has spawned! Location: World Event Boss Arena ::worldevent <@&1417604869597954109>");
+        Discord.writeIngameEvents("[Hespori] Hespori world boss has spawned! Location: World Event Boss Arena ::worldevent");
 
         new Broadcast("<img=11> Hespori world boss has spawned, use ::worldevent to fight!")
                 .addTeleport(new Position(2457, 3553, 0))

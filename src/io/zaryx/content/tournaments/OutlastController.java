@@ -44,7 +44,7 @@ public class OutlastController implements Controller {
         if (!player.getOutlastSkillBackup().isEmpty()) {
             player.sendMessage("@red@There was an error entering outlast.");
             logger.error("Player already has backup skills set, shouldn't be possible to join again: {}", player);
-            player.moveTo(new Position(3060, 3487, 0)); //Right outside Portal
+            player.moveTo(new Position(3080, 3488, 0)); //Right outside Portal
             return;
         } else {
             Arrays.stream(Skill.getCombatSkills()).forEach(skill ->
@@ -111,7 +111,7 @@ public class OutlastController implements Controller {
             player.setSidebarInterface(6, 29999);
             player.playerMagicBook = 2;
         }
-        player.moveTo(new Position(3060, 3487, 0));
+        player.moveTo(new Position(3080, 3488, 0));
     }
 
     @Override
@@ -126,7 +126,7 @@ public class OutlastController implements Controller {
 
     @Override
     public void onLogin(Player player) {
-        player.moveTo(new Position(3060, 3487, 0));
+        player.moveTo(new Position(3080, 3488, 0));
     }
 
     @Override

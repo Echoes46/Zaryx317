@@ -63,15 +63,6 @@
     "walkRange": 1
   },
   {
-    "name": "Sacrifice",
-    "id": 2037,
-    "x": 2210,
-    "y": 3056,
-    "z": 0,
-    "direction": "S",
-    "walkRange": 1
-  },
-  {
     "name": "Priestess Zul-Gwenwynig",
     "id": 2033,
     "x": 2212,

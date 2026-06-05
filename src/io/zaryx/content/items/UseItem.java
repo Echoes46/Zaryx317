@@ -179,24 +179,34 @@ public class UseItem {
 		if (c.getItems().getInventoryCount(itemId) < 1)
 			return;
 		c.clickObjectType = 0;
-		ObjectDef def = ObjectDef.getObjectDef(objectID);
-		if (def != null) {
+        ObjectDef def = ObjectDef.getObjectDef(objectID);
 
-			if (def.name != null && def.name.toLowerCase().contains("bank")) {
-				//ItemDefinition definition = ItemDefinition.forId(itemId);
-				if (itemId == 995 || itemId == 13204) {
-					PlatinumTokens.convert(c, itemId, c.getItems().getInventoryItemSlot(itemId));
-					return;
-				}
-				boolean stackable = ItemDef.forId(itemId).isStackable();
-				if (stackable) {
-					c.getPA().sendEnterAmount(0);
-					c.unNoteItemId = itemId;
-					c.settingUnnoteAmount = true;
-				} else {
-					PlayerAssistant.noteItems(c, itemId);
-				}
-			}
+        if (def != null) {
+            if (def.name != null && (def.name.toLowerCase().contains("bank") || objectID == 10061)) {
+
+                if (itemId == 995 || itemId == 13204) {
+                    PlatinumTokens.convert(c, itemId, c.getItems().getInventoryItemSlot(itemId));
+                    return;
+                }
+
+                ItemDef itemDef = ItemDef.forId(itemId);
+
+                if (itemDef == null) {
+                    return;
+                }
+
+                boolean stackable = itemDef.isStackable();
+
+                if (stackable) {
+                    c.getPA().sendEnterAmount(0);
+                    c.unNoteItemId = itemId;
+                    c.settingUnnoteAmount = true;
+                } else {
+                    PlayerAssistant.noteItems(c, itemId);
+                }
+
+                return;
+            }
 		}
 
 		if (Hespori.useSeedOnPatch(c, objectID, itemId)) {
@@ -222,6 +232,7 @@ public class UseItem {
 
 				break;
 			case 3264:
+            case 884:
 				Wogw.donateItem(c, itemId);
 				break;
 			case 6549:

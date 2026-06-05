@@ -56,11 +56,11 @@ public class Configuration {
 	public static final String PACKAGE = "io.zaryx";
 	public static final String DATA_FOLDER = "etc";
 
-	public static final String WEBSITE = "https://discord.gg/fnP3RetqjE";
+	public static final String WEBSITE = "https://zaryx.online";
 	public static final String FORUM_TOPIC_URL = "https://discord.gg/fnP3RetqjE";
-	public static final String VOTE_LINK = "https://discord.gg/fnP3RetqjE";
-	public static final String HISCORES_LINK = "https://discord.gg/zaryx";
-	public static final String STORE_LINK = "https://discord.gg/zaryx";
+	public static final String VOTE_LINK = "https://zaryx.online/vote.php";
+	public static final String HISCORES_LINK = "https://zaryx.online/highscores.php";
+	public static final String STORE_LINK = "https://zaryx.online/donations.php";
 	public static final String DISCORD_INVITE = "https://discord.gg/zaryx";
 	public static final String RULES_LINK = "https://discord.gg/fnP3RetqjE";
 	public static final String GUIDES_LINK = "https://discord.gg/fnP3RetqjE";

@@ -24,9 +24,6 @@ common:
     - item: 6679 #mini mbox
       minimum: 25
       maximum: 50
-    - item: 6677 #mini smb
-      minimum: 10
-      maximum: 20
     - item: 6678 #mini ultra
       minimum: 5
       maximum: 10

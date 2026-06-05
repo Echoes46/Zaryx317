@@ -583,7 +583,7 @@ public class TeleportInterface {
         PEST_CONTROL("<img=60>Pest Control", 1734, new int[]{2660, 2648, 0}),
         WARRIORS_GUILD("<img=60>Warriors Guild", 2456, new int[]{2874, 3546, 0}),
         DUEL_ARENA("<img=60>Duel Arena", 2659, new int[]{3366, 3266, 0}),
-        PERKFINDER("<img=60>Perk Paradise", 1227, new int[]{3363, 9640, 0}),
+//        PERKFINDER("<img=60>Perk Paradise", 1227, new int[]{3363, 9640, 0}),
         FIGHT_CAVES("<img=60>Fight Caves", 3127, new int[]{2444, 5179, 0}),
         BARROWS("<img=60>Barrows", 1672, new int[]{3565, 3316, 0}),
         INFERNO("<img=60>The Inferno", 7706, new int[]{2494, 5113, 0}),

@@ -325,10 +325,10 @@ public class TwoOptions {
 			c.getDH().sendDialogues(785, -1);
 			break;
 	/*		case 956://1 scroll
-				if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+				if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 					return;
 				}
-				if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+				if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 					return;
 				}
 				if (other.getItems().freeSlots() < 1) {
@@ -348,10 +348,10 @@ public class TwoOptions {
 				}
 				break;
 		case 4005://5 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -371,10 +371,10 @@ public class TwoOptions {
 			}
 			break;
 		case 4006://10 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -394,10 +394,10 @@ public class TwoOptions {
 			}
 			break;
 		case 4007://25 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -417,10 +417,10 @@ public class TwoOptions {
 			}
 			break;
 		case 4008://50 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -440,10 +440,10 @@ public class TwoOptions {
 			}
 			break;
 		case 4009://100 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -464,10 +464,10 @@ public class TwoOptions {
 			break;
 
 		case 4010://250 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -487,10 +487,10 @@ public class TwoOptions {
 			}
 			break;
 		case 4011://500 scroll
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
-			if (other.getPosition().inWild() || other.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(other)) {
+			if (other.getPosition().inWild() || other.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(other)) {
 				return;
 			}
 			if (other.getItems().freeSlots() < 1) {
@@ -1069,7 +1069,7 @@ public class TwoOptions {
 			c.getPA().startTeleport(3039, 4834, 0, "modern", false); // first click
 		}
 		if (c.dialogueAction == 4000) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
 			if (c.getItems().playerHasItem(2697, 1)) {
@@ -1082,7 +1082,7 @@ public class TwoOptions {
 			}
 		}
 		if (c.dialogueAction == 4001) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
 			if (c.getItems().playerHasItem(2698, 1)) {
@@ -1095,7 +1095,7 @@ public class TwoOptions {
 			}
 		}
 		if (c.dialogueAction == 4002) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
 			if (c.getItems().playerHasItem(2699, 1)) {
@@ -1108,7 +1108,7 @@ public class TwoOptions {
 			}
 		}
 		if (c.dialogueAction == 4003) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
 			if (c.getItems().playerHasItem(2700, 1)) {
@@ -1121,7 +1121,7 @@ public class TwoOptions {
 			}
 		}
 		if (c.dialogueAction == 4004) {
-			if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+			if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
 				return;
 			}
 			if (c.getMode().isIronmanType()) {
@@ -1147,7 +1147,7 @@ public class TwoOptions {
 			}
 		}
 		if (c.dialogueAction == 113239) {
-			if (c.getPosition().inDuelArena()) {
+			if (c.getPosition().inDuelLobby()) {
 				return;
 			}
 			c.getItems().addItem(557, 1000);
@@ -1463,7 +1463,7 @@ public class TwoOptions {
 			c.dialogueAction = 0;
 		}
 		if (c.dialogueAction == 113239) {
-			if (c.getPosition().inDuelArena()) {
+			if (c.getPosition().inDuelLobby()) {
 				return;
 			}
 			c.getItems().addItem(555, 1000);

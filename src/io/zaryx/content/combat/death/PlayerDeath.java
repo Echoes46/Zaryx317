@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import io.zaryx.Configuration;
 import io.zaryx.Server;
 import io.zaryx.content.WeaponGames.WGManager;
+import io.zaryx.content.minigames.trialofarms.TrialOfArms;
 import io.zaryx.content.bosses.nightmare.NightmareConstants;
 import io.zaryx.content.combat.Hitmark;
 import io.zaryx.content.combat.melee.CombatPrayer;
@@ -389,6 +390,7 @@ public class PlayerDeath {
                 || Boundary.isIn(c, Boundary.SWAMP_OUTLAST)
                 || Boundary.isIn(c, Boundary.LUMBRIDGE_OUTLAST_LOBBY)
                 || Boundary.isIn(c, Boundary.PEST_CONTROL_AREA)
+                || Boundary.isIn(c, Boundary.TRIAL_OF_ARMS_BOUNDARY)
                 || Boundary.isIn(c, Boundary.WG_Boundary)
                 || Boundary.isIn(c, Boundary.RAIDS)
                 || Boundary.isIn(c, Boundary.DUNGROOMS)
@@ -480,7 +482,18 @@ public class PlayerDeath {
             return;
         }
 
+        if (Boundary.isIn(c, Boundary.TRIAL_OF_ARMS_BOUNDARY)) {
+            Entity killer = c.getKiller();
 
+            if (killer != null && killer.isPlayer()) {
+                TrialOfArms.handleKill(killer.asPlayer(), c);
+            } else {
+                TrialOfArms.handleDeathWithoutKiller(c);
+            }
+
+            onRespawn(c);
+            return;
+        }
 
         if (Boundary.isIn(c, Boundary.PEST_CONTROL_AREA)) {
             c.getPA().movePlayer(2657, 2639, 0);
@@ -650,7 +663,7 @@ public class PlayerDeath {
             return;
         }
 
-        Discord.writeDeathHandler("```[DeathLog]" + c.getDisplayName() + " has just died!```");
+        Discord.writeDeathHandler("[DeathLog] " + c.getDisplayName() + " has just died!");
 
         if (c.wildLevel > 0) {
             Entity killer = c.getKiller();

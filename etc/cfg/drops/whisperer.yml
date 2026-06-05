@@ -25,15 +25,6 @@ common:
     - item: 30021 #Roc pet
       minimum: 1
       maximum: 1
-    - item: 33301 #artorias wings
-      minimum: 1
-      maximum: 1
-    - item: 33300 #artorias gloves
-      minimum: 1
-      maximum: 1
-    - item: 33299 #artorias boots
-      minimum: 1
-      maximum: 1
     - item: 20997 #T-bow
       minimum: 1
       maximum: 1
@@ -90,55 +81,10 @@ rare:
     - item: 696 #250k Nomad
       minimum: 1000
       maximum: 1000
-    - item: 33311 #Plague
-      minimum: 1
-      maximum: 1
-    - item: 33312 #PLague
-      minimum: 1
-      maximum: 1
-    - item: 33313 #Plague
-      minimum: 1
-      maximum: 1
-    - item: 33308 #reverie
-      minimum: 1
-      maximum: 1
-    - item: 33309 #reverie
-      minimum: 1
-      maximum: 1
-    - item: 33310 #reverie
-      minimum: 1
-      maximum: 1
-    - item: 33343 #ember
-      minimum: 1
-      maximum: 1
-    - item: 33344 #ember
-      minimum: 1
-      maximum: 1
-    - item: 33345 #ember
-      minimum: 1
-      maximum: 1
 
 very_rare:
   accessibility: 600
   items:
-    - item: 33438 #Wraith Mask
-      minimum: 1
-      maximum: 1
-    - item: 33439 #Wraith Body
-      minimum: 1
-      maximum: 1
-    - item: 33440 #Wraith legs
-      minimum: 1
-      maximum: 1
-    - item: 33443 #Wraith Shield
-      minimum: 1
-      maximum: 1
-    - item: 33444 #Wraith Book
-      minimum: 1
-      maximum: 1
-    - item: 33445 #Wraith defender
-      minimum: 1
-      maximum: 1
     - item: 28246 #Wisp
       minimum: 1
       maximum: 1

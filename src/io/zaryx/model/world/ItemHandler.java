@@ -444,16 +444,26 @@ public class ItemHandler {
 
     private void logPickup(Player player, GroundItem groundItem) {
         player.itemPickedUpThisTick = true;
+
         ItemDef def = ItemDef.forId(groundItem.getId());
-        Server.getLogging().write(new ItemPickupLog(player, new GameItem(groundItem.getId(), groundItem.getAmount()), groundItem.getPosition(), groundItem.getOwnerName()));
+
+        Server.getLogging().write(new ItemPickupLog(
+                player,
+                new GameItem(groundItem.getId(), groundItem.getAmount()),
+                groundItem.getPosition(),
+                groundItem.getOwnerName()
+        ));
+
         if (def.getShopValue() > 30_000 || def.getShopValue() < 2) {
-            if (player.getRights().isNot(Right.STAFF_MANAGER) && player.getRights().isNot(Right.GAME_DEVELOPER)) {
+            if (player.getRights().isNot(Right.STAFF_MANAGER)
+                    && player.getRights().isNot(Right.GAME_DEVELOPER)) {
+
                 if (!player.getDisplayName().equalsIgnoreCase(groundItem.getOwnerName())) {
-                    Discord.writePickupMessage("[Pickup]: " + player.getDisplayName() +
-                            " picked up " + def.getName() +
-                            " x " + groundItem.getAmount() +
-                            " at " + groundItem.getPosition() +
-                            " from " + groundItem.getOwnerName());
+                    Discord.writePickupMessage("[Pickup]: " + player.getDisplayName()
+                            + " picked up " + def.getName()
+                            + " x " + groundItem.getAmount()
+                            + " at " + groundItem.getPosition()
+                            + " from " + groundItem.getOwnerName());
                 }
             }
         }

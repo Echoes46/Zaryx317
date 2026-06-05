@@ -28,7 +28,7 @@ public class PlayerEmotes {
 	 * @param player
 	 */
 	public static boolean canPerform(final Player player) {
-		if (player.underAttackByPlayer > 0 || player.underAttackByNpc > 0 || player.getPosition().inDuelArena() || player.getPosition().inPcGame()
+		if (player.underAttackByPlayer > 0 || player.underAttackByNpc > 0 || player.getPosition().inDuelLobby() || player.getPosition().inPcGame()
 				|| player.getPosition().inPcBoat() || player.getPosition().isInJail() || player.getInterfaceEvent().isActive()
 				|| player.getPA().viewingOtherBank || player.isDead || player.viewingRunePouch) {
 			return false;

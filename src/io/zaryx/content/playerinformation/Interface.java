@@ -64,7 +64,7 @@ public class Interface {
 
         player.getPA().sendString(simp++, "@or1@- Faction:" + (player.saradominFaction ? "@blu@Saradomin" : player.zamorakFaction ? "@red@Zamorak" : player.guthixFaction ? "@gre@Guthix" : "@cya@None"));
         simp++;
-        double dr = DropManager.getModifier1(player);
+        double dr = DropManager.getModifier(player);
         player.getPA().sendString(simp++, "@or1@- DR: @gre@" + formatString(dr));
         simp++;
         player.getPA().sendString(simp++, "@or1@- XP: @gre@" + player.getExpMode().getType().getFormattedName());

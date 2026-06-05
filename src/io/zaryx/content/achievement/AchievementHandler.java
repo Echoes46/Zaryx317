@@ -229,7 +229,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         } else if (player.achievementPage == 1) {
@@ -257,7 +257,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         } else if (player.achievementPage == 2) {
@@ -285,7 +285,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         } else if (player.achievementPage == 3) {
@@ -312,7 +312,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
                     + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName() + "```");
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
             Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
             return true;
         }
@@ -328,7 +328,7 @@ public class AchievementHandler {
                 c.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                         + " achievement '" + achievement.getFormattedName() + "'.</col>");
                 //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-                Discord.writeAchievements("```" + player.getDisplayName() + " has just completed " + achievement.getFormattedName() + "```");
+                Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
                 Server.getLogging().write(new ClaimAchievementLog(c, achievement));
             }
             AchieveV2.Update(player, player.achievementPage);

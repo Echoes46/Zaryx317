@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class FlowerPoker extends Multiplayer {
 
-    public static final Boundary BOUNDARIES = Boundary.FLOWER_POKER_AREA_WEST;
+    public static final Boundary BOUNDARIES = Boundary.FLOWER_POKER_AREA;
 
     public FlowerPoker(Player player) {
         super(player);
@@ -54,7 +54,7 @@ public class FlowerPoker extends Multiplayer {
             player.sendMessage("@red@ Please enjoy all other aspects of the game though. Thanks.");
             return;
         }*/
-        if (player.totalLevel < 250) {
+        /*if (player.totalLevel < 250) {
             player.sendMessage("@red@ You need to be at least 250 total level to stake.");
             player.sendMessage("@red@ This is to prevent our new players from getting cleaned.");
             player.sendMessage("@red@ Please enjoy all other aspects of the game though. Thanks.");
@@ -65,7 +65,7 @@ public class FlowerPoker extends Multiplayer {
             player.sendMessage("@red@ This is to prevent our new players from getting cleaned.");
             player.sendMessage("@red@ Please enjoy all other aspects of the game though. Thanks.");
             return;
-        }
+        }*/
 
 
         if (Configuration.DISABLE_FLOWER_POKER) {

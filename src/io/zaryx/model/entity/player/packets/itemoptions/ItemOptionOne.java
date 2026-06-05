@@ -2296,7 +2296,7 @@ public class ItemOptionOne implements PacketType {
                 DiceHandler.rollDice(c);
         }
         if (itemId == 2701) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena() || Server.getMultiplayerSessionListener().inAnySession(c)) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
                 return;
             }
             if (c.getItems().playerHasItem(2701, 1)) {
@@ -2304,7 +2304,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 7509) {
-            if (c.getPosition().inDuelArena() || Boundary.isIn(c, Boundary.DUEL_ARENA)) {
+            if (c.getPosition().inDuelLobby() || Boundary.isIn(c, Boundary.DUEL_ARENA)) {
                 c.sendMessage("You cannot do this here.");
                 return;
             }
@@ -2324,7 +2324,7 @@ public class ItemOptionOne implements PacketType {
             return;
         }
         if (itemId == 10269) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
                 return;
             }
             if (c.getItems().playerHasItem(10269, 1)) {
@@ -2333,7 +2333,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 10271) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
                 return;
             }
             if (c.getItems().playerHasItem(10271, 1)) {
@@ -2342,7 +2342,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 10273) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
                 return;
             }
             if (c.getItems().playerHasItem(10273, 1)) {
@@ -2351,7 +2351,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 10275) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
                 return;
             }
             if (c.getItems().playerHasItem(10275, 1)) {
@@ -2360,7 +2360,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 10277) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
                 return;
             }
             if (c.getItems().playerHasItem(10277, 1)) {
@@ -2369,7 +2369,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 10279) {
-            if (c.getPosition().inWild() || c.getPosition().inDuelArena()) {
+            if (c.getPosition().inWild() || c.getPosition().inDuelLobby()) {
                 return;
             }
             if (c.getItems().playerHasItem(10279, 1)) {

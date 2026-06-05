@@ -42,9 +42,6 @@ uncommon:
     - item: 7478 #afk token
       minimum: 5000
       maximum: 5000
-    - item: 6677 #mini smb
-      minimum: 1
-      maximum: 1
     - item: 2528 #exp lamp
       minimum: 10
       maximum: 10

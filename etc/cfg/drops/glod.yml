@@ -36,9 +36,6 @@ common:
 uncommon:
   accessibility: 100
   items:
-    - item: 6677 #mini smb
-      minimum: 25
-      maximum: 50
     - item: 6678 #mini umb
       minimum: 20
       maximum: 40
@@ -72,9 +69,9 @@ rare:
     - item: 19887 #mini dono
       minimum: 1
       maximum: 10
-    - item: 6828 #smb
-      minimum: 25
-      maximum: 50
+    - item: 6199 #Mystery Box
+      minimum: 1
+      maximum: 1
     - item: 13346 #umb
       minimum: 20
       maximum: 40

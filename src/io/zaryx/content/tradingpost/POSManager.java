@@ -8,6 +8,7 @@ import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerAssistant;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.items.GameItem;
+import io.zaryx.util.discord.Discord;
 import io.zaryx.util.Misc;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,10 +19,27 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Updated by Khaos
+ */
 public class POSManager {
 
     private static final int MAX_MY_OFFERS = 6;
     private static final int MAX_VIEW_OFFERS = 50;
+
+    private static final int COINS = 995;
+    private static final int PLAT = 13204;
+
+    /**
+     * Upgrade points are not an inventory item, so we use -1 internally.
+     */
+    private static final int UPGRADE_POINTS_CURRENCY = -1;
+
+    /**
+     * Item icon shown on the interface for Upgrade Points.
+     */
+    private static final int UPGRADE_POINTS_ICON = 696;
+
     private final int MyOffersView = 48600;
     private final int OfferViewInterface = 48000;
 
@@ -33,10 +51,25 @@ public class POSManager {
 
     private Player player;
     private String searchText;
-    @Getter @Setter
+
+    @Getter
+    @Setter
     private long nomadCoffer;
-    @Getter @Setter
+
+    /**
+     * Existing coffer for Plat.
+     * This name was already in the original class, so it is kept for compatibility.
+     */
+    @Getter
+    @Setter
     private long coinCoffer;
+
+    /**
+     * New coffer for actual coins, item id 995.
+     */
+    @Getter
+    @Setter
+    private long actualCoinCoffer;
 
     public void init(Player player) {
         this.player = player;
@@ -49,14 +82,21 @@ public class POSManager {
 
         if (!player.tempTradeOffers.isEmpty()) {
             tradePostOffers.addAll(player.tempTradeOffers);
-
             player.tempTradeOffers.clear();
         }
 
         nomadCoffer = player.tempNomadCoffer;
         coinCoffer = player.tempPlatCoffer;
 
-        player.tempNomadCoffer = 0; player.tempPlatCoffer = 0;//Set to zero after setting up the player.
+
+        actualCoinCoffer = player.tempCoinCoffer;
+         player.tempCoinCoffer = 0;
+
+        actualCoinCoffer = 0;
+
+        player.tempNomadCoffer = 0;
+        player.tempPlatCoffer = 0;
+
         handleGEScript(player);
     }
 
@@ -65,6 +105,7 @@ public class POSManager {
             player.sendErrorMessage("The Trading Post is currently Disabled!");
             return;
         }
+
         player.setInTradingPost(true);
         player.setSidebarInterface(3, 3213);
         updateViewOffers();
@@ -77,6 +118,7 @@ public class POSManager {
             player.sendErrorMessage("The Trading Post is currently Disabled!");
             return;
         }
+
         player.setInTradingPost(true);
         sendTabInterface();
         updateMyOffers();
@@ -87,7 +129,7 @@ public class POSManager {
 
     private void sendTabInterface() {
         for (int k = 0; k < 28; k++) {
-            player.getPA().sendTradingPost(48501, player.playerItems[k]-1, k, player.playerItemsN[k]);
+            player.getPA().sendTradingPost(48501, player.playerItems[k] - 1, k, player.playerItemsN[k]);
         }
     }
 
@@ -96,10 +138,12 @@ public class POSManager {
             if (!player.isInTradingPost()) {
                 return;
             }
+
             if (player.getItems().getInventoryCount(itemId) <= 0) {
                 player.sendErrorMessage("You don't have any of these items.");
                 return;
             }
+
             switch (container) {
                 case 1:
                     promptCreateOffer(itemId, 1);
@@ -123,6 +167,7 @@ public class POSManager {
             if (!player.isInTradingPost()) {
                 return;
             }
+
             switch (container) {
                 case 1:
                     buy(itemId, 1);
@@ -146,10 +191,9 @@ public class POSManager {
             if (!player.isInTradingPost()) {
                 return;
             }
+
             cancelOffer(container);
         }
-
-
     }
 
     private void cancelOffer(int index) {
@@ -168,18 +212,20 @@ public class POSManager {
     }
 
     private void promptCreateOffer(int itemId, int amount) {
-        if (tradePostOffers.size() > MAX_MY_OFFERS) {
+        if (tradePostOffers.size() >= MAX_MY_OFFERS) {
             player.sendErrorMessage("You cannot create more offers.");
             return;
         }
 
         ItemDef itemDef = ItemDef.forId(itemId);
-        if (itemDef == null || !itemDef.isTradable() || itemId == 995 || itemId == 13204) {
+
+        if (itemDef == null || !itemDef.isTradable() || itemId == COINS || itemId == PLAT) {
             player.sendErrorMessage("You cannot trade this item.");
             return;
         }
 
         final int unnotedId = itemDef.getUnNotedIdIfNoted();
+
         if (tradePostOffers.stream().anyMatch(offer -> offer.getItem().getId() == unnotedId)) {
             player.sendErrorMessage("You already have offer for this item.");
             return;
@@ -190,47 +236,67 @@ public class POSManager {
             return;
         }
 
-
-        player.start(new DialogueBuilder(player).option("SELL: Upgrade points / Plat.",
-                new DialogueOption("Plat", p -> handleItemListing(itemId, false, unnotedId, amount)),
-                new DialogueOption("Upgrade Points", p -> handleItemListing(itemId, true, unnotedId, amount)),
+        player.start(new DialogueBuilder(player).option("Choose payment type:",
+                new DialogueOption("Coins", p -> handleItemListing(itemId, COINS, unnotedId, amount)),
+                new DialogueOption("Plat", p -> handleItemListing(itemId, PLAT, unnotedId, amount)),
+                new DialogueOption("Upgrade Points", p -> handleItemListing(itemId, UPGRADE_POINTS_CURRENCY, unnotedId, amount)),
                 new DialogueOption("Nevermind.", p -> p.getPA().closeAllWindows())));
     }
 
-    private void handleItemListing(int itemId, boolean nomad, int unnotedId, int amount) {
-        if (amount < 0 || amount == Integer.MAX_VALUE) {
+    private void handleItemListing(int itemId, int currencyId, int unnotedId, int amount) {
+        if (amount <= 0 || amount == Integer.MAX_VALUE) {
             player.sendErrorMessage("You entered an invalid amount!");
             player.getPA().closeAllWindows();
             return;
         }
+
         if (!player.getItems().playerHasItem(itemId, amount)) {
             player.sendErrorMessage("You do not have that many of this item!");
             player.getPA().closeAllWindows();
             return;
         }
+
         player.getPA().sendEnterAmount("Enter price per item:", (plr, price) -> {
-            if (((long)price * ((long) amount)) > Integer.MAX_VALUE) {
+            if (price <= 0 || price == Integer.MAX_VALUE) {
+                plr.sendErrorMessage("You entered an invalid price!");
+                return;
+            }
+
+            if (((long) price * ((long) amount)) > Integer.MAX_VALUE) {
                 plr.sendErrorMessage("That offer requires too much money to buy, it's invalid.");
                 return;
             }
+
             if (!plr.getItems().playerHasItem(itemId, amount)) {
                 plr.sendErrorMessage("You do not have that many of this item!");
                 plr.getPA().closeAllWindows();
                 return;
             }
+
             plr.getItems().deleteItem2(itemId, amount);
-            tradePostOffers.add(
-                    new TradePostOffer(
-                            plr.getDisplayName(),
-                            new GameItem(unnotedId, amount),
-                            price,
-                            System.currentTimeMillis(),
-                            nomad,
-                            0)
+
+            TradePostOffer newOffer = new TradePostOffer(
+                    plr.getDisplayName(),
+                    new GameItem(unnotedId, amount),
+                    price,
+                    System.currentTimeMillis(),
+                    currencyId,
+                    0
             );
 
-           handleGEScript(plr);
+            tradePostOffers.add(newOffer);
 
+            Discord.writeTradingPostMessage(
+                    "New Trading Post Listing",
+                    plr.getDisplayName(),
+                    "Selling",
+                    newOffer.getItem().getDef().getName(),
+                    amount,
+                    price,
+                    getDiscordCurrencyName(currencyId)
+            );
+
+            handleGEScript(plr);
             openMyOffers();
         });
     }
@@ -239,7 +305,15 @@ public class POSManager {
         int i = 0;
 
         for (TradePostOffer offer : player.getTradePost().tradePostOffers) {
-            player.getPA().runClientScript(13025, i, offer.getPricePerItem(), (offer.isNomad() ? 696 : 13204), offer.getItem().getId(), offer.getTotalSold(), (offer.getItem().getAmount() + offer.getTotalSold()));
+            player.getPA().runClientScript(
+                    13025,
+                    i,
+                    offer.getPricePerItem(),
+                    getCurrencyIcon(offer),
+                    offer.getItem().getId(),
+                    offer.getTotalSold(),
+                    offer.getItem().getAmount() + offer.getTotalSold()
+            );
             i++;
         }
     }
@@ -249,11 +323,11 @@ public class POSManager {
             return;
         }
 
-        for(int i = 0, start1 = 48636, start2 = 48637; i < historyList.size(); i++) {
+        for (int i = 0, start1 = 48636, start2 = 48637; i < historyList.size(); i++) {
             TradePostHistory history = historyList.get(i);
 
-            player.getPA().sendString(start1,   history.getItem().getAmount() + " x " + history.getItem().getDef().getName());
-            player.getPA().sendString(start2, "sold for " + history.getCost() + " " + (history.isNomad() ? "NoMad" : "Plat") + "." );
+            player.getPA().sendString(start1, history.getItem().getAmount() + " x " + history.getItem().getDef().getName());
+            player.getPA().sendString(start2, "sold for " + history.getCost() + " " + getCurrencyName(history) + ".");
 
             start1 += 2;
             start2 += 2;
@@ -264,9 +338,11 @@ public class POSManager {
         if (index == -1) {
             return;
         }
+
         if (amount <= 0) {
             return;
         }
+
         if (index >= viewOffers.size()) {
             return;
         }
@@ -285,11 +361,6 @@ public class POSManager {
             return;
         }
 
-        if (amount < 1) {
-            player.sendMessage("You can't buy 0 of an item idiot.");
-            return;
-        }
-
         if (amount > offer.getItem().getAmount()) {
             amount = offer.getItem().getAmount();
         }
@@ -301,30 +372,33 @@ public class POSManager {
             return;
         }
 
-        if ((offer.isNomad() && player.foundryPoints < price) || (!offer.isNomad() && player.getItems().getInventoryCount(13204) < price)) {
+        if (!hasCurrency(player, offer, price)) {
             player.sendMessage("You do not have enough to purchase this.");
             return;
         }
 
         int finalAmount = amount;
 
-        player.start(new DialogueBuilder(player).option("Are you sure you want to purchase: " + finalAmount + "x " +
-                        offer.getItem().getDef().getName() + " for a price of: " + formatPrice(price) + "?",
+        player.start(new DialogueBuilder(player).option("Are you sure you want to purchase: " + finalAmount + "x "
+                        + offer.getItem().getDef().getName() + " for a price of: " + formatPrice(price) + " " + getCurrencyName(offer) + "?",
                 new DialogueOption("Yes", p -> {
                     p.getPA().closeAllWindows();
+
                     if (!seller.isOnline()) {
                         p.sendMessage("That player is not online!");
                         return;
                     }
 
-                    if ((offer.isNomad() && p.foundryPoints < price) ||
-                            (!offer.isNomad() && p.getItems().getInventoryCount(13204) < price)) {
+                    if (!hasCurrency(p, offer, price)) {
                         p.sendMessage("You do not have enough to purchase this.");
                         return;
                     }
 
-                    Optional<TradePostOffer> sellersOffer = seller.getTradePost().tradePostOffers.stream().filter(toChange
-                            -> (toChange.getItem().getId() == offer.getItem().getId()) && (toChange.getItem().getAmount() >= finalAmount)).findAny();
+                    Optional<TradePostOffer> sellersOffer = seller.getTradePost().tradePostOffers.stream()
+                            .filter(toChange -> toChange.getItem().getId() == offer.getItem().getId()
+                                    && toChange.getCurrencyId() == offer.getCurrencyId()
+                                    && toChange.getItem().getAmount() >= finalAmount)
+                            .findAny();
 
                     if (!sellersOffer.isPresent()) {
                         p.sendMessage("This item has been removed or sold already!");
@@ -332,8 +406,7 @@ public class POSManager {
                         return;
                     }
 
-                    sellersOffer.ifPresent(tradePostOffer ->  {
-
+                    sellersOffer.ifPresent(tradePostOffer -> {
                         int amountLeft = tradePostOffer.getItem().getAmount() - finalAmount;
 
                         if (amountLeft < 0) {
@@ -342,15 +415,11 @@ public class POSManager {
                             return;
                         }
 
-                        if (offer.isNomad()) {
-                            p.foundryPoints -= price;
-                            p.getItems().addItemUnderAnyCircumstance(offer.getItem().getId(), finalAmount);
-                            seller.getTradePost().nomadCoffer += price;
-                        } else {
-                            p.getItems().deleteItem2(13204, (int) price);
-                            p.getItems().addItemUnderAnyCircumstance(offer.getItem().getId(), finalAmount);
-                            seller.getTradePost().coinCoffer += price;
-                        }
+                        removeCurrency(p, offer, (int) price);
+                        p.getItems().addItemUnderAnyCircumstance(offer.getItem().getId(), finalAmount);
+
+                        addCurrencyToSellerCoffer(seller, offer, price);
+
                         boolean outOfStock = amountLeft == 0;
 
                         if (outOfStock) {
@@ -361,93 +430,135 @@ public class POSManager {
                                     new GameItem(offer.getItem().getId(), amountLeft),
                                     offer.getPricePerItem(),
                                     offer.getTimestamp(),
-                                    offer.isNomad(),
-                                    offer.getTotalSold() + finalAmount);
-                            seller.getTradePost().tradePostOffers.set(seller.getTradePost().tradePostOffers.indexOf(tradePostOffer), newOffer);
+                                    offer.getCurrencyId(),
+                                    offer.getTotalSold() + finalAmount
+                            );
+
+                            seller.getTradePost().tradePostOffers.set(
+                                    seller.getTradePost().tradePostOffers.indexOf(tradePostOffer),
+                                    newOffer
+                            );
                         }
+
                         if (outOfStock) {
-                            seller.sendMessage("<col=00c203>" + "Trading Post: Finished selling all of " + offer.getItem().getDef().getName() + ".</col>");
+                            seller.sendMessage("<col=00c203>Trading Post: Finished selling all of "
+                                    + offer.getItem().getDef().getName() + ".</col>");
                         } else {
-                            seller.sendMessage("<col=00c203>" + "Trading Post: " + finalAmount + "/" + offer.getItem().getAmount() + " of " + offer.getItem().getDef().getName() + " sold.</col>");
+                            seller.sendMessage("<col=00c203>Trading Post: " + finalAmount + "/"
+                                    + offer.getItem().getAmount() + " of " + offer.getItem().getDef().getName()
+                                    + " sold.</col>");
                         }
-                        addHistory(seller, new TradePostHistory(player.getDisplayName(),
+
+                        addHistory(seller, new TradePostHistory(
+                                player.getDisplayName(),
                                 sellerName,
-                                new GameItem(offer.getItem().getId(),
-                                        (offer.getTotalSold() + finalAmount)),
+                                new GameItem(offer.getItem().getId(), offer.getTotalSold() + finalAmount),
                                 System.currentTimeMillis(),
                                 offer.isNomad(),
-                                offer.getPricePerItem()));
+                                offer.getPricePerItem()
+                        ));
 
                         handleGEScript(seller);
 
-                        p.sendMessage("<col=ff0000>" + "You have purchased " + finalAmount + "x " + offer.getItem().getDef().getName() + " for a price of " +
-                                formatPrice(price) +" " + (offer.isNomad() ? "Points" : "Plat") + ".</col>");
+                        p.sendMessage("<col=ff0000>You have purchased " + finalAmount + "x "
+                                + offer.getItem().getDef().getName() + " for a price of "
+                                + formatPrice(price) + " " + getCurrencyName(offer) + ".</col>");
+
+                        Discord.writeTradingPostMessage(
+                                "Trading Post Purchase",
+                                p.getDisplayName(),
+                                "Buying",
+                                offer.getItem().getDef().getName(),
+                                finalAmount,
+                                offer.getPricePerItem(),
+                                getDiscordCurrencyName(offer.getCurrencyId())
+                        );
+
                         p.getTradePost().openViewOffers();
+
                         if (seller.isInterfaceOpen(MyOffersView)) {
                             seller.getTradePost().openMyOffers();
                         }
                     });
-                }), new DialogueOption("No", p -> p.getPA().closeAllWindows())));
-
+                }),
+                new DialogueOption("No", p -> p.getPA().closeAllWindows())));
     }
 
     private void updateMyOffers() {
         loadHistory();
-        int start = 48788, id = 0;
+
+        int start = 48788;
+        int id = 0;
 
         for (TradePostOffer tradePostOffer : tradePostOffers) {
             player.getPA().itemOnInterface(tradePostOffer.getItem().getId(), tradePostOffer.getItem().getAmount(), 48847, id);
             id++;
+
             player.getPA().sendString(start, formatItemName(tradePostOffer.getItem().getId()));
             start++;
-            player.getPA().sendString(Misc.formatCoins(tradePostOffer.getPricePerItem()) + (tradePostOffer.isNomad() ? " Points" : " Plat"), start);
+
+            player.getPA().sendString(Misc.formatCoins(tradePostOffer.getPricePerItem()) + " " + getCurrencyName(tradePostOffer), start);
             start++;
-            player.getPA().sendString(start, tradePostOffer.getTotalSold() + "/" + (tradePostOffer.getItem().getAmount() + tradePostOffer.getTotalSold()));
+
+            player.getPA().sendString(start, tradePostOffer.getTotalSold() + "/"
+                    + (tradePostOffer.getItem().getAmount() + tradePostOffer.getTotalSold()));
             start += 2;
         }
 
-        String formatCollection = (Misc.formatCoins(nomadCoffer) + " Points / " + Misc.formatCoins(coinCoffer) + " Plat");
+        String formatCollection = Misc.formatCoins(nomadCoffer) + " Points / "
+                + Misc.formatCoins(coinCoffer) + " Plat / "
+                + Misc.formatCoins(actualCoinCoffer) + " Coins";
+
         player.getPA().sendString(formatCollection, 48610);
 
         for (int k = id; k < 15; k++) {
             player.getPA().sendTradingPost(48847, -1, k, -1);
         }
-        for(int i = start; i < 48850; i++) {
+
+        for (int i = start; i < 48850; i++) {
             player.getPA().sendFrame126("", i);
         }
     }
 
     private void updateViewOffers() {
         viewOffers = findViewOffers();
-        int total = 0, start = 26023;
+
+        int total = 0;
+        int start = 26023;
+
         List<GameItem> result = new ArrayList<>();
 
-        for (int index = 0; index < (Math.min(viewOffers.size(), 50)); index++) {
+        for (int index = 0; index < Math.min(viewOffers.size(), 50); index++) {
             if (viewOffers.get(index) != null) {
                 TradePostOffer offer = viewOffers.get(index);
+
                 result.add(offer.getItem());
+
                 player.getPA().sendString(start, formatItemName(offer.getItem().getId()));
                 start++;
-                player.getPA().sendString(start, Misc.formatCoins(offer.getPricePerItem()) + (offer.isNomad() ? "Points" : " Plat") + " each");
+
+                player.getPA().sendString(start, Misc.formatCoins(offer.getPricePerItem()) + " " + getCurrencyName(offer) + " each");
                 start++;
+
                 player.getPA().sendString(start, offer.getUsername());
                 start++;
+
                 player.getPA().sendString(start, String.valueOf(offer.getTotalSold()));
                 start++;
+
                 total++;
+
                 if (total == 250) {
                     break;
                 }
             }
         }
+
         PlayerAssistant.sendItems(player, 26022, result, 250);
-        for(int i = start; i < 27023; i++) {
+
+        for (int i = start; i < 27023; i++) {
             player.getPA().sendFrame126("", i);
         }
-    }
-
-    private static String formatPrice(long price) {
-        return Misc.formatCoins(price);
     }
 
     private List<TradePostOffer> findViewOffers() {
@@ -458,8 +569,12 @@ public class POSManager {
                         return true;
                     }
 
-                    return offer.getItem().getDef().getName().toLowerCase().contains(searchText) || searchText.equalsIgnoreCase(offer.getUsername());
-                }).sorted((offerA, offerB) -> {
+                    String itemName = offer.getItem().getDef().getName().toLowerCase();
+                    String search = searchText.toLowerCase();
+
+                    return itemName.contains(search) || searchText.equalsIgnoreCase(offer.getUsername());
+                })
+                .sorted((offerA, offerB) -> {
                     switch (sort) {
                         case PRICE_DESCENDING:
                             return offerB.getPricePerItem() - offerA.getPricePerItem();
@@ -471,14 +586,9 @@ public class POSManager {
                         default:
                             return (int) (offerB.getTimestamp() - offerA.getTimestamp());
                     }
-                }).limit(MAX_VIEW_OFFERS)
+                })
+                .limit(MAX_VIEW_OFFERS)
                 .collect(Collectors.toList());
-    }
-    public static String formatItemName(int id) {
-        String name = ItemDef.forId(id).getName();
-        if (name.length() < 21)
-            return name;
-        return name.substring(0, 20) + ".";
     }
 
     public boolean handleButton(int realButtonId) {
@@ -487,18 +597,24 @@ public class POSManager {
             searchText = null;
             return true;
         }
+
         if (realButtonId == 48005) {
             openMyOffers();
             searchText = null;
             return true;
         }
+
         if (realButtonId == 48615) {
             player.getPA().sendEnterString("Who would you like to look for?", (plr, string) -> {
                 for (Player player1 : PlayerHandler.getPlayers()) {
-                    if (player1 == null)
+                    if (player1 == null) {
                         continue;
-                    if (!player1.getDisplayName().equalsIgnoreCase(string))
+                    }
+
+                    if (!player1.getDisplayName().equalsIgnoreCase(string)) {
                         continue;
+                    }
+
                     plr.getPA().closeAllWindows();
                     searchText = string;
                     openViewOffers();
@@ -517,21 +633,7 @@ public class POSManager {
         }
 
         if (realButtonId == 48607) {
-            if (nomadCoffer > 0 || coinCoffer > 0) {
-                if (nomadCoffer > 0) {
-                    player.foundryPoints += nomadCoffer;
-                    player.sendErrorMessage(nomadCoffer + " UpgradePoints have been added to your account!");
-                }
-                if (coinCoffer > 0) {
-                    player.getItems().addItemUnderAnyCircumstance(13204, (int) coinCoffer);
-                }
-
-                nomadCoffer = 0;
-                coinCoffer = 0;
-                openMyOffers();
-            } else {
-                player.sendErrorMessage("You don't have any outstanding currency!");
-            }
+            collectCurrency();
             return true;
         }
 
@@ -543,9 +645,38 @@ public class POSManager {
         return false;
     }
 
+    private void collectCurrency() {
+        if (nomadCoffer <= 0 && coinCoffer <= 0 && actualCoinCoffer <= 0) {
+            player.sendErrorMessage("You don't have any outstanding currency!");
+            return;
+        }
+
+        if (nomadCoffer > 0) {
+            player.foundryPoints += nomadCoffer;
+            player.sendErrorMessage(Misc.formatCoins(nomadCoffer) + " Upgrade Points have been added to your account!");
+        }
+
+        if (coinCoffer > 0) {
+            player.getItems().addItemUnderAnyCircumstance(PLAT, (int) coinCoffer);
+            player.sendErrorMessage(Misc.formatCoins(coinCoffer) + " Plat has been added to your inventory!");
+        }
+
+        if (actualCoinCoffer > 0) {
+            player.getItems().addItemUnderAnyCircumstance(COINS, (int) actualCoinCoffer);
+            player.sendErrorMessage(Misc.formatCoins(actualCoinCoffer) + " Coins have been added to your inventory!");
+        }
+
+        nomadCoffer = 0;
+        coinCoffer = 0;
+        actualCoinCoffer = 0;
+
+        openMyOffers();
+    }
+
     public void addHistory(Player other, TradePostHistory history) {
         if (!other.getTradePost().historyList.isEmpty()) {
-            other.getTradePost().historyList.removeIf(tradePostHistory -> tradePostHistory.getItem().getId() == history.getItem().getId());
+            other.getTradePost().historyList.removeIf(tradePostHistory ->
+                    tradePostHistory.getItem().getId() == history.getItem().getId());
         }
 
         if (other.getTradePost().historyList.size() >= 13) {
@@ -555,6 +686,101 @@ public class POSManager {
         other.getTradePost().historyList.add(history);
     }
 
+    private static String formatPrice(long price) {
+        return Misc.formatCoins(price);
+    }
 
+    public static String formatItemName(int id) {
+        String name = ItemDef.forId(id).getName();
 
+        if (name.length() < 21) {
+            return name;
+        }
+
+        return name.substring(0, 20) + ".";
+    }
+
+    private int getCurrencyIcon(TradePostOffer offer) {
+        if (offer.getCurrencyId() == UPGRADE_POINTS_CURRENCY) {
+            return UPGRADE_POINTS_ICON;
+        }
+
+        return offer.getCurrencyId();
+    }
+
+    private String getCurrencyName(TradePostOffer offer) {
+        return getCurrencyName(offer.getCurrencyId());
+    }
+
+    private String getCurrencyName(TradePostHistory history) {
+        if (history.isNomad()) {
+            return "Points";
+        }
+
+        return "Plat";
+    }
+
+    private String getCurrencyName(int currencyId) {
+        if (currencyId == UPGRADE_POINTS_CURRENCY) {
+            return "Points";
+        }
+
+        if (currencyId == PLAT) {
+            return "Plat";
+        }
+
+        if (currencyId == COINS) {
+            return "Coins";
+        }
+
+        return "Currency";
+    }
+
+    private boolean hasCurrency(Player player, TradePostOffer offer, long amount) {
+        if (offer.getCurrencyId() == UPGRADE_POINTS_CURRENCY) {
+            return player.foundryPoints >= amount;
+        }
+
+        return player.getItems().getInventoryCount(offer.getCurrencyId()) >= amount;
+    }
+
+    private void removeCurrency(Player player, TradePostOffer offer, int amount) {
+        if (offer.getCurrencyId() == UPGRADE_POINTS_CURRENCY) {
+            player.foundryPoints -= amount;
+            return;
+        }
+
+        player.getItems().deleteItem2(offer.getCurrencyId(), amount);
+    }
+
+    private void addCurrencyToSellerCoffer(Player seller, TradePostOffer offer, long amount) {
+        if (offer.getCurrencyId() == UPGRADE_POINTS_CURRENCY) {
+            seller.getTradePost().nomadCoffer += amount;
+            return;
+        }
+
+        if (offer.getCurrencyId() == PLAT) {
+            seller.getTradePost().coinCoffer += amount;
+            return;
+        }
+
+        if (offer.getCurrencyId() == COINS) {
+            seller.getTradePost().actualCoinCoffer += amount;
+        }
+    }
+    private String getDiscordCurrencyName(int currencyId) {
+        if (currencyId == UPGRADE_POINTS_CURRENCY) {
+            return "Upgrade Points";
+        }
+
+        if (currencyId == PLAT) {
+            return "Platinum Tokens";
+        }
+
+        if (currencyId == COINS) {
+            return "Coins";
+        }
+
+        return "Currency";
+    }
 }

@@ -67,7 +67,7 @@ public abstract class Pouch {
     }
 
     public boolean configurationPermitted() {
-        if (player.getPosition().inDuelArena() || player.getPosition().inPcGame() || player.getPosition().inPcBoat() || player.getPosition().isInJail() || player.getInterfaceEvent().isActive() || player.getPA().viewingOtherBank || player.isDead || player.getLootingBag().isWithdrawInterfaceOpen() || player.getLootingBag().isDepositInterfaceOpen()) {
+        if (player.getPosition().inDuelLobby() || player.getPosition().inPcGame() || player.getPosition().inPcBoat() || player.getPosition().isInJail() || player.getInterfaceEvent().isActive() || player.getPA().viewingOtherBank || player.isDead || player.getLootingBag().isWithdrawInterfaceOpen() || player.getLootingBag().isDepositInterfaceOpen()) {
             return false;
         }
         if (player.getBankPin().requiresUnlock()) {

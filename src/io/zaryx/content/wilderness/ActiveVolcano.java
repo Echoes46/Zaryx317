@@ -5,13 +5,13 @@ import io.zaryx.model.entity.player.Position;
 import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
+import io.zaryx.util.discord.Discord;
 
 import java.util.concurrent.TimeUnit;
 
 public class ActiveVolcano {
 
-    private static boolean DISABLED = true;
-
+    private static boolean DISABLED = false;
 
     private static final int BOULDER = 31037;
     public static int BOULDER_STABILITY = 500;
@@ -37,9 +37,14 @@ public class ActiveVolcano {
     public static long delay = 0;
 
     public static void Tick() {
+        if (DISABLED) {
+            return;
+        }
+
         if (delay == 0) {
             delay = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(10);
         }
+
         if (timeRemaining > 0 && timeRemaining < System.currentTimeMillis() && progress) {
             removeBoulder(false);
             progress = false;
@@ -55,60 +60,63 @@ public class ActiveVolcano {
         }
 
         ActiveVolcano next = Misc.get(SPAWNS);
+
         if (next == ACTIVE) {
             return;
         }
 
         ACTIVE = next;
         progress = true;
-        new Broadcast("<img=95> [WILDY] There's been a disturbance reported at the Volcano get there now! ::volcano").submit(); // ok lets just change this message and push to git
+
+        new Broadcast("<img=95> [WILDY] There's been a disturbance reported at the Volcano! Get there now! ::volcano").submit();
+        Discord.writeIngameEvents("There's been a disturbance reported at the Volcano! Get there now! ::volcano");
+
         addBoulder();
+
         timeRemaining = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(20);
     }
 
-/*    public static void fallingLava(Player player, Position position) {
-            for (Player p : PlayerHandler.getPlayers().stream().filter(pz -> player.getPosition().withinDistance(pz.getPosition(), 1)).collect(Collectors.toList())) {
-                if (p.getPosition().equals(position)) {
-                    p.sendMessage("@red@You hear something falling...");
-                    p.startGraphic(new Graphic(1406,1,0));
-                    if (p.getPosition().equals(position)) {
-                        p.appendDamage(Misc.random(10,30), Hitmark.HIT);
-                        p.sendMessage("@red@A piece of flying lava hits you.");
-                    } else {
-                        p.sendMessage("@red@You dodge the flying lava.. close one.");
-                    }
-                }
-            }
-    }*/
-
     private static void addBoulder() {
+        if (ACTIVE == null) {
+            return;
+        }
+
         GlobalObject go = new GlobalObject(BOULDER, ACTIVE.boulderSpawn.getX(), ACTIVE.boulderSpawn.getY(), 0, 0, 10);
         Server.getGlobalObjects().add(go);
+
         boulder = go;
         BOULDER_STABILITY = 500;
     }
 
     public static void removeBoulder(boolean success) {
-        if (boulder != null) {
-            Server.getGlobalObjects().remove(boulder);
-            Server.getGlobalObjects().add(new GlobalObject(-1, ACTIVE.boulderSpawn.getX(), ACTIVE.boulderSpawn.getY(), 0, 0, 10));
-            boulder.setId(-1);
-            boulder = null;
-            progress = false;
-            ACTIVE = null;
-            delay = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30);
-            if (success) {
-                new Broadcast("<img=95> [WILDY] @gre@The volcano has been subdued! Well done everyone!").submit();
-            } else {
-                new Broadcast("<img=95> [WILDY] @red@The Volcano has erupted! Help subdue it next time for blood money!").submit();
-            }
+        if (boulder == null || ACTIVE == null) {
+            return;
+        }
+
+        Server.getGlobalObjects().remove(boulder);
+        Server.getGlobalObjects().add(new GlobalObject(-1, ACTIVE.boulderSpawn.getX(), ACTIVE.boulderSpawn.getY(), 0, 0, 10));
+
+        boulder.setId(-1);
+        boulder = null;
+        progress = false;
+        ACTIVE = null;
+        delay = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30);
+
+        if (success) {
+            new Broadcast("<img=95> [WILDY] @gre@The volcano has been subdued! Well done everyone!").submit();
+            Discord.writeIngameEvents("The Volcano has been subdued! Well done everyone!");
+        } else {
+            new Broadcast("<img=95> [WILDY] @red@The Volcano has erupted! Help subdue it next time for blood money!").submit();
+            Discord.writeIngameEvents("The Volcano has erupted! Help subdue it next time for blood money!");
         }
     }
 
     public static void removeShards(int amt) {
         BOULDER_STABILITY -= amt;
-        if (BOULDER_STABILITY <= 0)
+
+        if (BOULDER_STABILITY <= 0) {
             BOULDER_STABILITY = 0;
+        }
     }
 
 }

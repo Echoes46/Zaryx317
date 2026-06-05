@@ -7,10 +7,12 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 /**
+ * Updated by Khaos
+ *
  * Slash command: /voteboss
  * Spawns the Vote Boss and logs the action.
  */
-public class VoteBoss extends ListenerAdapter implements SlashHandler{
+public class VoteBoss extends ListenerAdapter implements SlashHandler {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
@@ -18,14 +20,15 @@ public class VoteBoss extends ListenerAdapter implements SlashHandler{
             return;
         }
 
-        // Run your in-game logic
+        String staffName = e.getUser().getName();
+
         vboss.spawnBoss();
 
-        // Log + confirm
-        String staffName = e.getUser().getName();
         Discord.writeGiveLog("[Vote Boss] " + staffName + " has spawned Vote Boss!");
-        e.reply("🗳️ **Vote Boss spawned** by **" + staffName + "**!").queue();
+
+        e.reply("Vote Boss spawned by " + staffName + ".").queue();
     }
+
     @Override
     public void handle(SlashCommandInteractionEvent e) {
         onSlashCommandInteraction(e);

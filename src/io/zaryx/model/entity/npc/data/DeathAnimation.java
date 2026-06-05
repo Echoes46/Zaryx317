@@ -403,6 +403,7 @@ public class DeathAnimation extends NPCHandler {
                 return 2987;
 
             case 6766: // Lizardman shaman
+            case 6767:
             case 6768:
             case 6914:
             case 6915:

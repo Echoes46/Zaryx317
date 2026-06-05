@@ -101,10 +101,11 @@ public class ThreeOptions {
 				c.getPA().closeAllWindows();
 				break;
 			case 9803://rng
-				c.getPA().startTeleport(2673, 3710, 0, "modern", false);				c.getPA().closeAllWindows();
+				c.getPA().startTeleport(2673, 3710, 0, "modern", false);
+                c.getPA().closeAllWindows();
 				break;
 			case 9804://pray
-				c.getPA().startTeleport(3087, 3515, 0, "modern", false);
+				c.getPA().startTeleport(3107, 3495, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9805://mage
@@ -112,7 +113,7 @@ public class ThreeOptions {
 				c.getPA().closeAllWindows();
 				break;
 			case 9806://rc
-				c.getPA().startTeleport(3093, 3517, 0, "modern", false);
+				c.getPA().startTeleport(3040, 4840, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9807://agility
@@ -120,7 +121,7 @@ public class ThreeOptions {
 				c.getPA().closeAllWindows();
 				break;
 			case 9808://herb
-				c.getPA().startTeleport(3111, 3516, 0, "modern", false);
+				c.getPA().startTeleport(3103, 3505, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9809://thieving
@@ -128,7 +129,7 @@ public class ThreeOptions {
 				c.getPA().closeAllWindows();
 				break;
 			case 9810://craft
-				c.getPA().startTeleport(3075, 3459, 0, "modern", false);
+				c.getPA().startTeleport(3101, 3503, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9811://fletch
@@ -140,27 +141,28 @@ public class ThreeOptions {
 				c.getPA().closeAllWindows();
 				break;
 			case 9813://mining
-				c.getPA().startTeleport(3094, 3478, 0, "modern", false);
+				c.getPA().startTeleport(3124, 3497, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9814://smithing
-				c.getPA().startTeleport(3092, 3467, 0, "modern", false);
+				c.getPA().startTeleport(3124, 3491, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9815://fish
-				c.getPA().startTeleport(3108, 3482, 0, "modern", false);
+				c.getPA().startTeleport(3108, 3473, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9816://cook
-				c.getPA().startTeleport(3075, 3459, 0, "modern", false);
+				c.getPA().startTeleport(3113, 3468, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9817://firemaking
-				c.getPA().startTeleport(3072, 3461, 0, "modern", false);
+				c.getPA().startTeleport(3079, 3456, 0, "modern", false);
 				c.getPA().closeAllWindows();
 				break;
 			case 9818://woodcut
-				c.getPA().startTeleport(1589, 3497, 0, "modern", false);				c.getPA().closeAllWindows();
+				c.getPA().startTeleport(1589, 3497, 0, "modern", false);
+                c.getPA().closeAllWindows();
 				break;
 			case 9819://farming
 				c.getPA().startTeleport(3053, 3303, 0, "modern", false);

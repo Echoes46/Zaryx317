@@ -146,8 +146,8 @@ public class equip extends Command {
             c.getPA().sendString(65034, String.valueOf((double) maximumDamage));//MAX Hit
         }
 
-        double dr = DropManager.getModifier1(c);
-        c.getPA().sendString(65035, Interface.formatString(DropManager.getModifier1(c)));//Drop Rate
+        double dr = DropManager.getModifier(c);
+        c.getPA().sendString(65035, Interface.formatString(DropManager.getModifier(c)));//Drop Rate
 
     }
 

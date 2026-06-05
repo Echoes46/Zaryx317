@@ -1242,7 +1242,7 @@ public class Commands implements PacketType {
             /** Added by Khaos  */
             if (playerCommand.startsWith("vote")) {
                 c.sendMessage("Type ::reward <id> next to the reward you want to claim!");
-                c.getPA().sendFrame126("https://zaryxrsps317.teamgames.io/vote", 12000);
+                c.getPA().sendFrame126("https://zaryx.online/vote.php", 12000);
                 return;
             }
 

@@ -7,8 +7,8 @@ import io.zaryx.content.bosses.DonorBoss;
 import io.zaryx.content.bosses.DonorBoss2;
 import io.zaryx.content.bosses.DonorBoss3;
 import io.zaryx.content.bosses.wintertodt.Wintertodt;
-import io.zaryx.content.events.monsterhunt.ShootingStars;
 import io.zaryx.content.events.monsterhunt.CrystalTree;
+import io.zaryx.content.events.monsterhunt.ShootingStars;
 import io.zaryx.content.instances.InstanceHeight;
 import io.zaryx.content.minigames.blastfurnance.BlastFurnace;
 import io.zaryx.content.wilderness.ActiveVolcano;
@@ -23,19 +23,32 @@ import io.zaryx.util.discord.DiscordIntegration;
 import io.zaryx.util.task.TaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import io.zaryx.util.HighscoresExporter;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
+/**
+ * Updated by Khaos
+ */
 public class GameThread extends Thread {
 
     public static final String THREAD_NAME = "GameThread";
     public static final int PRIORITY = 9;
+
     private static final Logger logger = LoggerFactory.getLogger(GameThread.class);
+
+    private static final String WEBSITE_STATUS_FILE =
+            System.getProperty("zaryx.websiteStatusFile", "website-status.json");
+
     private final List<Consumer<GameThread>> tickables = new CopyOnWriteArrayList<>();
     private final Runnable startup;
+
     private long totalCycleTime = 0;
 
     public GameThread(Runnable startup) {
@@ -80,6 +93,9 @@ public class GameThread extends Thread {
         }
 
         if (Server.getTickCount() % 50 == 0) {
+            writeWebsiteStatus();
+            HighscoresExporter.export();
+
             StringJoiner joiner = new StringJoiner(", ");
             joiner.add("runtime=" + Misc.cyclesToTime(Server.getTickCount()));
             joiner.add("connections=" + ChannelHandler.getActiveConnections());
@@ -98,18 +114,47 @@ public class GameThread extends Thread {
         }
     }
 
+    private void writeWebsiteStatus() {
+        try {
+            int playersOnline = PlayerHandler.getPlayers().size();
+
+            java.nio.file.Path statusPath = Paths.get(WEBSITE_STATUS_FILE);
+
+            if (statusPath.getParent() != null) {
+                Files.createDirectories(statusPath.getParent());
+            }
+
+            String json = "{\n" +
+                    "  \"online\": true,\n" +
+                    "  \"players\": " + playersOnline + ",\n" +
+                    "  \"lastUpdated\": " + System.currentTimeMillis() + "\n" +
+                    "}";
+
+            Files.write(
+                    statusPath,
+                    json.getBytes(StandardCharsets.UTF_8)
+            );
+        } catch (Exception e) {
+            logger.error("Failed to write website status file.", e);
+        }
+    }
+
     @Override
     public void run() {
         startup.run();
+
         while (!Thread.interrupted()) {
             long time = System.currentTimeMillis();
+
             try {
                 tick();
             } catch (Exception e) {
                 logger.error("An error occurred while running the game thread tickables.", e);
             }
+
             long pastTime = System.currentTimeMillis() - time;
             totalCycleTime += pastTime;
+
             if (pastTime < 600) {
                 try {
                     Thread.sleep(600 - pastTime);

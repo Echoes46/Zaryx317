@@ -11,7 +11,11 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -19,189 +23,270 @@ import java.util.stream.Collectors;
 import static io.zaryx.model.entity.player.save.PlayerSave.getSaveDirectory;
 
 /**
+ * Updated by Khaos
+ *
  * Slash command: /xmas name:<string>
- * - If player online: logs MAC/UUID/IP and any same-IP players who have completed the "Santa's Troubles" quest.
- * - If player offline: scans save files to print identifiers & quest stage; finds others with same UUID and prints theirs too.
+ *
+ * - If the player is online:
+ *   Logs MAC, UUID, IP, and any same-IP players who completed Santa's Troubles.
+ *
+ * - If the player is offline:
+ *   Scans save files, logs identifiers and quest stage, then finds other accounts with the same UUID.
  */
-public class xmas extends ListenerAdapter implements SlashHandler{
+public class xmas extends ListenerAdapter implements SlashHandler {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
-        if (!"xmas".equals(e.getName())) return;
+        if (!"xmas".equals(e.getName())) {
+            return;
+        }
 
         OptionMapping nameOpt = e.getOption("name");
+
         if (nameOpt == null || nameOpt.getAsString().isBlank()) {
-            e.reply("Usage: `/xmas name:<player>`").setEphemeral(true).queue();
+            e.reply("Usage: /xmas name:<player>").setEphemeral(true).queue();
             return;
         }
 
         final String name = nameOpt.getAsString().trim();
         Player player = PlayerHandler.getPlayerByDisplayName(name);
 
-        // We may do file I/O; defer so Discord doesn't time out the interaction.
-        e.deferReply(true).queue(); // ephemeral
+        // File I/O can take time, so defer the reply to avoid Discord timing out the interaction.
+        e.deferReply(true).queue();
 
         if (player != null) {
             handleOnlinePlayer(player);
-            e.getHook().editOriginal("✅ Logged XMAS info for **" + player.getDisplayName() + "** (and same-IP matches).").queue();
+            e.getHook()
+                    .editOriginal("Logged XMAS info for " + player.getDisplayName() + " and same-IP matches.")
+                    .queue();
         } else {
             printData(name);
-            e.getHook().editOriginal("ℹ️ `" + name + "` is offline. Scanned save files and logged XMAS info.").queue();
+            e.getHook()
+                    .editOriginal(name + " is offline. Scanned save files and logged XMAS info.")
+                    .queue();
         }
     }
 
-    /* ---------------- Online branch ---------------- */
-
     private void handleOnlinePlayer(Player player) {
+        if (player == null) {
+            return;
+        }
+
+        logCompletedQuestPlayer(player);
+
         PlayerAddresses addresses = player.getValidAddresses();
 
-        Discord.writeXmasMessage("[XMAS]: " + player.getDisplayName() +
-                " MAC " + player.getMacAddress() +
-                " UUID " + player.getUUID() +
-                " IP " + player.getIpAddress() +
-                " has also completed the quest!"
-        );
+        if (addresses == null || addresses.getIp() == null) {
+            return;
+        }
 
-        if (addresses == null || addresses.getIp() == null) return;
-
-        List<Player> clientList = PlayerHandler.nonNullStream()
+        List<Player> sameIpPlayers = PlayerHandler.nonNullStream()
+                .filter(p -> p != null && p.connectedFrom != null)
                 .filter(p -> p.connectedFrom.equals(addresses.getIp()))
                 .collect(Collectors.toList());
 
-        for (Player pz : clientList) {
-            for (Quest quest : pz.getQuesting().getQuestList()) {
-                if (quest.getName().equalsIgnoreCase("santa's troubles") && quest.getStage() >= 17) {
-                    Discord.writeXmasMessage("[XMAS]: " + pz.getDisplayName() +
-                            " MAC " + pz.getMacAddress() +
-                            " UUID " + pz.getUUID() +
-                            " IP " + pz.getIpAddress() +
-                            " has also completed the quest!"
-                    );
-                }
+        for (Player otherPlayer : sameIpPlayers) {
+            if (otherPlayer == null) {
+                continue;
+            }
+
+            if (hasCompletedXmasQuest(otherPlayer)) {
+                logCompletedQuestPlayer(otherPlayer);
             }
         }
     }
 
-    /* ---------------- Offline branch (file scan) ---------------- */
+    private boolean hasCompletedXmasQuest(Player player) {
+        if (player == null || player.getQuesting() == null || player.getQuesting().getQuestList() == null) {
+            return false;
+        }
+
+        for (Quest quest : player.getQuesting().getQuestList()) {
+            if (quest == null || quest.getName() == null) {
+                continue;
+            }
+
+            if (quest.getName().equalsIgnoreCase("santa's troubles") && quest.getStage() >= 17) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void logCompletedQuestPlayer(Player player) {
+        if (player == null) {
+            return;
+        }
+
+        Discord.writeXmasMessage("[XMAS]: " + player.getDisplayName()
+                + " MAC " + player.getMacAddress()
+                + " UUID " + player.getUUID()
+                + " IP " + player.getIpAddress()
+                + " has completed Santa's Troubles.");
+    }
 
     private void printData(String name) {
-        String filePath = getSaveDirectory() + name.toLowerCase() + ".txt";
-        File charFile = new File(filePath);
+        File charFile = getPlayerSaveFile(name);
 
         if (!charFile.isFile()) {
-            Discord.writeXmasMessage("[XMAS]: " + name + ", this account doesn't exist");
+            Discord.writeXmasMessage("[XMAS]: " + name + ", this account doesn't exist.");
             return;
         }
 
         String uuid = "";
-        try (BufferedReader characterfile = new BufferedReader(new FileReader(charFile))) {
+        StringBuilder message = new StringBuilder();
+
+        try (BufferedReader characterFile = new BufferedReader(new FileReader(charFile))) {
             String line;
-            String token;
-            String token2;
-            StringBuilder message = new StringBuilder();
 
-            while ((line = characterfile.readLine()) != null) {
+            while ((line = characterFile.readLine()) != null) {
                 line = line.trim();
-                int spot = line.indexOf('=');
-                if (spot > -1) {
-                    token  = line.substring(0, spot).trim();
-                    token2 = line.substring(spot + 1).trim();
 
-                    switch (token) {
-                        case "character-username":
-                            message.append("Player-Name = ").append(token2).append(", ");
-                            break;
-                        case "character-uuid":
-                            message.append("Player-Unique-User-ID = ").append(token2).append(", ");
-                            uuid = token2;
-                            // note: deliberately no break to mimic legacy fallthrough
-                        case "Santa's Troubles":
-                            message.append("Player-Xmas-Quest-Stage = ").append(token2);
-                            break;
-                    }
+                int spot = line.indexOf('=');
+
+                if (spot <= -1) {
+                    continue;
                 }
+
+                String token = line.substring(0, spot).trim();
+                String token2 = line.substring(spot + 1).trim();
+
+                switch (token) {
+                    case "character-username":
+                        appendPart(message, "Player-Name = " + token2);
+                        break;
+
+                    case "character-uuid":
+                        appendPart(message, "Player-Unique-User-ID = " + token2);
+                        uuid = token2;
+                        break;
+
+                    case "Santa's Troubles":
+                        appendPart(message, "Player-Xmas-Quest-Stage = " + token2);
+                        break;
+                }
+            }
+
+            if (message.length() > 0) {
+                Discord.writeXmasMessage("[XMAS]: " + message);
             }
 
             if (!uuid.isEmpty()) {
                 searchFilesByUUID(uuid);
             }
+
         } catch (IOException ex) {
             Misc.println(name + ": error loading file.");
         }
     }
 
     private void printDataz(String name) {
-        String filePath = getSaveDirectory() + name.toLowerCase() + ".txt";
-        File charFile = new File(filePath);
+        File charFile = getPlayerSaveFile(name);
 
         if (!charFile.isFile()) {
-            Discord.writeXmasMessage("[XMAS]: " + name + ", this account doesn't exist");
+            Discord.writeXmasMessage("[XMAS]: " + name + ", this account doesn't exist.");
             return;
         }
 
         StringBuilder message = new StringBuilder();
 
-        try (BufferedReader characterfile = new BufferedReader(new FileReader(charFile))) {
+        try (BufferedReader characterFile = new BufferedReader(new FileReader(charFile))) {
             String line;
-            String token;
-            String token2;
 
-            while ((line = characterfile.readLine()) != null) {
+            while ((line = characterFile.readLine()) != null) {
                 line = line.trim();
-                int spot = line.indexOf('=');
-                if (spot > -1) {
-                    token  = line.substring(0, spot).trim();
-                    token2 = line.substring(spot + 1).trim();
 
-                    switch (token) {
-                        case "character-username":
-                            message.append("Player-Name = ").append(token2).append(", ");
-                            break;
-                        case "character-mac-address":
-                            message.append("Player-Mac-Address = ").append(token2).append(", ");
-                            break;
-                        case "character-uuid":
-                            message.append("Player-Unique-User-ID = ").append(token2).append(", ");
-                            break;
-                        case "character-ip-address":
-                            message.append("Player-IP-Address = ").append(token2).append(", ");
-                            break;
-                        case "Santa's Troubles":
-                            message.append("Player-Xmas-Quest-Stage = ").append(token2);
-                            break;
-                    }
+                int spot = line.indexOf('=');
+
+                if (spot <= -1) {
+                    continue;
+                }
+
+                String token = line.substring(0, spot).trim();
+                String token2 = line.substring(spot + 1).trim();
+
+                switch (token) {
+                    case "character-username":
+                        appendPart(message, "Player-Name = " + token2);
+                        break;
+
+                    case "character-mac-address":
+                        appendPart(message, "Player-Mac-Address = " + token2);
+                        break;
+
+                    case "character-uuid":
+                        appendPart(message, "Player-Unique-User-ID = " + token2);
+                        break;
+
+                    case "character-ip-address":
+                        appendPart(message, "Player-IP-Address = " + token2);
+                        break;
+
+                    case "Santa's Troubles":
+                        appendPart(message, "Player-Xmas-Quest-Stage = " + token2);
+                        break;
                 }
             }
 
-            Discord.writeXmasMessage("[XMAS]: " + message);
+            if (message.length() > 0) {
+                Discord.writeXmasMessage("[XMAS]: " + message);
+            }
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     private void searchFilesByUUID(String uuid) {
-        String srcDir = getSaveDirectory();
-        File folder = new File(srcDir);
+        if (uuid == null || uuid.isEmpty()) {
+            return;
+        }
+
+        File folder = new File(getSaveDirectory());
         File[] listOfFiles = folder.listFiles();
-        if (listOfFiles == null || listOfFiles.length == 0) return;
 
-        for (File f : listOfFiles) {
-            if (!f.isFile()) continue;
+        if (listOfFiles == null || listOfFiles.length == 0) {
+            return;
+        }
 
-            try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(f)))) {
+        for (File file : listOfFiles) {
+            if (file == null || !file.isFile()) {
+                continue;
+            }
+
+            try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(file)))) {
                 while (scanner.hasNext()) {
                     String word = scanner.next();
+
                     if (word.equalsIgnoreCase(uuid)) {
-                        String base = f.getName();
-                        String name = base.contains(".") ? base.substring(0, base.lastIndexOf('.')) : base;
-                        printDataz(name.toLowerCase());
+                        String fileName = file.getName();
+                        String playerName = fileName.contains(".")
+                                ? fileName.substring(0, fileName.lastIndexOf('.'))
+                                : fileName;
+
+                        printDataz(playerName.toLowerCase());
                         break;
                     }
                 }
+
             } catch (FileNotFoundException ignored) {
             }
         }
     }
+
+    private File getPlayerSaveFile(String name) {
+        return new File(getSaveDirectory() + name.toLowerCase() + ".txt");
+    }
+
+    private void appendPart(StringBuilder builder, String value) {
+        if (builder.length() > 0) {
+            builder.append(", ");
+        }
+
+        builder.append(value);
+    }
+
     @Override
     public void handle(SlashCommandInteractionEvent e) {
         onSlashCommandInteraction(e);

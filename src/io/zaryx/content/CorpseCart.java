@@ -86,7 +86,9 @@ public class CorpseCart {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You search the cart and find some "+ ItemAssistant.getItemName(item.getId()) + " @red@bones!");
         PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Corpse Cart!");
-        Discord.writeAchievements("```News: "+ c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the @red@Corpse Cart!```");
+        Discord.writeAchievements("News: " + c.getLoginName()
+                + " has received: " + ItemAssistant.getItemName(item.getId())
+                + " from the Corpse Cart!");
         c.corpseCartClaim = false;
     }
 }

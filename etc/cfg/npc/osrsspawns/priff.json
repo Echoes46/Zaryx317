@@ -3490,16 +3490,6 @@
 		"world": "ECO"
 	},
 	{
-		"name": "Sacrifice",
-		"id": "2037",
-		"x": "2210",
-		"y": "3056",
-		"z": "0",
-		"direction": "W",
-		"walkRange": "1",
-		"world": "ECO"
-	},
-	{
 		"name": "Priestess Zul-Gwenwynig",
 		"id": "2124",
 		"x": "2212",

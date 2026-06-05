@@ -1,6 +1,5 @@
 package io.zaryx.content.minigames.barrows;
 
-
 import io.zaryx.Server;
 import io.zaryx.content.achievement_diary.impl.MorytaniaDiaryEntry;
 import io.zaryx.content.minigames.barrows.brothers.*;
@@ -25,17 +24,16 @@ public class Barrows {
 
     public static final double SPECIAL_CHANCE = 0.2;
 
-    public void resetGame() {
-//        // Maze is reset on teleporting into tunnels.
-        //maze.randomizeSpawnPoint();
-//        chest.reset();
-//        npcController.reset();
-        puzzle.reset();
-    }
-    /**
-     * Randomizes the puzzle on doors.
+    /*
+     * Collection log source id for Barrows.
+     *
+     * This should match the Barrows entry id in your collection log config.
+     * Since this chest is a minigame reward source, the matching entry should be
+     * placed under MINIGAMES in collection_npcs.json / your collection log data.
      */
-    private  BarrowsPuzzleDisplay puzzle;
+    private static final int BARROWS_COLLECTION_LOG_ID = 1230;
+
+    private BarrowsPuzzleDisplay puzzle;
 
     private Player player;
 
@@ -53,133 +51,10 @@ public class Barrows {
         resetGame();
     }
 
-    //you need to split it up
-//    public void customclips(){
-//
-////
-//        if (Boundary.isIn(player,TUNNEL)) {
-//            //individual
-//
-//            player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,3540,9694, player.getHeight());
-//            player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,3534,9700, player.getHeight());
-//            player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,3535,9700, player.getHeight());
-//
-//
-//            for(int x = 3534 ;x<= 3535;x++)
-//                for(int y = 9701 ;y<= 9705;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3541 ;x<= 3545;x++)
-//                for(int y = 9711 ;y<= 9712;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//
-//            for(int x = 3558 ;x<= 3562;x++)
-//                for(int y = 9694 ;y<= 9695;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3568 ;x<= 3569;x++)
-//                for(int y = 9684 ;y<= 9688;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3541 ;x<= 3545;x++)
-//                for(int y = 9694 ;y<= 9695;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//            return;
-//        }
-//
-//
-////        if (Boundary.isIn(player,Boundary.LUMBRIDGE)) {
-////            for(int x = 3241 ;x<= 3251;x++)
-////                for(int y = 3225 ;y<= 3226;y++)
-////                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-////        }
-//        if (Boundary.isIn(player,Boundary.TAVELRY_DUNGEON)) {
-//
-//            for(int x = 2423 ;x<= 2427;x++)
-//                for(int y = 9809 ;y<= 9820;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 2427 ;x<= 2435;x++)
-//                for(int y = 9829 ;y<= 9831;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//
-//
-//            //tavelry
-//            for(int x = 2934 ;x<= 2938;x++)
-//                player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, 9829, player.getHeight());
-//            for(int x = 2933 ;x<= 2938;x++)
-//                player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, 9828, player.getHeight());
-//            for(int x = 2931 ;x<= 2936;x++)
-//                player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, 9827, player.getHeight());
-//
-//            for(int x = 2931 ;x<= 2938;x++)
-//                player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, 9826, player.getHeight());
-//
-//
-//
-//
-//            for(int x = 2936 ;x<= 2941;x++)
-//                for(int y = 9809 ;y<= 9813;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 2938 ;x<= 2942;x++)
-//                for(int y = 9803 ;y<= 9809;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//
-//            for(int x = 2941 ;x<= 2946;x++)
-//                for(int y = 9799 ;y<= 9802;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 2950 ;x<= 2970;x++)
-//                for(int y = 9770 ;y<= 9797;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            //System.out.println("here?");
-//            for(int x = 3530 ;x<= 3539;x++)
-//                for(int y = 9707 ;y<= 9716;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//            for(int x = 3547 ;x<= 3556;x++)
-//                for(int y = 9707 ;y<= 9716;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3564 ;x<= 3573;x++)
-//                for(int y = 9690 ;y<= 9699;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3530 ;x<= 3539;x++)
-//                for(int y = 9690 ;y<= 9699;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3547 ;x<= 3556;x++)
-//                for(int y = 9690 ;y<= 9699;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3564 ;x<= 3573;x++)
-//                for(int y = 9690 ;y<= 9699;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3530 ;x<= 3539;x++)
-//                for(int y = 9673 ;y<= 9682;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3530 ;x<= 3556;x++)
-//                for(int y = 9673 ;y<= 9682;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//            for(int x = 3563 ;x<= 3573;x++)
-//                for(int y = 9673 ;y<= 9682;y++)
-//                    player.getRegionProvider().removeClip(RegionProvider.NPC_TILE_FLAG,x, y, player.getHeight());
-//
-//
-//
-//            return;
-//        }
-//
-//
-//    }
+    public void resetGame() {
+        puzzle.reset();
+    }
+
     public void initialize() {
         this.puzzle = new BarrowsPuzzleDisplay();
         reset();
@@ -188,7 +63,7 @@ public class Barrows {
     }
 
     public void reset() {
-        brothers =new ArrayList<>();
+        brothers = new ArrayList<>();
         brothers.add(new Ahrim(player));
         brothers.add(new Dharok(player));
         brothers.add(new Guthan(player));
@@ -198,55 +73,6 @@ public class Barrows {
         brothers.get(new Random().nextInt(brothers.size())).setFinalBrother(true);
         monstersKilled = 0;
     }
-
-    /**
-     * Draws the interface that shows which brothers the player has killed whilst in the barrow minigame.
-     */
-//    public void drawInterface() {
-//        Optional<Brother> Ahrim = player.getBarrows().getBrother(1672);
-//        Optional<Brother> Dharok = player.getBarrows().getBrother(1673);
-//        Optional<Brother> Guthan  = player.getBarrows().getBrother(1674);
-//        Optional<Brother> Karil = player.getBarrows().getBrother(1675);
-//        Optional<Brother> Torag = player.getBarrows().getBrother(1676);
-//        Optional<Brother> Verac = player.getBarrows().getBrother(1677);
-//        PlayerAssistant assistant = player.getPA();
-//        for (Brother brother : brothers) {
-//            String text =  brother.getName();
-//            String color = brother.isDefeated() ? "878787" : "878787";
-//            assistant.sendFrame126("<col=" + color + ">" + text + "</col>", brother.getFrameId());
-//        }
-//        if(Ahrim.get().isDefeated()){
-//            assistant.sendFrame70(0,0,60887);
-//        } else {
-//            assistant.sendFrame70(-1000,0,60887);
-//        }
-//        if(Dharok.get().isDefeated()){
-//            assistant.sendFrame70(0,0,60888);
-//        } else {
-//            assistant.sendFrame70(-1000,0,60888);
-//        }
-//        if(Guthan.get().isDefeated()){
-//            assistant.sendFrame70(0,0,60889);
-//        } else {
-//            assistant.sendFrame70(-1000,0,60889);
-//        }
-//        if(Karil.get().isDefeated()){
-//            assistant.sendFrame70(0,0,60890);
-//        } else {
-//            assistant.sendFrame70(-1000,0,60890);
-//        }
-//        if(Torag.get().isDefeated()){
-//            assistant.sendFrame70(0,0,60891);
-//        } else {
-//            assistant.sendFrame70(-1000,0,60891);
-//        }
-//        if(Verac.get().isDefeated()){
-//            assistant.sendFrame70(0,0,60892);
-//        } else {
-//            assistant.sendFrame70(-1000,0,60892);
-//        }
-//        assistant.sendFrame126("Kill Count: "+Integer.toString(getKillCount()), 27508);
-//    }
 
     /**
      * Determines whether the player is within the Barrows area.
@@ -279,11 +105,11 @@ public class Barrows {
     /**
      * Get the instance of a Barrows brother by their name.
      *
-     * @param name The name of the Barrows brother.
+     * @param name The name of the brother.
      * @return The instance of the brother.
      */
     public Optional<Brother> getBrother(String name) {
-        return brothers.stream().filter(brother -> brother.getName().toLowerCase().equals(name.toLowerCase())).findFirst();
+        return brothers.stream().filter(brother -> brother.getName().equalsIgnoreCase(name)).findFirst();
     }
 
     /**
@@ -312,7 +138,7 @@ public class Barrows {
      */
     public void setLastBrother(String name) {
         brothers.forEach(brother -> {
-            if (brother.getName().toLowerCase().equals(name.toLowerCase())) {
+            if (brother.getName().equalsIgnoreCase(name)) {
                 brother.setFinalBrother(true);
             } else if (brother.isFinal()) {
                 brother.setFinalBrother(false);
@@ -340,12 +166,13 @@ public class Barrows {
     /**
      * Move up the stairs of a sarcophagus.
      *
-     * @param stairsId The object id of the stairs.
+     * @param pos The position of the stairs.
      */
     public void moveUpStairs(Position pos) {
-        Optional<Brother> brother = brothers.stream().filter(b -> b.getStairsId().getX() == pos.getX() && b.getStairsId().getY() == pos.getY()).findFirst();
-//if(brother.isPresent())//;
-//        System.out.println("here. "+pos);
+        Optional<Brother> brother = brothers.stream()
+                .filter(b -> b.getStairsId().getX() == pos.getX() && b.getStairsId().getY() == pos.getY())
+                .findFirst();
+
         brother.ifPresent(Brother::moveUpStairs);
     }
 
@@ -428,34 +255,6 @@ public class Barrows {
         player.getPA().refreshSkill(6);
     }
 
-//    public void test() {
-//        Optional<Brother> Ahrim = player.getBarrows().getBrother(1672);
-//        Optional<Brother> Dharok = player.getBarrows().getBrother(1673);
-//        Optional<Brother> Guthan  = player.getBarrows().getBrother(1674);
-//        Optional<Brother> Karil = player.getBarrows().getBrother(1675);
-//        Optional<Brother> Torag = player.getBarrows().getBrother(1676);
-//        Optional<Brother> Verac = player.getBarrows().getBrother(1677);
-//        completed = true;
-//        setCompleted(true);
-//        RewardList rewardList = new RewardList();
-//        setMonstersKilled(25);
-//        if (Ahrim.isPresent()&&Dharok.isPresent()&&Guthan.isPresent()&&Karil.isPresent()&&Torag.isPresent()&&Verac.isPresent()){
-//            Ahrim.get().handleDeath();
-//
-//            Dharok.get().handleDeath();
-//            Guthan.get().handleDeath();
-//            Karil.get().handleDeath();
-//            Torag.get().handleDeath();
-//            Verac.get().handleDeath();
-//        }
-//        for (int i = 0; i < 12; i++) {
-//            player.getPA().itemOnInterface(-1, -1, 64503, i);
-//        }
-//        brothers.stream().filter(Brother::isDefeated).forEach(br -> rewardList.addAll(br.getRewards()));
-//        giveRewards(rewardList);
-//        reset();
-//    }
-
     /**
      * Handle clicking the chest in the hidden tunnel.
      */
@@ -466,27 +265,31 @@ public class Barrows {
                     brother.spawnBrother();
                 } else {
                     completed = true;
+
                     RewardList rewardList = new RewardList();
-                    brothers.stream().filter(Brother::isDefeated).forEach(br -> rewardList.addAll(br.getRewards()));
+                    brothers.stream()
+                            .filter(Brother::isDefeated)
+                            .forEach(br -> rewardList.addAll(br.getRewards()));
+
                     player.setBarrowsChestCounter(player.getBarrowsChestCounter() + 1);
-                    //  player.sendMessage("Your Barrows Chest count is: @red@"+ player.getBarrowsChestCounter() + "@bla@.");
 
                     giveRewards(rewardList);
-                    //Achievements.increase(player, AchievementType.BARROWS_RUNS, 1);
-                    //DailyTasks.increase(player, PossibleTasks.BARROWS_CHESTS);
-
 
                     if (!Server.getEventHandler().isRunning(player, "barrows_tunnel")) {
                         Server.getEventHandler().submit(new TunnelEvent("barrows_tunnel", player, 1));
                     }
+
                     player.sendMessage("The tunnel starts to collapse as you search the chest.");
-                    if (EquipmentSet.AHRIM.isWearingBarrows(player) || EquipmentSet.KARIL.isWearingBarrows(player)
+
+                    if (EquipmentSet.AHRIM.isWearingBarrows(player)
+                            || EquipmentSet.KARIL.isWearingBarrows(player)
                             || EquipmentSet.DHAROK.isWearingBarrows(player)
                             || EquipmentSet.VERAC.isWearingBarrows(player)
                             || EquipmentSet.GUTHAN.isWearingBarrows(player)
                             || EquipmentSet.TORAG.isWearingBarrows(player)) {
                         player.getDiaryManager().getMorytaniaDiary().progress(MorytaniaDiaryEntry.BARROWS_CHEST);
                     }
+
                     reset();
                 }
             } else {
@@ -504,37 +307,56 @@ public class Barrows {
         for (int i = 0; i < 12; i++) {
             player.getPA().itemOnInterface(-1, -1, 64503, i);
         }
+
         int totalvalue = 0;
         ArrayList<RewardItem> randomRewards = getWeightedRewards(rewardList, 6);
         StringBuilder sb = new StringBuilder();
+
         @SuppressWarnings("unused")
         int gotBarrows = 0;
+
         int spot = 0;
         player.getPA().showInterface(25400);
+
         for (RewardItem item : randomRewards) {
             int itemId = item.getId();
             int amount = item.getAmount();
-            totalvalue += player.getShops().getItemShopValue(item.getId()) * item.getAmount();
+
+            totalvalue += player.getShops().getItemShopValue(itemId) * item.getAmount();
+
             boolean morytaniaLegs = player.getRechargeItems().hasAnyItem(13114, 13115);
-            if (item.getRarityLevel() == RewardLevel.COMMON) {
-                if (morytaniaLegs) {
-                    amount = amount + amount / 2;
-                }
+
+            if (item.getRarityLevel() == RewardLevel.COMMON && morytaniaLegs) {
+                amount = amount + amount / 2;
             }
-            //spot++;
+
             if (!player.getItems().addItem(itemId, amount)) {
                 Server.itemHandler.createGroundItem(player, itemId, player.getX(), player.getY(), player.heightLevel, amount);
             }
+
+            /*
+             * Collection Log
+             *
+             * This checks the rolled Barrows chest reward against the Barrows
+             * collection log entry. The collection log itself should decide whether
+             * the item belongs in the log, so common rewards like runes/coins will
+             * not be added unless they are actually configured there.
+             */
+            player.getCollectionLog().handleDrop(player, BARROWS_COLLECTION_LOG_ID, itemId, amount);
+
             player.getPA().itemOnInterface(itemId, amount, 64503, spot);
             spot++;
+
             if (item.getRarityLevel() == RewardLevel.RARE) {
-                //  player.getDiaryManager().getMorytaniaDiary().progress(MorytaniaDiaryEntry.BARROWS_PIECE);
                 gotBarrows = 1;
             }
-            sb.append(item.getId()).append(", ");
+
+            sb.append(itemId).append(", ");
         }
 
-        player.sendMessage("@blu@Your chest is worth around "+ Misc.insertCommasToNumber(Integer.toString(totalvalue))+" coins.");
+        player.sendMessage("@blu@Your chest is worth around "
+                + Misc.insertCommasToNumber(Integer.toString(totalvalue))
+                + " coins.");
     }
 
     /**
@@ -545,28 +367,33 @@ public class Barrows {
      * @return A list containing all randomly chosen items.
      */
     private ArrayList<RewardItem> getWeightedRewards(RewardList rewardList, int amount) {
-        ArrayList<RewardItem> randomRewards =new ArrayList<>();
+        ArrayList<RewardItem> randomRewards = new ArrayList<>();
         int totalWeight = rewardList.getTotalWeight(getKillCount());
 
         for (int i = 0; i < amount; i++) {
             double random = Math.random() * totalWeight;
             int index = 0;
+
             for (int n = 0; n < rewardList.size(); n++) {
                 switch (rewardList.get(n).getRarityLevel()) {
                     case COMMON:
                         random -= rewardList.firstTierRarity(getKillCount());
                         break;
+
                     default:
                         random -= rewardList.get(n).getRarityLevel().getRarity();
                         break;
                 }
+
                 if (random <= 0.0d) {
                     index = n;
                     break;
                 }
             }
+
             RewardItem reward = rewardList.get(index);
             boolean flag = false;
+
             for (RewardItem item : randomRewards) {
                 if (reward.getId() == item.getId()) {
                     item.setMinAmount(reward.getMinAmount() + item.getMinAmount());
@@ -575,10 +402,12 @@ public class Barrows {
                     break;
                 }
             }
+
             if (!flag) {
                 randomRewards.add(reward);
             }
         }
+
         return randomRewards;
     }
 

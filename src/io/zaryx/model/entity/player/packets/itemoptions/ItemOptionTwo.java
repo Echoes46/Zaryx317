@@ -162,7 +162,7 @@ public class ItemOptionTwo implements PacketType {
 		}
 		break;
 		case 7509:
-            if (player.getPosition().inDuelArena() || Boundary.isIn(player, Boundary.DUEL_ARENA)) {
+            if (player.getPosition().inDuelLobby() || Boundary.isIn(player, Boundary.DUEL_ARENA)) {
             	player.sendMessage("You cannot do this here.");
                 return;
             }

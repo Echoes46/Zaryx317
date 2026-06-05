@@ -14,6 +14,7 @@ import io.zaryx.content.dialogue.DialogueOption;
 import io.zaryx.content.dialogue.impl.*;
 import io.zaryx.content.minigames.inferno.Inferno;
 import io.zaryx.content.minigames.tob.TobConstants;
+import io.zaryx.content.minigames.trialofarms.TrialOfArms;
 import io.zaryx.content.miniquests.magearenaii.dialogue.KolodionDialogue;
 import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.skills.Fishing;
@@ -177,7 +178,12 @@ public class NpcOptionOne {
             case 3201:
                 player.start(new DialogueBuilder(player).npc(3201, "Welcome to Bloody Minigame.","Coming soon Difficulty modes!"));
                 break;
-
+            case 10388:
+                player.stopMovement();
+                player.faceUpdate(0);
+                player.getPA().resetFollow();
+                TrialOfArms.handleNpc(player);
+                return;
             case 2306:
                 player.start(new DialogueBuilder(player).statement("Hello "+player.getDisplayName()+".",
                                 "Santa has sent me to ask you for his help!", "If you can help santa he's got some presents waiting for you.")
@@ -253,7 +259,7 @@ public class NpcOptionOne {
                 break;
             case 2850:
                 GroupIronmanContest.openInterface(player);
-                player.sendMessage("Find out more info about the contest at ::topic 281");
+                player.sendMessage("You must be a GIM player to interact with me!");
                 break;
             case 8686:
                 player.getShops().openShop(90);

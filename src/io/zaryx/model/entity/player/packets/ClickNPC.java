@@ -7,6 +7,7 @@ import io.zaryx.content.bosses.hespori.Hespori;
 import io.zaryx.content.combat.magic.CombatSpellData;
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.dialogue.DialogueOption;
+import io.zaryx.content.minigames.trialofarms.TrialOfArms;
 import io.zaryx.content.seasons.Christmas;
 import io.zaryx.content.skills.Skill;
 import io.zaryx.content.skills.hunter.impling.Impling;
@@ -252,6 +253,11 @@ public class ClickNPC implements PacketType {
 
                 if (n.getNpcId() == 7099) {
                     c.getShops().openShop(193);
+                    return;
+                }
+
+                if (n.getNpcId() == 229) {
+                    c.getShops().openShop(601);
                     return;
                 }
 

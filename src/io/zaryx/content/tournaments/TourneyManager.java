@@ -34,17 +34,15 @@ import io.zaryx.model.items.GameItem;
 import io.zaryx.sql.outlast.OutlastLeaderboardAdd;
 import io.zaryx.sql.outlast.OutlastRecentWinnersAdd;
 import io.zaryx.util.Misc;
+import io.zaryx.model.items.bank.BankItem;
+
+import java.util.*;
 
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -446,26 +444,43 @@ public class TourneyManager {
         });
     }
 
+    /**
+     * Updated by Khaos
+     */
     public void join(Player player) {
         if (player.hasFollower) {
             PetHandler.pickupPet(player, PetHandler.forItem(player.petSummonId).npcId, true);
         }
+
         if (!TourneyManager.getSingleton().isLobbyOpen()) {
             player.sendMessage("The tournament lobby is not currently open.");
             return;
         }
+
         if (isPlayerInTournament(player)) {
             player.sendMessage("You are already a part of the tournament");
             return;
         }
+
         if (isArenaActive()) {
             player.sendMessage("You are unable to join an active tournament.");
             return;
         }
+
         if (checkMacAddress(player) && !Server.isDebug()) {
             player.sendMessage("You can only play with one account per computer.");
             return;
         }
+
+        /*
+         * Updated by Khaos
+         * Before joining, safely bank all real inventory/equipment.
+         * If the bank cannot hold everything, the player cannot enter.
+         */
+        if (!bankInventoryAndEquipmentForTournament(player)) {
+            return;
+        }
+
         if (player.getPotions().hasPotionBoost()) {
             player.getPotions().resetPotionBoost();
         }
@@ -476,20 +491,24 @@ public class TourneyManager {
         player.getHealth().reset();
         player.getPA().refreshSkill(5);
         CombatPrayer.resetPrayers(player);
+
         player.spectatingTournament = false;
         player.resetVengeance();
         player.specRestore = 120;
         player.specAmount = 10.0;
         player.getItems().addSpecialBar(player.playerEquipment[Player.playerWeapon]);
+
         currentPlayers.add(player.getLoginName());
         player.tourneyItemsReceived.clear();
+
         player.getPA().movePlayer(map.lobby.getX(), map.lobby.getY(), 4);
-//        player.getPA().movePlayer(new Coordinate(Misc.random(3322, 3324), Misc.random(4944, 4954)));
+
         player.sendMessage("You have joined the Tournament lobby.");
+        player.sendMessage("Your inventory and equipment were safely deposited into your bank.");
         player.sendMessage("Remain in this lobby until the Tournament begins.");
+
         updateInterface(true);
     }
-
     /**
      * Checks a players mac address against all in the current lobby
      */
@@ -517,38 +536,58 @@ public class TourneyManager {
         });
     }
 
+    /**
+     * Updated by Khaos
+     */
     public void outlastEquip(Player player) {
         player.canAttack = false;
 
-        for (int i = 0; i < currentSetup.getTournamentLevels().length; i++) {
-            int xpForLevel = player.getPA().getXPForLevel(currentSetup.getTournamentLevels()[i] + 1);
-            player.setLevel(Skill.forId(i), xpForLevel, true);
-        }
+        /*
+         * Updated by Khaos
+         * Do NOT modify player.playerXP or player.playerLevel here.
+         * The old code set tournament skill levels directly on the real player,
+         * which could permanently reset or alter their skills.
+         *
+         * If temporary tournament stats are needed later, use a backup/restore system
+         * instead of writing directly into playerXP/playerLevel.
+         */
 
         player.specAmount = 10.0;
         player.recoilHits = 0;
+
         switch (currentSetup.getMagicBook()) {
             case "NORMAL":
                 player.setSidebarInterface(6, 938);
                 player.playerMagicBook = 0;
                 break;
+
             case "ANCIENT":
                 player.setSidebarInterface(6, 838);
                 player.playerMagicBook = 1;
                 break;
+
             case "LUNAR":
                 player.setSidebarInterface(6, 29999);
                 player.playerMagicBook = 2;
                 break;
         }
+
+        /*
+         * Add tournament inventory.
+         */
         for (int i = 0; i < currentSetup.getTournamentInventory().length; i++) {
             int inventoryItem = currentSetup.getTournamentInventory()[i].getItemID();
             int amount = currentSetup.getTournamentInventory()[i].getItemAmount();
+
             if (inventoryItem != -1) {
                 player.getItems().addItem(inventoryItem, amount);
             }
         }
-        //hat, cape, amulet, weapon, chest, shield, EMPTY, legs, EMPTY, hands, feet, EMPTY, ring, arrows
+
+        /*
+         * Add tournament equipment.
+         * Safe now because real equipment was banked before joining.
+         */
         for (int i = 0; i < currentSetup.getTournamentEquipment().length; i++) {
             if (currentSetup.getTournamentEquipment()[i] != -1) {
                 if (i == 13) {
@@ -556,6 +595,7 @@ public class TourneyManager {
                 } else {
                     player.getItems().setEquipment(currentSetup.getTournamentEquipment()[i], 1, i, false);
                 }
+
                 if (i == 3) {
                     player.setSpellId(-1);
                     player.usingMagic = false;
@@ -566,15 +606,135 @@ public class TourneyManager {
                     player.getItems().addSpecialBar(currentSetup.getTournamentEquipment()[i]);
                     player.getItems().updateSpecialBar();
                     player.getPA().resetAutocast();
-                    if (currentSetup.getTournamentEquipment()[i] != 4153 && currentSetup.getTournamentEquipment()[i] != 12848 && currentSetup.getTournamentEquipment()[i] != 24225 && currentSetup.getTournamentEquipment()[i] != 24227) {
+
+                    if (currentSetup.getTournamentEquipment()[i] != 4153
+                            && currentSetup.getTournamentEquipment()[i] != 12848
+                            && currentSetup.getTournamentEquipment()[i] != 24225
+                            && currentSetup.getTournamentEquipment()[i] != 24227) {
                         player.attacking.reset();
                     }
                 }
             }
         }
+
         player.getItems().calculateBonuses();
         player.getItems().sendWeapon(player.playerEquipment[Player.playerWeapon]);
         MeleeData.setWeaponAnimations(player);
+    }
+
+    /**
+     * Updated by Khaos
+     */
+    private boolean bankInventoryAndEquipmentForTournament(Player player) {
+        if (player.getBankPin().requiresUnlock()) {
+            player.sendMessage("@red@You need to unlock your bank pin before joining the tournament.");
+            return false;
+        }
+
+        if (!hasBankRoomForInventoryAndEquipment(player)) {
+            player.sendMessage("@red@You do not have enough bank space to enter the tournament.");
+            player.sendMessage("@red@Please make room in your bank, then try again.");
+            return false;
+        }
+
+        /*
+         * Bank inventory first.
+         */
+        Map<Integer, Integer> inventoryItems = new HashMap<>();
+
+        for (int slot = 0; slot < player.playerItems.length; slot++) {
+            int itemId = player.playerItems[slot] - 1;
+            int amount = player.playerItemsN[slot];
+
+            if (itemId > -1 && amount > 0) {
+                inventoryItems.merge(itemId, amount, Integer::sum);
+            }
+        }
+
+        for (Map.Entry<Integer, Integer> entry : inventoryItems.entrySet()) {
+            int itemId = entry.getKey();
+            int amount = entry.getValue();
+
+            if (!player.getItems().addToBank(itemId, amount, false, true)) {
+                player.sendMessage("@red@Could not bank " + itemId + ". Tournament entry cancelled.");
+                return false;
+            }
+        }
+
+        /*
+         * Bank equipment after inventory.
+         */
+        for (int slot = 0; slot < player.playerEquipment.length; slot++) {
+            int itemId = player.playerEquipment[slot];
+            int amount = player.playerEquipmentN[slot];
+
+            if (itemId > -1 && amount > 0) {
+                if (!player.getItems().addEquipmentToBank(itemId, slot, amount, false, true)) {
+                    player.sendMessage("@red@Could not bank equipped item " + itemId + ". Tournament entry cancelled.");
+                    return false;
+                }
+            }
+        }
+
+        player.getItems().resetTempItems();
+        player.getItems().calculateBonuses();
+        player.getItems().sendWeapon(player.playerEquipment[Player.playerWeapon]);
+        MeleeData.setWeaponAnimations(player);
+
+        return true;
+    }
+
+    /**
+     * Updated by Khaos
+     */
+    private boolean hasBankRoomForInventoryAndEquipment(Player player) {
+        Set<Integer> newBankSlotsNeeded = new HashSet<>();
+
+        /*
+         * Inventory items.
+         */
+        for (int slot = 0; slot < player.playerItems.length; slot++) {
+            int itemId = player.playerItems[slot] - 1;
+            int amount = player.playerItemsN[slot];
+
+            if (itemId > -1 && amount > 0) {
+                BankItem bankItem = new BankItem(itemId + 1, amount);
+
+                if (!player.getBank().hasRoomFor(bankItem)) {
+                    return false;
+                }
+
+                if (!player.getItems().bankContains(itemId)) {
+                    newBankSlotsNeeded.add(itemId);
+                }
+            }
+        }
+
+        /*
+         * Equipped items.
+         */
+        for (int slot = 0; slot < player.playerEquipment.length; slot++) {
+            int itemId = player.playerEquipment[slot];
+            int amount = player.playerEquipmentN[slot];
+
+            if (itemId > -1 && amount > 0) {
+                BankItem bankItem = new BankItem(itemId + 1, amount);
+
+                if (!player.getBank().hasRoomFor(bankItem)) {
+                    return false;
+                }
+
+                if (!player.getItems().bankContains(itemId)) {
+                    newBankSlotsNeeded.add(itemId);
+                }
+            }
+        }
+
+        /*
+         * addToBank/addEquipmentToBank use the current tab for new items,
+         * so make sure the current tab has enough new slots available.
+         */
+        return player.getBank().getCurrentBankTab().freeSlots() >= newBankSlotsNeeded.size();
     }
 
     public void leaveLobby(Player player, boolean xlog) {
@@ -589,13 +749,13 @@ public class TourneyManager {
                 if (player.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN)) || player.getMode().equals(Mode.forType(ModeType.WILDYMAN))) {
                     player.getPA().forceMove(3126, 3629, 0, true);
                 } else {
-                    player.getPA().forceMove(2095, 6003, 0, true);
+                    player.getPA().forceMove(3079, 3488, 0, true);
                 }
             } else {
                 if (player.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN)) || player.getMode().equals(Mode.forType(ModeType.WILDYMAN))) {
                     player.getPA().forceMove(3126, 3629, 0, true);
                 } else {
-                    player.getPA().forceMove(2095, 6003, 0, true);
+                    player.getPA().forceMove(3079, 3488, 0, true);
                 }
             }
             player.getPA().sendFog(false, 0);

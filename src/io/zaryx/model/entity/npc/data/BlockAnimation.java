@@ -218,6 +218,7 @@ public class BlockAnimation {
                 return 2983;
 
             case 6766: // Lizardman shaman
+            case 6767:
             case 6768:
             case 6914:
             case 6915:

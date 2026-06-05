@@ -141,7 +141,9 @@ public class SixHourScrolls {
         c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
         c.sendMessage("@blu@You search the table and find a "+ ItemAssistant.getItemName(item.getId()) + " @red@scroll!");
         PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Scroll Table!");
-        Discord.writeAchievements("```News: "+ c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the loyalty chest!```");
+        Discord.writeAchievements("News: " + c.getLoginName()
+                + " has received: " + ItemAssistant.getItemName(item.getId())
+                + " from the loyalty chest!");
         c.twoHourClaimable = false;
     }
 }

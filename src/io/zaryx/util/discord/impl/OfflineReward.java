@@ -52,12 +52,11 @@ public class OfflineReward extends ListenerAdapter implements SlashHandler{
         ItemCollection.add(name, new GameItem(id, amount));
 
         // Log to your offline rewards channel
-        Discord.writeOfflineRewardsMessage("```[OFFLINE REWARDS] " + e.getUser().getName()
+        Discord.writeOfflineRewardsMessage("[OFFLINE REWARDS] " + e.getUser().getName()
                 + " gave " + Misc.capitalizeJustFirst(name) + " Item: " + def.getName()
-                + " x " + amount + " (" + id + ")```");
-
+                + " x " + amount + " (" + id + ")");
         // Acknowledge to the invoker
-        e.reply("📦 Queued **" + amount + "x " + def.getName() + "** for **" + Misc.capitalizeJustFirst(name) + "**.").queue();
+        e.reply("Queued **" + amount + "x " + def.getName() + "** for **" + Misc.capitalizeJustFirst(name) + "**.").queue();
     }
     @Override
     public void handle(SlashCommandInteractionEvent e) {

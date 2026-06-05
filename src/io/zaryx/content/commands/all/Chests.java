@@ -48,7 +48,7 @@ public class Chests extends Command {
 		if (c.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
 			c.getPA().spellTeleport(3422, 3800, 0, true);
 		} else {
-			c.getPA().spellTeleport(3120, 3492, 0, true);
+			c.getPA().spellTeleport(3119, 3515, 0, true);
 		}
 	}
 

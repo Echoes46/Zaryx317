@@ -57,9 +57,15 @@ public class Ewalkable extends Command {
         boolean wasBlocked = currentClip != 0;
 
         if (wasBlocked) {
-            // Make walkable: set clip to 0
+            // Make walkable: remove ALL clipping including object clipping
             region.setClipToZero(x, y, height);
-            // Send client update: place then remove invisible object to force collision recalc
+            for (int type = 0; type <= 22; type++) {
+                for (int dir = 0; dir < 4; dir++) {
+                    region.removeObject(0, x, y, height, type, dir);
+                }
+            }
+            region.setClipToZero(x, y, height);
+            // Send client update to force collision recalc
             final int fx = x, fy = y;
             Arrays.stream(PlayerHandler.players).forEach(p -> {
                 if (p != null) {
