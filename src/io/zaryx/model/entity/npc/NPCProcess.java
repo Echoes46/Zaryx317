@@ -40,6 +40,7 @@ import io.zaryx.util.Misc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -746,8 +747,10 @@ public class NPCProcess {
 
                         if (target != null) {
                             for (TaskMasterKills killz : target.getTaskMaster().taskMasterKillsList) {
+                                String taskName = killz.getDesc().toLowerCase(Locale.ROOT);
+                                String npcName = npc.getName().toLowerCase(Locale.ROOT);
                                 for (Tasks value : Tasks.values()) {
-                                    if (killz.getDesc().equalsIgnoreCase(value.desc) && killz.getAmountKilled() != killz.getAmountToKill() && killz.getDesc().contains(npc.getName())) {
+                                    if (killz.getDesc().equalsIgnoreCase(value.desc) && killz.getAmountKilled() != killz.getAmountToKill() && taskName.contains(npcName)) {
                                         killz.incrementAmountKilled(1);
                                         target.getTaskMaster().trackActivity(target, killz);
                                         break;
