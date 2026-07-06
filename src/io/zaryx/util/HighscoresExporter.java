@@ -102,8 +102,9 @@ public class HighscoresExporter {
                 player.displayName = player.username;
             }
 
-// Exclude staff/admin accounts from highscores for now.
-            if (player.rights > 0) {
+
+            // Exclude staff accounts from highscores, but allow donators.
+            if (isStaffRights(player.rights)) {
                 return null;
             }
 
@@ -117,6 +118,27 @@ public class HighscoresExporter {
             System.out.println("Failed to parse highscores save: " + save.getName());
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * Updated by Khaos
+     * Excludes only staff-type rights from highscores.
+     * Donator ranks are intentionally allowed.
+     */
+    private static boolean isStaffRights(int rights) {
+        switch (rights) {
+            case 1:  // MODERATOR
+            case 2:  // ADMINISTRATOR
+            case 3:  // STAFF_MANAGER
+            case 11: // HELPER
+            case 16: // GAME_DEVELOPER
+            case 30: // COMMUNITY_MANAGER
+            case 36: // GUIDE_GURU
+                return true;
+
+            default:
+                return false;
         }
     }
 

@@ -82,6 +82,92 @@ public class ItemOptionOne implements PacketType {
         c.sendMessage("You planted a flower!");
         c.getItems().deleteItem(299, c.getItems().getInventoryItemSlot(299), 1);
     }
+
+    private void openLampInterface(Player c, int itemId, String message, boolean warnAll) {
+        if (!c.getItems().playerHasItem(itemId, 1)) {
+            c.sendMessage("You need a " + ItemDef.forId(itemId).getName().toLowerCase() + " to do this.");
+            return;
+        }
+
+        c.inLamp = true;
+        c.usingLamp = true;
+        c.normalLamp = true;
+        c.antiqueLamp = false;
+        c.lampItemUsed = itemId;
+
+        c.sendMessage(message);
+        if (warnAll) {
+            c.sendMessage("@red@Caution this will use one lamp from your inventory.");
+        }
+        c.getPA().showInterface(55555);
+    }
+
+    /**
+     * Interface 55555 uses item models for some skill icons. If the player clicks
+     * an icon instead of the button overlay, the click can fall through to normal
+     * inventory item logic. Example: the Slayer icon is item 4155, which is also
+     * the Slayer gem and will incorrectly say the player has no task.
+     *
+     * This handler catches those item-clicks while a lamp/relic interface is open
+     * and turns them into a skill selection instead. The actual XP and item delete
+     * still happen in ClickingButtons on the confirm button, so closing the
+     * interface does not waste the dark relic.
+     */
+    private boolean handleLampInterfaceItemClick(Player c, int itemId) {
+        int skillId = getLampSkillFromItem(itemId);
+
+        if (skillId == -1) {
+            c.sendMessage("Please select a skill, then press confirm.");
+            return true;
+        }
+
+        c.antiqueItemResetSkillId = skillId;
+        c.sendMessage("You select " + getLampSkillName(skillId));
+        return true;
+    }
+
+    private int getLampSkillFromItem(int itemId) {
+        switch (itemId) {
+            /*
+             * Confirmed: interface 55555 Slayer icon sends item id 4155.
+             * Keep any other skill-icon item ids here if your client sends them
+             * through ItemOptionOne instead of ClickingButtons.
+             */
+            case 4155:
+                return Skill.SLAYER.getId();
+
+            default:
+                return -1;
+        }
+    }
+
+    private String getLampSkillName(int skillId) {
+        switch (skillId) {
+            case 0: return "Attack";
+            case 1: return "Defence";
+            case 2: return "Strength";
+            case 3: return "Hitpoints";
+            case 4: return "Ranged";
+            case 5: return "Prayer";
+            case 6: return "Magic";
+            case 7: return "Cooking";
+            case 8: return "Woodcutting";
+            case 9: return "Fletching";
+            case 10: return "Fishing";
+            case 11: return "Firemaking";
+            case 12: return "Crafting";
+            case 13: return "Smithing";
+            case 14: return "Mining";
+            case 15: return "Herblore";
+            case 16: return "Agility";
+            case 17: return "Thieving";
+            case 18: return "Slayer";
+            case 19: return "Farming";
+            case 20: return "Runecrafting";
+            case 21: return "Hunter";
+            default: return "Unknown";
+        }
+    }
     @Override
     public void processPacket(Player c, int packetType, int packetSize) {
         if (c.getMovementState().isLocked())
@@ -93,6 +179,12 @@ public class ItemOptionOne implements PacketType {
 
         if (c.debugMessage) {
             c.sendMessage(String.format("ItemClick[item=%d, option=%d, interface=%d, slot=%d]", itemId, 1, interfaceId, itemSlot));
+        }
+
+        if (interfaceId == 55555 && c.inLamp && c.usingLamp) {
+            if (handleLampInterfaceItemClick(c, itemId)) {
+                return;
+            }
         }
 
         GameItem gameItem = new GameItem(itemId);
@@ -151,7 +243,7 @@ public class ItemOptionOne implements PacketType {
 
         if (itemId == 11681) {
             c.getShops().openShop(600);
-                return;
+            return;
 
         }
 
@@ -459,31 +551,31 @@ public class ItemOptionOne implements PacketType {
 
         if (itemId == 24363) {
 
-        int count = c.getItems().getInventoryCount(24363);
-        if (count <= 0) {
+            int count = c.getItems().getInventoryCount(24363);
+            if (count <= 0) {
+                return;
+            }
+            if (System.currentTimeMillis() - c.clickDelay <= 2200) {
+                return;
+            }
+            if (!Boundary.isIn(c, Boundary.SCROLLCOLL)) {
+                c.moveTo(new Position(1824, 3105, 0));
+            }
+            if ((c.CollTimer/100) >= 55) {
+                return;
+            }
+            c.clickDelay = System.currentTimeMillis();
+            c.CollTimer += (TimeUnit.MINUTES.toMillis(15) / 600);
+            c.getPA().sendConfig(39, 15);
+            c.getPA().sendGameTimer(ClientGameTimer.ISLANDDZSCROLL, TimeUnit.MINUTES, (int) (c.CollTimer/100));
+            if (c.CollTimer == 0) {
+                c.sendMessage("You now have 15 minutes time remaining at the colosseum!");
+            } else if (c.CollTimer > 1) {
+                c.sendMessage("You have added 15 more minutes to your colosseum timer!");
+            }
+            c.getItems().deleteItem2(24363, 1);
             return;
         }
-        if (System.currentTimeMillis() - c.clickDelay <= 2200) {
-            return;
-        }
-        if (!Boundary.isIn(c, Boundary.SCROLLCOLL)) {
-            c.moveTo(new Position(1824, 3105, 0));
-        }
-        if ((c.CollTimer/100) >= 55) {
-            return;
-        }
-        c.clickDelay = System.currentTimeMillis();
-        c.CollTimer += (TimeUnit.MINUTES.toMillis(15) / 600);
-        c.getPA().sendConfig(39, 15);
-        c.getPA().sendGameTimer(ClientGameTimer.ISLANDDZSCROLL, TimeUnit.MINUTES, (int) (c.CollTimer/100));
-        if (c.CollTimer == 0) {
-            c.sendMessage("You now have 15 minutes time remaining at the colosseum!");
-        } else if (c.CollTimer > 1) {
-            c.sendMessage("You have added 15 more minutes to your colosseum timer!");
-        }
-        c.getItems().deleteItem2(24363, 1);
-        return;
-    }
 
 
 
@@ -617,56 +709,56 @@ public class ItemOptionOne implements PacketType {
 
         if (itemId == 28274) {
             c.start(new DialogueBuilder(c).option("what tool would you like to upgrade?", new DialogueOption("Infernal pickaxe (or). (100m MadPoints & 5 Smoked gems)", p -> {
-                if (p.getItems().getInventoryCount(25063) == 0) {
-                    p.sendMessage("@red@You don't have an Infernal pickaxe (or) to upgrade!");
-                    p.getPA().closeAllWindows();
-                    return;
-                }
-                if (p.getItems().getInventoryCount(28274) < 5) {
-                    p.sendMessage("@red@You need 20 Smoke gems to upgrade your pickaxe");
-                    p.getPA().closeAllWindows();
-                    return;
-                }
-                if (p.foundryPoints < 100_000_000) {
-                    p.sendMessage("@red@You require 100m MadPoints to upgrade your Pickaxe!");
-                    p.getPA().closeAllWindows();
-                    return;
-                }
-                p.getItems().deleteItem2(25063, 1);
-                p.getItems().deleteItem2(28274, 5);
-                p.foundryPoints -= 100_000_000;
-                p.getItems().addItemUnderAnyCircumstance(25112, 1);
-                String msg = "@blu@<img=18>[UPGRADE]<img=18>@red@ " + p.getDisplayName()
-                        + " Has successfully created a Trailblazer Pickaxe!";
-                PlayerHandler.executeGlobalMessage(msg);
-                p.getPA().closeAllWindows();
-            }),
+                        if (p.getItems().getInventoryCount(25063) == 0) {
+                            p.sendMessage("@red@You don't have an Infernal pickaxe (or) to upgrade!");
+                            p.getPA().closeAllWindows();
+                            return;
+                        }
+                        if (p.getItems().getInventoryCount(28274) < 5) {
+                            p.sendMessage("@red@You need 20 Smoke gems to upgrade your pickaxe");
+                            p.getPA().closeAllWindows();
+                            return;
+                        }
+                        if (p.foundryPoints < 100_000_000) {
+                            p.sendMessage("@red@You require 100m MadPoints to upgrade your Pickaxe!");
+                            p.getPA().closeAllWindows();
+                            return;
+                        }
+                        p.getItems().deleteItem2(25063, 1);
+                        p.getItems().deleteItem2(28274, 5);
+                        p.foundryPoints -= 100_000_000;
+                        p.getItems().addItemUnderAnyCircumstance(25112, 1);
+                        String msg = "@blu@<img=18>[UPGRADE]<img=18>@red@ " + p.getDisplayName()
+                                + " Has successfully created a Trailblazer Pickaxe!";
+                        PlayerHandler.executeGlobalMessage(msg);
+                        p.getPA().closeAllWindows();
+                    }),
 
-                new DialogueOption("Infernal Axe (or). (100m MadPoints & 5 Smoked gems", p -> {
-                    if (p.getItems().getInventoryCount(25066) == 0) {
-                        p.sendMessage("@red@You don't have an Infernal axe (or) to upgrade!");
+                    new DialogueOption("Infernal Axe (or). (100m MadPoints & 5 Smoked gems", p -> {
+                        if (p.getItems().getInventoryCount(25066) == 0) {
+                            p.sendMessage("@red@You don't have an Infernal axe (or) to upgrade!");
+                            p.getPA().closeAllWindows();
+                            return;
+                        }
+                        if (p.getItems().getInventoryCount(28274) < 5) {
+                            p.sendMessage("@red@You need 5 Smoke gems to upgrade your Axe");
+                            p.getPA().closeAllWindows();
+                            return;
+                        }
+                        if (p.foundryPoints < 100_000_000) {
+                            p.sendMessage("@red@You require 100m MadPoints to upgrade your Axe!");
+                            p.getPA().closeAllWindows();
+                            return;
+                        }
+                        p.getItems().deleteItem2(25066, 1);
+                        p.getItems().deleteItem2(28274, 5);
+                        p.foundryPoints -= 100_000_000;
+                        p.getItems().addItemUnderAnyCircumstance(25110, 1);
+                        String msg = "@blu@<img=18>[UPGRADE]<img=18>@red@ " + p.getDisplayName()
+                                + " Has successfully created a Trailblazer Axe!";
+                        PlayerHandler.executeGlobalMessage(msg);
                         p.getPA().closeAllWindows();
-                        return;
-                    }
-                    if (p.getItems().getInventoryCount(28274) < 5) {
-                        p.sendMessage("@red@You need 5 Smoke gems to upgrade your Axe");
-                        p.getPA().closeAllWindows();
-                        return;
-                    }
-                    if (p.foundryPoints < 100_000_000) {
-                        p.sendMessage("@red@You require 100m MadPoints to upgrade your Axe!");
-                        p.getPA().closeAllWindows();
-                        return;
-                    }
-                    p.getItems().deleteItem2(25066, 1);
-                    p.getItems().deleteItem2(28274, 5);
-                    p.foundryPoints -= 100_000_000;
-                    p.getItems().addItemUnderAnyCircumstance(25110, 1);
-                    String msg = "@blu@<img=18>[UPGRADE]<img=18>@red@ " + p.getDisplayName()
-                            + " Has successfully created a Trailblazer Axe!";
-                    PlayerHandler.executeGlobalMessage(msg);
-                    p.getPA().closeAllWindows();
-                }),
+                    }),
 
                     new DialogueOption("Infernal Harpoon (or). (100m MadPoints & 5 Smoked gems", p -> {
                         if (p.getItems().getInventoryCount(25059) == 0) {
@@ -723,17 +815,17 @@ public class ItemOptionOne implements PacketType {
                 return;
             }
             if (c.wildLevel <= 0) {
-                    if (c.SafetyTimer > 0) {
-                        c.sendMessage("You still have Bounty Protection Active!");
-                    } else {
-                        c.getItems().deleteItem2(25478, 1);
-                        c.sendMessage("@red@You now have 30 minutes of protection from the bounty hunter system!");
-                        c.SafetyTimer = (TimeUnit.MINUTES.toMillis(30) / 600);
-                        c.getPA().sendGameTimer(ClientGameTimer.SAFETY_BUFFER, TimeUnit.MINUTES, (int) (c.SafetyTimer/100));
-                        if (c.getBH().outsideBoundsTicks > 0) {
-                            c.getBH().outsideBoundsTicks = 0;
-                        }
+                if (c.SafetyTimer > 0) {
+                    c.sendMessage("You still have Bounty Protection Active!");
+                } else {
+                    c.getItems().deleteItem2(25478, 1);
+                    c.sendMessage("@red@You now have 30 minutes of protection from the bounty hunter system!");
+                    c.SafetyTimer = (TimeUnit.MINUTES.toMillis(30) / 600);
+                    c.getPA().sendGameTimer(ClientGameTimer.SAFETY_BUFFER, TimeUnit.MINUTES, (int) (c.SafetyTimer/100));
+                    if (c.getBH().outsideBoundsTicks > 0) {
+                        c.getBH().outsideBoundsTicks = 0;
                     }
+                }
             } else {
                 c.sendMessage("You can only use this in a safe area!");
             }
@@ -1041,15 +1133,15 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("You need a knife to open this.");
                 }
                 break;
-        case ResourceBoxSmall.BOX_ITEM:
-            new ResourceBoxSmall().roll(c);
-            break;
-        case ResourceBoxMedium.BOX_ITEM:
-            new ResourceBoxMedium().roll(c);
-            break;
-        case ResourceBoxLarge.BOX_ITEM:
-            new ResourceBoxLarge().roll(c);
-            break;
+            case ResourceBoxSmall.BOX_ITEM:
+                new ResourceBoxSmall().roll(c);
+                break;
+            case ResourceBoxMedium.BOX_ITEM:
+                new ResourceBoxMedium().roll(c);
+                break;
+            case ResourceBoxLarge.BOX_ITEM:
+                new ResourceBoxLarge().roll(c);
+                break;
             case 23071:
                 if (!(c.getSuperMysteryBox().canMysteryBox) || !(c.getNormalMysteryBox().canMysteryBox) ||
                         !(c.getUltraMysteryBox().canMysteryBox) || !(c.getFoeMysteryBox().canMysteryBox)
@@ -1072,9 +1164,9 @@ public class ItemOptionOne implements PacketType {
                     return;
                 }
                 break;
-        case 21034:
-        	c.getDH().sendDialogues(345, 9120);
-        	break;
+            case 21034:
+                c.getDH().sendDialogues(345, 9120);
+                break;
             case 6799:
                 c.getItems().deleteItem(6799, 1);
                 break;
@@ -1104,27 +1196,27 @@ public class ItemOptionOne implements PacketType {
                 break;
 
 
-        case 21079:
-        	c.getDH().sendDialogues(347, 9120);
-        	break;
-        case 22477:
-			c.sendMessage("Attach it onto a dragon defender to make avernic defender.");
-        	break;
+            case 21079:
+                c.getDH().sendDialogues(347, 9120);
+                break;
+            case 22477:
+                c.sendMessage("Attach it onto a dragon defender to make avernic defender.");
+                break;
 
-        case 23185:
-            if (!c.getPA().morphPermissions()) {
-                return;
-            }
-            for (int i = 0; i <= 12; i++) {
-                c.setSidebarInterface(i, 6014);
-            }
-            c.npcId2 = 9415;
-            c.isNpc = true;
-            c.playerStandIndex = -1;
-            c.setUpdateRequired(true);
-            c.morphed = true;
-            c.setAppearanceUpdateRequired(true);
-            break;
+            case 23185:
+                if (!c.getPA().morphPermissions()) {
+                    return;
+                }
+                for (int i = 0; i <= 12; i++) {
+                    c.setSidebarInterface(i, 6014);
+                }
+                c.npcId2 = 9415;
+                c.isNpc = true;
+                c.playerStandIndex = -1;
+                c.setUpdateRequired(true);
+                c.morphed = true;
+                c.setAppearanceUpdateRequired(true);
+                break;
 
             case 19564:
 
@@ -1132,7 +1224,7 @@ public class ItemOptionOne implements PacketType {
                     c.getPA().startTeleport(3087, 3504, 0, "pod", false);
                     break;
                 }
-               else if (c.wildLevel < 150 && c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
+                else if (c.wildLevel < 150 && c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
                     c.getPA().startTeleport(3444, 3837, 0, "pod", false);
                     break;
                 }
@@ -1158,26 +1250,26 @@ public class ItemOptionOne implements PacketType {
                 } else c.sendMessage("@red@You must be under 30 wild to teleport"); {
             }
             break;
-        case 2841:
-            if (!c.getItems().playerHasItem(2841)) {
-                c.sendMessage("You need an Bonus XP Scroll to do this!");
-                return;
-            }
-            if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-                    || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
-                c.sendMessage("@red@Bonus XP Weekend is @gre@active@red@, no need to use that now!");
-                return;
-            }
-            else if (!c.xpScroll && c.getItems().playerHasItem(2841)) {
-                c.getItems().deleteItem(2841, 1);
-                DoubleExpScroll.openScroll(c);
-                c.sendMessage("@red@You have activated 1 hour of bonus experience.");
-                c.getPA().sendGameTimer(ClientGameTimer.BONUS_XP, TimeUnit.MINUTES, 60);
-                c.getQuestTab().updateInformationTab();
-            } else if (c.xpScroll) {
-                c.sendMessage("@red@You already used this up.");
-            }
-            break;
+            case 2841:
+                if (!c.getItems().playerHasItem(2841)) {
+                    c.sendMessage("You need an Bonus XP Scroll to do this!");
+                    return;
+                }
+                if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+                        || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+                    c.sendMessage("@red@Bonus XP Weekend is @gre@active@red@, no need to use that now!");
+                    return;
+                }
+                else if (!c.xpScroll && c.getItems().playerHasItem(2841)) {
+                    c.getItems().deleteItem(2841, 1);
+                    DoubleExpScroll.openScroll(c);
+                    c.sendMessage("@red@You have activated 1 hour of bonus experience.");
+                    c.getPA().sendGameTimer(ClientGameTimer.BONUS_XP, TimeUnit.MINUTES, 60);
+                    c.getQuestTab().updateInformationTab();
+                } else if (c.xpScroll) {
+                    c.sendMessage("@red@You already used this up.");
+                }
+                break;
             case 7968:
                 if (!c.getItems().playerHasItem(7968)) {
                     c.sendMessage("You need an Bonus Pet Scroll to do this!");
@@ -1291,17 +1383,17 @@ public class ItemOptionOne implements PacketType {
                 break;*/
 
             case 6829://Premium Battle Pass Box
-            if  (!(c.getSuperMysteryBox().canMysteryBox) || !(c.getNormalMysteryBox().canMysteryBox) ||
-                    !(c.getUltraMysteryBox().canMysteryBox) || !(c.getFoeMysteryBox().canMysteryBox)
-                    || !(c.getYoutubeMysteryBox().canMysteryBox) || !(c.getChristmasBox().canMysteryBox)
-                    || !(c.getF2pDivisionBox().canMysteryBox) || !(c.getP2pDivisionBox().canMysteryBox)
-                    || !(c.getAncientCasket().canMysteryBox)|| !(c.getArboBox().canMysteryBox)
-                    || !(c.getCoxBox().canMysteryBox)|| !(c.getTobBox().canMysteryBox)
-                    || !(c.getDonoBox().canMysteryBox)|| !(c.getCosmeticBox().canMysteryBox)
-                    || !(c.getMiniArboBox().canMysteryBox)|| !(c.getMiniCoxBox().canMysteryBox)
-                    || !(c.getMiniDonoBox().canMysteryBox)|| !(c.getMiniNormalMysteryBox().canMysteryBox)
-                    || !(c.getMiniSmb().canMysteryBox)|| !(c.getMiniTobBox().canMysteryBox)
-                    || !(c.getMiniUltraBox().canMysteryBox)) {
+                if  (!(c.getSuperMysteryBox().canMysteryBox) || !(c.getNormalMysteryBox().canMysteryBox) ||
+                        !(c.getUltraMysteryBox().canMysteryBox) || !(c.getFoeMysteryBox().canMysteryBox)
+                        || !(c.getYoutubeMysteryBox().canMysteryBox) || !(c.getChristmasBox().canMysteryBox)
+                        || !(c.getF2pDivisionBox().canMysteryBox) || !(c.getP2pDivisionBox().canMysteryBox)
+                        || !(c.getAncientCasket().canMysteryBox)|| !(c.getArboBox().canMysteryBox)
+                        || !(c.getCoxBox().canMysteryBox)|| !(c.getTobBox().canMysteryBox)
+                        || !(c.getDonoBox().canMysteryBox)|| !(c.getCosmeticBox().canMysteryBox)
+                        || !(c.getMiniArboBox().canMysteryBox)|| !(c.getMiniCoxBox().canMysteryBox)
+                        || !(c.getMiniDonoBox().canMysteryBox)|| !(c.getMiniNormalMysteryBox().canMysteryBox)
+                        || !(c.getMiniSmb().canMysteryBox)|| !(c.getMiniTobBox().canMysteryBox)
+                        || !(c.getMiniUltraBox().canMysteryBox)) {
                     c.getPA().showInterface(47000);
                     c.sendMessage("@red@[WARNING] @blu@Please do not interrupt or you @red@WILL@blu@ lose items! @red@NO REFUNDS");
                     return;
@@ -1314,17 +1406,17 @@ public class ItemOptionOne implements PacketType {
                 break;
 
             case 6831://Free2play battle pass box
-            if (!(c.getSuperMysteryBox().canMysteryBox) || !(c.getNormalMysteryBox().canMysteryBox) ||
-                    !(c.getUltraMysteryBox().canMysteryBox) || !(c.getFoeMysteryBox().canMysteryBox)
-                    || !(c.getYoutubeMysteryBox().canMysteryBox) || !(c.getChristmasBox().canMysteryBox)
-                    || !(c.getF2pDivisionBox().canMysteryBox) || !(c.getP2pDivisionBox().canMysteryBox)
-                    || !(c.getAncientCasket().canMysteryBox)|| !(c.getArboBox().canMysteryBox)
-                    || !(c.getCoxBox().canMysteryBox)|| !(c.getTobBox().canMysteryBox)
-                    || !(c.getDonoBox().canMysteryBox)|| !(c.getCosmeticBox().canMysteryBox)
-                    || !(c.getMiniArboBox().canMysteryBox)|| !(c.getMiniCoxBox().canMysteryBox)
-                    || !(c.getMiniDonoBox().canMysteryBox)|| !(c.getMiniNormalMysteryBox().canMysteryBox)
-                    || !(c.getMiniSmb().canMysteryBox)|| !(c.getMiniTobBox().canMysteryBox)
-                    || !(c.getMiniUltraBox().canMysteryBox)) {
+                if (!(c.getSuperMysteryBox().canMysteryBox) || !(c.getNormalMysteryBox().canMysteryBox) ||
+                        !(c.getUltraMysteryBox().canMysteryBox) || !(c.getFoeMysteryBox().canMysteryBox)
+                        || !(c.getYoutubeMysteryBox().canMysteryBox) || !(c.getChristmasBox().canMysteryBox)
+                        || !(c.getF2pDivisionBox().canMysteryBox) || !(c.getP2pDivisionBox().canMysteryBox)
+                        || !(c.getAncientCasket().canMysteryBox)|| !(c.getArboBox().canMysteryBox)
+                        || !(c.getCoxBox().canMysteryBox)|| !(c.getTobBox().canMysteryBox)
+                        || !(c.getDonoBox().canMysteryBox)|| !(c.getCosmeticBox().canMysteryBox)
+                        || !(c.getMiniArboBox().canMysteryBox)|| !(c.getMiniCoxBox().canMysteryBox)
+                        || !(c.getMiniDonoBox().canMysteryBox)|| !(c.getMiniNormalMysteryBox().canMysteryBox)
+                        || !(c.getMiniSmb().canMysteryBox)|| !(c.getMiniTobBox().canMysteryBox)
+                        || !(c.getMiniUltraBox().canMysteryBox)) {
                     c.getPA().showInterface(47000);
                     c.sendMessage("@red@[WARNING] @blu@Please do not interrupt or you @red@WILL@blu@ lose items! @red@NO REFUNDS");
                     return;
@@ -1379,27 +1471,27 @@ public class ItemOptionOne implements PacketType {
                 }
                 break;
             case 6121:
-            	if (c.barbarian == false && c.getItems().playerHasItem(6121)) {
-            		c.getItems().deleteItem(6121, 1);
-            		c.barbarian = true;
+                if (c.barbarian == false && c.getItems().playerHasItem(6121)) {
+                    c.getItems().deleteItem(6121, 1);
+                    c.barbarian = true;
                     c.breakVials = true;
-            		c.getDH().sendStatement("You may now use ::vials to turn off and on vial smashing!", "It is now set to on.");
-            		
-            	}else if (c.barbarian == true) {
-            		c.sendMessage("You already learned how to do this");
-            	}
-            	break;
+                    c.getDH().sendStatement("You may now use ::vials to turn off and on vial smashing!", "It is now set to on.");
+
+                }else if (c.barbarian == true) {
+                    c.sendMessage("You already learned how to do this");
+                }
+                break;
             case 299:
                 if (Boundary.isIn(c, Boundary.FLOWER_POKER_AREA)) {
                     if (c.isFping())
                         c.getFlowerPoker().plantSeed(c, true, false);
                     return;
                 }
-            	if (c.getRegionProvider().getClipping(c.absX, c.absY, c.heightLevel) != 0
-				|| Server.getGlobalObjects().anyExists(c.absX, c.absY, c.heightLevel)) {
-            		c.sendMessage("You cannot plant a flower here.");
-				return;
-            	}
+                if (c.getRegionProvider().getClipping(c.absX, c.absY, c.heightLevel) != 0
+                        || Server.getGlobalObjects().anyExists(c.absX, c.absY, c.heightLevel)) {
+                    c.sendMessage("You cannot plant a flower here.");
+                    return;
+                }
                 /*if (!c.getItems().playerHasItem(15098, 1)) {
             		c.sendMessage("You need to purchase a dice bag to use mithril seeds.");
                 	return;
@@ -1419,25 +1511,14 @@ public class ItemOptionOne implements PacketType {
                     new SlayerMysteryBox(c).quickOpen();
                 }
                 break;
-            case 21027: //dark relic
-            	  c.inLamp = true;
-            	  c.usingLamp = true;
-                  c.normalLamp = true;
-                  c.antiqueLamp = false;
-                  c.sendMessage("You rub the lamp...");
-                  c.getPA().showInterface(55555);
-            	break;
+            case 21027: // dark relic
+                openLampInterface(c, 21027, "You rub the dark relic...", false);
+                break;
 
             case 13148:
-                c.start(new DialogueBuilder(c).statement("This lamp will reset a skill of your choice.").exit(plr -> {
-                    c.inLamp = true;
-                    c.usingLamp = true;
-                    c.normalLamp = true;
-                    c.antiqueLamp = false;
-                    c.sendMessage("You have rubbed the skill reset lamp.");
-                    c.getPA().showInterface(55555);
-                }));
-          	break;
+                c.start(new DialogueBuilder(c).statement("This lamp will reset a skill of your choice.").exit(plr ->
+                        openLampInterface(plr, 13148, "You have rubbed the skill reset lamp.", false)));
+                break;
             case 12579:
                 if (!(c.getSuperMysteryBox().canMysteryBox) || !(c.getNormalMysteryBox().canMysteryBox) ||
                         !(c.getUltraMysteryBox().canMysteryBox) || !(c.getFoeMysteryBox().canMysteryBox)
@@ -1572,7 +1653,7 @@ public class ItemOptionOne implements PacketType {
                 }
                 else if (c.getItems().playerHasItem(6680)) {
                     c.inDonatorBox = true;
-                   c.getMiniArboBox().openInterface();
+                    c.getMiniArboBox().openInterface();
                     return;
                 }
                 break;
@@ -1777,8 +1858,8 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("@red@[WARNING] @blu@Please do not interrupt or you @red@WILL@blu@ lose items! @red@NO REFUNDS");
                     return;
                 }
-    			else if (c.getItems().playerHasItem(13346)) {
-                	c.inDonatorBox = true;
+                else if (c.getItems().playerHasItem(13346)) {
+                    c.inDonatorBox = true;
                     c.getUltraMysteryBox().openInterface();
                     return;
                 }
@@ -1800,10 +1881,10 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("@red@[WARNING] @blu@Please do not interrupt or you @red@WILL@blu@ lose items! @red@NO REFUNDS");
                     return;
                 }
-    			else if (c.getItems().playerHasItem(6199)) {
+                else if (c.getItems().playerHasItem(6199)) {
                     c.getNormalMysteryBox().openInterface();
-                	c.inDonatorBox = true;
-    				c.stopMovement();
+                    c.inDonatorBox = true;
+                    c.stopMovement();
                     return;
                 }
                 break;
@@ -1824,10 +1905,10 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("@red@[WARNING] @blu@Please do not interrupt or you @red@WILL@blu@ lose items! @red@NO REFUNDS");
                     return;
                 }
-    			else if (c.getItems().playerHasItem(6828)) {
-            		c.getSuperMysteryBox().openInterface();
-                	c.inDonatorBox = true;
-    				c.stopMovement();
+                else if (c.getItems().playerHasItem(6828)) {
+                    c.getSuperMysteryBox().openInterface();
+                    c.inDonatorBox = true;
+                    c.stopMovement();
                     return;
                 }
                 break;
@@ -1902,13 +1983,13 @@ public class ItemOptionOne implements PacketType {
                 }
                 break;
             case PvmCasket.PVM_CASKET: //Pvm Casket
-            	if (System.currentTimeMillis() - c.openCasketTimer > 350) {
-                	if (c.getItems().playerHasItem(405)) {
+                if (System.currentTimeMillis() - c.openCasketTimer > 350) {
+                    if (c.getItems().playerHasItem(405)) {
                         c.getPvmCasket().roll(c);
                         c.openCasketTimer =  System.currentTimeMillis();
                     }
                 }
-            	break;
+                break;
             case Items.DWARF_CANNON_SET:
                 if (c.getItems().freeSlots() < 4) {
                     c.sendMessage("You need at least 4 free slots to open this.");
@@ -2055,71 +2136,71 @@ public class ItemOptionOne implements PacketType {
                 }
                 c.getItems().deleteItem(12871, 1);
                 break;
-    		case 12875://verac
-    			if (c.getItems().freeSlots() < 4) {
-    				c.sendMessage("You need at least 4 free slots to open this.");
-    				return;
-    			}
-    			if (c.getItems().playerHasItem(12875, 1)) {
-    				c.getItems().addItem(4753, 1);
-    				c.getItems().addItem(4755, 1);
-    				c.getItems().addItem(4757, 1);
-    				c.getItems().addItem(4759, 1);
-    			}
-    	            c.getItems().deleteItem(12875, 1);
-    			break;
-    		case 12877://dharok
-    			if (c.getItems().freeSlots() < 4) {
-    				c.sendMessage("You need at least 4 free slots to open this.");
-    				return;
-    			}
-    			if (c.getItems().playerHasItem(12877, 1)) {
-    				c.getItems().addItem(4716, 1);
-    				c.getItems().addItem(4718, 1);
-    				c.getItems().addItem(4720, 1);
-    				c.getItems().addItem(4722, 1);
-    			}
-    	            c.getItems().deleteItem(12877, 1);
-    			break;
-    		case 12879://torags
-    			if (c.getItems().freeSlots() < 4) {
-    				c.sendMessage("You need at least 4 free slots to open this.");
-    				return;
-    			}
-    			if (c.getItems().playerHasItem(12879, 1)) {
-    				c.getItems().addItem(4745, 1);
-    				c.getItems().addItem(4747, 1);
-    				c.getItems().addItem(4749, 1);
-    				c.getItems().addItem(4751, 1);
-    			}
-    	            c.getItems().deleteItem(12879, 1);
-    			break;
-    		case 12881://ahrims
-    			if (c.getItems().freeSlots() < 4) {
-    				c.sendMessage("You need at least 4 free slots to open this.");
-    				return;
-    			}
-    			if (c.getItems().playerHasItem(12881, 1)) {
-    				c.getItems().addItem(4708, 1);
-    				c.getItems().addItem(4710, 1);
-    				c.getItems().addItem(4712, 1);
-    				c.getItems().addItem(4714, 1);
-    			}
-    	            c.getItems().deleteItem(12881, 1);
-    			break;
-    		case 12883://karils
-    			if (c.getItems().freeSlots() < 4) {
-    				c.sendMessage("You need at least 4 free slots to open this.");
-    				return;
-    			}
-    			if (c.getItems().playerHasItem(12883, 1)) {
-    				c.getItems().addItem(4732, 1);
-    				c.getItems().addItem(4734, 1);
-    				c.getItems().addItem(4736, 1);
-    				c.getItems().addItem(4738, 1);
-    			}
-    	            c.getItems().deleteItem(12883, 1);
-    			break;
+            case 12875://verac
+                if (c.getItems().freeSlots() < 4) {
+                    c.sendMessage("You need at least 4 free slots to open this.");
+                    return;
+                }
+                if (c.getItems().playerHasItem(12875, 1)) {
+                    c.getItems().addItem(4753, 1);
+                    c.getItems().addItem(4755, 1);
+                    c.getItems().addItem(4757, 1);
+                    c.getItems().addItem(4759, 1);
+                }
+                c.getItems().deleteItem(12875, 1);
+                break;
+            case 12877://dharok
+                if (c.getItems().freeSlots() < 4) {
+                    c.sendMessage("You need at least 4 free slots to open this.");
+                    return;
+                }
+                if (c.getItems().playerHasItem(12877, 1)) {
+                    c.getItems().addItem(4716, 1);
+                    c.getItems().addItem(4718, 1);
+                    c.getItems().addItem(4720, 1);
+                    c.getItems().addItem(4722, 1);
+                }
+                c.getItems().deleteItem(12877, 1);
+                break;
+            case 12879://torags
+                if (c.getItems().freeSlots() < 4) {
+                    c.sendMessage("You need at least 4 free slots to open this.");
+                    return;
+                }
+                if (c.getItems().playerHasItem(12879, 1)) {
+                    c.getItems().addItem(4745, 1);
+                    c.getItems().addItem(4747, 1);
+                    c.getItems().addItem(4749, 1);
+                    c.getItems().addItem(4751, 1);
+                }
+                c.getItems().deleteItem(12879, 1);
+                break;
+            case 12881://ahrims
+                if (c.getItems().freeSlots() < 4) {
+                    c.sendMessage("You need at least 4 free slots to open this.");
+                    return;
+                }
+                if (c.getItems().playerHasItem(12881, 1)) {
+                    c.getItems().addItem(4708, 1);
+                    c.getItems().addItem(4710, 1);
+                    c.getItems().addItem(4712, 1);
+                    c.getItems().addItem(4714, 1);
+                }
+                c.getItems().deleteItem(12881, 1);
+                break;
+            case 12883://karils
+                if (c.getItems().freeSlots() < 4) {
+                    c.sendMessage("You need at least 4 free slots to open this.");
+                    return;
+                }
+                if (c.getItems().playerHasItem(12883, 1)) {
+                    c.getItems().addItem(4732, 1);
+                    c.getItems().addItem(4734, 1);
+                    c.getItems().addItem(4736, 1);
+                    c.getItems().addItem(4738, 1);
+                }
+                c.getItems().deleteItem(12883, 1);
+                break;
             case 10006:
                 Hunter.lay(c, new BirdSnare(c));
                 break;
@@ -2165,7 +2246,7 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("You must have an active cerberus or hellhound task to use this.");
                     return;
                 }
-            	c.getItems().deleteItem(13249, 1);
+                c.getItems().deleteItem(13249, 1);
 
                 if (!c.getSlayer().isCerberusRoute()) {
                     c.sendMessage("You have bought Route into cerberus cave. please wait till you will be teleported.");
@@ -2174,10 +2255,10 @@ public class ItemOptionOne implements PacketType {
                     return;
                 }
 
-				if (Server.getEventHandler().isRunning(c, "cerb")) {
-					c.sendMessage("You're about to fight start the fight, please wait.");
-					return;
-				}
+                if (Server.getEventHandler().isRunning(c, "cerb")) {
+                    c.sendMessage("You're about to fight start the fight, please wait.");
+                    return;
+                }
                 Cerberus.init(c);
                 break;
 
@@ -2293,7 +2374,7 @@ public class ItemOptionOne implements PacketType {
             }
         }
         if (itemId == 15098) {
-                DiceHandler.rollDice(c);
+            DiceHandler.rollDice(c);
         }
         if (itemId == 2701) {
             if (c.getPosition().inWild() || c.getPosition().inDuelLobby() || Server.getMultiplayerSessionListener().inAnySession(c)) {
@@ -2432,25 +2513,14 @@ public class ItemOptionOne implements PacketType {
 			}*/
 
         if (itemId == 2528) {
-            c.inLamp = true;
-            c.usingLamp = true;
-            c.normalLamp = true;
-            c.antiqueLamp = false;
-            c.sendMessage("You rub the lamp...");
-            c.sendMessage("@red@Caution this will use all lamps in your inventory!");
-            c.getPA().showInterface(55555);
+            openLampInterface(c, 2528, "You rub the lamp...", true);
             return;
         }
-            if (itemId == 4447) {
-                c.inLamp = true;
-                c.usingLamp = true;
-                c.normalLamp = true;
-                c.antiqueLamp = false;
-                c.sendMessage("You rub the lamp...");
-                c.sendMessage("@red@Caution this will use all lamps in your inventory!");
-                c.getPA().showInterface(55555);
-                return;
+
+        if (itemId == 4447) {
+            openLampInterface(c, 4447, "You rub the lamp...", true);
+            return;
         }
 
-   }
+    }
 }

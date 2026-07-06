@@ -54,7 +54,7 @@ public class Discord extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(Discord.class);
 
     // ===== Channel IDs =====
-    public static final long CHANNEL_SERVER_LOGS     = 1414017894513250325L; // Server-Logs
+    public static final long CHANNEL_SERVER_LOGS     = 1514340805744263188L; // Server-Logs
     public static final long CHANNEL_OFFLINE_REWARDS = 1217970340517515404L; // Offline-rewards
     public static final long CHANNEL_BOT_INFO        = 1429883544695472128L; // Bot-Information
     public static final long CHANNEL_PICKUP_LOGS     = 1416922612491092088L; // pickup-logs
@@ -62,7 +62,7 @@ public class Discord extends ListenerAdapter {
     public static final long CHANNEL_MOD_COMMS       = 1414043828943454309L; // mod-comms
     public static final long CHANNEL_DEATH           = 1427704620016336916L; // death-logs
     public static final long CHANNEL_DROPS           = 1414017693639512084L; // drop-logs
-    public static final long CHANNEL_ACHIEVEMENTS    = 1416922210421182595L; // achievements
+    public static final long CHANNEL_ACHIEVEMENTS    = 1363983252402081833L; // achievements
     public static final long CHANNEL_GIVELOG         = 1487289370582061056L; // give-log
     public static final long CHANNEL_CONNECT_ONLY    = 1429871489372389478L; // kept for /connect
     public static final long CHANNEL_PUNISHMENT      = 1417610944049053778L; // punishment logs mute/ban etc..
@@ -368,7 +368,7 @@ public class Discord extends ListenerAdapter {
     }
 
     public static void writeAchievements(String message, Object... args) {
-        sendChannelMessage(CHANNEL_ACHIEVEMENTS, message, args);
+        sendAchievementEmbed(message, args);
     }
 
     public static void writeGiveLog(String message, Object... args) {
@@ -381,6 +381,141 @@ public class Discord extends ListenerAdapter {
 
     public static void writePunishmentLog(String message, Object... args) {
         sendChannelMessage(CHANNEL_PUNISHMENT, message, args);
+    }
+
+    // ===== Achievement / Reward embed messages =====
+    private static void sendAchievementEmbed(String message, Object... args) {
+        if (Configuration.DISABLE_DISCORD_MESSAGING) return;
+        if (jda == null) return;
+
+        String formattedMessage = cleanAnnouncementMessage(Misc.replaceBracketsWithArguments(message, args));
+
+        Server.getIoExecutorService().submit(() -> {
+            try {
+                TextChannel ch = jda.getTextChannelById(CHANNEL_ACHIEVEMENTS);
+
+                if (ch == null) {
+                    logger.warn("Discord: channel not found for id {}", CHANNEL_ACHIEVEMENTS);
+                    return;
+                }
+
+                MessageEmbed embed = buildAchievementEmbed(formattedMessage);
+                ch.sendMessageEmbeds(embed).queue();
+
+            } catch (Exception e) {
+                logger.error("Discord sendAchievementEmbed error", e);
+            }
+        });
+    }
+
+    private static MessageEmbed buildAchievementEmbed(String message) {
+        String safeMessage = message == null ? "" : message.trim();
+        String lower = safeMessage.toLowerCase();
+
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setColor(ANNOUNCEMENT_RED);
+        embed.setTimestamp(Instant.now());
+
+        if (lower.contains(" has just completed ")) {
+            String[] parts = safeMessage.split(" has just completed ", 2);
+            String playerName = parts.length > 0 ? parts[0].trim() : "Unknown player";
+            String achievementName = parts.length > 1 ? parts[1].trim() : "Unknown achievement";
+
+            embed.setTitle("[ ACHIEVEMENT UNLOCKED ]");
+            embed.setDescription("🏆 **" + playerName + "** has completed an achievement!");
+            embed.addField("Player", playerName, true);
+            embed.addField("Achievement", achievementName, true);
+            embed.addField("Status", "Claimed and rewarded", false);
+            embed.setFooter("Zaryx Achievements", null);
+
+            if (isValidImageUrl(DEFAULT_ANNOUNCEMENT_IMAGE_URL)) {
+                embed.setImage(DEFAULT_ANNOUNCEMENT_IMAGE_URL);
+            }
+
+            return embed.build();
+        }
+
+        if (lower.startsWith("news:") || lower.contains(" has received: ")) {
+            AchievementRewardMessage reward = parseAchievementRewardMessage(safeMessage);
+
+            embed.setTitle("[ REWARD NEWS ]");
+            embed.setDescription("🎁 **" + reward.playerName + "** received a reward!");
+            embed.addField("Player", reward.playerName, true);
+            embed.addField("Reward", reward.rewardName, true);
+            embed.addField("Source", reward.sourceName, false);
+            embed.setFooter("Zaryx Rewards", null);
+
+            String itemImageUrl = getTradingPostItemImageUrl(reward.rewardName);
+            if (isValidImageUrl(itemImageUrl)) {
+                embed.setThumbnail(itemImageUrl);
+            } else if (isValidImageUrl(TRADING_POST_FALLBACK_IMAGE_URL)) {
+                embed.setThumbnail(TRADING_POST_FALLBACK_IMAGE_URL);
+            }
+
+            return embed.build();
+        }
+
+        embed.setTitle("[ ACHIEVEMENTS ]");
+        embed.setDescription(safeMessage.isEmpty() ? "A new achievement update has been posted." : safeMessage);
+        embed.setFooter("Zaryx Achievements", null);
+
+        if (isValidImageUrl(DEFAULT_ANNOUNCEMENT_IMAGE_URL)) {
+            embed.setImage(DEFAULT_ANNOUNCEMENT_IMAGE_URL);
+        }
+
+        return embed.build();
+    }
+
+    private static AchievementRewardMessage parseAchievementRewardMessage(String message) {
+        String cleaned = message == null ? "" : message.trim();
+
+        if (cleaned.toLowerCase().startsWith("news:")) {
+            cleaned = cleaned.substring(5).trim();
+        }
+
+        String playerName = "Unknown player";
+        String rewardName = cleaned.isEmpty() ? "Unknown reward" : cleaned;
+        String sourceName = "Unknown source";
+
+        String receivedMarker = " has received: ";
+        String fromMarker = " from the ";
+
+        int receivedIndex = cleaned.toLowerCase().indexOf(receivedMarker);
+        int fromIndex = cleaned.toLowerCase().lastIndexOf(fromMarker);
+
+        if (receivedIndex >= 0) {
+            playerName = cleaned.substring(0, receivedIndex).trim();
+
+            int rewardStart = receivedIndex + receivedMarker.length();
+            if (fromIndex > rewardStart) {
+                rewardName = cleaned.substring(rewardStart, fromIndex).trim();
+                sourceName = cleaned.substring(fromIndex + fromMarker.length()).trim();
+            } else {
+                rewardName = cleaned.substring(rewardStart).trim();
+            }
+        }
+
+        if (sourceName.endsWith("!")) {
+            sourceName = sourceName.substring(0, sourceName.length() - 1).trim();
+        }
+
+        if (rewardName.endsWith("!")) {
+            rewardName = rewardName.substring(0, rewardName.length() - 1).trim();
+        }
+
+        return new AchievementRewardMessage(playerName, rewardName, sourceName);
+    }
+
+    private static class AchievementRewardMessage {
+        private final String playerName;
+        private final String rewardName;
+        private final String sourceName;
+
+        private AchievementRewardMessage(String playerName, String rewardName, String sourceName) {
+            this.playerName = playerName == null || playerName.trim().isEmpty() ? "Unknown player" : playerName.trim();
+            this.rewardName = rewardName == null || rewardName.trim().isEmpty() ? "Unknown reward" : rewardName.trim();
+            this.sourceName = sourceName == null || sourceName.trim().isEmpty() ? "Unknown source" : sourceName.trim();
+        }
     }
 
     // ===== Basic plain-text Discord messages =====
@@ -437,7 +572,11 @@ public class Discord extends ListenerAdapter {
         String description = cleanAnnouncementMessage(safeMessage);
         String imageUrl = DEFAULT_ANNOUNCEMENT_IMAGE_URL;
 
-        if (lower.contains("crystal tree")) {
+        if (lower.contains("wildy boss") || lower.contains("wilderness boss") || lower.contains("::wildyevent")) {
+            title = "[ WORLD EVENT: WILDY BOSS ]";
+            description = cleanAnnouncementMessage(safeMessage);
+
+        } else if (lower.contains("crystal tree")) {
             title = "[ WORLD EVENT: CRYSTAL TREE ]";
             description = cleanWorldEventMessage(safeMessage, "Crystal Tree", "tree");
             imageUrl = CRYSTAL_TREE_IMAGE_URL;

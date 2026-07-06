@@ -127,11 +127,11 @@ public enum UpgradeMaterials {
 
     ANCESTRAL_ROBE_BOTTOM(ARMOUR, 0, new GameItem(21024, 1), new GameItem(24668, 1), 50_000_000, 59, 250000,true),
 
-    PERNIX_HOOD(ARMOUR, 0, new GameItem(33144, 1), new GameItem(27226, 1), 150_000_000, 49, 500000,true),
+    PERNIX_HOOD(ARMOUR, 0, new GameItem(33144, 1), new GameItem(33151, 1), 150_000_000, 49, 500000,true),
 
-    PERNIX_BODY(ARMOUR, 0, new GameItem(33145, 1), new GameItem(27229, 1), 150_000_000, 49, 500000,true),
+    PERNIX_BODY(ARMOUR, 0, new GameItem(33145, 1), new GameItem(33150, 1), 150_000_000, 49, 500000,true),
 
-    PERNIX_BOTTOMS(ARMOUR, 0, new GameItem(33146, 1), new GameItem(27232, 1), 150_000_000, 49, 500000,true),
+    PERNIX_BOTTOMS(ARMOUR, 0, new GameItem(33146, 1), new GameItem(33152, 1), 150_000_000, 49, 500000,true),
 
     TORVA_HELM(ARMOUR, 0, new GameItem(26382, 1), new GameItem(28254, 1), 150_000_000, 49, 500000,true),
 
@@ -145,11 +145,11 @@ public enum UpgradeMaterials {
 
     VIRTUS_LEGS(ARMOUR, 0, new GameItem(33143, 1), new GameItem(27432, 1), 150_000_000, 49, 500000,true),
 
-    AZIRHELM(ARMOUR, 0, new GameItem(27226, 1), new GameItem(33151, 1), 350_000_000, 49, 500000,true),
+    AZIRHELM(ARMOUR, 0, new GameItem(33151, 1), new GameItem(27235, 1), 350_000_000, 49, 500000,true),
 
-    AZIRBODY(ARMOUR, 0, new GameItem(27229, 1), new GameItem(33150, 1), 350_000_000, 49, 500000,true),
+    AZIRBODY(ARMOUR, 0, new GameItem(33150, 1), new GameItem(27238, 1), 350_000_000, 49, 500000,true),
 
-    AZIRLEGS(ARMOUR, 0, new GameItem(27232, 1), new GameItem(33152, 1), 350_000_000, 49, 500000,true),
+    AZIRLEGS(ARMOUR, 0, new GameItem(33152, 1), new GameItem(27241, 1), 350_000_000, 49, 500000,true),
 
     FORCEHELM(ARMOUR, 0, new GameItem(28254, 1), new GameItem(33153, 1), 350_000_000, 49, 500000,true),
 

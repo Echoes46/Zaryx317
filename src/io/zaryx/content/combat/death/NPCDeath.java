@@ -34,6 +34,10 @@ import io.zaryx.util.Misc;
 
 public class NPCDeath {
 
+    private static final int[] WILDY_BOSS_EVENT_NPCS = {
+            6611, 6503, 6615, 6609, 6610, 6619, 2054, 6618, 6607, 8164, 8172
+    };
+
     public static void dropItems(NPC npc) {
         Player c = PlayerHandler.players[npc.killedBy];
         if (c != null) {
@@ -97,6 +101,9 @@ public class NPCDeath {
         }
         if (npcId >= 7931 && npcId <= 7940) {
             c.getEventCalendar().progress(EventChallenge.KILL_X_REVS_IN_WILDY);
+        }
+        if (isWildyBossEventNpc(npcId)) {
+            c.getEventCalendar().progress(EventChallenge.KILL_X_WILDY_BOSSES);
         }
 
         if (npcId == Npcs.CORPOREAL_BEAST) {
@@ -336,5 +343,14 @@ public class NPCDeath {
 
     public static boolean isDoubleDrops() {
         return (Configuration.DOUBLE_DROPS_TIMER > 0 || Configuration.DOUBLE_DROPS);
+    }
+
+    private static boolean isWildyBossEventNpc(int npcId) {
+        for (int wildyBossId : WILDY_BOSS_EVENT_NPCS) {
+            if (wildyBossId == npcId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

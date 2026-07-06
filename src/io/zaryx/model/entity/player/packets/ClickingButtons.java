@@ -109,7 +109,11 @@ public class ClickingButtons implements PacketType {
              */
             return;
         }
-        c.getPA().sendSound(2266, SoundType.SOUND);
+        if (realButtonId >= 60952 && realButtonId <= 61516) {
+            // BJ uses its own sounds, skip default click
+        } else {
+            c.getPA().sendSound(2266, SoundType.SOUND);
+        }
 
         if (CosmeticDeals.checkCosmeticPurchase(c, realButtonId)) {
             return;
@@ -124,7 +128,35 @@ public class ClickingButtons implements PacketType {
         if (CoinFlip.handleButton(c, realButtonId)) {
             return;
         }
-
+        if (realButtonId == 60952) {
+            c.getPA().closeAllWindows();
+            return;
+        }
+        if (realButtonId == 61510) {
+            if (c.getBjManager() == null) return;
+            c.getBjManager().placeBet(c.bettingAmount);
+            return;
+        }
+        if (realButtonId == 61509) {
+            if (c.getBjManager() == null) return;
+            c.getBjManager().doubleDown();
+            return;
+        }
+        if (realButtonId == 61507) {
+            if (c.getBjManager() == null) return;
+            c.getBjManager().stand();
+            return;
+        }
+        if (realButtonId == 61506) {
+            if (c.getBjManager() == null) return;
+            c.getBjManager().hit();
+            return;
+        }
+        if (realButtonId == 61508) {
+            if (c.getBjManager() == null) return;
+            c.getBjManager().split();
+            return;
+        }
         if (realButtonId == 60976) {
             if (c.getBjManager() == null) {
                 return;
@@ -1651,11 +1683,8 @@ public class ClickingButtons implements PacketType {
                 }
 
                 if (c.usingLamp) {
-                    if (c.getItems().playerHasItem(2528) && c.normalLamp && !c.antiqueLamp) {
-                        int amt = c.getItems().getInventoryCount(2528);
-                        if (amt > 50) {
-                            amt = 50;
-                        }
+                    if (c.lampItemUsed == 2528 && c.getItems().playerHasItem(2528) && c.normalLamp && !c.antiqueLamp) {
+                        int amt = 1;
 
                         int xpPerLamp = 3000; // Base XP per Lamp
                         int xpMultiplier = 1;  // Default multiplier is 1x
@@ -1677,6 +1706,9 @@ public class ClickingButtons implements PacketType {
 
                         c.usingLamp = false;
                         c.inLamp = false;
+                        c.normalLamp = false;
+                        c.antiqueLamp = false;
+                        c.lampItemUsed = -1;
                         c.getPA().addSkillXP(totalXP, c.antiqueItemResetSkillId, true);
                         c.getItems().deleteItem2(2528, amt);
                         c.sendMessage("The lamp mysteriously vanishes...");
@@ -1684,23 +1716,25 @@ public class ClickingButtons implements PacketType {
                         return;
                     }
 
+                    if ((c.lampItemUsed == Items.DARK_RELIC || c.lampItemUsed == 21027 || c.getItems().playerHasItem(Items.DARK_RELIC))
+                            && c.normalLamp && !c.antiqueLamp) {
 
-
-
-
-
-
-
-                    if (c.getItems().playerHasItem(Items.DARK_RELIC) && c.normalLamp && !c.antiqueLamp) {
-                        int amt = c.getItems().getInventoryCount(Items.DARK_RELIC);
-                        if (amt > 50) {
-                            amt = 50;
+                        if (!c.getItems().playerHasItem(Items.DARK_RELIC, 1)) {
+                            c.sendMessage("@red@You no longer have the dark relic.");
+                            c.usingLamp = false;
+                            c.inLamp = false;
+                            c.normalLamp = false;
+                            c.antiqueLamp = false;
+                            c.lampItemUsed = -1;
+                            c.getPA().closeAllWindows();
+                            return;
                         }
 
-                        int xpPerLamp = 3000; // Base XP per Lamp
-                        int xpMultiplier = 1;  // Default multiplier is 1x
+                        int amt = 1; // consume only the relic that opened the interface
 
-                        // Use direct comparison with ExpModeType
+                        int xpPerLamp = 3000;
+                        int xpMultiplier = 1;
+
                         ExpModeType playerExpMode = c.getExpMode().getType();
 
                         if (playerExpMode == ExpModeType.FiveTimes) {
@@ -1717,17 +1751,19 @@ public class ClickingButtons implements PacketType {
 
                         c.usingLamp = false;
                         c.inLamp = false;
+                        c.normalLamp = false;
+                        c.antiqueLamp = false;
+                        c.lampItemUsed = -1;
+
                         c.getPA().addSkillXP(totalXP, c.antiqueItemResetSkillId, true);
-                        c.getItems().deleteItem2(2528, amt);
-                        c.sendMessage("The lamp mysteriously vanishes...");
+                        c.getItems().deleteItem2(Items.DARK_RELIC, amt);
+                        c.sendMessage("The dark relic mysteriously vanishes.");
                         c.getPA().closeAllWindows();
                         return;
                     }
-                    if (c.getItems().playerHasItem(4447) && c.normalLamp && !c.antiqueLamp) {
-                        int amt = c.getItems().getInventoryCount(4447);
-                        if (amt > 50) {
-                            amt = 50;
-                        }
+
+                    if (c.lampItemUsed == 4447 && c.getItems().playerHasItem(4447) && c.normalLamp && !c.antiqueLamp) {
+                        int amt = 1;
 
                         int xpPerLamp = 5000; // Base XP per Lamp
                         int xpMultiplier = 1;  // Default multiplier is 1x
@@ -1749,6 +1785,9 @@ public class ClickingButtons implements PacketType {
 
                         c.usingLamp = false;
                         c.inLamp = false;
+                        c.normalLamp = false;
+                        c.antiqueLamp = false;
+                        c.lampItemUsed = -1;
                         c.getPA().addSkillXP(totalXP, c.antiqueItemResetSkillId, true);
                         c.getItems().deleteItem2(4447, amt);
                         c.sendMessage("The lamp mysteriously vanishes...");

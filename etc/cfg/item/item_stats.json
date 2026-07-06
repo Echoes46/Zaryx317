@@ -17358,7 +17358,7 @@
       "dstab": 7,
       "dslash": 7,
       "dcrush": 7,
-      "str": 75,
+      "str": 95,
       "aspeed": 5
     }
   },
@@ -25321,10 +25321,6 @@
       "dslash": 5,
       "dcrush": 3
     }
-  },
-  "6721": {
-    "name": "Rusty scimitar",
-    "weight": 2.267
   },
   "6722": {
     "name": "Zombie head",
@@ -62060,7 +62056,6 @@
       "dmagic": 15
     }
   },
-  //
   "25398": {
     "name": "Root-Tied Hat",
     "equipable": true,
@@ -69702,14 +69697,14 @@
       "aslash": 0,
       "acrush": 0,
       "amagic": -1,
-      "arange": 57,
-      "dstab": 75,
-      "dslash": 75,
-      "dcrush": 75,
-      "dmagic": 75,
-      "drange": 75,
+      "arange": 75,
+      "dstab": 90,
+      "dslash": 90,
+      "dcrush": 90,
+      "dmagic": 90,
+      "drange": 90,
       "prayer": 1,
-      "rstr": 10
+      "rstr": 30
     }
   },
   "27238": {
@@ -69722,14 +69717,14 @@
       "aslash": 0,
       "acrush": 0,
       "amagic": -4,
-      "arange": 57,
-      "dstab": 75,
-      "dslash": 75,
-      "dcrush": 75,
-      "dmagic": 75,
-      "drange": 75,
+      "arange": 75,
+      "dstab": 90,
+      "dslash": 90,
+      "dcrush": 90,
+      "dmagic": 90,
+      "drange": 90,
       "prayer": 1,
-      "rstr": 20
+      "rstr": 45
     }
   },
   "27241": {
@@ -69742,14 +69737,14 @@
       "aslash": 0,
       "acrush": 0,
       "amagic": -2,
-      "arange": 57,
-      "dstab": 75,
-      "dslash": 75,
-      "dcrush": 75,
-      "dmagic": 75,
-      "drange": 75,
+      "arange": 75,
+      "dstab": 90,
+      "dslash": 90,
+      "dcrush": 90,
+      "dmagic": 90,
+      "drange": 90,
       "prayer": 1,
-      "rstr": 10
+      "rstr": 30
     }
   },
   "25985": {
@@ -70297,7 +70292,19 @@
     "equipable": true,
     "weight": 0.5,
     "equipment": {
-      "slot": 0
+      "slot": 0,
+      "astab": 0,
+      "aslash": 0,
+      "acrush": 0,
+      "amagic": -1,
+      "arange": 70,
+      "dstab": 82,
+      "dslash": 82,
+      "dcrush": 82,
+      "dmagic": 82,
+      "drange": 82,
+      "prayer": 1,
+      "rstr": 24
     }
   },
   "33157": {
@@ -70305,7 +70312,19 @@
     "equipable": true,
     "weight": 0.9,
     "equipment": {
-      "slot": 4
+      "slot": 4,
+      "astab": 0,
+      "aslash": 0,
+      "acrush": 0,
+      "amagic": -4,
+      "arange": 70,
+      "dstab": 82,
+      "dslash": 82,
+      "dcrush": 82,
+      "dmagic": 82,
+      "drange": 82,
+      "prayer": 1,
+      "rstr": 34
     }
   },
   "33158": {
@@ -70313,7 +70332,19 @@
     "equipable": true,
     "weight": 0.8,
     "equipment": {
-      "slot": 7
+      "slot": 7,
+      "astab": 0,
+      "aslash": 0,
+      "acrush": 0,
+      "amagic": -2,
+      "arange": 70,
+      "dstab": 82,
+      "dslash": 82,
+      "dcrush": 82,
+      "dmagic": 82,
+      "drange": 82,
+      "prayer": 1,
+      "rstr": 24
     }
   },
   "33153": {
@@ -76367,5 +76398,193 @@
       "str": 95,
       "aspeed": 4
     }
+  },
+  "5060": {
+    "name": "Konar's Axe (Blessed)",
+    "equipable": true,
+    "weight": 1.36,
+    "equipment": {
+      "slot": 3,
+      "astab": -2,
+      "aslash": 38,
+      "acrush": 32,
+      "dslash": 1,
+      "str": 42,
+      "prayer": 2,
+      "aspeed": 5
+    }
+  },
+  "5061": {
+    "name": "Konar's Axe",
+    "equipable": true,
+    "weight": 1.36,
+    "equipment": {
+      "slot": 3,
+      "astab": -2,
+      "aslash": 38,
+      "acrush": 32,
+      "dslash": 1,
+      "str": 42,
+      "aspeed": 5
+    }
+  },
+  "6721": {
+    "name": "Barbarian's Scimitar",
+    "equipable": true,
+    "weight": 1.814,
+    "equipment": {
+      "slot": 3,
+      "astab": 3,
+      "aslash": 15,
+      "acrush": -2,
+      "dslash": 1,
+      "str": 14,
+      "aspeed": 4
+    }
+  },
+  "20484": {
+    "name": "Demon X Bow(en)",
+    "equipable": true,
+    "weight": 1.814,
+    "equipment": {
+      "slot": 3,
+      "arange": 275,
+      "rstr": 250,
+      "aspeed": 3
+    }
+  },
+  "20486": {
+    "name": "Demon X Staff(en)",
+    "equipable": true,
+    "weight": 1.814,
+    "equipment": {
+      "slot": 3,
+      "amagic": 200,
+      "dmagic": 50,
+      "mdmg": 58,
+      "prayer": 1,
+      "aspeed": 3
+    }
+  },
+  "25733": {
+    "name": "Holy Sanguinesti Staff (uncharged)",
+    "equipable": true,
+    "weight": 1.5,
+    "equipment": {
+      "slot": 3,
+      "amagic": 88,
+      "arange": -4,
+      "dstab": 2,
+      "dslash": 3,
+      "dcrush": 1,
+      "dmagic": 15,
+      "mdmg": 39,
+      "aspeed": 3
+    }
+  },
+  "28869": {
+    "name": "Elven Quick-bow",
+    "equipable": true,
+    "weight": 6.0,
+    "equipment": {
+      "slot": 3,
+      "arange": 100,
+      "prayer": 1,
+      "aspeed": 6
+    }
+  },
+  "37200": {
+    "name": "Saradomin's Sword(f)",
+    "equipable": true,
+    "weight": 3.0,
+    "equipment": {
+      "slot": 3,
+      "aslash": 82,
+      "acrush": 60,
+      "str": 82,
+      "prayer": 2,
+      "aspeed": 4
+    }
+  },
+  "37201": {
+    "name": "Zamorak's Sword(f)",
+    "equipable": true,
+    "weight": 3.0,
+    "equipment": {
+      "slot": 3,
+      "aslash": 82,
+      "acrush": 60,
+      "str": 82,
+      "prayer": 2,
+      "aspeed": 4
+    }
+  },
+  "37202": {
+    "name": "Guthix's Sword(f)",
+    "equipable": true,
+    "weight": 3.0,
+    "equipment": {
+      "slot": 3,
+      "aslash": 82,
+      "acrush": 60,
+      "str": 82,
+      "prayer": 2,
+      "aspeed": 4
+    }
+  },
+  "37300": {
+    "name": "Saradomin's Staff (f)",
+    "equipable": true,
+    "weight": 2.267,
+    "equipment": {
+      "slot": 3,
+      "astab": -1,
+      "aslash": -1,
+      "acrush": 6,
+      "amagic": 6,
+      "dstab": 2,
+      "dslash": 3,
+      "dcrush": 1,
+      "dmagic": 6,
+      "str": 2,
+      "aspeed": 5
+    }
+  },
+  "37302": {
+    "name": "Zamorak's Staff (f)",
+    "equipable": true,
+    "weight": 2.267,
+    "equipment": {
+      "slot": 3,
+      "astab": -1,
+      "aslash": -1,
+      "acrush": 6,
+      "amagic": 6,
+      "dstab": 2,
+      "dslash": 3,
+      "dcrush": 1,
+      "dmagic": 6,
+      "str": 2,
+      "aspeed": 5
+    }
+  },
+  "37304": {
+    "name": "Guthix's Staff (f)",
+    "equipable": true,
+    "weight": 2.267,
+    "equipment": {
+      "slot": 3,
+      "astab": -1,
+      "aslash": -1,
+      "acrush": 6,
+      "amagic": 6,
+      "dstab": 2,
+      "dslash": 3,
+      "dcrush": 1,
+      "dmagic": 6,
+      "str": 2,
+      "aspeed": 5
+    }
   }
+
 }

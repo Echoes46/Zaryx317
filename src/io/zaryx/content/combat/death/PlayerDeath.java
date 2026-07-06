@@ -520,7 +520,15 @@ public class PlayerDeath {
             onRespawn(c);
             return;
         } else if (Boundary.isIn(c, Boundary.DONATOR_ZONE_BLOODY)) {
+            /*
+             * Bloody Battle can be entered from more than one portal.
+             * handleDeath() may perform the minigame cleanup, but the old behavior
+             * always returned players to the donor-zone entrance.
+             *
+             * After cleanup, send the player back to the portal they originally used.
+             */
             c.getBloody_battle().handleDeath();
+            moveToBloodyReturnLocation(c);
 
             onRespawn(c);
             return;
@@ -663,11 +671,18 @@ public class PlayerDeath {
             return;
         }
 
-        Discord.writeDeathHandler("[DeathLog] " + c.getDisplayName() + " has just died!");
-
         if (c.wildLevel > 0) {
             Entity killer = c.getKiller();
             Player playerKiller = killer != null && killer.isPlayer() ? killer.asPlayer() : null;
+
+            if (playerKiller != null) {
+                Discord.writeDeathHandler("[PvP Death] " + c.getDisplayName()
+                        + " was killed by " + playerKiller.getDisplayName()
+                        + " in the wilderness.");
+            } else {
+                Discord.writeDeathHandler("[Wilderness Death] " + c.getDisplayName()
+                        + " died in the wilderness.");
+            }
 
             ItemsLostOnDeathList itemsLostOnDeathList = ItemsLostOnDeath.generateModified(c);
 
@@ -739,6 +754,29 @@ public class PlayerDeath {
         }
         onRespawn(c);
 
+    }
+
+    private static void moveToBloodyReturnLocation(Player c) {
+        int returnX = c.bloodyReturnX;
+        int returnY = c.bloodyReturnY;
+        int returnHeight = c.bloodyReturnHeight;
+
+        /*
+         * Safe fallback:
+         * If the player entered before tracking existed, relogged, or somehow
+         * has no saved return point, do NOT send them to the donor zone.
+         */
+        if (returnX <= 0 || returnY <= 0) {
+            returnX = 2044;
+            returnY = 4529;
+            returnHeight = 0;
+        }
+
+        c.getPA().movePlayer(returnX, returnY, returnHeight);
+
+        c.bloodyReturnX = -1;
+        c.bloodyReturnY = -1;
+        c.bloodyReturnHeight = 0;
     }
 
     private static void dropItemsForKiller(Player killed, Player killer, GameItem item) {

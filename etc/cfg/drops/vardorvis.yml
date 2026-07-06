@@ -16,9 +16,6 @@ common:
     - item: 25736 #holy scythe
       minimum: 1
       maximum: 1
-    - item: 21129 #Troll i(5)
-      minimum: 1
-      maximum: 1
     - item: 30020 #Corrupt beast
       minimum: 1
       maximum: 1
@@ -47,6 +44,9 @@ uncommon:
     - item: 696 #250k Nomad
       minimum: 500
       maximum: 500
+    - item: 20786 #ROW i(5)
+      minimum: 1
+      maximum: 1
     - item: 28254 #Sanguine
       minimum: 1
       maximum: 1

@@ -7,11 +7,11 @@ import io.zaryx.content.dialogue.DialogueOption;
 import io.zaryx.model.cycleevent.CycleEvent;
 import io.zaryx.model.cycleevent.CycleEventContainer;
 import io.zaryx.model.cycleevent.CycleEventHandler;
-import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.entity.player.Position;
 import io.zaryx.model.entity.player.Right;
+import io.zaryx.model.items.GameItem;
 import io.zaryx.util.Misc;
 import io.zaryx.util.discord.Discord;
 
@@ -37,7 +37,22 @@ public class TrialOfArms {
      */
     public static final int SUPPLY_AMOUNT = 2_500;
 
+    /*
+     * Arrow / ammo IDs.
+     * Ranged supplies are now selected based on the current ranged weapon.
+     */
+    public static final int BRONZE_ARROW = 882;
+    public static final int IRON_ARROW = 884;
+    public static final int STEEL_ARROW = 886;
+    public static final int MITHRIL_ARROW = 888;
+    public static final int ADAMANT_ARROW = 890;
     public static final int RUNE_ARROW = 892;
+    public static final int DRAGON_ARROW = 11212;
+
+    public static final int BOLT_RACK = 4740;
+
+    public static final int RUNE_JAVELIN = 830;
+    public static final int DRAGON_JAVELIN = 19484;
 
     public static final int AIR_RUNE = 556;
     public static final int WATER_RUNE = 555;
@@ -48,12 +63,20 @@ public class TrialOfArms {
     public static final int DEATH_RUNE = 560;
     public static final int BLOOD_RUNE = 565;
     public static final int SOUL_RUNE = 566;
+    public static final int WRATH_RUNE = 21880;
 
     private static final List<Player> players = new ArrayList<>();
     private static final Map<String, Integer> levels = new HashMap<>();
     private static final Map<String, Integer> kills = new HashMap<>();
     private static final Map<String, String> lastKilledBy = new HashMap<>();
     private static final Map<String, Integer> sameKillerDeaths = new HashMap<>();
+
+    /*
+     * Trial of Arms combat-style voting.
+     * Key = player's lowercase login name.
+     * Value = the combat style they voted for.
+     */
+    private static final Map<String, CombatStyle> combatVotes = new HashMap<>();
 
     private static boolean active = false;
     private static boolean countdownStarted = false;
@@ -177,6 +200,7 @@ public class TrialOfArms {
         prizePool += ENTRY_FEE_GP;
 
         player.sendMessage("@blu@You have entered Trial of Arms. Waiting for " + MIN_PLAYERS + " players.");
+        promptCombatStyleVote(player);
 
         /*
          * Updated by Khaos
@@ -187,6 +211,68 @@ public class TrialOfArms {
         if (players.size() >= MIN_PLAYERS && !countdownStarted) {
             startCountdown();
         }
+    }
+
+    private static void promptCombatStyleVote(Player player) {
+        if (player == null) {
+            return;
+        }
+
+        player.start(new DialogueBuilder(player).npc(NPC_ID,
+                        "You have paid the entry fee.",
+                        "Which combat style would you prefer?")
+                .option(
+                        new DialogueOption("Melee", p -> voteCombatStyle(p, CombatStyle.MELEE)),
+                        new DialogueOption("Range", p -> voteCombatStyle(p, CombatStyle.RANGE)),
+                        new DialogueOption("Magic", p -> voteCombatStyle(p, CombatStyle.MAGE))
+                ));
+    }
+
+    private static void voteCombatStyle(Player player, CombatStyle style) {
+        if (player == null || style == null) {
+            return;
+        }
+
+        if (!players.contains(player)) {
+            player.sendMessage("@red@You must be queued for Trial of Arms to vote.");
+            player.getPA().closeAllWindows();
+            return;
+        }
+
+        if (active) {
+            player.sendMessage("@red@Trial of Arms has already started.");
+            player.getPA().closeAllWindows();
+            return;
+        }
+
+        combatVotes.put(player.getLoginNameLower(), style);
+
+        player.getPA().closeAllWindows();
+        player.sendMessage("@gre@You voted for " + formatCombatStyle(style) + " Trial of Arms.");
+
+        announceVoteCountsToQueued();
+    }
+
+    private static void announceVoteCountsToQueued() {
+        int meleeVotes = getVoteCount(CombatStyle.MELEE);
+        int rangeVotes = getVoteCount(CombatStyle.RANGE);
+        int mageVotes = getVoteCount(CombatStyle.MAGE);
+
+        announceToQueued("@blu@Trial of Arms votes - Melee: @red@" + meleeVotes
+                + "@blu@, Range: @red@" + rangeVotes
+                + "@blu@, Magic: @red@" + mageVotes);
+    }
+
+    private static int getVoteCount(CombatStyle style) {
+        int count = 0;
+
+        for (CombatStyle vote : combatVotes.values()) {
+            if (vote == style) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private static void leaveQueue(Player player) {
@@ -204,6 +290,7 @@ public class TrialOfArms {
         }
 
         players.remove(player);
+        combatVotes.remove(player.getLoginNameLower());
         prizePool -= ENTRY_FEE_GP;
 
         player.getItems().addItemUnderAnyCircumstance(COINS, ENTRY_FEE_GP);
@@ -214,6 +301,7 @@ public class TrialOfArms {
          * Queue count only goes to queued Trial of Arms players.
          */
         announceToQueued("@blu@Trial of Arms: " + players.size() + "/" + MIN_PLAYERS + " players are queued.");
+        announceVoteCountsToQueued();
     }
 
     private static boolean hasDisallowedInventoryItems(Player player) {
@@ -265,6 +353,7 @@ public class TrialOfArms {
          * Countdown only goes to queued Trial of Arms players.
          */
         announceToQueued("@red@Trial of Arms has enough players! Starting in 30 seconds...");
+        announceVoteCountsToQueued();
         Discord.writeTrialOfArms("Trial of Arms has enough players! Starting in 30 seconds.");
 
         CycleEventHandler.getSingleton().addEvent("trial_of_arms_countdown", new CycleEvent() {
@@ -286,6 +375,7 @@ public class TrialOfArms {
 
                 if (seconds == 30 || seconds == 20 || seconds == 10 || seconds <= 5) {
                     announceToQueued("@red@Trial of Arms starts in " + seconds + " seconds!");
+                    announceVoteCountsToQueued();
                 }
 
                 if (seconds <= 0) {
@@ -307,8 +397,13 @@ public class TrialOfArms {
         active = true;
         countdownStarted = false;
 
-        activeTrack = randomEnabledTrack();
-        activeStyle = activeTrack.getStyle();
+        activeStyle = getWinningCombatStyle();
+        activeTrack = randomEnabledTrackForStyle(activeStyle);
+
+        if (activeTrack == null) {
+            activeTrack = randomEnabledTrack();
+            activeStyle = activeTrack.getStyle();
+        }
 
         for (Player player : players) {
             levels.put(player.getLoginNameLower(), 1);
@@ -325,6 +420,76 @@ public class TrialOfArms {
         Discord.writeTrialOfArms("Trial of Arms has started! Style: " + activeStyle.name());
 
         startGameTimer();
+    }
+
+    private static CombatStyle getWinningCombatStyle() {
+        int meleeVotes = getVoteCount(CombatStyle.MELEE);
+        int rangeVotes = getVoteCount(CombatStyle.RANGE);
+        int mageVotes = getVoteCount(CombatStyle.MAGE);
+
+        int highestVotes = Math.max(meleeVotes, Math.max(rangeVotes, mageVotes));
+
+        List<CombatStyle> tiedStyles = new ArrayList<>();
+
+        if (meleeVotes == highestVotes) {
+            tiedStyles.add(CombatStyle.MELEE);
+        }
+
+        if (rangeVotes == highestVotes) {
+            tiedStyles.add(CombatStyle.RANGE);
+        }
+
+        if (mageVotes == highestVotes) {
+            tiedStyles.add(CombatStyle.MAGE);
+        }
+
+        if (tiedStyles.isEmpty()) {
+            tiedStyles.add(CombatStyle.MELEE);
+            tiedStyles.add(CombatStyle.RANGE);
+            tiedStyles.add(CombatStyle.MAGE);
+        }
+
+        CombatStyle selected = tiedStyles.get(Misc.random(tiedStyles.size() - 1));
+
+        announceToQueued("@blu@Trial of Arms vote result - Melee: @red@" + meleeVotes
+                + "@blu@, Range: @red@" + rangeVotes
+                + "@blu@, Magic: @red@" + mageVotes
+                + "@blu@. Selected style: @red@" + formatCombatStyle(selected));
+
+        return selected;
+    }
+
+    private static String formatCombatStyle(CombatStyle style) {
+        if (style == null) {
+            return "Unknown";
+        }
+
+        switch (style) {
+            case MELEE:
+                return "Melee";
+            case RANGE:
+                return "Range";
+            case MAGE:
+                return "Magic";
+            default:
+                return style.name();
+        }
+    }
+
+    private static WeaponTrack randomEnabledTrackForStyle(CombatStyle style) {
+        List<WeaponTrack> available = new ArrayList<>();
+
+        for (WeaponTrack track : WeaponTrack.values()) {
+            if (track.isEnabled() && track.getStyle() == style) {
+                available.add(track);
+            }
+        }
+
+        if (available.isEmpty()) {
+            return null;
+        }
+
+        return available.get(Misc.random(available.size() - 1));
     }
 
     private static void startGameTimer() {
@@ -509,28 +674,24 @@ public class TrialOfArms {
     /**
      * Updated by Khaos
      * Uses the Trial of Arms boundary:
-     * 3016, 3479 to 3041, 3510.
+     * 3041, 3479 to 3061, 3510.
      */
     private static void moveToArena(Player player) {
-        int minX = 3016;
+        int minX = 3041;
         int minY = 3479;
-        int maxX = 3041;
+        int maxX = 3061;
         int maxY = 3510;
 
         int x = minX + Misc.random(maxX - minX);
         int y = minY + Misc.random(maxY - minY);
 
-        Position position = new Position(x, y, 0);
-
-        if (!Boundary.isIn(position, Boundary.TRIAL_OF_ARMS_BOUNDARY)) {
-            position = new Position(3028, 3494, 0);
-        }
-
-        player.moveTo(position);
+        player.moveTo(new Position(x, y, 0));
     }
 
     /**
      * Updated by Khaos
+     * Clears old Trial of Arms gear, then equips the current weapon instead of
+     * placing it in the inventory. Runes still stay in the inventory.
      */
     private static void giveCurrentWeapon(Player player) {
         deleteAllExceptCoins(player);
@@ -538,10 +699,10 @@ public class TrialOfArms {
         int level = levels.getOrDefault(player.getLoginNameLower(), 1);
         int weapon = activeTrack.getWeaponForLevel(level);
 
-        player.getItems().addItem(weapon, 1);
+        equipTrialItem(player, weapon, 1);
 
         if (activeStyle == CombatStyle.RANGE) {
-            giveRangeSupplies(player);
+            giveRangeSupplies(player, weapon);
         }
 
         if (activeStyle == CombatStyle.MAGE) {
@@ -553,9 +714,115 @@ public class TrialOfArms {
 
     /**
      * Updated by Khaos
+     * Ranged supplies now depend on the current ranged weapon.
+     * This prevents low-tier bows from being given rune arrows they cannot fire.
      */
-    private static void giveRangeSupplies(Player player) {
-        player.getItems().addItem(RUNE_ARROW, SUPPLY_AMOUNT);
+    private static void giveRangeSupplies(Player player, int weapon) {
+        int ammo = getAmmoForWeapon(weapon);
+
+        if (ammo <= 0) {
+            player.sendMessage("@red@No valid Trial of Arms ammo was found for weapon: " + weapon);
+            return;
+        }
+
+        equipTrialItem(player, ammo, SUPPLY_AMOUNT);
+    }
+
+    /**
+     * Updated by Khaos
+     * Returns the correct ammo for the ranged weapon currently equipped.
+     */
+    private static int getAmmoForWeapon(int weapon) {
+        switch (weapon) {
+
+            /*
+             * Shortbow track.
+             */
+            case 841: // Shortbow
+                return IRON_ARROW;
+
+            case 843: // Oak shortbow
+                return STEEL_ARROW;
+
+            case 849: // Willow shortbow
+                return MITHRIL_ARROW;
+
+            case 853: // Maple shortbow
+                return ADAMANT_ARROW;
+
+            case 857: // Yew shortbow
+                return RUNE_ARROW;
+
+            case 861: // Magic shortbow
+            case 6724: // Seercull
+                return RUNE_ARROW;
+
+            case 11235: // Dark bow
+            case 12765: // Dark bow variant / recolor
+                return DRAGON_ARROW;
+
+            /*
+             * 19478 is commonly Heavy ballista.
+             * Ballistas use javelins, not arrows.
+             */
+            case 19478:
+                return DRAGON_JAVELIN;
+
+
+            /*
+             * Longbow track.
+             * This track is currently disabled, but this is ready if you enable it later.
+             */
+            case 839: // Longbow
+                return IRON_ARROW;
+
+            case 845: // Oak longbow
+                return STEEL_ARROW;
+
+            case 847: // Willow longbow
+                return MITHRIL_ARROW;
+
+            case 851: // Maple longbow
+                return ADAMANT_ARROW;
+
+            case 855: // Yew longbow
+                return RUNE_ARROW;
+
+            case 859: // Magic longbow
+                return RUNE_ARROW;
+
+            /*
+             * Karil's crossbow uses bolt racks.
+             */
+            case 4734:
+                return BOLT_RACK;
+
+            /*
+             * These depend on what they are in your cache/source.
+             * If they are bows in your server, rune arrows are safe.
+             * If one is a crossbow or ballista, change this to the proper ammo.
+             */
+            case 18357:
+            case 20997:
+            case 21012:
+                return RUNE_ARROW;
+
+            default:
+                return RUNE_ARROW;
+        }
+    }
+
+    /**
+     * Equips a Trial of Arms item directly using ItemAssistant.manualWear.
+     * This avoids leaving weapons/ammo in inventory and also avoids normal
+     * equip restrictions blocking minigame-supplied gear.
+     */
+    private static void equipTrialItem(Player player, int itemId, int amount) {
+        if (player == null || itemId <= 0 || amount <= 0) {
+            return;
+        }
+
+        player.getItems().manualWear(new GameItem(itemId, amount));
     }
 
     /**
@@ -637,6 +904,7 @@ public class TrialOfArms {
         kills.remove(name);
         lastKilledBy.remove(name);
         sameKillerDeaths.remove(name);
+        combatVotes.remove(name);
 
         deleteAllExceptCoins(player);
 
@@ -665,6 +933,7 @@ public class TrialOfArms {
                 reset();
             } else {
                 announceToQueued("@blu@Trial of Arms: " + players.size() + "/" + MIN_PLAYERS + " players are queued.");
+                announceVoteCountsToQueued();
             }
         }
     }
@@ -706,6 +975,7 @@ public class TrialOfArms {
         kills.clear();
         lastKilledBy.clear();
         sameKillerDeaths.clear();
+        combatVotes.clear();
         prizePool = 0;
         activeStyle = null;
         activeTrack = null;

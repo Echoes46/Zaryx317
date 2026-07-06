@@ -30,7 +30,26 @@ public class InputField implements PacketType {
 		/*if (SmsManager.isInputField(player, id, text)) {
 			return;
 		}*/
-
+        if (id == 61505) {
+            try {
+                String cleaned = text.trim().toLowerCase().replace(",", "").replace(" ", "");
+                long multiplier = 1;
+                if (cleaned.endsWith("k")) {
+                    multiplier = 1000;
+                    cleaned = cleaned.substring(0, cleaned.length() - 1);
+                } else if (cleaned.endsWith("m")) {
+                    multiplier = 1000000;
+                    cleaned = cleaned.substring(0, cleaned.length() - 1);
+                } else if (cleaned.endsWith("b")) {
+                    multiplier = 1000000000;
+                    cleaned = cleaned.substring(0, cleaned.length() - 1);
+                }
+                player.bettingAmount = Long.parseLong(cleaned) * multiplier;
+            } catch (NumberFormatException e) {
+                player.bettingAmount = 0;
+            }
+            return;
+        }
 		if (id == 60977) {
 			try {
 				player.bettingAmount = Long.parseLong(text);//Need check here to prevent text? just numeric?

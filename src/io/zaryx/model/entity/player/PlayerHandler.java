@@ -244,16 +244,26 @@ public class PlayerHandler {
 		while (processed++ < 20 && (playerLoggingIn = loginQueue.poll()) != null) {
 			int slot = nextSlot();
 			try {
-				int sameOnline = PlayerHandler.getSameComputerPlayerCount(playerLoggingIn.getMacAddress(), playerLoggingIn.getIpAddress(), playerLoggingIn.getUUID());
-				if (!playerLoggingIn.isBot() && sameOnline >= 5 && !Server.isDebug()) {
-					RS2LoginProtocol.sendReturnCode(playerLoggingIn.getSession(), playerLoggingIn, LoginReturnCode.LOGIN_LIMIT_EXCEEDED);
-					return;
-				}
+                int sameOnline = PlayerHandler.getSameComputerPlayerCount(
+                        playerLoggingIn.getMacAddress(),
+                        playerLoggingIn.getIpAddress(),
+                        playerLoggingIn.getUUID()
+                );
 
-				if (!playerLoggingIn.isBot() && sameOnline >= Configuration.SAME_COMPUTER_CONNECTIONS_ALLOWED && !Server.isDebug()) {
-					RS2LoginProtocol.sendReturnCode(playerLoggingIn.getSession(), playerLoggingIn, LoginReturnCode.LOGIN_LIMIT_EXCEEDED);
-					return;
-				}
+                boolean staffBypass = playerLoggingIn.getRights().hasStaffPosition()
+                        || PlayerHandler.hasStaffOnlineFromSameComputer(
+                        playerLoggingIn.getMacAddress(),
+                        playerLoggingIn.getIpAddress(),
+                        playerLoggingIn.getUUID()
+                );
+
+                if (!playerLoggingIn.isBot()
+                        && !staffBypass
+                        && sameOnline >= Configuration.SAME_COMPUTER_CONNECTIONS_ALLOWED
+                        && !Server.isDebug()) {
+                    RS2LoginProtocol.sendReturnCode(playerLoggingIn.getSession(), playerLoggingIn, LoginReturnCode.LOGIN_LIMIT_EXCEEDED);
+                    continue;
+                }
 
 				if (getPlayerByLoginNameLong(playerLoggingIn.getNameAsLong()) != null) {
 					RS2LoginProtocol.sendReturnCode(playerLoggingIn.getSession(), playerLoggingIn, LoginReturnCode.ACCOUNT_ALREADY_ONLINE);
@@ -296,7 +306,35 @@ public class PlayerHandler {
 			}
 		}
 	}
+    public static boolean hasStaffOnlineFromSameComputer(String macAddress, String ipAddress, String uuid) {
+        if (macAddress == null) {
+            macAddress = "";
+        }
 
+        if (uuid == null) {
+            uuid = "";
+        }
+
+        for (Player p : players) {
+            if (p == null) {
+                continue;
+            }
+
+            if (!p.getRights().hasStaffPosition()) {
+                continue;
+            }
+
+            boolean sameMac = macAddress.length() > 0 && p.getMacAddress() != null && p.getMacAddress().equals(macAddress);
+            boolean sameIp = ipAddress != null && p.getIpAddress() != null && p.getIpAddress().equals(ipAddress);
+            boolean sameUuid = uuid.length() > 0 && p.getUUID() != null && p.getUUID().equals(uuid);
+
+            if (sameMac || sameIp || sameUuid) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 	public static boolean isLoggingOut(String username) {
 		return logoutQueue.stream().anyMatch(it -> it.getPlayer().getLoginName().equalsIgnoreCase(username));
 	}

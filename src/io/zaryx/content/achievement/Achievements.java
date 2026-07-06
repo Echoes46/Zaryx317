@@ -16,6 +16,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import io.zaryx.content.battlepass.Pass;
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -202,31 +203,31 @@ public class Achievements {
                 new GameItem(993, 2),  new GameItem(696, 5), new GameItem(33136, 3)),
 
         VETION("Kill Vet'ion %d Times", 30, AchievementTier.TIER_2, AchievementType.SLAY_VETION, "Kill Vet'ion %d Times", 5, 2,
-                  new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
 
         CALLISTO("Kill Callisto %d Times", 31, AchievementTier.TIER_2, AchievementType.SLAY_CALLISTO, "Kill Callisto %d Times", 5, 2,
-                  new GameItem(2996, 250), new GameItem(6792, 2), new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(6792, 2), new GameItem(33136, 3)),
 
         SCORPIA("Kill Scorpia %d Times", 32, AchievementTier.TIER_2, AchievementType.SLAY_SCORPIA, "Kill Scorpia %d Times", 5, 2,
-                 new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
 
         VENENATIS("Kill Venenatis %d Times", 33, AchievementTier.TIER_2, AchievementType.SLAY_VENENATIS, "Kill Venenatis %d Times", 5, 2,
-                 new GameItem(2996, 250), new GameItem(6792, 2), new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(6792, 2), new GameItem(33136, 3)),
 
         CHAOS_ELE("Kill Chaos Elemental %d Times", 34, AchievementTier.TIER_2, AchievementType.SLAY_CHAOSELE, "Kill Chaos Elemental %d Times", 5, 2,
-                 new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
 
         CHAOS_FANATIC("Kill Chaos Fanatic %d Times", 35, AchievementTier.TIER_2, AchievementType.SLAY_CHAOSFANATIC, "Kill Chaos Fanatic %d Times", 5, 2,
-                 new GameItem(2996, 250),  new GameItem(6792, 2), new GameItem(33136, 3)),
+                new GameItem(2996, 250),  new GameItem(6792, 2), new GameItem(33136, 3)),
 
         CRAZY_ARCH("Kill Crazy Archaeologist %d Times", 36, AchievementTier.TIER_2, AchievementType.SLAY_ARCHAEOLOGIST, "Kill Crazy Archaeologist %d Times", 5, 2,
-                  new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
 
         SHADOW_ARA("Kill Shadow of Araphael %d Times", 37, AchievementTier.TIER_2, AchievementType.SLAY_SHADOWARAPHAEL, "Kill Shadow of Araphael %d Times", 5, 2,
-                 new GameItem(2996, 250),  new GameItem(6792, 2), new GameItem(33136, 3)),
+                new GameItem(2996, 250),  new GameItem(6792, 2), new GameItem(33136, 3)),
 
         ARA("Kill Araphael %d Times", 38, AchievementTier.TIER_2, AchievementType.SLAY_ARAPHAEL, "Kill Araphael %d Times", 5, 2,
-                 new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
+                new GameItem(2996, 250), new GameItem(4185, 2),  new GameItem(33136, 3)),
 
         INTERMEDIATE_FISHER("Fishing %d", 4, AchievementTier.TIER_2, AchievementType.FISH, "Catch %d Fish", 1500, 2,
                 new GameItem(2528, 3),  new GameItem(22374, 5), new GameItem(25527, 5000)),
@@ -648,7 +649,7 @@ public class Achievements {
                         player.getAchievements().setPoints(achievement.getPoints() + player.getAchievements().getPoints());
                         player.sendMessage(Misc.colorWrap(AchievementHandler.COLOR, "<clan=6>You've completed the " + achievement.getTier().getName().toLowerCase()
                                 + " achievement '" + achievement.getFormattedName() + "'!"));
-                            Pass.addExperience(player,3);
+                        Pass.addExperience(player,3);
 
                         if (player.getAchievements().hasCompletedAll()) {
                             PlayerHandler.executeGlobalStaffMessage(Misc.colorWrap(AchievementHandler.COLOR,
@@ -682,6 +683,37 @@ public class Achievements {
                 player.getInventory().addAnywhere(new ImmutableItem(item.getId(), item.getAmount()));
             }
         }
+    }
+
+
+    public static boolean hasInventorySpaceForReward(Player player, Achievement achievement) {
+        return player.getItems().freeSlots() >= getRequiredInventorySlotsForReward(achievement);
+    }
+
+    public static boolean hasInventorySpaceForRewards(Player player, List<Achievement> achievements) {
+        return player.getItems().freeSlots() >= getRequiredInventorySlotsForRewards(achievements);
+    }
+
+    public static int getRequiredInventorySlotsForRewards(List<Achievement> achievements) {
+        int requiredSlots = 0;
+        for (Achievement achievement : achievements) {
+            requiredSlots += getRequiredInventorySlotsForReward(achievement);
+        }
+        return requiredSlots;
+    }
+
+    public static int getRequiredInventorySlotsForReward(Achievement achievement) {
+        if (achievement.equals(Achievement.ARA_MASTER)) {
+            return 4;
+        }
+
+        int requiredSlots = 0;
+        for (GameItem item : achievement.getRewards()) {
+            if (item.getAmount() > 0) {
+                requiredSlots++;
+            }
+        }
+        return requiredSlots;
     }
 
     public static void reset(Player player, AchievementType type) {

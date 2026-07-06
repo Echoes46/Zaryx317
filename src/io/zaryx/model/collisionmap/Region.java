@@ -564,7 +564,12 @@ public class Region {
         RegionProvider.getGlobal().get(3101, 3512).setClipToZero(3101, 3512, 0);
         RegionProvider.getGlobal().get(3102, 3512).setClipToZero(3102, 3512, 0);
         RegionProvider.getGlobal().get(3103, 3512).setClipToZero(3103, 3512, 0);
-
+//Zaryx custom area
+for (int x = 3042; x <= 3060; x++) {
+    for (int y = 3480; y <= 3509; y++) {
+        RegionProvider.getGlobal().get(x, y).setClipToZero(x, y, 0);
+    }
+}
         //Hunllef fix
         RegionProvider.getGlobal().get(3274, 6059).setClipToZero(3274, 6059, 0);
         RegionProvider.getGlobal().get(3275, 6059).setClipToZero(3275, 6059, 0);

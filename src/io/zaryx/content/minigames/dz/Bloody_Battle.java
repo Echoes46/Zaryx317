@@ -162,9 +162,9 @@ public class Bloody_Battle {
 
     public int getPoints(int wave) {
         if (wave >= 20) {
-            return wave * 6;
+            return wave * 50;
         }
-        return wave * 3;
+        return wave * 15;
     }
 
     public void giveExtraLoot() {

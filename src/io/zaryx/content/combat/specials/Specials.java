@@ -42,6 +42,7 @@ public enum Specials {
 	DRAGON_HALBERD(new DragonHalberd()),
 	DRAGON_MACE(new DragonMace()),
 	DRAGON_SCIMITAR(new DragonScimitar()),
+    DRAGON_SCIMTAR_OR(new DragonScimitarOr()),
 	DRAGON_SWORD(new DragonSword()),
 	DRAGON_SPEAR(new DragonSpear()),
 	ZAMORAKIAN_HASTA(new ZamorakianHasta()),

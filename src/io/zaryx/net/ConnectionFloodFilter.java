@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class ConnectionFloodFilter
 {
 
-    private static final int MAX_CONNECTIONS_PER_IP = 1;
+    private static final int MAX_CONNECTIONS_PER_IP = 5;
     private static ConcurrentHashMap<String, Integer> connMap;
 
     static

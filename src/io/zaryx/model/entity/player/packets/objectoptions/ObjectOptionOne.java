@@ -80,6 +80,9 @@ import io.zaryx.model.cycleevent.CycleEvent;
 import io.zaryx.model.cycleevent.CycleEventContainer;
 import io.zaryx.model.cycleevent.CycleEventHandler;
 import io.zaryx.model.entity.HealthStatus;
+import io.zaryx.content.games.blackjack.BJManager;
+import io.zaryx.model.entity.npc.NPC;
+import io.zaryx.model.entity.npc.NPCHandler;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.model.entity.player.broadcasts.Broadcast;
 import io.zaryx.model.entity.player.mode.ExpMode;
@@ -873,6 +876,32 @@ public class ObjectOptionOne {
 				}
 				break;
 
+            case 53045: // Blackjack Table
+                c.getPA().closeAllWindows();
+                c.getPA().movePlayer(3082, 3476, 0);
+                if (c.getBjManager() == null) {
+                    c.setBjManager(new BJManager(c));
+                }
+                c.getBjManager().open();
+                // Sit animation after teleport finishes
+                CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+                    int tick = 0;
+                    @Override
+                    public void execute(CycleEventContainer container) {
+                        if (tick == 3) {
+                            c.playerStandIndex = 4086;
+                            c.playerWalkIndex = 4086;
+                            c.playerRunIndex = 4086;
+                            c.setAppearanceUpdateRequired(true);
+                            c.setUpdateRequired(true);
+                            c.facePosition(3080, 3476);
+                            container.stop();
+                        }
+                        tick++;
+                    }
+                }, 1);
+                break;
+
 			case 33119:
 				c.objectDistance = 3;
 				BountyChest.unlockChest(c);
@@ -1128,13 +1157,32 @@ public class ObjectOptionOne {
 				AgilityHandler.delayEmote(c, "CRAWL", 1311, 3806, 0, 2);
 				break;
 
-			case 6114:
-				if (Boundary.isIn(c, Boundary.DONATOR_ZONE_BLOODY)) {
-					c.getPA().movePlayer(2613, 3874, 0);
-					c.setBloody_wave(0);
-					c.setBloody_wave_kills(0);
-				}
-				break;
+            case 6114:
+                if (Boundary.isIn(c, Boundary.DONATOR_ZONE_BLOODY)) {
+                    int returnX = c.bloodyReturnX;
+                    int returnY = c.bloodyReturnY;
+                    int returnHeight = c.bloodyReturnHeight;
+
+                    /*
+                     * Fallback in case the player entered before this tracking existed,
+                     * relogged, or somehow has no saved return location.
+                     */
+                    if (returnX <= 0 || returnY <= 0) {
+                        returnX = 2044;
+                        returnY = 4529;
+                        returnHeight = 0;
+                    }
+
+                    c.getPA().movePlayer(returnX, returnY, returnHeight);
+
+                    c.setBloody_wave(0);
+                    c.setBloody_wave_kills(0);
+
+                    c.bloodyReturnX = -1;
+                    c.bloodyReturnY = -1;
+                    c.bloodyReturnHeight = 0;
+                }
+                break;
 
 
 			case 19043:
@@ -1147,26 +1195,40 @@ public class ObjectOptionOne {
 				}
 				break;
 
-			case 41617:
-				if (obX == 1943 && obY == 5358 && c.getX() >= 1943 || obX == 1943 && obY == 5359 && c.getX() >= 1943) {
-					if (c.getDonorBossKC() < DonorBoss.getDonorKC(c)) {
-						c.getPA().movePlayer(1942, 5359);
-					} else {
-						c.sendMessage("You've already killed the Donor Boss Enough times today!");
-					}
-				} else if (c.objectX == 1943) {
-					c.getPA().movePlayer(2044, 4529);
-				} else if (c.getX() < obX && obY == 3873) {
-					if (c.getItems().hasItemOnOrInventory(20608)) {
-						c.getItems().deleteItem2(20608, 1);
-						c.getBloody_battle().create();
-					} else {
-						c.sendMessage("You need a Bloodier Key to enter the minigame!");
-					}
-				} else if (c.getX() > obX) {
-					c.getBloody_battle().leaveGame();
-				}
-				break;
+            case 41617:
+                /*
+                 * Donor Boss portal - keep this coordinate-specific because this same
+                 * object ID is also used for Bloody Battle.
+                 */
+                if ((obX == 1943 && obY == 5358 && c.getX() >= 1943)
+                        || (obX == 1943 && obY == 5359 && c.getX() >= 1943)) {
+
+                    if (c.getDonorBossKC() < DonorBoss.getDonorKC(c)) {
+                        c.getPA().movePlayer(1942, 5359);
+                    } else {
+                        c.sendMessage("You've already killed the Donor Boss Enough times today!");
+                    }
+
+                } else if (c.objectX == 1943) {
+                    c.getPA().movePlayer(2044, 4529);
+
+                    /*
+                     * Bloody Battle portal - works anywhere object 41617 is placed,
+                     * as long as it is not one of the Donor Boss portal positions above.
+                     */
+                } else {
+                    if (c.getItems().hasItemOnOrInventory(20608)) {
+                        c.bloodyReturnX = c.absX;
+                        c.bloodyReturnY = c.absY;
+                        c.bloodyReturnHeight = c.heightLevel;
+
+                        c.getItems().deleteItem2(20608, 1);
+                        c.getBloody_battle().create();
+                    } else {
+                        c.sendMessage("You need a Bloodier Key to enter the minigame!");
+                    }
+                }
+                break;
 			case 34359:
 				c.objectDistance = 3;
 				AgilityHandler.delayEmote(c, "CRAWL", 1312, 10188, 0, 2);

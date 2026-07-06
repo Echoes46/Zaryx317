@@ -223,14 +223,20 @@ public class AchievementHandler {
                     return true;
                 }
             }
-            Achievements.addReward(player, achievements.get(index));
-            setClaimed(achievements.get(index).getTier().getId(), achievements.get(index).getId(), true);
+            Achievement achievement = achievements.get(index);
+            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
+                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
+                return true;
+            }
+
+            Achievements.addReward(player, achievement);
+            setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
-            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
-                    + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage("```" + player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
-            Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
+            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
+                    + " achievement '" + achievement.getFormattedName() + "'.</col>");
+            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage("```" + player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         } else if (player.achievementPage == 1) {
             int index = ArrayUtils.indexOf(BUTTON_INDEX, buttonId);
@@ -251,14 +257,20 @@ public class AchievementHandler {
             }
 
 
-            Achievements.addReward(player, achievements.get(index));
-            setClaimed(achievements.get(index).getTier().getId(), achievements.get(index).getId(), true);
+            Achievement achievement = achievements.get(index);
+            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
+                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
+                return true;
+            }
+
+            Achievements.addReward(player, achievement);
+            setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
-            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
-                    + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
-            Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
+            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
+                    + " achievement '" + achievement.getFormattedName() + "'.</col>");
+            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         } else if (player.achievementPage == 2) {
             int index = ArrayUtils.indexOf(BUTTON_INDEX, buttonId);
@@ -279,14 +291,20 @@ public class AchievementHandler {
             }
 
 
-            Achievements.addReward(player, achievements.get(index));
-            setClaimed(achievements.get(index).getTier().getId(), achievements.get(index).getId(), true);
+            Achievement achievement = achievements.get(index);
+            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
+                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
+                return true;
+            }
+
+            Achievements.addReward(player, achievement);
+            setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
-            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
-                    + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
-            Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
+            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
+                    + " achievement '" + achievement.getFormattedName() + "'.</col>");
+            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         } else if (player.achievementPage == 3) {
             int index = ArrayUtils.indexOf(BUTTON_INDEX, buttonId);
@@ -306,14 +324,20 @@ public class AchievementHandler {
             }
 
 
-            Achievements.addReward(player, achievements.get(index));
-            setClaimed(achievements.get(index).getTier().getId(), achievements.get(index).getId(), true);
+            Achievement achievement = achievements.get(index);
+            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
+                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
+                return true;
+            }
+
+            Achievements.addReward(player, achievement);
+            setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
-            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievements.get(index).getTier().getName().toLowerCase()
-                    + " achievement '" + achievements.get(index).getFormattedName() + "'.</col>");
-            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievements.get(index).getFormattedName());
-            Server.getLogging().write(new ClaimAchievementLog(player, achievements.get(index)));
+            player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
+                    + " achievement '" + achievement.getFormattedName() + "'.</col>");
+            //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         }
         return false;
@@ -322,6 +346,13 @@ public class AchievementHandler {
     public boolean claimAll(int buttonID, Player c) {
         if (buttonID == 54765) {
             List<Achievement> achievements = Arrays.stream(Achievement.values()).filter(a -> !isClaimed(a.getTier().getId(), a.getId()) && isComplete(a.getTier().getId(), a.getId())).collect(Collectors.toList());
+            int requiredSlots = Achievements.getRequiredInventorySlotsForRewards(achievements);
+            if (!Achievements.hasInventorySpaceForRewards(c, achievements)) {
+                c.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting these rewards."));
+                c.sendMessage(Misc.colorWrap(COLOR, "You need at least " + requiredSlots + " free inventory slot" + (requiredSlots == 1 ? "" : "s") + "."));
+                return true;
+            }
+
             for (Achievement achievement : achievements) {
                 Achievements.addReward(c, achievement);
                 setClaimed(achievement.getTier().getId(), achievement.getId(), true);

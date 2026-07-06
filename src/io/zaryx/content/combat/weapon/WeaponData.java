@@ -45,10 +45,10 @@ public enum WeaponData {
             new WeaponMode(3, AttackStyle.DEFENSIVE, CombatStyle.SLASH)),
 
     PICKAXE(WeaponDataConstants.PICKAXES, WeaponInterface.BATTLEAXE,
-            new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.SLASH),
-            new WeaponMode(1, AttackStyle.AGGRESSIVE, CombatStyle.SLASH),
+            new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.STAB),
+            new WeaponMode(1, AttackStyle.AGGRESSIVE, CombatStyle.STAB),
             new WeaponMode(2, AttackStyle.AGGRESSIVE, CombatStyle.CRUSH),
-            new WeaponMode(3, AttackStyle.DEFENSIVE, CombatStyle.SLASH)),
+            new WeaponMode(3, AttackStyle.DEFENSIVE, CombatStyle.STAB)),
 
     AXE(WeaponDataConstants.AXES, WeaponInterface.BATTLEAXE,
             new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.SLASH),
@@ -104,9 +104,9 @@ public enum WeaponData {
             new WeaponMode(2, AttackStyle.DEFENSIVE, CombatStyle.RANGE)),
 
     UNARMED(new int[] {0}, WeaponInterface.UNARMED,
-            new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.RANGE),
-            new WeaponMode(1, AttackStyle.AGGRESSIVE, CombatStyle.RANGE),
-            new WeaponMode(2, AttackStyle.DEFENSIVE, CombatStyle.RANGE)),
+            new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.CRUSH),
+            new WeaponMode(1, AttackStyle.AGGRESSIVE, CombatStyle.CRUSH),
+            new WeaponMode(2, AttackStyle.DEFENSIVE, CombatStyle.CRUSH)),
 
     ;
 

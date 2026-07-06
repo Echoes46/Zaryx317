@@ -54275,6 +54275,10 @@
     "combatLevel": 665,
     "size": 1
   },
+  "12214": {
+    "combatLevel": 300,
+    "size": 1
+  },
   "11215": {
     "combatLevel": 665,
     "size": 1
@@ -57392,5 +57396,10 @@
   "12889": {
     "name": "Primio",
     "size": 2
+  },
+  "13300": {
+    "name": "Black Jack Dealer",
+    "combatLevel": 0,
+    "size": 1
   }
 }

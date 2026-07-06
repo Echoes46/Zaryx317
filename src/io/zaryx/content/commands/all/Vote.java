@@ -12,7 +12,7 @@ public class Vote extends Command {
 	@Override
 	public void execute(Player c, String commandName, String input) {
 		VotePanelInterface.openInterface(c, true);
-		c.getPA().sendFrame126("https://Zaryx.com/vote", 12000);
+		c.getPA().sendFrame126("https://Zaryx.online/vote", 12000);
 		c.sendMessage("@bla@[@blu@VOTE@bla@] You may also use @red@::vpanel@bla@ to open the vote panel.");
 	}
 

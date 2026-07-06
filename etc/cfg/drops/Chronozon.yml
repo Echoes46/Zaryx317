@@ -110,15 +110,15 @@ rare:
     - item: 26879 #wraith essence
       minimum: 100
       maximum: 300
-    - item: 33343 #ember helm
-      minimum: 1
-      maximum: 1
-    - item: 33344 #ember body
-      minimum: 1
-      maximum: 1
-    - item: 33345 #ember legs
-      minimum: 1
-      maximum: 1
+#    - item: 33343 #ember helm
+#      minimum: 1
+#      maximum: 1
+#    - item: 33344 #ember body
+#      minimum: 1
+#      maximum: 1
+#    - item: 33345 #ember legs
+#      minimum: 1
+#      maximum: 1
     - item: 33202 #demon x sword
       minimum: 1
       maximum: 1

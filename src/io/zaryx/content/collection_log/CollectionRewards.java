@@ -25,79 +25,79 @@ public enum CollectionRewards {
 
 
     MOLE(5779, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     BARREL_CHEST(6342, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     DAGGANOTH_SUPREME(2265, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     DAGANNOTH_PRIME(2266, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     DAGANNOTH_REX(2267, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     KING_BLACK_DRAGON(239, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     KALPHITE_QUEEN(965, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     BANODS(2215, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     KRIL(3129, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     KREE(3162, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     COMMANDER(2205, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     CORP(319, new GameItem[]{new GameItem(696, 30),
             new GameItem(13346, 3), new GameItem(12588, 1), new GameItem(7774, 1)}),
 
     KRAKEN(494, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     CERB(5862, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     SIRE(5890, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     DEMONIC(7145, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     SHAMAN(6766, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     VORKATH(8028, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     ZULRAH(2042, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     HYDRA(8621, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     NIGHTMARE(9425, new GameItem[]{new GameItem(696, 30),
             new GameItem(13346, 3), new GameItem(12588, 1), new GameItem(7774, 1)}),
 
     SARACHNIS(8713, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     GUARDIANS(7888, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     BRYOPHYA(8195, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     OBOR(7416, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(26545, 3), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(26545, 3)}),
 
     NEX(11278, new GameItem[]{new GameItem(696, 30),
             new GameItem(13346, 3), new GameItem(12588, 1), new GameItem(7774, 1)}),
@@ -111,33 +111,33 @@ public enum CollectionRewards {
             new GameItem(12579, 3)}),
 
     VETRION(6611, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
     CALLISTO(6503, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
 
     SELDAEH(8888, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 10)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
     SCORPIA(6615, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
 
     VENENATIS(6610, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
 
     ELEMENTAL(2054, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
 
     FANATIC(6619, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
 
     ARCHAEOLOGIST(6618, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
 
     OLM(7554, new GameItem[]{new GameItem(12582, 3),
@@ -148,22 +148,22 @@ public enum CollectionRewards {
             new GameItem(19891, 3), new GameItem(12579, 2), new GameItem(7774, 1)}),
 
     DHAROK(1673, new GameItem[]{new GameItem(696, 15),
-            new GameItem(13346, 1), new GameItem(26545, 3), new GameItem(956, 1)}),
+            new GameItem(13346, 1), new GameItem(26545, 3)}),
 
     AHRIM(1672, new GameItem[]{new GameItem(696, 15),
-            new GameItem(13346, 1), new GameItem(26545, 3), new GameItem(956, 1)}),
+            new GameItem(13346, 1), new GameItem(26545, 3)}),
 
     GUTHAN(1674, new GameItem[]{new GameItem(696, 15),
-            new GameItem(13346, 1), new GameItem(26545, 3), new GameItem(956, 1)}),
+            new GameItem(13346, 1), new GameItem(26545, 3)}),
 
     KARIL(1675, new GameItem[]{new GameItem(696, 15),
-            new GameItem(13346, 1), new GameItem(26545, 3), new GameItem(956, 1)}),
+            new GameItem(13346, 1), new GameItem(26545, 3)}),
 
     TORAG(1676, new GameItem[]{new GameItem(696, 15),
-            new GameItem(13346, 1), new GameItem(26545, 3), new GameItem(956, 1)}),
+            new GameItem(13346, 1), new GameItem(26545, 3)}),
 
     VERAC(1677, new GameItem[]{new GameItem(696, 15),
-            new GameItem(13346, 1), new GameItem(26545, 3), new GameItem(956, 1)}),
+            new GameItem(13346, 1), new GameItem(26545, 3)}),
 
     EASY(1, new GameItem[]{new GameItem(696, 30), new GameItem(13346, 2),
             new GameItem(8167, 3), new GameItem(6769, 1)}),
@@ -193,10 +193,10 @@ public enum CollectionRewards {
             new GameItem(6831, 1), new GameItem(7774, 1)}),
 
     ARAPHEL_RED(8172, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
     ARAPHEL(8164, new GameItem[]{new GameItem(696, 20),
-            new GameItem(13346, 3), new GameItem(4185, 20), new GameItem(956, 3)}),
+            new GameItem(13346, 3), new GameItem(4185, 20)}),
 
     QUEEN(8781, new GameItem[]{new GameItem(6829, 1),
             new GameItem(12588, 2), new GameItem(7774, 2),

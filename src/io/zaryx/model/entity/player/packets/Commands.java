@@ -653,7 +653,7 @@ public class Commands implements PacketType {
             }
 
             if (playerCommand.toLowerCase().contentEquals("store")) { //extra command not needed for interaces
-                c.getPA().sendFrame126("https://Zaryx.com/store/", 12000);
+                c.getPA().sendFrame126("https://Zaryx.online/store/", 12000);
             }
 
             if (playerCommand.equals("forum")) {
@@ -1238,7 +1238,45 @@ public class Commands implements PacketType {
 
                 }
             }
+            /** Added by Khaos  */
+            if (playerCommand.equals("claim")) {
+                final Player claimPlayer = c;
+                final String getPlayerName = c.getLoginName();
 
+                claimPlayer.sendMessage("Checking for donations...");
+
+                new Thread(() -> {
+                    try {
+                        com.everythingrs.donate.Donation[] donations =
+                                com.everythingrs.donate.Donation.donations(
+                                        "PgFU6f9ABbVVSMAkL1kBl56ZutXGgXjloE0wlyXOEvWYE3jWKxi5vXq7vIp1LPLeHfTd2F9f",
+                                        getPlayerName
+                                );
+
+                        if (donations == null || donations.length == 0) {
+                            claimPlayer.sendMessage("You currently don't have any items waiting.");
+                            return;
+                        }
+
+                        if (donations[0].message != null) {
+                            claimPlayer.sendMessage(donations[0].message);
+                            return;
+                        }
+
+                        for (com.everythingrs.donate.Donation donate : donations) {
+                            claimPlayer.getItems().addItem(donate.product_id, donate.product_amount);
+                        }
+
+                        claimPlayer.sendMessage("Thank you for donating to Zaryx!");
+
+                    } catch (Exception e) {
+                        claimPlayer.sendMessage("API services are currently offline. Please check back shortly.");
+                        e.printStackTrace();
+                    }
+                }).start();
+
+                return;
+            }
             /** Added by Khaos  */
             if (playerCommand.startsWith("vote")) {
                 c.sendMessage("Type ::reward <id> next to the reward you want to claim!");
@@ -1260,7 +1298,7 @@ public class Commands implements PacketType {
                     @Override public void run() {
                         try {
                             com.everythingrs.vote.Vote[] res = com.everythingrs.vote.Vote.reward(
-                                    "SnW3mJ7q1vJlCk0LnYkeNVShHGX2caspdbvVQcKKLASJcT4EKxdK5AMBbrtOpNPwjopxx0CN",
+                                    "PgFU6f9ABbVVSMAkL1kBl56ZutXGgXjloE0wlyXOEvWYE3jWKxi5vXq7vIp1LPLeHfTd2F9f",
                                     name, id, amount);
 
                             if (res == null || res.length == 0) {

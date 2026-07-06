@@ -37,7 +37,7 @@ public class Deals {
             case 24544:
             case 24574:
             case 24614:
-                player.getPA().sendURL("https://Zaryx.com/store/");
+                player.getPA().sendURL("https://Zaryx.online/store/");
                 return true;
             case 24508:
             case 24538:

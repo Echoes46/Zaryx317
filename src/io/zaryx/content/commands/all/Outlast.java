@@ -16,6 +16,10 @@ public class Outlast extends Command {
 
 	@Override
 	public void execute(Player c, String commandName, String input) {
+		if (c.getPosition().inWild()) {
+			c.sendMessage("You cannot use this command from the wilderness.");
+			return;
+		}
 		if (c.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN)) || c.getMode().equals(Mode.forType(ModeType.WILDYMAN))) {
 			c.sendMessage("You cannot access this area.");
 			return;

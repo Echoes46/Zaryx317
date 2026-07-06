@@ -314,53 +314,73 @@ public class ItemAssistant {
 		}
 	}
 
-	public void manualWear(GameItem item) {
-		if (item == null)
-			return;
-		int wearID = item.getId();
+    public void manualWear(GameItem item) {
+        if (item == null) {
+            return;
+        }
 
-		int targetSlot = ItemStats.forId(item.getId()).getEquipment().getSlot();
+        int wearID = item.getId();
 
-		if (targetSlot == -1) {
-			if (wearID >= 5509 && wearID <= 5512 || wearID == 21347 || wearID == 15098 || wearID == 11918 || wearID == 13656 || wearID == 7959 || wearID == 7960) {
-				return;
-			} else {
-				player.sendMessage("This item cannot be worn.");
-				return;
-			}
-		}
+        int targetSlot = ItemStats.forId(item.getId()).getEquipment().getSlot();
 
-		if (targetSlot >= 0 && wearID >= 0) {
-			player.playerEquipment[targetSlot] = wearID;
-			player.playerEquipmentN[targetSlot] = item.getAmount();
-			player.getItems().addContainerUpdate(ContainerUpdate.EQUIPMENT);
-		}
+        if (targetSlot == -1) {
+            if (wearID >= 5509 && wearID <= 5512 || wearID == 21347 || wearID == 15098 || wearID == 11918 || wearID == 13656 || wearID == 7959 || wearID == 7960) {
+                return;
+            } else {
+                player.sendMessage("This item cannot be worn.");
+                return;
+            }
+        }
 
-		// Update equipment slot
-		if (player.getOutStream() != null) {
-			player.getOutStream().createFrameVarSizeWord(34);
-			player.getOutStream().writeUnsignedWord(1688);
-			player.getOutStream().writeByte(targetSlot);
-			player.getOutStream().writeUnsignedWord(wearID + 1);
+        if (targetSlot >= 0 && wearID >= 0) {
+            player.playerEquipment[targetSlot] = wearID;
+            player.playerEquipmentN[targetSlot] = item.getAmount();
+            player.getItems().addContainerUpdate(ContainerUpdate.EQUIPMENT);
+        }
 
-			if (player.playerEquipmentN[targetSlot] > 254) {
-				player.getOutStream().writeByte(255);
-				player.getOutStream().writeDWord(player.playerEquipmentN[targetSlot]);
-			} else {
-				player.getOutStream().writeByte(player.playerEquipmentN[targetSlot]);
-			}
+        // Update equipment slot
+        if (player.getOutStream() != null) {
+            player.getOutStream().createFrameVarSizeWord(34);
+            player.getOutStream().writeUnsignedWord(1688);
+            player.getOutStream().writeByte(targetSlot);
+            player.getOutStream().writeUnsignedWord(wearID + 1);
 
-			player.getOutStream().endFrameVarSizeWord();
-			player.flushOutStream();
-		}
+            if (player.playerEquipmentN[targetSlot] > 254) {
+                player.getOutStream().writeByte(255);
+                player.getOutStream().writeDWord(player.playerEquipmentN[targetSlot]);
+            } else {
+                player.getOutStream().writeByte(player.playerEquipmentN[targetSlot]);
+            }
 
-		player.getPA().requestUpdates();
-		MeleeData.setWeaponAnimations(player);
-		calculateBonuses();
-		player.getItems().addContainerUpdate(ContainerUpdate.EQUIPMENT);
-		player.getItems().addContainerUpdate(ContainerUpdate.INVENTORY);
-		sendEquipmentContainer();
-	}
+            player.getOutStream().endFrameVarSizeWord();
+            player.flushOutStream();
+        }
+
+        /*
+         * Important:
+         * manualWear is used by Trial of Arms to force-equip weapons/ammo.
+         * If the item is a weapon, refresh the combat-style tab just like normal equipItem does.
+         */
+        if (targetSlot == Player.playerWeapon) {
+            player.setSpellId(-1);
+            player.usingMagic = false;
+            player.autocasting = false;
+            player.autocastId = 0;
+            player.usingSpecial = false;
+
+            addSpecialBar(wearID, false);
+            player.getPA().resetAutocast(false);
+            sendWeapon(player.playerEquipment[Player.playerWeapon]);
+        }
+
+        player.getPA().requestUpdates();
+        MeleeData.setWeaponAnimations(player);
+        calculateBonuses();
+
+        player.getItems().addContainerUpdate(ContainerUpdate.EQUIPMENT);
+        player.getItems().addContainerUpdate(ContainerUpdate.INVENTORY);
+        sendEquipmentContainer();
+    }
 
 	/**
 	 * Trimmed and untrimmed skillcapes.
@@ -387,6 +407,17 @@ public class ItemAssistant {
 			{ 9810, 9811, 3052 }, // Farming
 			{ 9765, 9766, 3053 } // Runecraft
 	};
+
+	private int getSkillcapeSkill(int itemId) {
+		for (int skill = 0; skill < skillcapes.length; skill++) {
+			for (int capeId : skillcapes[skill]) {
+				if (capeId == itemId) {
+					return skill;
+				}
+			}
+		}
+		return -1;
+	}
 
 	/**
 	 * Empties all of (a) player's items.
@@ -1031,6 +1062,12 @@ public class ItemAssistant {
 
 	public boolean canEquip(int wearID) {
 		ItemDef item = ItemDef.forId(wearID);
+		int skillcapeSkill = getSkillcapeSkill(wearID);
+		if (skillcapeSkill != -1 && player.playerLevel[skillcapeSkill] < 99) {
+			player.sendMessage("You need level 99 in this skill to wear that skillcape.");
+			return false;
+		}
+
 		switch (wearID) {
 			case 4587:
 			case 20000:

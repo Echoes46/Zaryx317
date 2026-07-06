@@ -40,8 +40,8 @@ public class Dz extends Command {
 							c.getPA().startTeleport(2604, 3874, 0, "modern", false);
 						}
 					}),
-						new DialogueOption("@bla@ Donator Zone (@whi@$2500@bla@)", p -> {
-							if (c.amDonated >= 2499) {
+						new DialogueOption("@bla@ Donator Zone (@whi@$2000@bla@)", p -> {
+							if (c.amDonated >= 1999) {
 								c.getPA().startTeleport(2406, 3803, 0, "modern", false);
 							}
 				})));

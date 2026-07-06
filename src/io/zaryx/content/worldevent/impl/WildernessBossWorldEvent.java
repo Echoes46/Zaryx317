@@ -9,6 +9,7 @@ import io.zaryx.content.worldevent.WorldEvent;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.Position;
 import io.zaryx.model.entity.player.broadcasts.Broadcast;
+import io.zaryx.util.discord.Discord;
 
 public class WildernessBossWorldEvent implements WorldEvent {
 
@@ -51,7 +52,16 @@ public class WildernessBossWorldEvent implements WorldEvent {
 
     @Override
     public void announce(List<Player> players) {
-        new Broadcast("<img=58> " + MonsterHunt.getName() + " has spawned at "
-                + MonsterHunt.getCurrentLocation().getLocationName() + ", use ::wildyevent to teleport!").addTeleport(new Position(MonsterHunt.getCurrentLocation().getX(), MonsterHunt.getCurrentLocation().getY(), 0)).copyMessageToChatbox().submit();
+        String bossName = MonsterHunt.getName();
+        String locationName = MonsterHunt.getCurrentLocation().getLocationName();
+
+        new Broadcast("<img=58> [WILDY] " + bossName + " has spawned at "
+                + locationName + "! Use ::wildyevent to teleport!")
+                .addTeleport(new Position(MonsterHunt.getCurrentLocation().getX(), MonsterHunt.getCurrentLocation().getY(), 0))
+                .copyMessageToChatbox()
+                .submit();
+
+        Discord.writeIngameEvents(bossName + " has spawned at "
+                + locationName + "! Use ::wildyevent to teleport!");
     }
 }

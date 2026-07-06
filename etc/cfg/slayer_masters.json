@@ -1237,16 +1237,6 @@
         "teleport": [1800, 9948, 0]
       },
       {
-        "names": [ "ankou" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 60,
-        "minimum": 30,
-        "maximum": 60,
-        "locations": [ "Catacombs" ],
-        "teleport": [1664, 10050, 0]
-      },
-      {
         "names": [ "aviansie", "kree'arra" ],
         "wilderness": false,
         "level": 1,

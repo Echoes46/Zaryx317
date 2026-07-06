@@ -20,7 +20,7 @@ common:
   items:
     - item: 995 #gp
       minimum: 2500
-      maximum: 10000
+      maximum: 100000
 uncommon:
   accessibility: 300
   items:
@@ -37,18 +37,9 @@ rare:
   accessibility: 600
   items:
     - item: 6679 #mystery box
-      minimum: 10
-      maximum: 10
+      minimum: 1
+      maximum: 2
     - item: 6678 #smb
-      minimum: 5
-      maximum: 5
-    - item: 692 #25k nomad
-      minimum: 1
-      maximum: 1
-    - item: 693 #50k nomad
-      minimum: 1
-      maximum: 1
-    - item: 696 #250k nomad
       minimum: 1
       maximum: 1
 very_rare:

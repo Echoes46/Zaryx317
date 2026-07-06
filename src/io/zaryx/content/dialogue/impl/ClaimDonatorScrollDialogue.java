@@ -2,6 +2,7 @@ package io.zaryx.content.dialogue.impl;
 
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.dialogue.DialogueOption;
+import io.zaryx.content.deals.AccountBoosts;
 import io.zaryx.model.Npcs;
 import io.zaryx.model.entity.player.Player;
 
@@ -39,6 +40,8 @@ public class ClaimDonatorScrollDialogue extends DialogueBuilder {
         getPlayer().gfx100(2259);
         getPlayer().donatorPoints += scroll.credits;
         getPlayer().amDonated += scroll.donationAmount;
+        getPlayer().getDonationRewards().increaseDonationAmount(scroll.donationAmount);
+        AccountBoosts.addWeeklyDono(getPlayer(), scroll.donationAmount);
         getPlayer().getPA().closeAllWindows();
         getPlayer().start(new DialogueBuilder(getPlayer()).setNpcId(NPC_ID).npc("Thank you for donating!",
                 scroll.donationAmount + "$ has been added to your total donated",scroll.credits+

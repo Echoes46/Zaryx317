@@ -34,31 +34,38 @@ public class BlastFurnaceStove {
     }
 
     public void refuel(Player player) {
-        if(player.getItems().getInventoryCount(6448) <= 0) {
+        if (player.getItems().getInventoryCount(6448) <= 0) {
             player.start(new DialogueBuilder(player).statement("You need a spade full of coke to refuel the stove."));
             return;
         }
+
         player.startAnimation(2442);
         player.getPA().addSkillXPMultiplied(player.playerLevel[Skill.FIREMAKING.getId()] * 10, 11, true);
         player.getPA().sendSound(1059);
         player.getItems().deleteItem(6448, 1);
         player.getItems().addItem(Items.SPADE, 1);
         addCoal(10);
+
+        player.startAnimation(65535); // reset animation
     }
 
     public void collect(Player player) {
         if (!player.getItems().hasItemOnOrInventory(Items.SPADE)) {
-               player.start(new DialogueBuilder(player).statement("You will need a spade to collect coke."));
-                return;
+            player.start(new DialogueBuilder(player).statement("You will need a spade to collect coke."));
+            return;
         }
+
         if (player.getItems().getInventoryCount(6448) >= 1) {
-                player.start(new DialogueBuilder(player).statement("Your spade is already full of coke."));
-                return;
+            player.start(new DialogueBuilder(player).statement("Your spade is already full of coke."));
+            return;
         }
+
         player.startAnimation(2441);
         player.getPA().sendSound(1049);
         player.getItems().addItem(6448, 1);
         player.getItems().deleteItem(Items.SPADE, 1);
+
+        player.startAnimation(65535); // reset animation
     }
 
     public boolean canRun() {

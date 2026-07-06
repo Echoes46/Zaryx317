@@ -29,31 +29,31 @@ items:
   - name: "royal seed pod"
     price: 1000
   - id: 26526 #cannon
-    price: 4000
+    price: 1000
   - id: 26522 #cannon
-    price: 4000
+    price: 1000
   - id: 26520 #cannon
-    price: 4000
+    price: 1000
   - id: 26524 #cannon
-    price: 4000
+    price: 1000
   - name: "ammo mould"
     price: 5
   - name: "casket"
     price: 25
   - id: 8167 #nomad chest
-    price: 10000
+    price: 3000
   - id: 26714 #arma helm (or)
-    price: 6500
+    price: 2000
   - id: 26715 #arma body (or)
-    price: 6500
+    price: 2000
   - id: 26716 #arma skirt (or)
-    price: 6500
+    price: 2000
   - id: 26718 #bandos chest (or)
-    price: 6500
+    price: 2000
   - id: 26719 #bandos tassets (or)
-    price: 6500
+    price: 2000
   - id: 26720 #bandos boots (or)
-    price: 6500
+    price: 2000
   - name: "fighter torso"
     price: 1000
   - id: 12873 #guthans

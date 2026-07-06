@@ -140,7 +140,7 @@ public class WeaponDataConstants {
             //Special Crossbows
             Items.PHOENIX_CROSSBOW, Items.LIGHT_BALLISTA, Items.HEAVY_BALLISTA, 26712, Items.DRAGON_HUNTER_CROSSBOW, Items.DORGESHUUN_CROSSBOW, Items.HUNTERS_CROSSBOW,
             //Shortbows
-            Items.SHORTBOW, Items.OAK_SHORTBOW, Items.WILLOW_SHORTBOW, Items.MAPLE_SHORTBOW, Items.YEW_SHORTBOW, Items.MAGIC_SHORTBOW, Items.MAGIC_SHORTBOW_I,
+            Items.SHORTBOW, Items.OAK_SHORTBOW, Items.WILLOW_SHORTBOW, Items.MAPLE_SHORTBOW, Items.YEW_SHORTBOW, Items.MAGIC_SHORTBOW, Items.MAGIC_SHORTBOW_I,6724,
             //Longbows
             Items.LONGBOW, Items.OAK_LONGBOW, Items.WILLOW_LONGBOW, Items.MAPLE_LONGBOW, Items.YEW_LONGBOW, Items.MAGIC_LONGBOW,
             //Special Bows

@@ -1159,10 +1159,14 @@ public class Player extends Entity {
     public boolean isFullHelm;
     public boolean isFullMask;
     public boolean isOperate;
+    public int lampItemUsed = -1;
     public boolean usingLamp;
     public boolean normalLamp;
     public boolean antiqueLamp;
     public boolean setPin;
+    public int bloodyReturnX = -1;
+    public int bloodyReturnY = -1;
+    public int bloodyReturnHeight = 0;
     public boolean teleporting;
     public boolean freeranks;
     public boolean isWc;

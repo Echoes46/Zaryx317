@@ -12,166 +12,204 @@ import io.zaryx.util.Misc;
 
 public class ClanManager {
 
-	public ArrayList<Clan> clans = new ArrayList<>();
+    public ArrayList<Clan> clans = new ArrayList<>();
 
-	public static String getSaveDirectory() {
-		return Server.getSaveDirectory() + "/clan/";
-	}
+    private static final String HELP_CLAN_NAME = "Help";
 
-	public void create(Player paramClient) {
-		if (paramClient.clan != null) {
-			paramClient.sendMessage("@red@You must leave your current clan-chat before making your own.");
-			return;
-		}
-		if (paramClient.inArdiCC) {
-			return;
-		}
-		Clan localClan = new Clan(paramClient);
-		this.clans.add(localClan);
-		localClan.addMember(paramClient);
-		localClan.save();
-		paramClient.getPA().setClanData();
-		paramClient.sendMessage("@red@You may change your clan settings by clicking the 'Clan Setup' button.");
-	}
+    public static String getSaveDirectory() {
+        return Server.getSaveDirectory() + "/clan/";
+    }
 
-	public Clan getClan(String paramString) {
-		for (int i = 0; i < this.clans.size(); i++) {
-			if (this.clans.get(i).getFounder().equalsIgnoreCase(paramString)) {
-				return this.clans.get(i);
-			}
+    public void create(Player paramClient) {
+        if (paramClient.clan != null) {
+            paramClient.sendMessage("@red@You must leave your current clan-chat before making your own.");
+            return;
+        }
+        if (paramClient.inArdiCC) {
+            return;
+        }
+        Clan localClan = new Clan(paramClient);
+        this.clans.add(localClan);
+        localClan.addMember(paramClient);
+        localClan.save();
+        paramClient.getPA().setClanData();
+        paramClient.sendMessage("@red@You may change your clan settings by clicking the 'Clan Setup' button.");
+    }
 
-		}
+    public Clan getClan(String paramString) {
+        if (paramString == null || paramString.length() <= 0) {
+            return null;
+        }
 
-		Clan localClan = read(paramString);
-		if (localClan != null) {
-			this.clans.add(localClan);
-			return localClan;
-		}
-		return null;
-	}
+        // Help is a permanent server clan. Always load/create it through getHelpClan()
+        // so it is not treated like a normal player-owned clan.
+        if (paramString.equalsIgnoreCase(HELP_CLAN_NAME)) {
+            return getHelpClan();
+        }
 
-	/**
-	 * Returns the Help clan or creates it if it doesn't exist yet.
-	 * 
-	 * @return The Help clan.
-	 */
-	public Clan getHelpClan() {
-		for (int i = 0; i < this.clans.size(); i++) {
-			if (clans.get(i).getFounder().equalsIgnoreCase("Help")) {
-				return clans.get(i);
-			}
-		}
+        for (int i = 0; i < this.clans.size(); i++) {
+            if (this.clans.get(i).getFounder().equalsIgnoreCase(paramString)) {
+                return this.clans.get(i);
+            }
+        }
 
-		Clan localClan = read("Help");
-		if (localClan != null) {
-			clans.add(localClan);
-			return localClan;
-		}
-		localClan = new Clan("Help", "Help");
-		clans.add(localClan);
-		localClan.save();
-		return localClan;
-	}
+        Clan localClan = read(paramString);
+        if (localClan != null) {
+            this.clans.add(localClan);
+            return localClan;
+        }
+        return null;
+    }
 
-	public void delete(Clan paramClan) {
-		if (paramClan == null) {
-			return;
-		}
-		Misc.createDirectory(getSaveDirectory());
-		File localFile = new File(getSaveDirectory() + paramClan.getFounder() + ".cla");
-		if (localFile.delete()) {
-			Player localClient = PlayerHandler.getPlayerByLoginName(paramClan.getFounder());
-			if (localClient != null) {
-				localClient.sendMessage("@red@Your clan has been deleted.");
-			}
-			this.clans.remove(paramClan);
-		}
-	}
+    /**
+     * Returns the Help clan or creates it if it doesn't exist yet.
+     *
+     * @return The Help clan.
+     */
+    public Clan getHelpClan() {
+        for (int i = 0; i < this.clans.size(); i++) {
+            if (clans.get(i).getFounder().equalsIgnoreCase(HELP_CLAN_NAME)) {
+                return clans.get(i);
+            }
+        }
 
-	public void save(Clan paramClan) {
-		if (paramClan == null) {
-			return;
-		}
-		Misc.createDirectory(getSaveDirectory());
-		File localFile = new File(getSaveDirectory() + paramClan.getFounder() + ".cla");
-		try {
-			RandomAccessFile localRandomAccessFile = new RandomAccessFile(localFile, "rwd");
+        Clan localClan = read(HELP_CLAN_NAME);
+        if (localClan != null) {
+            clans.add(localClan);
+            return localClan;
+        }
 
-			localRandomAccessFile.writeUTF(paramClan.getTitle());
-			localRandomAccessFile.writeByte(paramClan.whoCanJoin);
-			localRandomAccessFile.writeByte(paramClan.whoCanTalk);
-			localRandomAccessFile.writeByte(paramClan.whoCanKick);
-			localRandomAccessFile.writeByte(paramClan.whoCanBan);
-			if ((paramClan.rankedMembers != null) && (paramClan.rankedMembers.size() > 0)) {
-				localRandomAccessFile.writeShort(paramClan.rankedMembers.size());
-				for (int i = 0; i < paramClan.rankedMembers.size(); i++) {
-					localRandomAccessFile.writeUTF(paramClan.rankedMembers.get(i));
-					localRandomAccessFile.writeShort(paramClan.ranks.get(i).intValue());
-				}
-			} else {
-				localRandomAccessFile.writeShort(0);
-			}
+        localClan = new Clan(HELP_CLAN_NAME, HELP_CLAN_NAME);
+        clans.add(localClan);
+        localClan.save();
+        return localClan;
+    }
 
-			localRandomAccessFile.close();
-		} catch (IOException localIOException) {
-			localIOException.printStackTrace();
-		}
-	}
+    public void delete(Clan paramClan) {
+        if (paramClan == null) {
+            return;
+        }
 
-	private Clan read(String paramString) {
-		Misc.createDirectory(getSaveDirectory());
-		File localFile = new File(getSaveDirectory() + paramString + ".cla");
-		if (!localFile.exists()) {
-			return null;
-		}
-		try {
-			RandomAccessFile localRandomAccessFile = new RandomAccessFile(localFile, "rwd");
+        // Never allow the permanent Help clan to be deleted. If Help is removed from
+        // the active clan list or its save file is deleted, players may fail to rejoin it.
+        if (paramClan.getFounder().equalsIgnoreCase(HELP_CLAN_NAME)) {
+            return;
+        }
 
-			Clan localClan = new Clan(localRandomAccessFile.readUTF(), paramString);
-			localClan.whoCanJoin = localRandomAccessFile.readByte();
-			localClan.whoCanTalk = localRandomAccessFile.readByte();
-			localClan.whoCanKick = localRandomAccessFile.readByte();
-			localClan.whoCanBan = localRandomAccessFile.readByte();
-			int i = localRandomAccessFile.readShort();
-			if (i != 0) {
-				for (int j = 0; j < i; j++) {
-					localClan.rankedMembers.add(localRandomAccessFile.readUTF());
-					localClan.ranks.add(Integer.valueOf(localRandomAccessFile.readShort()));
-				}
-			}
-			localRandomAccessFile.close();
+        Misc.createDirectory(getSaveDirectory());
+        File localFile = new File(getSaveDirectory() + paramClan.getFounder() + ".cla");
+        if (localFile.delete()) {
+            Player localClient = PlayerHandler.getPlayerByLoginName(paramClan.getFounder());
+            if (localClient != null) {
+                localClient.sendMessage("@red@Your clan has been deleted.");
+            }
+            this.clans.remove(paramClan);
+        }
+    }
 
-			return localClan;
-		} catch (IOException localIOException) {
-			localIOException.printStackTrace();
-		}
-		return null;
-	}
+    public void save(Clan paramClan) {
+        if (paramClan == null) {
+            return;
+        }
+        Misc.createDirectory(getSaveDirectory());
+        File localFile = new File(getSaveDirectory() + paramClan.getFounder() + ".cla");
+        try {
+            RandomAccessFile localRandomAccessFile = new RandomAccessFile(localFile, "rwd");
 
-	/**
-	 * Attempt to rejoin the last Clan channel upon login.
-	 * 
-	 * @param client
-	 */
-	public void joinOnLogin(Player client) {
-		String lastChannel = client.getLastClanChat();
-		if (lastChannel != null && lastChannel.length() > 0) {
-			Clan localClan = getClan(lastChannel);
-			if (localClan != null) {
-				localClan.addMember(client);
-			} else {
-				client.sendMessage(lastChannel + " no longer exists.");
-			}
-		}
-	}
+            localRandomAccessFile.writeUTF(paramClan.getTitle());
+            localRandomAccessFile.writeByte(paramClan.whoCanJoin);
+            localRandomAccessFile.writeByte(paramClan.whoCanTalk);
+            localRandomAccessFile.writeByte(paramClan.whoCanKick);
+            localRandomAccessFile.writeByte(paramClan.whoCanBan);
+            if ((paramClan.rankedMembers != null) && (paramClan.rankedMembers.size() > 0)) {
+                localRandomAccessFile.writeShort(paramClan.rankedMembers.size());
+                for (int i = 0; i < paramClan.rankedMembers.size(); i++) {
+                    localRandomAccessFile.writeUTF(paramClan.rankedMembers.get(i));
+                    localRandomAccessFile.writeShort(paramClan.ranks.get(i).intValue());
+                }
+            } else {
+                localRandomAccessFile.writeShort(0);
+            }
 
-	public boolean clanExists(String paramString) {
-		Misc.createDirectory(getSaveDirectory());
-		File localFile = new File(getSaveDirectory() + paramString + ".cla");
-		return localFile.exists();
-	}
+            localRandomAccessFile.close();
+        } catch (IOException localIOException) {
+            localIOException.printStackTrace();
+        }
+    }
 
-	public ArrayList<Clan> getClans() {
-		return this.clans;
-	}
+    private Clan read(String paramString) {
+        Misc.createDirectory(getSaveDirectory());
+        File localFile = new File(getSaveDirectory() + paramString + ".cla");
+        if (!localFile.exists()) {
+            return null;
+        }
+        try {
+            RandomAccessFile localRandomAccessFile = new RandomAccessFile(localFile, "rwd");
+
+            Clan localClan = new Clan(localRandomAccessFile.readUTF(), paramString);
+            localClan.whoCanJoin = localRandomAccessFile.readByte();
+            localClan.whoCanTalk = localRandomAccessFile.readByte();
+            localClan.whoCanKick = localRandomAccessFile.readByte();
+            localClan.whoCanBan = localRandomAccessFile.readByte();
+            int i = localRandomAccessFile.readShort();
+            if (i != 0) {
+                for (int j = 0; j < i; j++) {
+                    localClan.rankedMembers.add(localRandomAccessFile.readUTF());
+                    localClan.ranks.add(Integer.valueOf(localRandomAccessFile.readShort()));
+                }
+            }
+            localRandomAccessFile.close();
+
+            return localClan;
+        } catch (IOException localIOException) {
+            localIOException.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Attempt to rejoin the last Clan channel upon login.
+     *
+     * @param client
+     */
+    public void joinOnLogin(Player client) {
+        String lastChannel = client.getLastClanChat();
+        if (lastChannel != null && lastChannel.length() > 0) {
+            Clan localClan;
+
+            // Help should always exist. Use getHelpClan() here so missing/deleted Help
+            // files do not prevent players from joining the server help channel.
+            if (lastChannel.equalsIgnoreCase(HELP_CLAN_NAME)) {
+                localClan = getHelpClan();
+            } else {
+                localClan = getClan(lastChannel);
+            }
+
+            if (localClan != null) {
+                localClan.addMember(client);
+            } else {
+                client.sendMessage(lastChannel + " no longer exists.");
+            }
+        }
+    }
+
+    public boolean clanExists(String paramString) {
+        if (paramString == null || paramString.length() <= 0) {
+            return false;
+        }
+
+        // Help is a permanent server clan. Treat it as existing even if the file has
+        // not been created yet, because getHelpClan() can create it on demand.
+        if (paramString.equalsIgnoreCase(HELP_CLAN_NAME)) {
+            return true;
+        }
+
+        Misc.createDirectory(getSaveDirectory());
+        File localFile = new File(getSaveDirectory() + paramString + ".cla");
+        return localFile.exists();
+    }
+
+    public ArrayList<Clan> getClans() {
+        return this.clans;
+    }
 }
