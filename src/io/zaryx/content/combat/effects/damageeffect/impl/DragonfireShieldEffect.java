@@ -93,9 +93,12 @@ public class DragonfireShieldEffect implements DamageEffect {
 				if (cycle == 1) {
 					attacker.startAnimation(6696);
 					attacker.gfx0(1165);
+					attacker.setDragonfireShieldCharge(attacker.getDragonfireShieldCharge() - 1);
+					attacker.getPA().sendConfig(6539, 200 / 8);
+					TaskManager.submit(200, () -> attacker.getPA().sendConfig(6539, 0));
 				} else if (cycle == 4) {
 					attacker.getPA().createPlayersProjectile2(attacker.getX(), attacker.getY(), (attacker.getY() - defender.getY()) * -1, (attacker.getX() - defender.getX()) * -1,
-							50, 50, 1166, 30, 30, -attacker.oldNpcIndex - 1, 30, 5);
+							50, 50, 1166, 30, 30, -defender.getIndex() - 1, 30, 5);
 				} else if (cycle >= 5) {
 					defender.underAttack = true;
 					defender.hitDiff = damage.getAmount();
