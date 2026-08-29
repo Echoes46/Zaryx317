@@ -170,6 +170,19 @@ public class ClickNPC implements PacketType {
                     return;
                 }
 
+                if (n.getNpcId() == 12214) {
+                    c.stopMovement();
+                    c.npcAttackingIndex = npcIndex;
+                    c.usingClickCast = false;
+                    c.faceEntity(n);
+                    if (c.attacking.attackEntityCheck(n, true)) {
+                        c.attackEntity(n);
+                    } else {
+                        c.attacking.reset();
+                    }
+                    return;
+                }
+
                 if (Hespori.clickNpc(c, n.getNpcId())) {
                     return;
                 }

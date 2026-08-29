@@ -1859,6 +1859,7 @@ public class NPCHandler {
         if (npc == null) return false;
         switch (npc.getNpcId()) {
         case 6611:
+            case 12214:
             case 8164:
             case 8172:
             case 13201:

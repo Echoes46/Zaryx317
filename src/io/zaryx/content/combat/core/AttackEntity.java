@@ -1198,6 +1198,10 @@ public class AttackEntity {
                 getDistanceRequired(getCombatType(), attacker) + npc.getAttackDistanceModifier(attacker,
                         getCombatType());
 
+        if (npc.getNpcId() == 12214) {
+            attackDistanceRequired = Math.max(attackDistanceRequired, 10);
+        }
+
         if (getCombatType() != CombatType.MELEE) {
             if (npc.getNpcId() == 7706) {
                 attackDistanceRequired = 18;

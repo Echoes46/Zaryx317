@@ -207,38 +207,44 @@ public class ServerStartup {
                 }
 
                 try {
-                    int x = Integer.parseInt(parts[0]);
-                    int y = Integer.parseInt(parts[1]);
-                    int z = Integer.parseInt(parts[2]);
+                    int[] xRange = parseWalkableTileRange(parts[0]);
+                    int[] yRange = parseWalkableTileRange(parts[1]);
+                    int[] zRange = parseWalkableTileRange(parts[2]);
                     String state = parts[3];
 
-                    io.zaryx.model.collisionmap.Region region =
-                            io.zaryx.model.collisionmap.RegionProvider.getGlobal().get(x, y);
+                    for (int x = xRange[0]; x <= xRange[1]; x++) {
+                        for (int y = yRange[0]; y <= yRange[1]; y++) {
+                            for (int z = zRange[0]; z <= zRange[1]; z++) {
+                                io.zaryx.model.collisionmap.Region region =
+                                        io.zaryx.model.collisionmap.RegionProvider.getGlobal().get(x, y);
 
-                    if (region == null) {
-                        skipped++;
-                        continue;
-                    }
+                                if (region == null) {
+                                    skipped++;
+                                    continue;
+                                }
 
-                    if (state.equalsIgnoreCase("walkable")) {
-                        // Clear base tile clipping.
-                        region.setClipToZero(x, y, z);
+                                if (state.equalsIgnoreCase("walkable")) {
+                                    // Clear base tile clipping.
+                                    region.setClipToZero(x, y, z);
 
-                        // Clear object clipping that may still make the tile invalid as a destination.
-                        for (int type = 0; type <= 22; type++) {
-                            for (int face = 0; face < 4; face++) {
-                                region.removeObject(0, x, y, z, type, face);
-                                region.removeObject(-1, x, y, z, type, face);
+                                    // Clear object clipping that may still make the tile invalid as a destination.
+                                    for (int type = 0; type <= 22; type++) {
+                                        for (int face = 0; face < 4; face++) {
+                                            region.removeObject(0, x, y, z, type, face);
+                                            region.removeObject(-1, x, y, z, type, face);
+                                        }
+                                    }
+
+                                    // Clear again after object removals.
+                                    region.setClipToZero(x, y, z);
+                                    count++;
+
+                                } else if (state.equalsIgnoreCase("blocked")) {
+                                    region.addClip(x, y, z, 0x200000);
+                                    count++;
+                                }
                             }
                         }
-
-                        // Clear again after object removals.
-                        region.setClipToZero(x, y, z);
-                        count++;
-
-                    } else if (state.equalsIgnoreCase("blocked")) {
-                        region.addClip(x, y, z, 0x200000);
-                        count++;
                     }
 
                 } catch (NumberFormatException ignored) {
@@ -252,5 +258,12 @@ public class ServerStartup {
         }
 
         System.out.println("[WALKABLE] Loaded " + count + " custom walkable tile overrides. Skipped " + skipped + ".");
+    }
+
+    private static int[] parseWalkableTileRange(String value) {
+        String[] bounds = value.split("-", 2);
+        int start = Integer.parseInt(bounds[0]);
+        int end = bounds.length == 2 ? Integer.parseInt(bounds[1]) : start;
+        return new int[]{Math.min(start, end), Math.max(start, end)};
     }
 }

@@ -74,10 +74,7 @@ public class OutlastController implements Controller {
         TourneyManager.getSingleton().leaveLobby(player, false);
 
         if (player.getOutlastSkillBackup().isEmpty()) {
-            player.sendMessage("@red@There was an error restoring your skills, contact staff.");
-            logger.error("No skills backup for player: {}, resetting skills to default.", player);
-            player.resetSkills();
-            player.getPA().refreshSkills();
+            logger.error("No skills backup for player: {}, leaving current skills unchanged.", player);
         } else {
             // TODO log here what levels were set to
             player.getOutlastSkillBackup().forEach(skill -> player.setLevel(skill.getSkill(), skill.getExperience(), true));

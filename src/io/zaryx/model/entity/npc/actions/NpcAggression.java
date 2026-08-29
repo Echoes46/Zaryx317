@@ -545,10 +545,10 @@ public class NpcAggression {
             case 6617:
             case 6620:
             case 2241:
-            case 12214:
             case FragmentOfSeren.FRAGMENT_ID:
             case FragmentOfSeren.CRYSTAL_WHIRLWIND:
                 return false;
+            case 12214:
             case 6319:
             case 8028:
                 return true;
