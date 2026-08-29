@@ -25,26 +25,23 @@ public class Dz extends Command {
 		}
 
 		c.start(new DialogueBuilder(c).option("Select the donor zone you wish to enter!",
-				new DialogueOption("@bla@ Donator Zone (@gre@$25@bla@)", p -> {
-					if (c.amDonated >= 24) {
-						c.getPA().startTeleport(1759, 5469, 0, "modern", false);
-					}
-				}),
-				new DialogueOption("@bla@ Donator Zone (@blu@$250@bla@)", p -> {
-					if (c.amDonated >= 249) {
-						c.getPA().startTeleport(2604, 3874, 0, "modern", false);
-					}
-				}),
-					new DialogueOption("@bla@ Donator Zone (@yel@$1000@bla@)", p -> {
-						if (c.amDonated >= 999) {
-							c.getPA().startTeleport(2604, 3874, 0, "modern", false);
-						}
-					}),
-						new DialogueOption("@bla@ Donator Zone (@whi@$2000@bla@)", p -> {
-							if (c.amDonated >= 1999) {
-								c.getPA().startTeleport(2406, 3803, 0, "modern", false);
-							}
-				})));
+				new DialogueOption("@bla@ Donator Zone (@gre@$25@bla@)",
+						p -> teleportToZone(p, 25, 1759, 5469)),
+				new DialogueOption("@bla@ Donator Zone (@blu@$250@bla@)",
+						p -> teleportToZone(p, 250, 2604, 3874)),
+				new DialogueOption("@bla@ Donator Zone (@yel@$1000@bla@)",
+						p -> teleportToZone(p, 1000, 2604, 3874)),
+				new DialogueOption("@bla@ Donator Zone (@whi@$2000@bla@)",
+						p -> teleportToZone(p, 2000, 2406, 3803))));
+	}
+
+	private static void teleportToZone(Player player, int requiredDonation, int x, int y) {
+		if (!player.getRights().hasStaffPosition() && player.amDonated < requiredDonation) {
+			player.sendMessage("You need to have donated at least $" + requiredDonation + " to enter this zone.");
+			return;
+		}
+
+		player.getPA().startTeleport(x, y, 0, "modern", false);
 	}
 
 	@Override

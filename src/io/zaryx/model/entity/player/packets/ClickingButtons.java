@@ -3166,6 +3166,10 @@ public class ClickingButtons implements PacketType {
     }
 
     private static void dialogueOption(Player c, int buttonId) {
+        if (handleDialogueBuilderOption(c, buttonId)) {
+            return;
+        }
+
         switch (buttonId) {
             case 9167:
                 if (c.getDialogueBuilder() != null) {
@@ -3290,6 +3294,50 @@ public class ClickingButtons implements PacketType {
                 FiveOptions.handleOption5(c);
                 break;
         }
+    }
+
+    /**
+     * Handles option component ids used by the current client cache. The legacy
+     * option handlers below use the older 9157-9194 button range.
+     */
+    private static boolean handleDialogueBuilderOption(Player player, int buttonId) {
+        if (player.getDialogueBuilder() == null) {
+            return false;
+        }
+
+        DialogueAction action;
+        switch (buttonId) {
+            case 13760:
+            case 2461:
+            case 2471:
+            case 2482:
+            case 2494:
+                action = DialogueAction.OPTION_1;
+                break;
+            case 2462:
+            case 2472:
+            case 2483:
+            case 2495:
+                action = DialogueAction.OPTION_2;
+                break;
+            case 2473:
+            case 2484:
+            case 2496:
+                action = DialogueAction.OPTION_3;
+                break;
+            case 2485:
+            case 2497:
+                action = DialogueAction.OPTION_4;
+                break;
+            case 2498:
+                action = DialogueAction.OPTION_5;
+                break;
+            default:
+                return false;
+        }
+
+        player.getDialogueBuilder().dispatchAction(action);
+        return true;
     }
 
 
