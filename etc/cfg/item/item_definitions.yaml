@@ -78826,3 +78826,29 @@
   shopValue: 80000
   untradeable: true
   parent: 2416
+- id: 33800
+  name: "Kabuto of Ahri"
+  description: "The kabuto from the armour of Ahri."
+  equipmentModelType: "FULL_MASK"
+- id: 33802
+  name: "Do' of Ahri"
+  description: "The cuirass from the armour of Ahri."
+  equipmentModelType: "FULL_BODY"
+- id: 33804
+  name: "Kusazuri of Ahri"
+  description: "The kusazuri from the armour of Ahri."
+- id: 33806
+  name: "Tachi of Ahri"
+  description: "The tachi of Ahri."
+- id: 33808
+  name: "Tekko-kagi"
+  description: "A bladed claw weapon."
+- id: 33810
+  name: "Horo of Ahri"
+  description: "The horo from the armour of Ahri."
+- id: 33812
+  name: "Shield of severity"
+  description: "A shield of uncompromising severity."
+- id: 33814
+  name: "Tekko-kagi (off-Hand)"
+  description: "A bladed claw weapon for the off hand."

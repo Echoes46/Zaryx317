@@ -76585,6 +76585,63 @@
       "str": 2,
       "aspeed": 5
     }
+  },
+  "33800": {
+    "name": "Kabuto of Ahri",
+    "equipable": true,
+    "equipment": {
+      "slot": 0
+    }
+  },
+  "33802": {
+    "name": "Do' of Ahri",
+    "equipable": true,
+    "equipment": {
+      "slot": 4
+    }
+  },
+  "33804": {
+    "name": "Kusazuri of Ahri",
+    "equipable": true,
+    "equipment": {
+      "slot": 7
+    }
+  },
+  "33806": {
+    "name": "Tachi of Ahri",
+    "equipable": true,
+    "equipment": {
+      "slot": 3,
+      "aspeed": 4
+    }
+  },
+  "33808": {
+    "name": "Tekko-kagi",
+    "equipable": true,
+    "equipment": {
+      "slot": 3,
+      "aspeed": 4
+    }
+  },
+  "33810": {
+    "name": "Horo of Ahri",
+    "equipable": true,
+    "equipment": {
+      "slot": 1
+    }
+  },
+  "33812": {
+    "name": "Shield of severity",
+    "equipable": true,
+    "equipment": {
+      "slot": 5
+    }
+  },
+  "33814": {
+    "name": "Tekko-kagi (off-Hand)",
+    "equipable": true,
+    "equipment": {
+      "slot": 5
+    }
   }
-
 }
