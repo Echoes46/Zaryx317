@@ -31,6 +31,7 @@ import io.zaryx.content.skills.runecrafting.ouriana.OurianaBanker;
 import io.zaryx.content.skills.slayer.LarrensKey;
 import io.zaryx.content.tournaments.TourneyManager;
 import io.zaryx.content.upgrade.UpgradeMaterials;
+import io.zaryx.model.ObjectId;
 import io.zaryx.model.collisionmap.WorldObject;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.model.multiplayersession.MultiplayerSessionFinalizeType;
@@ -116,6 +117,9 @@ public class ClickObject implements PacketType {
                     }
                 }));
             } else {
+                if (object.getId() == ObjectId.BANK_DEPOSIT_BOX_26254) {
+                    PathFinder.getPathFinder().findRoute(player, object.getX(), object.getY(), true, size.getX(), size.getY());
+                }
                 player.setTickable(new WalkToTickable(player, object.getPosition(), size.getX(), size.getY(), player1 -> finishObjectClick(player1, option, object)));
             }
         } else if (player.getRooftopPollnivneach().execute(player, player.objectId)) {
