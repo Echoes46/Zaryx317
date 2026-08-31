@@ -78852,3 +78852,119 @@
 - id: 33814
   name: "Tekko-kagi (off-Hand)"
   description: "A bladed claw weapon for the off hand."
+- id: 25818
+  name: Warped Book
+  description: A book infused with warped magic.
+- id: 25692
+  name: Warped Scripture
+  description: Ancient scripture infused with warped magic.
+  parent: 25818
+- id: 26903
+  name: Pridd of Mage
+  description: A pridd attuned to magical combat.
+  parent: 26914
+- id: 26990
+  name: Pridd of Melee
+  description: A pridd attuned to melee combat.
+  parent: 26914
+- id: 26992
+  name: Pridd of Range
+  description: A pridd attuned to ranged combat.
+  parent: 26914
+- id: 27855
+  name: Strongman's Anchor
+  description: A brutally heavy anchor made for combat.
+  parent: 10887
+- id: 28069
+  name: Cursed Torso
+  description: A fighter torso imbued with a curse.
+  parent: 28067
+- id: 28310
+  name: Venator Ring
+  description: An occult ring that grants immense dexterity.
+  parent: 11771
+- id: 28313
+  name: Magus Ring
+  description: An occult ring that grants immense magical power.
+  parent: 11770
+- id: 28316
+  name: Bellator Ring
+  description: An occult ring that grants immense martial power.
+  parent: 11772
+- id: 28583
+  name: Warped Sceptre (uncharged)
+  description: A magical warped weapon. It is currently uncharged.
+  shopValue: 150000
+  requirements:
+    - skill: MAGIC
+      level: 62
+- id: 28585
+  name: Warped Sceptre
+  description: A charged magical warped weapon.
+  shopValue: 150000
+  untradeable: true
+  requirements:
+    - skill: MAGIC
+      level: 62
+- id: 29999
+  name: Boots of Vengeance
+  description: Boots carrying the promise of vengeance.
+  parent: 27410
+- id: 33004
+  name: Wings of iak
+  description: A pair of imposing wings.
+- id: 33177
+  name: Golden blowpipe
+  description: Fires darts while coating them with golden venom.
+  untradeable: true
+  parent: 12926
+- id: 35000
+  name: Saradomin's Body (f)
+  description: Faction armour bearing Saradomin's colours.
+  parent: 1127
+- id: 35002
+  name: Saradomin's Helm (f)
+  description: Faction armour bearing Saradomin's colours.
+  parent: 1163
+- id: 35004
+  name: Saradomin's Legs (f)
+  description: Faction armour bearing Saradomin's colours.
+  parent: 1079
+- id: 35006
+  name: Zamorak's Body (f)
+  description: Faction armour bearing Zamorak's colours.
+  parent: 1127
+- id: 35008
+  name: Zamorak's Helm (f)
+  description: Faction armour bearing Zamorak's colours.
+  parent: 1163
+- id: 35010
+  name: Zamorak's Legs (f)
+  description: Faction armour bearing Zamorak's colours.
+  parent: 1079
+- id: 35012
+  name: Guthix's Body (f)
+  description: Faction armour bearing Guthix's colours.
+  parent: 1127
+- id: 35014
+  name: Guthix's Helm (f)
+  description: Faction armour bearing Guthix's colours.
+  parent: 1163
+- id: 35016
+  name: Guthix's Legs (f)
+  description: Faction armour bearing Guthix's colours.
+  parent: 1079
+- id: 35555
+  name: test helm
+  description: An unfinished test helmet.
+  equipmentModelType: FULL_MASK
+- id: 35556
+  name: test body
+  description: An unfinished test body.
+  equipmentModelType: FULL_BODY
+- id: 35557
+  name: test legs
+  description: Unfinished test leg armour.
+- id: 35558
+  name: test wep
+  description: An unfinished test weapon.
