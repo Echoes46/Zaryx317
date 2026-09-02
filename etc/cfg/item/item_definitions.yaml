@@ -78349,6 +78349,18 @@
   name: Shadow Crusade Key
   description: To be used on the Shadow Crusade Chest.
   stackable: true
+- id: 28417
+  name: Slayer Key (tier 2)
+  description: A tier 2 Slayer key.
+  stackable: true
+- id: 28418
+  name: Slayer Key (tier 3)
+  description: A tier 3 Slayer key.
+  stackable: true
+- id: 28419
+  name: Slayer Key (tier 4)
+  description: A tier 4 Slayer key.
+  stackable: true
 - id: 33360
   name: Mini Shadow Crusade Raid Box
   description: Mini Shadow Crusade Raid Box.

@@ -37,6 +37,7 @@ import io.zaryx.model.entity.player.mode.group.ExpModeType;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.items.ImmutableItem;
 import io.zaryx.model.items.ItemAssistant;
+import io.zaryx.model.world.ItemHandler;
 import io.zaryx.util.ItemConstants;
 import io.zaryx.util.Location3D;
 import io.zaryx.util.Misc;
@@ -607,7 +608,7 @@ public class DropManager {
                     if (hasDarkVersion && petPerkChance < 25) {
                         extraKey = 1;
                     }
-                    player.getItems().addItem(specialItemId, keyAmount + extraKey);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, keyAmount + extraKey);
                 } else {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet noticed a @blu@crystal key,@bla@ but your inventory is full!");
                     Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), keyAmount, player.getIndex());
@@ -786,7 +787,7 @@ public class DropManager {
                     if (hasDarkVersion && petPerkChance < 25) {
                         extraKey = 1;
                     }
-                    player.getItems().addItem(specialItemId, Slayerkey1 + extraKey);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey1 + extraKey);
                 } else {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet noticed a @blu@Slayer key (tier1),@bla@ but your inventory is full!");
                     Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey1, player.getIndex());
@@ -797,7 +798,7 @@ public class DropManager {
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
                 if (Misc.random(0, 100) > 75)
-                    player.getItems().addItem(specialItemId, Slayerkey1);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey1);
                 player.sendMessage("@red@ Your blessing provides an extra key.");
             }
         }
@@ -825,7 +826,7 @@ public class DropManager {
                     if (hasDarkVersion && petPerkChance < 25) {
                         extraKey = 1;
                     }
-                    player.getItems().addItem(specialItemId, Slayerkey2 + extraKey);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey2 + extraKey);
                 } else {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet noticed a @blu@Slayer key (tier2),@bla@ but your inventory is full!");
                     Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey2, player.getIndex());
@@ -836,7 +837,7 @@ public class DropManager {
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
                 if (Misc.random(0, 100) > 75)
-                    player.getItems().addItem(specialItemId, Slayerkey1);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey2);
                 player.sendMessage("@red@ Your blessing provides an extra key.");
             }
         }
@@ -863,7 +864,7 @@ public class DropManager {
                     if (hasDarkVersion && petPerkChance < 25) {
                         extraKey = 1;
                     }
-                    player.getItems().addItem(specialItemId, Slayerkey3 + extraKey);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey3 + extraKey);
                 } else {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet noticed a @blu@Slayer key (tier3),@bla@ but your inventory is full!");
                     Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey3, player.getIndex());
@@ -874,7 +875,7 @@ public class DropManager {
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
                 if (Misc.random(0, 100) > 75)
-                    player.getItems().addItem(specialItemId, Slayerkey1);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey3);
                 player.sendMessage("@red@ Your blessing provides an extra key.");
             }
         }
@@ -901,7 +902,7 @@ public class DropManager {
                     if (hasDarkVersion && petPerkChance < 25) {
                         extraKey = 1;
                     }
-                    player.getItems().addItem(specialItemId, Slayerkey4 + extraKey);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey4 + extraKey);
                 } else {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet noticed a @blu@Slayer key (tier4),@bla@ but your inventory is full!");
                     Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey4, player.getIndex());
@@ -913,7 +914,7 @@ public class DropManager {
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
                 if (Misc.random(0, 100) > 75)
-                    player.getItems().addItem(specialItemId, Slayerkey1);
+                    addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey4);
                 player.sendMessage("@red@ Your blessing provides an extra key.");
             }
         }
@@ -1081,6 +1082,14 @@ public class DropManager {
             }
             handle(player, npc, location, repeats, npcId);
         });
+    }
+
+    private void addKeyToInventoryOrCleptoBank(Player player, int itemId, int amount) {
+        if (!ItemHandler.addCleptoItemToBank(player, itemId, amount)) {
+            player.getItems().addItem(itemId, amount);
+        } else if (player.isCleptoWarning()) {
+            player.sendMessage("@blu@CLEPTO: @yel@" + ItemAssistant.getItemName(itemId) + " @blu@ has been added to the bank");
+        }
     }
 
     public static double getModifier(Player player) {

@@ -8,6 +8,7 @@ import io.zaryx.content.lootbag.LootingBag;
 import io.zaryx.content.skills.Skill;
 import io.zaryx.content.skills.prayer.Bone;
 import io.zaryx.content.skills.prayer.Prayer;
+import io.zaryx.model.Items;
 import io.zaryx.model.definitions.ItemDef;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.model.items.GameItem;
@@ -28,12 +29,57 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 public class ItemHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(ItemHandler.class);
+	private static final int CLEPTO_MANIAC_PERK_ID = 33110;
+	private static final Set<Integer> CLEPTO_PICKUP_ITEM_IDS = Set.of(
+			Items.CRYSTAL_KEY,
+			Items.CRYSTAL_KEY_NOTED,
+			28416, // Shadow Crusade key / tier 1 Slayer key
+			28417, // Tier 2 Slayer key
+			28418, // Tier 3 Slayer key
+			28419  // Tier 4 Slayer key
+	);
+
+	public static boolean isCleptoPickupItem(int itemId) {
+		return CLEPTO_PICKUP_ITEM_IDS.contains(itemId);
+	}
+
+	public static boolean hasCleptoManiac(Player player) {
+		return player.getPerkSytem().gameItems.stream()
+				.anyMatch(item -> item.getId() == CLEPTO_MANIAC_PERK_ID);
+	}
+
+	public static boolean addCleptoItemToBank(Player player, int itemId, int itemAmount) {
+		return hasCleptoManiac(player)
+				&& isCleptoPickupItem(itemId)
+				&& !player.getMode().isUltimateIronman()
+				&& isCleptoAllowedLocation(player)
+				&& player.getInventory().addToBank(new ImmutableItem(itemId, itemAmount));
+	}
+
+	private static boolean isCleptoAllowedLocation(Player player) {
+		if (player.getRights().isOrInherits(Right.GAME_DEVELOPER)) {
+			return true;
+		}
+
+		return !Boundary.isIn(player, Boundary.WILDERNESS_PARAMETERS)
+				&& !Boundary.isIn(player, Boundary.OUTLAST)
+				&& !Boundary.isIn(player, Boundary.FALLY_OUTLAST)
+				&& !Boundary.isIn(player, Island.boundary)
+				&& !Boundary.isIn(player, Boundary.SWAMP_OUTLAST)
+				&& !Boundary.isIn(player, Boundary.FOREST_OUTLAST)
+				&& !Boundary.isIn(player, Boundary.BOUNTY_HUNTER_OUTLAST)
+				&& !Boundary.isIn(player, Boundary.SNOW_OUTLAST)
+				&& !Boundary.isIn(player, Boundary.ROCK_OUTLAST)
+				&& !Boundary.isIn(player, Boundary.LUMBRIDGE_OUTLAST)
+				&& !Boundary.isIn(player, Boundary.WG_Boundary);
+	}
 
 	/**
 	 * A list of all {@link GroundItem}'s in the game.
@@ -245,33 +291,17 @@ public class ItemHandler {
 		}
 
 
-		if (itemId == 6678 && player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33110)) {
+		if (itemId == 6678 && hasCleptoManiac(player)) {
 			player.sendMessage("@red@Your clepto perk does not pick up this item");
 			logPickup(player, new GroundItem(itemId, itemX, itemY, height, itemAmount, hideTicks, player.getDisplayNameLower()));
 		}
 
-		else if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33110) && !Boundary.isIn(player, Boundary.WILDERNESS_PARAMETERS) && !Boundary.isIn(player, Boundary.OUTLAST)
-				&& !Boundary.isIn(player, Boundary.FALLY_OUTLAST)  && !Boundary.isIn(player, Island.boundary) &&
-				!Boundary.isIn(player, Boundary.SWAMP_OUTLAST) && !Boundary.isIn(player, Boundary.FOREST_OUTLAST) && !Boundary.isIn(player, Boundary.BOUNTY_HUNTER_OUTLAST) &&
-				!Boundary.isIn(player, Boundary.SNOW_OUTLAST) && !Boundary.isIn(player, Boundary.ROCK_OUTLAST) &&
-				!Boundary.isIn(player, Boundary.LUMBRIDGE_OUTLAST) && !Boundary.isIn(player, Boundary.WG_Boundary) ||
-				( player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33110) && player.getRights().isOrInherits(Right.GAME_DEVELOPER))) {
-
-			if (player.getMode().isUltimateIronman()) {
-				player.getInventory().addOrDrop(new ImmutableItem(itemId, itemAmount));
-				return;
+		else if (addCleptoItemToBank(player, itemId, itemAmount)) {
+			logPickup(player, new GroundItem(itemId, itemX, itemY, height, itemAmount, hideTicks, player.getDisplayNameLower()));
+			if (player.isCleptoWarning()) {
+				player.sendMessage("@blu@CLEPTO: @yel@" + ItemAssistant.getItemName(itemId) + " @blu@ has been added to the bank");
 			}
-
-			if (!player.isCleptoWarning()) {
-				player.getInventory().addToBank(new ImmutableItem(itemId, itemAmount));
-				logPickup(player, new GroundItem(itemId, itemX, itemY, height, itemAmount, hideTicks, player.getDisplayNameLower()));
-				return;
-			} else {
-				player.getInventory().addToBank(new ImmutableItem(itemId, itemAmount));
-				logPickup(player, new GroundItem(itemId, itemX, itemY, height, itemAmount, hideTicks, player.getDisplayNameLower()));
-			player.sendMessage("@blu@CLEPTO: @yel@" + ItemAssistant.getItemName(itemId) + " @blu@ has been added to the bank");
 			return;
-			}
 		}
 
 		if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33083) && !Boundary.isIn(player, Boundary.WILDERNESS_PARAMETERS) && Misc.random(0,100) > 90 && !Boundary.isIn(player, Boundary.OUTLAST)
