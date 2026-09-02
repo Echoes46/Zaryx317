@@ -74706,7 +74706,7 @@
   shopValue: 12500000
 - id: 33110
   name: Clepto Maniac
-  description: Collect all drop's.
+  description: Automatically banks Crystal, Slayer, and Shadow Crusade keys.
   stackable: false
   shopValue: 12500000
 - id: 33111
@@ -76305,14 +76305,14 @@
   untradeable: true
   undroppable: true
 - id: 33216
-  name: relic
-  description: relic
+  name: Trickster
+  description: 2% chance to instantly kill eligible NPCs.
   shopValue: 0
   untradeable: true
   undroppable: true
 - id: 33217
-  name: relic
-  description: relic
+  name: X2 Pass-XP
+  description: Doubles Battle Pass experience earned.
   shopValue: 0
   untradeable: true
   undroppable: true
@@ -76329,20 +76329,20 @@
   untradeable: true
   undroppable: true
 - id: 33220
-  name: Faster Melee
-  description: ' Attack speed of all melee weapons is halfed.'
+  name: Master Melee
+  description: Increases melee damage by 15%.
   shopValue: 0
   untradeable: true
   undroppable: true
 - id: 33221
-  name: Faster Range
-  description: Attack speed of all range weapons is halfed.
+  name: Master Range
+  description: Increases ranged damage by 15%.
   shopValue: 0
   untradeable: true
   undroppable: true
 - id: 33222
-  name: Faster Magic
-  description: Attack speed of all mage weapons is halfed.
+  name: Master Magic
+  description: Increases magic damage by 15%.
   shopValue: 0
   untradeable: true
   undroppable: true
@@ -76401,8 +76401,8 @@
   untradeable: true
   undroppable: true
 - id: 33231
-  name: relic
-  description: relic
+  name: Heal More
+  description: Food heals 5 additional hitpoints.
   shopValue: 0
   untradeable: true
   undroppable: true

@@ -831,6 +831,11 @@ public class Raids {
                     }
 
                     if (!player.getRaidRewards().isEmpty()) {
+                        if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33109)
+                                && Misc.trueRand(100) < 10) {
+                            player.getItems().addItemUnderAnyCircumstance(12582, 1);
+                            player.sendMessage("@pur@Raider's Luck grants you an extra Chambers Box!");
+                        }
                         if (player.getItems().getInventoryCount(21046) > 0) {
                             player.getItems().deleteItem2(21046, 1);
                             player.sendErrorMessage("You roll a chance at an extra reward!");

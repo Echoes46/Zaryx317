@@ -343,7 +343,7 @@ public class DropManager {
     public List<GameItem> getDropSample(Player player, int npcId) {
         Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(npcId)).findFirst();
         if (group.isPresent()) {
-            double modifier = getModifier(player);
+            double modifier = 1.0 + getModifier(player);
             return group.get().access(player, null, modifier, 1, npcId);
         } else return null;
     }
@@ -1072,7 +1072,7 @@ public class DropManager {
 
         Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(npcId)).findFirst();
         group.ifPresent(g -> {
-            double modifier = getModifier(player);
+            double modifier = 1.0 + getModifier(player);
 
             List<GameItem> drops = g.access(player, npc, modifier, repeats, npcId);
             for (GameItem item : drops) {

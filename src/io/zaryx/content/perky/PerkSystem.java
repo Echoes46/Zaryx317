@@ -111,14 +111,19 @@ public class PerkSystem {
     private boolean conflicts(int activeId, int newId) {
         return isPair(activeId, newId, 33108, 33112)
                 || isPair(activeId, newId, 33122, 33226)
-                || isPair(activeId, newId, 33106, 33222)
-                || isPair(activeId, newId, 33105, 33220)
-                || isPair(activeId, newId, 33107, 33221);
+                || isInSameGroup(activeId, newId, 33103, 33106, 33222)
+                || isInSameGroup(activeId, newId, 33102, 33105, 33220)
+                || isInSameGroup(activeId, newId, 33104, 33107, 33221);
     }
 
     private boolean isPair(int activeId, int newId, int first, int second) {
         return (activeId == first && newId == second)
                 || (activeId == second && newId == first);
+    }
+
+    private boolean isInSameGroup(int activeId, int newId, int... ids) {
+        return Arrays.stream(ids).anyMatch(id -> id == activeId)
+                && Arrays.stream(ids).anyMatch(id -> id == newId);
     }
 
     public void updateInterface(boolean remove) {

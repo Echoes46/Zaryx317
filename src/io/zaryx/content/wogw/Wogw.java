@@ -200,7 +200,13 @@ public class Wogw {
 
 		}
 		if (itemId == -1) {
-			player.getItems().deleteItem(995, (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33120) && Misc.random(0, 100) < 10) ? (amount / 3) : amount);
+			boolean luckyCoinSave = player.getPerkSytem().gameItems.stream()
+					.anyMatch(item -> item.getId() == 33120) && Misc.trueRand(100) < 10;
+			int amountToCharge = luckyCoinSave ? (int) (amount * 80L / 100L) : amount;
+			player.getItems().deleteItem(995, amountToCharge);
+			if (luckyCoinSave) {
+				player.sendMessage("@gre@Lucky Coin saves 20% of your donation!");
+			}
 		} else {
 			player.getItems().deleteItem(itemId, player.getItems().getInventoryCount(itemId));
 		}

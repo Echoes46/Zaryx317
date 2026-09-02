@@ -125,18 +125,14 @@ public class UpgradeInterface {
                 }
 
                 if (getRestrictions(val, all)) {
-                        if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33072) && Misc.random(0, 100) >= 90)
-                        {
-                            player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount());
-                        } else {
-                            player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount());
-                        }
+                    boolean fusionistSave = player.getPerkSytem().gameItems.stream()
+                            .anyMatch(item -> item.getId() == 33072) && Misc.trueRand(100) < 10;
 
-                    if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33072) && Misc.random(0, 100) >= 90)
-                    {
-                        player.sendMessage("@red@Your Fusion Master Perk Save's the Cost of your upgrade!");
+                    if (fusionistSave) {
+                        player.sendMessage("@red@The Fusionist saves the materials and cost of your upgrade!");
                     } else {
-                        player.foundryPoints = (player.foundryPoints - val.getCost());
+                        player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount());
+                        player.foundryPoints -= val.getCost();
                     }
 //                    if (player.getItems().isWearingItem(26314)) {
 //                        player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount() / 4);

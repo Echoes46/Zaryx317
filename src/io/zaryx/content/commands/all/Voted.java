@@ -47,7 +47,7 @@ public class Voted extends Command {
 		}
 		int amt = 1;
 		if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33115)) {
-			amt = 2;
+			amt = 3;
 		}
 
 		player.bonusDmgTicks += (TimeUnit.MINUTES.toMillis(10) / 600);

@@ -135,11 +135,13 @@ public class FusionSystem {
                 }
 
                 if (getRequirements(val)) {
-                    player.getItems().deleteItem2(13204, val.getCost());
+                    boolean fusionistSave = player.getPerkSytem().gameItems.stream()
+                            .anyMatch(item -> item.getId() == 33072) && Misc.trueRand(100) < 10;
 
-                    if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33072) && Misc.random(0, 100) <= 10) {
-
+                    if (fusionistSave) {
+                        player.sendMessage("@red@The Fusionist saves your materials and Platinum Tokens!");
                     } else {
+                        player.getItems().deleteItem2(13204, val.getCost());
                         for (GameItem gameItem : val.getRequired()) {
                             player.getItems().deleteItem2(gameItem.getId(),gameItem.getAmount());
                         }

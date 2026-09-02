@@ -276,7 +276,7 @@ public class MeleeCombatFormula implements CombatFormula {
 
             attacker.sendMessage("@red@You must take off trickster to attack this npc");
 
-        } else if (attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216) && Misc.isLucky(1)) {
+        } else if (attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216) && Misc.trueRand(100) < 2) {
             multiplier += 999.00D;
         }
 

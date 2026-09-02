@@ -618,7 +618,7 @@ public class RangeCombatFormula implements CombatFormula {
                 (npcId == 11246 && hasTricksterEquipped)) {
 
             attacker.sendMessage("@red@You must take off trickster to attack this npc");
-        } else if(attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216) && Misc.isLucky(1)) {
+        } else if(attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216) && Misc.trueRand(100) < 2) {
             multiplier += 999.00D;
         }
 

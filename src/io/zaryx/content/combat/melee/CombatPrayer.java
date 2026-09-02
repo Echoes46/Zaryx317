@@ -134,6 +134,9 @@ public class CombatPrayer {
 		if (c.saradominFaction) { //Saradomin Faction Prayer Drain 50% Reduced - Finished
 			toRemove = toRemove * 0.5;
 		}
+		if (c.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33091)) {
+			toRemove *= 0.75;
+		}
 		c.prayerPoint -= toRemove;
 		if (c.prayerPoint <= 0) {
 			c.prayerPoint = 1.0 + c.prayerPoint;

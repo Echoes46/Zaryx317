@@ -29,8 +29,8 @@ public class TableGroup extends ArrayList<Table> {
     public List<GameItem> access(Player player, NPC npc, double modifier, int repeats, int npcId) {
         List<GameItem> items = new ArrayList<>();
 
-        // Ensure modifier is within a reasonable range
-        modifier = Math.min(modifier, 1.5); // Cap the modifier to prevent excessive drops
+        // A modifier of 1.0 is the baseline. Cap bonuses to prevent excessive drops.
+        modifier = Math.max(1.0, Math.min(modifier, 1.5));
 
         for (Table table : this) {
             TablePolicy policy = table.getPolicy();
@@ -72,7 +72,7 @@ public class TableGroup extends ArrayList<Table> {
                     }
 
                     double chance = (1.0 / table.getAccessibility()) * 100D;
-                    chance /= scaledModifier; // Inverse the effect of modifier for higher rarity items
+                    chance *= scaledModifier;
 
                     double roll = Misc.preciseRandom(Range.between(0.0, 100.0));
 
