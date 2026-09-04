@@ -94,20 +94,19 @@ public class Inventory {
 
         BankItem bankItem = new BankItem(item.getId() + 1, item.getAmount());
         for (BankTab tab : player.getBank().getBankTab()) {
-            BankItem foundItem = tab.getItem(bankItem.getSlot());
-            if (foundItem != null) {
-                if ((long) item.getAmount() + (long) foundItem.getAmount() > Integer.MAX_VALUE) {
+            if (tab.contains(bankItem)) {
+                if (!tab.spaceAvailable(bankItem)) {
                     return false;
-                } else {
-                    foundItem.setAmount(foundItem.getAmount() + item.getAmount());
-                    return true;
                 }
+
+                tab.add(bankItem);
+                return true;
             }
         }
 
         for (BankTab tab : player.getBank().getBankTab()) {
             if (tab.freeSlots() > 0) {
-                tab.getItems().add(bankItem);
+                tab.add(bankItem);
                 return true;
             }
         }
