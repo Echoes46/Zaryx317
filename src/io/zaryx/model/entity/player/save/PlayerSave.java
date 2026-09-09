@@ -65,20 +65,33 @@ public class PlayerSave {
      * Don't call this from the main thread!
      */
     public static void saveAll() {
-        long count = PlayerHandler.nonNullStream().count();
         GroupIronmanRepository.serializeAllInstant();
         GroupWildyRepository.serializeAllInstant();
-                //SmsManager.saveDataToDatabase();
-        PlayerHandler.nonNullStream().forEach(plr -> {
+        java.util.concurrent.CompletableFuture<List<Snapshot>> captured = new java.util.concurrent.CompletableFuture<>();
+        Runnable capture = () -> {
             try {
-                PlayerSave.saveGameInstant(plr);
-            } catch (Exception e) {
-                logger.error("Error while saving account during player save backup {}", plr, e);
-                e.printStackTrace();
+                List<Snapshot> snapshots = new ArrayList<>();
+                PlayerHandler.nonNullStream().forEach(player -> {
+                    Snapshot snapshot = captureSnapshot(player);
+                    if (snapshot != null) snapshots.add(snapshot);
+                });
+                captured.complete(snapshots);
+            } catch (Exception e) { captured.completeExceptionally(e); }
+        };
+        if (Thread.currentThread() instanceof io.zaryx.GameThread) capture.run();
+        else PlayerHandler.addQueuedAction(capture);
+        try {
+            long count = 0;
+            for (Snapshot snapshot : captured.get(30, java.util.concurrent.TimeUnit.SECONDS)) {
+                if (writeSnapshot(snapshot)) count++;
             }
-        });
-
-        logger.info("Saved " + count + " online users.");
+            logger.info("Saved {} online users.", count);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.error("Interrupted while capturing player saves", e);
+        } catch (Exception e) {
+            logger.error("Could not capture player saves", e);
+        }
     }
 
     /**
@@ -699,7 +712,9 @@ public class PlayerSave {
                         } else if (token.equals("bjloss")) {
                             p.BjLoss = Integer.parseInt(token2);
                         } else if (token.equals("bjpay")) {
-                            p.BjPay = Integer.parseInt(token2);
+                            p.BjPay = Long.parseLong(token2);
+                        } else if (token.equals("bj-pending-payout")) {
+                            p.BjPendingPayout = Math.max(0L, Long.parseLong(token2));
                         } else if (token.equals("storetrans")) {
                             p.StoreTransfer = Boolean.parseBoolean(token2);
                         } else if (token.equals("tpNomad")) {
@@ -1534,12 +1549,56 @@ public class PlayerSave {
         return true;
     }
 
-    public static boolean saveGameInstant(Player p) {
-        if (!p.saveCharacter) {
+    private static final java.util.concurrent.atomic.AtomicLong SAVE_REVISION = new java.util.concurrent.atomic.AtomicLong();
+    private static final java.util.Map<java.nio.file.Path, Long> SAVED_REVISIONS = new java.util.HashMap<>();
+
+    public static final class Snapshot {
+        private final java.nio.file.Path path;
+        private final String contents;
+        private final String password;
+        private final long revision = SAVE_REVISION.incrementAndGet();
+        private Snapshot(java.nio.file.Path path, String contents, String password) {
+            this.path = path.toAbsolutePath().normalize();
+            this.contents = contents;
+            this.password = password;
+        }
+    }
+
+    public static synchronized boolean writeSnapshot(Snapshot snapshot) {
+        if (snapshot == null) return false;
+        if (SAVED_REVISIONS.getOrDefault(snapshot.path, 0L) >= snapshot.revision) return true;
+        try {
+            String encoded = snapshot.contents.replace("character-password = [SNAPSHOT_PASSWORD]",
+                    "character-password = " + PasswordHashing.hash(snapshot.password));
+            io.zaryx.util.AtomicFileWriter.write(snapshot.path, encoded.getBytes(java.nio.charset.Charset.defaultCharset()));
+            SAVED_REVISIONS.put(snapshot.path, snapshot.revision);
+            return true;
+        } catch (IOException e) {
+            logger.error("Could not commit player save {}", snapshot.path, e);
             return false;
         }
+    }
+
+    public static boolean saveGameInstant(Player p) {
+        return writeSnapshot(captureSnapshot(p));
+    }
+
+    public static Snapshot captureSnapshot(Player p) {
+        if (!(Thread.currentThread() instanceof io.zaryx.GameThread)) {
+            java.util.concurrent.CompletableFuture<Snapshot> captured = new java.util.concurrent.CompletableFuture<>();
+            PlayerHandler.addQueuedAction(() -> {
+                try { captured.complete(captureSnapshot(p)); }
+                catch (Exception e) { captured.completeExceptionally(e); }
+            });
+            try { return captured.get(30, java.util.concurrent.TimeUnit.SECONDS); }
+            catch (InterruptedException e) { Thread.currentThread().interrupt(); return null; }
+            catch (Exception e) { logger.error("Could not capture player on game thread", e); return null; }
+        }
+        if (!p.saveCharacter) {
+            return null;
+        }
         if (p.getLoginName() == null || PlayerHandler.players[p.getIndex()] == null) {
-            return false;
+            return null;
         }
         if (!p.isBot())
             logger.debug("Saving game for {}", p);
@@ -1558,9 +1617,8 @@ public class PlayerSave {
             logger.error("Error while saving {}", p, e);
             e.printStackTrace();
         }
-        BufferedWriter characterfile = null;
-        try {
-            characterfile = new BufferedWriter(new FileWriter(getSaveDirectory() + p.getLoginNameLower() + ".txt"));
+        StringWriter snapshotText = new StringWriter();
+        try (BufferedWriter characterfile = new BufferedWriter(snapshotText)) {
             /* ACCOUNT */
             characterfile.write("[ACCOUNT]", 0, 9);
             characterfile.newLine();
@@ -1572,7 +1630,7 @@ public class PlayerSave {
             characterfile.newLine();
 
             characterfile.write("character-password = ", 0, 21);
-            String passToWrite = PasswordHashing.hash(p.playerPass);
+            String passToWrite = "[SNAPSHOT_PASSWORD]";
             characterfile.write(passToWrite, 0, passToWrite.length());
             characterfile.newLine();
             characterfile.newLine();
@@ -2161,7 +2219,9 @@ public class PlayerSave {
             characterfile.write(Integer.toString(p.BjLoss), 0, Integer.toString(p.BjLoss).length());
             characterfile.newLine();
             characterfile.write("bjpay = ", 0, 8);
-            characterfile.write(Integer.toString(p.BjPay), 0, Integer.toString(p.BjPay).length());
+            characterfile.write(Long.toString(p.BjPay), 0, Long.toString(p.BjPay).length());
+            characterfile.newLine();
+            characterfile.write("bj-pending-payout = " + p.BjPendingPayout);
             characterfile.newLine();
             characterfile.write("storetrans = ", 0, 13);
             characterfile.write(Boolean.toString(p.StoreTransfer), 0, Boolean.toString(p.StoreTransfer).length());
@@ -2818,12 +2878,12 @@ public class PlayerSave {
                     try {
                         String encoded = entry.encode(p, key);
                         if (encoded != null) {
-                            characterfile.write(key + " = " + entry.encode(p, key));
+                            characterfile.write(key + " = " + encoded);
                             characterfile.newLine();
                         }
                     } catch (Exception e) {
                         logger.error("Error while saving player save entry class={}, key={}, player={}", entry.getClass(), key, p, e);
-                        e.printStackTrace();
+                        throw new IOException("Could not encode save entry " + key, e);
                     }
                 }
             }
@@ -3214,8 +3274,9 @@ public class PlayerSave {
         } catch (Exception ioexception) {
             logger.error("Error while saving player {}", p, ioexception);
             ioexception.printStackTrace();
-            return false;
+            return null;
         }
-        return true;
+        return new Snapshot(java.nio.file.Paths.get(getSaveDirectory(), p.getLoginNameLower() + ".txt"),
+                snapshotText.toString(), p.playerPass);
     }
 }

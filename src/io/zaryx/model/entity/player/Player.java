@@ -7294,7 +7294,8 @@ public class Player extends Entity {
     public long bettingAmount = 0;
     public int BjWins = 0;
     public int BjLoss = 0;
-    public int BjPay = 0;
+    public long BjPay = 0;
+    public long BjPendingPayout = 0;
     public int BjCurrency = 10000;
     public boolean StoreTransfer = false;
 

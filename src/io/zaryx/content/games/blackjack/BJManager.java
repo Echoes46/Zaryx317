@@ -94,6 +94,7 @@ public class BJManager {
 
     public void open() {
         if (Configuration.DISABLE_BLACKJACK) return;
+        collectWinnings();
         player.getPA().sendFrame248(60950, 61500);
         // Nudge close button 5px down (client has it at y=0, needs y=5)
         player.getPA().runClientScript(35, 60950, 60952, 466, 0, 466, 5, 1, false);
@@ -146,6 +147,32 @@ public class BJManager {
         }
     }
 
+    private void creditWinnings(long amount) {
+        if (amount <= 0) throw new IllegalArgumentException("Invalid blackjack payout");
+        player.BjPendingPayout = Math.addExact(player.BjPendingPayout, amount);
+        collectWinnings();
+    }
+
+    public void collectWinnings() {
+        int coins = player.getItems().getInventoryCount(995);
+        int amount = BlackjackAmounts.collectable(player.BjPendingPayout, coins,
+                player.getItems().freeSlots());
+        if (amount > 0 && player.getItems().addItem(995, amount)) {
+            player.BjPendingPayout -= amount;
+        }
+        if (player.BjPendingPayout > 0) {
+            player.sendMessage("You have " + player.BjPendingPayout
+                    + " GP in blackjack winnings waiting. Make inventory space and reopen the table to collect.");
+        }
+    }
+
+    public void adjustBet(boolean doubleBet) {
+        if (state == State.PLAYING) return;
+        long available = player.getItems().getInventoryCount(995);
+        player.bettingAmount = BlackjackAmounts.adjust(player.bettingAmount, available, doubleBet);
+        player.getPA().sendString(61505, Long.toString(player.bettingAmount));
+    }
+
     // ==================== BETTING ====================
 
     public void placeBet(long amount) {
@@ -158,7 +185,7 @@ public class BJManager {
             gameId++;
             resetBoard();
         }
-        if (amount <= 0) {
+        if (amount <= 0 || amount > Integer.MAX_VALUE) {
             player.sendErrorMessage("You can't gamble that amount!");
             return;
         }
@@ -267,16 +294,11 @@ public class BJManager {
 
     private void moveCards(List<Card> hand, int baseX, int y) {
         int count = hand.size();
-        int spacing;
-        int startX;
-        if (count <= 2) {
-            spacing = isSplit ? 40 : CARD_SPACING;
-            startX = baseX;
-        } else {
-            int availableWidth = isSplit ? 150 : 240;
-            spacing = Math.max(25, availableWidth / count);
-            startX = isSplit ? baseX : 130;
-        }
+        boolean splitHand = isSplit && hand != dealerCards;
+        int startX = splitHand ? baseX : CARD_X_START;
+        int availableWidth = splitHand ? 180 : 300;
+        int spacing = count <= 1 ? 0 : Math.min(splitHand ? 40 : CARD_SPACING,
+                Math.max(1, (availableWidth - 50) / (count - 1)));
 
         for (int i = 0; i < count; i++) {
             Card card = hand.get(i);
@@ -591,31 +613,31 @@ public class BJManager {
     }
 
     private void announceWin(long payout) {
-        player.BjPay += (int)(payout - betAmount);
+        player.BjPay += payout - betAmount;
         player.BjWins += 1;
-        player.getItems().addItemUnderAnyCircumstance(995, (int) payout);
+        creditWinnings(payout);
         player.getPA().sendSound(3929, SoundType.SOUND); // win fanfare
-        PlayerHandler.executeGlobalMessage("@cya@" + player.getDisplayName() + " won " + Misc.formatCoins((int)(payout - betAmount)) + " at Blackjack!");
+        PlayerHandler.executeGlobalMessage("@cya@" + player.getDisplayName() + " won " + Misc.formatAmountWithNegative(payout - betAmount) + " at Blackjack!");
         betAmount = 0;
         sendBalance();
         endGame();
     }
 
     private void announceLoss(boolean busted) {
-        player.BjPay -= (int) betAmount;
+        player.BjPay -= betAmount;
         player.BjLoss += 1;
         player.getPA().sendSound(2304, SoundType.SOUND); // loss
         if (busted) {
-            PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " busted at Blackjack losing " + Misc.formatCoins((int) betAmount) + "!");
+            PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " busted at Blackjack losing " + Misc.formatAmountWithNegative(betAmount) + "!");
         } else {
-            PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " lost " + Misc.formatCoins((int) betAmount) + " at Blackjack!");
+            PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " lost " + Misc.formatAmountWithNegative(betAmount) + " at Blackjack!");
         }
         betAmount = 0;
         endGame();
     }
 
     private void announcePush() {
-        player.getItems().addItemUnderAnyCircumstance(995, (int) betAmount);
+        creditWinnings(betAmount);
         player.getPA().sendSound(2277, SoundType.SOUND); // push/neutral
         player.sendErrorMessage("[BJ] Push! Your bet has been returned.");
         betAmount = 0;
@@ -653,19 +675,19 @@ public class BJManager {
         long profit = totalPayout - totalBet;
 
         if (totalPayout > 0) {
-            player.getItems().addItemUnderAnyCircumstance(995, (int) totalPayout);
+            creditWinnings(totalPayout);
         }
 
-        player.BjPay += (int) profit;
+        player.BjPay += profit;
 
         String resultType;
         if (profit > 0) {
             player.BjWins++;
-            PlayerHandler.executeGlobalMessage("@cya@" + player.getDisplayName() + " won " + Misc.formatCoins((int) profit) + " across 2 hands at Blackjack!");
+            PlayerHandler.executeGlobalMessage("@cya@" + player.getDisplayName() + " won " + Misc.formatAmountWithNegative(profit) + " across 2 hands at Blackjack!");
             resultType = "win";
         } else if (profit < 0) {
             player.BjLoss++;
-            PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " lost " + Misc.formatCoins((int) Math.abs(profit)) + " across 2 hands at Blackjack!");
+            PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " lost " + Misc.formatAmountWithNegative(Math.abs(profit)) + " across 2 hands at Blackjack!");
             resultType = "lose";
         } else {
             resultType = "push";
@@ -680,9 +702,9 @@ public class BJManager {
 
     private void announceSplitLoss() {
         long totalLoss = betAmount + splitBet;
-        player.BjPay -= (int) totalLoss;
+        player.BjPay -= totalLoss;
         player.BjLoss++;
-        PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " busted both hands at Blackjack losing " + Misc.formatCoins((int) totalLoss) + "!");
+        PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + " busted both hands at Blackjack losing " + Misc.formatAmountWithNegative(totalLoss) + "!");
         showSplitResult("lose", handValue(dealerCards));
         betAmount = 0;
         splitBet = 0;

@@ -196,13 +196,18 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
                     return;
 
                 case LOGGING_IN:
+                    // TCP can split the header or payload at any byte. Peek until
+                    // the complete frame is present without consuming its header.
+                    if (!LoginFrames.hasLogin(buffer)) {
+                        return;
+                    }
                     log(ipAddress, "Login block");
                     long start = System.currentTimeMillis();
                     int loginType = -1;
                     int loginPacketSize = -1;
                     int loginEncryptPacketSize = -1;
 
-                    if (2 <= buffer.capacity()) {
+                    if (2 <= buffer.readableBytes()) {
                         loginType = buffer.readByte() & 0xff;
                         loginPacketSize = buffer.readByte() & 0xff;
                         loginEncryptPacketSize = loginPacketSize - (36 + 1 + 1 + 3);
@@ -217,7 +222,7 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
                         }
                     }
 
-                    if (loginPacketSize <= buffer.capacity()) {
+                    if (loginPacketSize <= buffer.readableBytes()) {
                         int magic = buffer.readByte() & 0xff;
                         int version = buffer.readUnsignedShort();
 
@@ -243,13 +248,15 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
                             return;
                         }
 
-                        rsaBuffer = buffer.readBytes(loginEncryptPacketSize);
+                        rsaBuffer = buffer.readRetainedSlice(loginEncryptPacketSize);
 
                         byte[] bytes = new byte[rsaBuffer.readableBytes()];
                         rsaBuffer.duplicate().readBytes(bytes);
 
                         BigInteger bigInteger = new BigInteger(bytes);
                         bigInteger = bigInteger.modPow(RSA_EXPONENT, RSA_MODULUS);
+                        rsaBuffer.release();
+                        rsaBuffer = null;
                         rsaBuffer = Unpooled.wrappedBuffer(bigInteger.toByteArray());
 
                         if ((rsaBuffer.readByte() & 0xff) != 10) {
@@ -438,9 +445,7 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
     }
 
     private void decodeProofOfWork(ChannelHandlerContext ctx, ByteBuf buffer) {
-        if (!buffer.isReadable()) {
-            ctx.close();
-            state = DISCONNECTED;
+        if (!LoginFrames.hasProof(buffer)) {
             return;
         }
 
@@ -718,8 +723,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
             }
 
             logger.info(builder.toString());
-
-            channel.write(new PacketBuilder().put((byte) code.getCode()).toPacket()).addListener(ChannelFutureListener.CLOSE);
 
             String msg = builder.toString();
 

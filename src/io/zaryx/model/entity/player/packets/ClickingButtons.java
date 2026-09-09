@@ -132,6 +132,10 @@ public class ClickingButtons implements PacketType {
             c.getPA().closeAllWindows();
             return;
         }
+        if (realButtonId == 61504 || realButtonId == 61511) {
+            if (c.getBjManager() != null) c.getBjManager().adjustBet(realButtonId == 61511);
+            return;
+        }
         if (realButtonId == 61510) {
             if (c.getBjManager() == null) return;
             c.getBjManager().placeBet(c.bettingAmount);

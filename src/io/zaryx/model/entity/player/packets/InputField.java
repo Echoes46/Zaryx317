@@ -44,8 +44,9 @@ public class InputField implements PacketType {
                     multiplier = 1000000000;
                     cleaned = cleaned.substring(0, cleaned.length() - 1);
                 }
-                player.bettingAmount = Long.parseLong(cleaned) * multiplier;
-            } catch (NumberFormatException e) {
+                player.bettingAmount = Math.multiplyExact(Long.parseLong(cleaned), multiplier);
+                if (player.bettingAmount < 0 || player.bettingAmount > Integer.MAX_VALUE) player.bettingAmount = 0;
+            } catch (NumberFormatException | ArithmeticException e) {
                 player.bettingAmount = 0;
             }
             return;
@@ -53,7 +54,7 @@ public class InputField implements PacketType {
 		if (id == 60977) {
 			try {
 				player.bettingAmount = Long.parseLong(text);//Need check here to prevent text? just numeric?
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException | ArithmeticException e) {
 				//ignore, is just because someone's typed letters into box accidentally
 				player.bettingAmount = 0;
 			}

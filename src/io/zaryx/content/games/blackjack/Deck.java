@@ -38,7 +38,9 @@ public class Deck {
             Collections.shuffle(cards);
         }
         Card card = cards.remove(0);
-        card.setWidgetId(bjManager.cardWidgetId++);
+        int index = bjManager.cardWidgetId++ - 60953;
+        if (index >= 64) throw new IllegalStateException("Blackjack card widget limit exceeded");
+        card.setWidgetId(index < 16 ? 60953 + index : 61600 + index - 16);
         return card;
     }
 }
