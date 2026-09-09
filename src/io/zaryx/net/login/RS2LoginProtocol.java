@@ -222,7 +222,7 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
                         }
                     }
 
-                    if (loginPacketSize <= buffer.readableBytes()) {
+                    if (loginPacketSize - 1 <= buffer.readableBytes()) {
                         int magic = buffer.readByte() & 0xff;
                         int version = buffer.readUnsignedShort();
 

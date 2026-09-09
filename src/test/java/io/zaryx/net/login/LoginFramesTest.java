@@ -15,12 +15,14 @@ class LoginFramesTest {
                 int before = input.readerIndex();
                 boolean ready = proof ? LoginFrames.hasProof(input) : LoginFrames.hasLogin(input);
                 assertEquals(before, input.readerIndex());
-                if (ready) output.add(input.readRetainedSlice(proof ? 9 : 2 + input.getUnsignedByte(before + 1)));
+                if (ready) output.add(input.readRetainedSlice(proof ? 9 : 1 + input.getUnsignedByte(before + 1)));
             }
         });
     }
     @Test void loginWorksAtEveryTcpSplitAndIgnoresUnusedCapacity() {
-        byte[] frame = new byte[130]; frame[0] = 16; frame[1] = (byte)128;
+        // Match Client.login: RSA block length + 41 is advertised, but only
+        // 40 prefix bytes plus the RSA block are transmitted after the header.
+        byte[] frame = new byte[129]; frame[0] = 16; frame[1] = (byte)128;
         for (int split = 1; split < frame.length; split++) {
             EmbeddedChannel channel = channel(false);
             try {
@@ -43,6 +45,27 @@ class LoginFramesTest {
                 }
                 assertNull(channel.readInbound());
             } finally { channel.finishAndReleaseAll(); }
+        }
+    }
+    @Test void actualClientLoginLayoutDoesNotWaitForAnExtraByte() {
+        ByteBuf rsa = Unpooled.buffer();
+        ByteBuf wire = Unpooled.buffer();
+        EmbeddedChannel channel = channel(false);
+        try {
+            rsa.writeByte(128).writeZero(128);
+            wire.writeByte(16).writeByte(rsa.readableBytes() + 36 + 1 + 1 + 3);
+            wire.writeByte(255).writeShort(369).writeByte(0);
+            for (int i = 0; i < 9; i++) wire.writeInt(0);
+            wire.writeBytes(rsa);
+            int actualLength = wire.readableBytes();
+            assertEquals(actualLength + 1, 2 + wire.getUnsignedByte(1));
+            assertTrue(channel.writeInbound(wire.retain()));
+            ByteBuf result = channel.readInbound();
+            try { assertEquals(actualLength, result.readableBytes()); }
+            finally { result.release(); }
+            assertNull(channel.readInbound());
+        } finally {
+            wire.release(); rsa.release(); channel.finishAndReleaseAll();
         }
     }
 }
