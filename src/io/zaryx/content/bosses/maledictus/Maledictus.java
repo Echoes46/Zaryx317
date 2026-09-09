@@ -91,7 +91,7 @@ public class Maledictus extends CombatantNpc {
                     if (p.getMaledictusDamageCounter() >= 80) {
                         p.sendMessage("@blu@You receive a @red@key@blu@ for doing enough damage to the boss!");
                         p.getItems().addItemUnderAnyCircumstance(6792, 2);
-                        if (p.hasFollower && (p.petSummonId == 30123)) {
+                        if (p.hasFollower && (p.hasActivePet(30123))) {
                             if (Misc.random(100) < 25) {
                                 p.getItems().addItemUnderAnyCircumstance(6792, 2);
                                 p.sendMessage("Your pet provided 2 extra keys!");

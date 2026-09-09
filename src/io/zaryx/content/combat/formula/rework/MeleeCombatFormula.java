@@ -242,15 +242,15 @@ public class MeleeCombatFormula implements CombatFormula {
         boolean hasMeleePet = PetHandler.hasMeleePet(attacker);
 
         if (attacker.getPosition().inWild() && defender.getPosition().inWild()) {
-            if (attacker.petSummonId == 10533) {
+            if (attacker.hasActivePet(10533)) {
                 multiplier += 0.10;
             }
         }
 
         if (hasDarkMeleePet)
-            multiplier += 0.10;
-        else if (hasMeleePet && Misc.isLucky(50))
-            multiplier += 0.10;
+            multiplier += io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_BONUS;
+        else if (hasMeleePet && Misc.isLucky(io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_ROLL))
+            multiplier += io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_BONUS;
 
         if (attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33102)) {
             multiplier += 0.05D;
@@ -305,7 +305,7 @@ public class MeleeCombatFormula implements CombatFormula {
             }
         }
 
-        if (attacker.hasFollower && attacker.petSummonId == 25348 && !attacker.getPosition().inWild()) {
+        if (attacker.hasFollower && attacker.hasActivePet(25348) && !attacker.getPosition().inWild()) {
             multiplier += 0.20;
         }
 

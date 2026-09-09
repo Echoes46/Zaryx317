@@ -118,11 +118,11 @@ public class MagicMaxHit {
 				damageMultiplier += .15;
 			}
 
-			if (c.hasFollower && c.petSummonId == 25348) {
+			if (c.hasFollower && c.hasActivePet(25348)) {
 				damageMultiplier += .20;
 			}
 
-			if (c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && Boundary.isIn(c, Boundary.RAIDS) || c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && c.getTobContainer().inTob()) {
+			if (c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && Boundary.isIn(c, Boundary.RAIDS) || c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && c.getTobContainer().inTob()) {
 				damageMultiplier += .20;
 			}
 		}
@@ -132,17 +132,9 @@ public class MagicMaxHit {
 		if (c.getItems().isWearingItem(12018, Player.playerAmulet) && Misc.linearSearch(Configuration.UNDEAD_NPCS, npc.getNpcId()) != -1) {
 			damageMultiplier += .20;
 		}
-		boolean hasDarkVersion = (c.petSummonId == 30117 || c.petSummonId == 30120 || c.petSummonId == 30122);
-
-		if (c.hasFollower
-				&& ((c.petSummonId == 30017 || c.petSummonId == 30020 || c.petSummonId == 30022  || c.petSummonId == 25350))
-				|| (hasDarkVersion)){
-			if (hasDarkVersion) {
-				damageMultiplier += .10;
-			} else if (Misc.random(1) == 1) {
-				damageMultiplier += .10;
-			}
-		}
+		boolean darkPet = io.zaryx.model.entity.npc.pets.PetHandler.hasDarkMagePet(c);
+        boolean normalPet = io.zaryx.model.entity.npc.pets.PetHandler.hasMagePet(c) || c.hasActivePet(25350);
+        if (darkPet || (normalPet && Misc.isLucky(io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_ROLL))) { damageMultiplier += .10; }
 
 		if (c.usingRage && !c.getPosition().inWild()) {
 			damageMultiplier += 0.50;

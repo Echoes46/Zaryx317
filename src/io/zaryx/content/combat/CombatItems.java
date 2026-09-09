@@ -117,7 +117,7 @@ public class CombatItems {
 			c.startGraphic(new Graphic(2109));
 			return true;
 		}
-		if (c.petSummonId == 27383 && Misc.trueRand(10) <= 6) {
+		if (c.hasActivePet(27383) && Misc.trueRand(10) <= 6) {
 			c.startGraphic(new Graphic(2102));
 			return true;
 		}

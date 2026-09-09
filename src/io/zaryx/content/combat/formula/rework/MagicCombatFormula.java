@@ -151,7 +151,7 @@ public class MagicCombatFormula implements CombatFormula {
         }
 
 
-        if (attacker.hasFollower && attacker.petSummonId == 25348) {
+        if (attacker.hasFollower && attacker.hasActivePet(25348)) {
             multiplier += 0.20;
         }
 
@@ -448,7 +448,7 @@ public class MagicCombatFormula implements CombatFormula {
                 multiplier += 1.000;
             }
 
-            if (player.petSummonId == 27352) {
+            if (player.hasActivePet(27352)) {
                 multiplier += 0.15;
             }
 
@@ -594,9 +594,9 @@ public class MagicCombatFormula implements CombatFormula {
         boolean hasDarkMagePet = PetHandler.hasDarkMagePet(attacker);
         boolean hasMagePet = PetHandler.hasMagePet(attacker);
         if (hasDarkMagePet)
-            multiplier += 0.10;
-        else if (hasMagePet && Misc.isLucky(50))
-            multiplier += 0.10;
+            multiplier += io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_BONUS;
+        else if (hasMagePet && Misc.isLucky(io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_ROLL))
+            multiplier += io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_BONUS;
 
         if (attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33103)) {
             multiplier += 0.05D;

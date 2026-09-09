@@ -2224,12 +2224,12 @@ public class NPCHandler {
             }
         }
         if (npc.getNpcId() == FragmentOfSeren.NPC_ID || npc.getNpcId() == TheUnbearable.NPC_ID ) {
-            if (c.hasFollower && (c.petSummonId == 23939)) {
+            if (c.hasFollower && (c.hasActivePet(23939))) {
                 if (Misc.random(1) == 1) {
                     return 0;
                 }
             }
-            if (c.hasFollower && (c.petSummonId == 30123)) {
+            if (c.hasFollower && (c.hasActivePet(30123))) {
                 if (Misc.random(100) < 85) {
                     return 0;
                 }

@@ -95,11 +95,11 @@ public class MeleeMaxHit {
 		} else if (c.fullSanguine() && !c.getPosition().inWild()) {
 			base = (base * 1.30);
 		}
-		if (c.hasFollower && c.petSummonId == 25348) {
+		if (c.hasFollower && c.hasActivePet(25348)) {
 			base = (base * 1.20);
 		}
 
-		if (c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && Boundary.isIn(c, Boundary.RAIDS) || c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && c.getTobContainer().inTob()) {
+		if (c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && Boundary.isIn(c, Boundary.RAIDS) || c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && c.getTobContainer().inTob()) {
 			base = (base * 1.20);
 		}
 
@@ -116,7 +116,7 @@ public class MeleeMaxHit {
 			base = (base * 1.50);
 		}
 
-		if (c.petSummonId == 27352) {
+		if (c.hasActivePet(27352)) {
 			base = (base * 1.15);
 			}
 
@@ -141,16 +141,9 @@ public class MeleeMaxHit {
 
 
 
-		boolean hasDarkVersion = (c.petSummonId == 30115 || c.petSummonId == 30120 || c.petSummonId == 30122);
-		if (c.hasFollower && ((
-				(c.petSummonId == 30015 || c.petSummonId == 30020 || c.petSummonId == 30022 || c.petSummonId == 25350))
-				|| (hasDarkVersion))) {
-			if (hasDarkVersion) {
-				base *= 1.10;
-			} else if (Misc.random(1) == 1) {
-				base *= 1.10;
-			}
-		}
+		boolean darkPet = io.zaryx.model.entity.npc.pets.PetHandler.hasDarkMeleePet(c);
+        boolean normalPet = io.zaryx.model.entity.npc.pets.PetHandler.hasMeleePet(c) || c.hasActivePet(25350);
+        if (darkPet || (normalPet && Misc.isLucky(io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_ROLL))) { base *= 1.10; }
 		return (int) Math.floor(base);
 	}
 

@@ -433,10 +433,9 @@ public abstract class HitDispatcher {
             if (gainExperience) {
                 addCombatXP(CombatType.MELEE, damage + Math.max(0, damage2) + Math.max(0, damage3));
             }
-            boolean hasDarkHealerVersion = attacker.petSummonId == 30118 || attacker.petSummonId == 30122;
-            int healerChance = 10;
-            if (damage > 0 && attacker.hasFollower && ((attacker.petSummonId == 30018 || attacker.petSummonId == 30022 || attacker.petSummonId == 30122) || hasDarkHealerVersion) && Misc.random(healerChance) == 1) {
-                attacker.getHealth().increase(damage / 3);
+            int healerChance = io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_ROLL;
+            if (damage > 0 && attacker.hasFollower && io.zaryx.model.entity.npc.pets.PetPerks.heals(attacker.petSummonId) && Misc.random(healerChance) == 1) {
+                attacker.getHealth().increase(damage / io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_DIVISOR);
                 if (attacker.playerLevel[3] > attacker.getPA().getLevelForXP(attacker.playerXP[3])) {
                     attacker.playerLevel[3] = attacker.getPA().getLevelForXP(attacker.playerXP[3]);
                 }
@@ -475,10 +474,9 @@ public abstract class HitDispatcher {
                     attacker.getPA().refreshSkill(5);
                 }
             }
-            boolean hasDarkPrayerVersion = attacker.petSummonId == 30119 || attacker.petSummonId == 30122;
-            int prayerChance = 10;
-            if (damage > 0 && attacker.hasFollower && ((attacker.petSummonId == 30019 || attacker.petSummonId == 30022 || attacker.petSummonId == 30122) || hasDarkPrayerVersion) && Misc.random(prayerChance) == 1) {
-                int halfDamage = (int) (damage / 3);
+            int prayerChance = io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_ROLL;
+            if (damage > 0 && attacker.hasFollower && io.zaryx.model.entity.npc.pets.PetPerks.restoresPrayer(attacker.petSummonId) && Misc.random(prayerChance) == 1) {
+                int halfDamage = (int) (damage / io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_DIVISOR);
                 attacker.playerLevel[5] += (halfDamage);
                 if (attacker.playerLevel[5] > attacker.getPA().getLevelForXP(attacker.playerXP[5])) {
                     attacker.playerLevel[5] = attacker.getPA().getLevelForXP(attacker.playerXP[5]);
@@ -667,10 +665,9 @@ public abstract class HitDispatcher {
             if (gainExperience) {
                 addCombatXP(CombatType.RANGE, damage + Math.max(damage2, 0));
             }
-            boolean hasDarkHealerVersion = attacker.petSummonId == 30118 || attacker.petSummonId == 30122;
-            int healerChance = 10;
-            if (damage > 0 && attacker.hasFollower && (attacker.petSummonId == 30018 || attacker.petSummonId == 30022 || attacker.petSummonId == 30122 || hasDarkHealerVersion) && Misc.random(healerChance) == 1) {
-                attacker.getHealth().increase(damage / 3);
+            int healerChance = io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_ROLL;
+            if (damage > 0 && attacker.hasFollower && io.zaryx.model.entity.npc.pets.PetPerks.heals(attacker.petSummonId) && Misc.random(healerChance) == 1) {
+                attacker.getHealth().increase(damage / io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_DIVISOR);
                 if (attacker.playerLevel[3] > attacker.getPA().getLevelForXP(attacker.playerXP[3])) {
                     attacker.playerLevel[3] = attacker.getPA().getLevelForXP(attacker.playerXP[3]);
                 }
@@ -709,10 +706,9 @@ public abstract class HitDispatcher {
                     attacker.getPA().refreshSkill(5);
                 }
             }
-            boolean hasDarkPrayerVersion = attacker.petSummonId == 30119 || attacker.petSummonId == 30122;
-            int prayerChance = 10;
-            if (damage > 0 && attacker.hasFollower && (attacker.petSummonId == 30019 || attacker.petSummonId == 30022 || attacker.petSummonId == 30122 || hasDarkPrayerVersion) && Misc.random(prayerChance) == 1) {
-                int halfDamage = (damage / 3);
+            int prayerChance = io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_ROLL;
+            if (damage > 0 && attacker.hasFollower && io.zaryx.model.entity.npc.pets.PetPerks.restoresPrayer(attacker.petSummonId) && Misc.random(prayerChance) == 1) {
+                int halfDamage = (damage / io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_DIVISOR);
                 attacker.playerLevel[5] += (halfDamage);
                 if (attacker.playerLevel[5] > attacker.getPA().getLevelForXP(attacker.playerXP[5])) {
                     attacker.playerLevel[5] = attacker.getPA().getLevelForXP(attacker.playerXP[5]);
@@ -810,10 +806,9 @@ public abstract class HitDispatcher {
             if (gainExperience) {
                 addCombatXP(CombatType.MAGE, damage + Math.max(damage2, 0));
             }
-            boolean hasDarkHealerVersion = attacker.petSummonId == 30118 || attacker.petSummonId == 30122;
-            int healerChance = 10;
-            if (damage > 0 && attacker.hasFollower && (attacker.petSummonId == 30018 || attacker.petSummonId == 30022 || attacker.petSummonId == 30122 || hasDarkHealerVersion) && Misc.random(healerChance) == 1) {
-                attacker.getHealth().increase(damage / 3);
+            int healerChance = io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_ROLL;
+            if (damage > 0 && attacker.hasFollower && io.zaryx.model.entity.npc.pets.PetPerks.heals(attacker.petSummonId) && Misc.random(healerChance) == 1) {
+                attacker.getHealth().increase(damage / io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_DIVISOR);
                 if (attacker.playerLevel[3] > attacker.getPA().getLevelForXP(attacker.playerXP[3])) {
                     attacker.playerLevel[3] = attacker.getPA().getLevelForXP(attacker.playerXP[3]);
                 }
@@ -852,10 +847,9 @@ public abstract class HitDispatcher {
                     attacker.getPA().refreshSkill(5);
                 }
             }
-            boolean hasDarkPrayerVersion = attacker.petSummonId == 30119 || attacker.petSummonId == 30122;
-            int prayerChance = 10;
-            if (damage > 0 && attacker.hasFollower && (attacker.petSummonId == 30019 || attacker.petSummonId == 30022 || attacker.petSummonId == 30122 || hasDarkPrayerVersion) && Misc.random(prayerChance) == 1) {
-                int halfDamage = (damage / 3);
+            int prayerChance = io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_ROLL;
+            if (damage > 0 && attacker.hasFollower && io.zaryx.model.entity.npc.pets.PetPerks.restoresPrayer(attacker.petSummonId) && Misc.random(prayerChance) == 1) {
+                int halfDamage = (damage / io.zaryx.model.entity.npc.pets.PetPerks.RECOVERY_DIVISOR);
                 attacker.playerLevel[5] += (halfDamage);
                 if (attacker.playerLevel[5] > attacker.getPA().getLevelForXP(attacker.playerXP[5])) {
                     attacker.playerLevel[5] = attacker.getPA().getLevelForXP(attacker.playerXP[5]);

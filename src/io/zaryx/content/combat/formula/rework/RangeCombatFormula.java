@@ -588,9 +588,9 @@ public class RangeCombatFormula implements CombatFormula {
         boolean hasDarkRangePet = PetHandler.hasDarkRangePet(attacker);
         boolean hasRangePet = PetHandler.hasRangePet(attacker);
         if (hasDarkRangePet)
-            multiplier += 0.10;
-        else if (hasRangePet && Misc.isLucky(50))
-            multiplier += 0.10;
+            multiplier += io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_BONUS;
+        else if (hasRangePet && Misc.isLucky(io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_ROLL))
+            multiplier += io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_BONUS;
 
 
         if (attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33104)) {
@@ -656,7 +656,7 @@ public class RangeCombatFormula implements CombatFormula {
         } else if (attacker.playerEquipment[Player.playerFeet] == 22954 && !attacker.getPosition().inWild()) { //Devout Boots
             multiplier += 0.15;
         }
-        if (attacker.hasFollower && attacker.petSummonId == 25348) {
+        if (attacker.hasFollower && attacker.hasActivePet(25348)) {
             multiplier += 0.20;
         }
 

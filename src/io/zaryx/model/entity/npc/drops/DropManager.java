@@ -193,14 +193,14 @@ public class DropManager {
                 itemId = Items.SMALL_COIN_BAG;
             }
             int extraBag = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30113 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30113) || player.hasActivePet(30122));
 
-            if (player.petSummonId == 30012) {
+            if (player.hasActivePet(30012)) {
                 extraBag = 1;
             }
 
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (hasDarkVersion && petPerkChance < 25) {
                     extraBag = 1;
@@ -228,10 +228,10 @@ public class DropManager {
             } else if (combatLevel >= 62) {
                 box = Items.RESOURCE_BOXMEDIUM;
             }
-            boolean hasDarkVersion = (player.petSummonId == 30112 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30112) || player.hasActivePet(30122));
             int extraPack = 0;
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (hasDarkVersion && petPerkChance < 25) {
                     extraPack = 1;
@@ -314,7 +314,7 @@ public class DropManager {
     }
 
     public static void implamp(Player player, int npcId, int dropX, int dropY, int dropZ) {
-        if (player.petSummonId == 30011) {
+        if (player.hasActivePet(30011)) {
             NpcDef npcDefinition = NpcDef.forId(npcId);
             if (npcDefinition != null && Misc.random(225) == 1) {
                 int amount = 1;
@@ -436,10 +436,10 @@ public class DropManager {
             largeNpc = npc.getDefinition().getCombatLevel() > 100;
             if (mediumNpc) specialItemId = Items.CLUE_SCROLL_MEDIUM;
             else if (largeNpc) specialItemId = Items.CLUE_SCROLL_HARD;
-            boolean hasDarkVersion = player.petSummonId == 30111 || player.petSummonId == 30122;
+            boolean hasDarkVersion = player.hasActivePet(30111) || player.hasActivePet(30122);
             int extraKey = 0;
             if (player.hasFollower &&
-                    ((player.petSummonId == 30011 || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(30011) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) if (player.getItems().freeSlots() > 0) {
                 if (hasDarkVersion && petPerkChance < 25) extraKey = 1;
                 player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @blu@clue scroll!");
@@ -501,7 +501,7 @@ public class DropManager {
         if (player.getItems().isWearingItem(26314)) {
             jaftring(player, npcId, location.getX(), location.getY(), location.getZ());
         }
-        if (player.hasFollower && player.petSummonId == 30011) {
+        if (player.hasFollower && player.hasActivePet(30011)) {
             implamp(player, npcId, location.getX(), location.getY(), location.getZ());
         }
 
@@ -532,9 +532,9 @@ public class DropManager {
             specialItemId = Items.SINISTER_KEY;
             correctPetId = 30010;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@You notice a @red@key of the forest@bla@ on the floor.");
@@ -557,7 +557,7 @@ public class DropManager {
         if (Hespori.activeGolparSeed) {
             amountKeys = 2;
         }
-        if (player.petSummonId == 30010) {
+        if (player.hasActivePet(30010)) {
             amountKeys = 2;
         }
         if (player.getItems().hasItemOnOrInventory(10557)) {
@@ -567,7 +567,7 @@ public class DropManager {
             specialItemId = 692;
             int extraKey = 0;
             if (player.hasFollower &&
-                    ((player.petSummonId == 30022) && petPerkChance < 100)) {
+                    ((player.hasActivePet(30022)) && petPerkChance < 100)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @red@Upgrade ticket");
                     {
@@ -599,9 +599,9 @@ public class DropManager {
             specialItemId = Items.CRYSTAL_KEY;
             correctPetId = 30010;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 100)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 100)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @blu@crystal key!");
@@ -654,7 +654,7 @@ public class DropManager {
             specialItemId = 6678;
             int extraKey = 0;
             if (player.hasFollower &&
-                    ((player.petSummonId == 30022) && petPerkChance < 100)) {
+                    ((player.hasActivePet(30022)) && petPerkChance < 100)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @red@Realm box!");
                     {
@@ -677,7 +677,7 @@ public class DropManager {
         if (Hespori.activeGolparSeed) {
             amountwildkey = 2;
         }
-        if (Misc.random(WildKey) == 1 && player.petSummonId == 23939) {
+        if (Misc.random(WildKey) == 1 && player.hasActivePet(23939)) {
             specialItemId = 6792;
             player.sendMessage("@bla@You notice a @red@Wildykey@bla@ on the floor.");
             Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), amountwildkey, player.getIndex());
@@ -688,7 +688,7 @@ public class DropManager {
         if (Hespori.activeGolparSeed) {
             amountwildkey1 = 2;
         }
-        if (Misc.random(WildKey1) == 1 && player.petSummonId == 23939) {
+        if (Misc.random(WildKey1) == 1 && player.hasActivePet(23939)) {
             specialItemId = 4185;
             player.sendMessage("@bla@You notice a @red@Wildykey@bla@ on the floor.");
             Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), amountwildkey1, player.getIndex());
@@ -712,7 +712,7 @@ public class DropManager {
             specialItemId = 6679;
             int extraKey = 0;
             if (player.hasFollower &&
-                    ((player.petSummonId == 30022) && petPerkChance < 100)) {
+                    ((player.hasActivePet(30022)) && petPerkChance < 100)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @red@Myriad of Boxes!");
                     {
@@ -741,9 +741,9 @@ public class DropManager {
             specialItemId = 3468;
             correctPetId = 30010;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@You notice a @red@Warped Key@bla@ on the floor.");
@@ -778,9 +778,9 @@ public class DropManager {
             correctPetId = 30010;
             specialItemId = 28416;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @blu@Slayer key (tier1)!");
@@ -817,9 +817,9 @@ public class DropManager {
             specialItemId = 28417;
             correctPetId = 30010;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @blu@Slayer key (tier2)!");
@@ -855,9 +855,9 @@ public class DropManager {
             specialItemId = 28418;
             correctPetId = 30010;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @blu@Slayer key (tier3)!");
@@ -893,9 +893,9 @@ public class DropManager {
             specialItemId = 28419;
             correctPetId = 30010;
             int extraKey = 0;
-            boolean hasDarkVersion = (player.petSummonId == 30110 || player.petSummonId == 30122);
+            boolean hasDarkVersion = (player.hasActivePet(30110) || player.hasActivePet(30122));
             if (player.hasFollower &&
-                    ((player.petSummonId == correctPetId || player.petSummonId == 30022) && petPerkChance < 80)
+                    ((player.hasActivePet(correctPetId) || player.hasActivePet(30022)) && petPerkChance < 80)
                     || (hasDarkVersion)) {
                 if (player.getItems().freeSlots() > 0) {
                     player.sendMessage("@bla@[@red@Pet@bla@] Your pet found a @blu@Slayer key (tier4)!");
@@ -1156,33 +1156,8 @@ public class DropManager {
         // Inventory / equipment
         if (player.getItems().hasItemOnOrInventory(21126)) modifier += 0.10; // Ring of pursuit
 
-        // Pets: highest tiers
-        if (player.hasActivePet(25350)
-                || player.hasActivePet(30022)
-                || player.hasActivePet(30121)
-                || player.hasActivePet(27354)
-                || player.hasActivePet(27383)
-                || player.hasActivePet(27352)
-                || player.hasActivePet(30122)) {
-            modifier += 0.20;
-        }
-
-        // Pets: mid tiers
-        if (player.hasActivePet(30114)
-                || player.hasActivePet(30021)
-                || player.hasActivePet(30120)
-                || player.hasActivePet(25348)) {
-            modifier += 0.10;
-        }
-
-        // Pets: low tiers
-        if (player.hasActivePet(30014)
-                || player.hasActivePet(33159)
-                || player.hasActivePet(23760)
-                || player.hasActivePet(10533)
-                || player.hasActivePet(30020)) {
-            modifier += 0.05;
-        }
+        // The same registry supplies the ::pet display and live drop modifier.
+        if (player.hasFollower) modifier += io.zaryx.model.entity.npc.pets.PetPerks.dropBonus(player.petSummonId);
 
         // Misc boosts
         if (VotePanelManager.hasDropBoost(player)) modifier += 0.10;

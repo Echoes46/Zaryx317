@@ -117,7 +117,7 @@ public class RangeMaxHit extends RangeData {
 		} else if (c.beckoning()) {
 			b += .35;
 
-		} else if (c.petSummonId == 27352) {
+		} else if (c.hasActivePet(27352)) {
 			b += .15;
 
 		} else if (c.getItems().isWearingItem(33206)) {
@@ -163,28 +163,20 @@ public class RangeMaxHit extends RangeData {
 						}
 					}
 
-					if (c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && c.wildLevel > 0 && npc.getNpcId() == (6609 | 6615 | 6610 | 2054 | 6619 | 6618 | 8172 | 8164)) {
+					if (c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && c.wildLevel > 0 && npc.getNpcId() == (6609 | 6615 | 6610 | 2054 | 6619 | 6618 | 8172 | 8164)) {
 						b += 0.20;
 					}
-					if (c.hasFollower && c.petSummonId == 25348) {
+					if (c.hasFollower && c.hasActivePet(25348)) {
 						b += 0.20;
 					}
 
-					if (c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && Boundary.isIn(c, Boundary.RAIDS) || c.hasFollower && (c.petSummonId == 25350 || c.petSummonId == 30122) && c.getTobContainer().inTob()) {
+					if (c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && Boundary.isIn(c, Boundary.RAIDS) || c.hasFollower && (c.hasActivePet(25350) || c.hasActivePet(30122)) && c.getTobContainer().inTob()) {
 						b += 0.20;
 					}
 				}
-				boolean hasDarkVersion = (c.petSummonId == 30116 || c.petSummonId == 30120 || c.petSummonId == 30122);
-
-				if (c.hasFollower
-						&& ((c.petSummonId == 30016 || c.petSummonId == 30020 || c.petSummonId == 30022 || c.petSummonId == 25350)
-						|| (hasDarkVersion))) {
-					if (hasDarkVersion) {
-						b *= 1.10;
-					} else if (Misc.random(1) == 1) {
-						b *= 1.10;
-					}
-				}
+				boolean darkPet = io.zaryx.model.entity.npc.pets.PetHandler.hasDarkRangePet(c);
+        boolean normalPet = io.zaryx.model.entity.npc.pets.PetHandler.hasRangePet(c) || c.hasActivePet(25350);
+        if (darkPet || (normalPet && Misc.isLucky(io.zaryx.model.entity.npc.pets.PetPerks.COMBAT_ROLL))) { b *= 1.10; }
 
 				if (c.usingRage && !c.getPosition().inWild()) {
 					b *= 0.50;

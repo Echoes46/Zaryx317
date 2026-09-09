@@ -30,61 +30,16 @@ public class PetHandler {
             21748,26348,28669,10998,24864,24863,11279,33242,33240,33241,33243,28250,28252,28246,28248,28801,28960,
             25602, 21509, 27352, 28962, 13071, 27590, 27354, 27385, 18);
 
-    private static final ImmutableSet<Integer> MELEE_PETS = ImmutableSet.of(
-            Pets.SHADOW_WARRIOR.itemId, Pets.CORRUPT_BEAST.itemId, Pets.KRATOS1.itemId
-    );
-
-    private static final ImmutableSet<Integer> DARK_MELEE_PETS = ImmutableSet.of(
-            /*Pets.DARK_SHADOW_WARRIOR.itemId,*/ Pets.HEAD.itemId, Pets.DARK_KRATOS.itemId
-    );
-
-    private static final ImmutableSet<Integer> STORAGE_PET = ImmutableSet.of(
-            Pets.PAK_YAK_1.getItemId()
-    );
-
-    private static final ImmutableSet<Integer> RANGE_PETS = ImmutableSet.of(
-            Pets.SHADOW_ARCHER.itemId, Pets.CORRUPT_BEAST.itemId, Pets.KRATOS1.itemId
-    );
-
-    private static final ImmutableSet<Integer> DARK_RANGE_PETS = ImmutableSet.of(
-            /*Pets.DARK_SHADOW_ARCHER.itemId,*/ Pets.HEAD.itemId, Pets.DARK_KRATOS.itemId
-    );
-
-    private static final ImmutableSet<Integer> MAGE_PETS = ImmutableSet.of(
-            Pets.SHADOW_WIZARD.itemId, Pets.CORRUPT_BEAST.itemId, Pets.KRATOS1.itemId
-    );
-
-    private static final ImmutableSet<Integer> DARK_MAGE_PETS = ImmutableSet.of(
-            Pets.MAGIC.itemId, Pets.HEAD.itemId, Pets.DARK_KRATOS.itemId
-    );
-
-    public static boolean hasMagePet(Player player) {
-        return MAGE_PETS.contains(player.petSummonId);
+    public static boolean hasMagePet(Player player) { return tier(player, PetPerks.Style.MAGIC) == 1; }
+    public static boolean hasDarkMagePet(Player player) { return tier(player, PetPerks.Style.MAGIC) == 2; }
+    public static boolean hasRangePet(Player player) { return tier(player, PetPerks.Style.RANGED) == 1; }
+    public static boolean hasDarkRangePet(Player player) { return tier(player, PetPerks.Style.RANGED) == 2; }
+    public static boolean hasMeleePet(Player player) { return tier(player, PetPerks.Style.MELEE) == 1; }
+    public static boolean hasDarkMeleePet(Player player) { return tier(player, PetPerks.Style.MELEE) == 2; }
+    private static int tier(Player player, PetPerks.Style style) {
+        return player.hasFollower ? PetPerks.combatTier(player.petSummonId, style) : 0;
     }
-
-    public static boolean hasDarkMagePet(Player player) {
-        return DARK_MAGE_PETS.contains(player.petSummonId);
-    }
-
-    public static boolean hasRangePet(Player player) {
-        return RANGE_PETS.contains(player.petSummonId);
-    }
-
-    public static boolean hasDarkRangePet(Player player) {
-        return DARK_RANGE_PETS.contains(player.petSummonId);
-    }
-
-    public static boolean hasDarkMeleePet(Player player) {
-        return DARK_MELEE_PETS.contains(player.petSummonId);
-    }
-
-    public static boolean hasMeleePet(Player player) {
-        return MELEE_PETS.contains(player.petSummonId);
-    }
-
-    public static boolean hasstoragepetout(Player player) {
-        return STORAGE_PET.contains(player.petSummonId);
-    }
+    public static boolean hasstoragepetout(Player player) { return player.hasActivePet(Pets.PAK_YAK_1.itemId); }
 
     public static boolean ownsAll(Player player) {
         int amount = 0;

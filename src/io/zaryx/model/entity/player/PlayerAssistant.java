@@ -3550,10 +3550,10 @@ public class PlayerAssistant {
             amount *= 5.5;
         }
 
-        if (c.petSummonId == 27383) {
+        if (c.hasActivePet(27383)) {
             amount *= 3.0;
         }
-        if (c.petSummonId == 30013 ) {
+        if (c.hasActivePet(30013) ) {
             amount *= 1.25;
         }
         if (c.getItems().isWearingItem(26314)) {
