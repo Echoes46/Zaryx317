@@ -115,6 +115,7 @@ public class ClickingButtons implements PacketType {
             c.getPA().sendSound(2266, SoundType.SOUND);
         }
 
+        if (c.companionJournal.click(c, realButtonId)) return;
         if (CosmeticDeals.checkCosmeticPurchase(c, realButtonId)) {
             return;
         }

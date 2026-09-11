@@ -1411,6 +1411,7 @@ public class Player extends Entity {
         return player;
     }
 
+    public final io.zaryx.model.entity.npc.pets.CompanionJournal companionJournal = new io.zaryx.model.entity.npc.pets.CompanionJournal();
     public final io.zaryx.model.entity.npc.pets.CompanionProgress companionProgress = new io.zaryx.model.entity.npc.pets.CompanionProgress();
 
     public Player(Channel channel) {

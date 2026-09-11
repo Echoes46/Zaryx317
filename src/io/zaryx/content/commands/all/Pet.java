@@ -1,13 +1,10 @@
 package io.zaryx.content.commands.all;
 
 import io.zaryx.content.commands.Command;
-import io.zaryx.model.entity.npc.pets.PetHandler;
-import io.zaryx.model.entity.npc.pets.PetPerks;
 import io.zaryx.model.entity.player.Player;
-import io.zaryx.model.items.ItemAssistant;
 import java.util.*;
 
-/** Read-only details for the active companion. */
+/** Opens the Companion Journal, optionally searching by name or item ID. */
 public class Pet extends Command {
     public static final int ROW_COUNT = 64;
     @Override
@@ -16,30 +13,7 @@ public class Pet extends Command {
             player.sendMessage("Please finish your current activity first.");
             return;
         }
-        PetHandler.Pets pet = player.hasFollower ? PetHandler.forItem(player.petSummonId) : null;
-        List<String> lines = new ArrayList<>();
-        if (pet != null) {
-            List<String> details = new ArrayList<>(io.zaryx.model.entity.npc.pets.CompanionBenefits.describe(player, pet.getItemId()));
-            details.addAll(PetPerks.describe(pet.getItemId()));
-            lines.addAll(wrapDetails(details));
-        } else {
-            lines.add("@or1@CHOOSE A COMPANION");
-            lines.add("Summon a pet, then use ::pet to inspect its abilities.");
-            lines.add("");
-            lines.add("Bonuses require the pet to be summoned unless stated.");
-            lines.add("Every companion has its own saved level and perk bonuses.");
-        }
-        player.getPA().sendString(22747, pet == null ? "No pet summoned" :
-                PetPerks.displayName(pet.getItemId(), ItemAssistant.getItemName(pet.getItemId()))
-                        + " - Level " + player.companionProgress.level(pet.getItemId()));
-        player.getPA().sendString(22754, pet == null ? "No active companion bonuses" :
-                "Companion XP: " + player.companionProgress.xp(pet.getItemId()) + " / 50,000 | Use ::pet to refresh");
-        for (int i = 0; i < ROW_COUNT; i++) player.getPA().sendString(22800 + i, i < lines.size() ? lines.get(i) : "");
-        // Keep old clients useful while the new scrollable panel rolls out.
-        for (int i = 0; i < 5; i++) player.getPA().sendString(22742 + i, i < lines.size() ? lines.get(i) : "");
-        player.getPA().setScrollableMaxHeight(22755, Math.max(176, lines.size() * 18 + 8));
-        player.getPA().resetScrollBar(22755);
-        player.getPA().showInterface(22731);
+        player.companionJournal.open(player, input);
     }
 
     public static List<String> wrapDetails(List<String> details) {

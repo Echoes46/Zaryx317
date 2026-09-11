@@ -288,6 +288,19 @@ public class PetHandler {
         }
     }
 
+    public static List<String> journalSources(int id) {
+        List<String> sources = new ArrayList<>();
+        for (Pets pet : PETS) {
+            if (pet.itemId == id && pet.rollOnNpcDeath && pet.droprate > 0
+                    && !pet.parent.isEmpty() && !pet.parent.matches("[0-9]+")) {
+                String line = "Configured NPC pet roll: " + pet.parent + ".";
+                if (!sources.contains(line)) sources.add(line);
+            }
+        }
+        if (sources.isEmpty()) sources.add("No direct NPC pet roll confirmed for this item form.");
+        return sources;
+    }
+
     public static Pets forItem(int id) {
         for (Pets t : Pets.values()) {
             if (t.itemId == id) {
