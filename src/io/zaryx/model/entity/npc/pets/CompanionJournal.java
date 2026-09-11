@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /** Read-only, account-local browsing state. Never changes pets or progression. */
 public final class CompanionJournal {
     public static final int PAGE_SIZE = 9;
-    private static final String[] TABS = {"Browse", "Progress", "Perks", "Sources", "Compare"};
+    private static final String[] TABS = {"Browse", "Progress", "Perks", "", "Compare"};
     private static final String[] OWNERSHIP = {"All", "Owned", "Missing"};
     private static final String[] ROLES = {"All roles", "Combat", "Skilling", "Utility"};
     private int selected = -1, pinned = -1, tab, page, ownership, role, detailPage;
@@ -18,7 +18,7 @@ public final class CompanionJournal {
 
     public static List<Integer> ids() {
         return Arrays.stream(PetHandler.Pets.values()).map(PetHandler.Pets::getItemId)
-                .distinct().sorted(Comparator.comparing(CompanionJournal::name).thenComparingInt(Integer::intValue))
+                .distinct().filter(id -> !name(id).trim().equalsIgnoreCase("Dwarf remains")).sorted(Comparator.comparing(CompanionJournal::name).thenComparingInt(Integer::intValue))
                 .collect(Collectors.toList());
     }
     public static String name(int id) {
@@ -29,6 +29,14 @@ public final class CompanionJournal {
     public static boolean owned(Player p, int id) {
         return (p.hasFollower && p.petSummonId == id) || p.getItems().getItemCount(id, false) > 0;
     }
+    public static boolean showItemIds(Player p) {
+        return p.getRights().contains(io.zaryx.model.entity.player.Right.STAFF_MANAGER);
+    }
+    public static String label(Player p, int id, boolean compact) {
+        String text = name(id);
+        if (compact && text.length() > 32) text = text.substring(0, 29) + "...";
+        return text + (showItemIds(p) ? " [" + id + "]" : "");
+    }
     public static boolean matchesRole(int id, int role) {
         if (role == 0) return true;
         if (role == 1) return CompanionBenefits.damageBonus(id, 1) > 0
@@ -38,7 +46,7 @@ public final class CompanionJournal {
     }
     public List<Integer> filtered(Player p) {
         return ids().stream().filter(id -> (query.isEmpty() || name(id).toLowerCase(Locale.ROOT).contains(query)
-                || String.valueOf(id).equals(query)))
+                || showItemIds(p) && String.valueOf(id).equals(query)))
                 .filter(id -> ownership == 0 || owned(p, id) == (ownership == 1))
                 .filter(id -> matchesRole(id, role)).collect(Collectors.toList());
     }
@@ -55,6 +63,7 @@ public final class CompanionJournal {
         boolean row = button >= 22800 && button < 22864;
         boolean control = button >= 22864 && button <= 22868 || button >= 22870 && button <= 22874;
         if (!row && !control) return false;
+        if (button == 22867) return true; // Retired Sources button, including older clients.
         if (p.getOpenInterface() != 22731 || p.getInterfaceEvent().isActive()
                 || io.zaryx.Server.getMultiplayerSessionListener().inAnySession(p)) return true;
         if (button != 22870 && button != 22871) detailPage = 0;
@@ -94,18 +103,6 @@ public final class CompanionJournal {
             lines.add("");
             lines.add("Progress tab shows the additional bonuses from your level.");
             lines.add("Summon this companion to activate bonuses unless stated.");
-        } else if (section == 3) {
-            lines.add("@or1@ACQUISITION - ITEM " + id);
-            lines.add("Balance tier: " + CompanionCatalog.get(id).tier.name().replace('_', ' '));
-            lines.addAll(PetHandler.journalSources(id));
-            if (CompanionCatalog.family(id) != id) lines.add("Cosmetic form. See base companion item " + CompanionCatalog.family(id) + " for its acquisition routes.");
-            lines.add("@or1@OTHER SOURCE REFERENCES");
-            for (String source : CompanionCatalog.get(id).source.split(";")) lines.add(source.trim());
-            lines.add("");
-            lines.add("References may include transformations or reward containers.");
-            lines.add("A shop reference alone does not prove donor exclusivity.");
-            lines.add("Owned checks: summoned, inventory, equipment, bank, looting bag.");
-            lines.add("Other storage and shared banks are not counted here.");
         } else if (section == 4) {
             if (pinned == -1) return Arrays.asList("@or1@COMPARE TWO COMPANIONS", "Choose a companion and press Pin.",
                     "Browse to another companion, then open Compare.", "Both use your account's saved levels, even when missing.");
@@ -131,16 +128,17 @@ public final class CompanionJournal {
     }
     private void render(Player p) {
         List<Integer> entries = filtered(p);
+        if (pinned != -1 && !ids().contains(pinned)) pinned = -1;
         if (!entries.contains(selected)) selected = entries.isEmpty() ? -1 : entries.get(0);
         page = Math.min(page, Math.max(0, (entries.size() - 1) / PAGE_SIZE));
         visible = new ArrayList<>(entries.subList(Math.min(page * PAGE_SIZE, entries.size()), Math.min((page + 1) * PAGE_SIZE, entries.size())));
         List<String> lines = new ArrayList<>();
         if (tab == 0) {
-            for (int id : visible) lines.add((name(id).length() > 32 ? name(id).substring(0, 29) + "..." : name(id)) + " [" + id + "] - Lv " + p.companionProgress.level(id)
+            for (int id : visible) lines.add(label(p, id, true) + " - Lv " + p.companionProgress.level(id)
                     + " - " + (owned(p, id) ? "Owned" : "Missing"));
             if (lines.isEmpty()) lines.add("No matches. Change filters or use ::pet to reset.");
         } else lines = Pet.wrapDetails(details(p, selected, tab));
-        p.getPA().sendString(22747, tab == 0 ? "Browse companions - " + entries.size() + " matches" : selected == -1 ? "No selection" : name(selected) + " [" + selected + "]");
+        p.getPA().sendString(22747, tab == 0 ? "Browse companions - " + entries.size() + " matches" : selected == -1 ? "No selection" : label(p, selected, false));
         p.getPA().sendString(22754, tab == 0 ? "Page " + (page + 1) + " / " + Math.max(1, (entries.size() + 8) / 9) + " - Click a companion to inspect"
                 : selected == -1 ? "Change filters to find companions" : "Level " + p.companionProgress.level(selected) + " | XP " + p.companionProgress.xp(selected)
                 + " | " + (owned(p, selected) ? "Owned" : "Missing") + (CompanionBenefits.activeId(p) == selected ? " | Summoned" : " | Not summoned"));
@@ -152,7 +150,7 @@ public final class CompanionJournal {
         detailPage = Math.min(detailPage, pages - 1);
         List<String> displayed = lines.subList(detailPage * Pet.ROW_COUNT, Math.min(lines.size(), (detailPage + 1) * Pet.ROW_COUNT));
         p.getPA().sendString(22757, tab == 4 ? "Comparison page " + (detailPage + 1) + " / " + pages + " | Previous / Next turns pages."
-                : "Search: ::pet name or ID | Pin a pet, then compare another.");
+                : "Search: ::pet name" + (showItemIds(p) ? " or ID" : "") + " | Pin a pet, then compare another.");
         for (int i = 0; i < Pet.ROW_COUNT; i++) p.getPA().sendString(22800 + i, i < displayed.size() ? displayed.get(i) : "");
         p.getPA().setScrollableMaxHeight(22755, Math.max(176, displayed.size() * 18 + 8));
         p.getPA().resetScrollBar(22755);

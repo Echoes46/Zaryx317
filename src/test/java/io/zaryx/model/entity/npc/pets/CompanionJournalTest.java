@@ -52,6 +52,8 @@ class CompanionJournalTest {
             List<Integer> ids = CompanionJournal.ids();
             assertEquals(new HashSet<>(ids).size(), ids.size());
             set(p.companionJournal, "query", "30022");
+            assertTrue(p.companionJournal.filtered(p).isEmpty());
+            p.getRights().add(io.zaryx.model.entity.player.Right.STAFF_MANAGER);
             assertEquals(Collections.singletonList(30022), p.companionJournal.filtered(p));
             set(p.companionJournal, "query", "kratos");
             assertTrue(p.companionJournal.filtered(p).contains(30022));
@@ -66,7 +68,7 @@ class CompanionJournalTest {
     @Test void descriptionsCoverEveryPetAndComparisonKeepsBothAccountsLevels() throws Exception {
         player(p -> {
             for (int id : CompanionJournal.ids()) {
-                for (int tab = 1; tab <= 3; tab++) {
+                for (int tab = 1; tab <= 2; tab++) {
                     List<String> rows = Pet.wrapDetails(p.companionJournal.details(p, id, tab));
                     assertFalse(rows.isEmpty());
                     assertTrue(rows.size() <= Pet.ROW_COUNT, id + " tab " + tab);
@@ -87,5 +89,35 @@ class CompanionJournalTest {
         assertTrue(PetHandler.journalSources(12650).get(0).contains("General Graardor"));
         assertTrue(PetHandler.journalSources(11995).stream().anyMatch(s -> s.contains("Chaos Fanatic")));
         assertTrue(PetHandler.journalSources(1555).get(0).contains("No direct NPC"));
+    }
+    @Test void placeholderEntriesAreHiddenWithoutErasingProgress() throws Exception {
+        player(p -> {
+            io.zaryx.model.definitions.ItemDef.getDefinitions().put(12650,
+                    io.zaryx.model.definitions.ItemDef.builder().id(12650).name("@red@Dwarf remains").build());
+            p.companionProgress.decode("12650:6500");
+            assertFalse(CompanionJournal.ids().contains(12650));
+            set(p.companionJournal, "query", "12650");
+            assertTrue(p.companionJournal.filtered(p).isEmpty());
+            assertEquals(5, p.companionProgress.level(12650));
+            assertNotNull(PetHandler.forItem(12650));
+            assertTrue(p.companionJournal.details(p, 12650, 3).isEmpty());
+            assertTrue(p.companionJournal.click(p, 22867));
+        });
+    }
+    @Test void onlyOwnerRankSeesIdsRegardlessOfPetOwnership() throws Exception {
+        player(p -> {
+            p.hasFollower = true;
+            p.petSummonId = 30022;
+            assertEquals("Kratos", CompanionJournal.label(p, 30022, false));
+            p.getRights().add(io.zaryx.model.entity.player.Right.ADMINISTRATOR);
+            assertFalse(CompanionJournal.showItemIds(p));
+            p.getRights().add(io.zaryx.model.entity.player.Right.STAFF_MANAGER);
+            p.hasFollower = false;
+            assertEquals("Kratos [30022]", CompanionJournal.label(p, 30022, false));
+            assertEquals("Kratos [30022]", CompanionJournal.label(p, 30022, true));
+            p.getRights().reset();
+            p.getRights().add(io.zaryx.model.entity.player.Right.GAME_DEVELOPER);
+            assertFalse(CompanionJournal.showItemIds(p));
+        });
     }
 }
