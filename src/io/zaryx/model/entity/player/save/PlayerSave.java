@@ -713,6 +713,8 @@ public class PlayerSave {
                             p.BjLoss = Integer.parseInt(token2);
                         } else if (token.equals("bjpay")) {
                             p.BjPay = Long.parseLong(token2);
+                        } else if (token.equals("companion-progress")) {
+                            p.companionProgress.decode(token2);
                         } else if (token.equals("bj-pending-payout")) {
                             p.BjPendingPayout = Math.max(0L, Long.parseLong(token2));
                         } else if (token.equals("storetrans")) {
@@ -2220,6 +2222,8 @@ public class PlayerSave {
             characterfile.newLine();
             characterfile.write("bjpay = ", 0, 8);
             characterfile.write(Long.toString(p.BjPay), 0, Long.toString(p.BjPay).length());
+            characterfile.newLine();
+            characterfile.write("companion-progress = " + p.companionProgress.encode());
             characterfile.newLine();
             characterfile.write("bj-pending-payout = " + p.BjPendingPayout);
             characterfile.newLine();

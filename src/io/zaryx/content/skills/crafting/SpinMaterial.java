@@ -62,7 +62,7 @@ public class SpinMaterial {
 		public void execute() {
 			attachment.getItems().deleteItem2(material.required, 1);
 			attachment.getItems().addItem(material.result, 1);
-			attachment.getPA().addSkillXPMultiplied(material.experience, Player.playerCrafting, true);
+			attachment.getPA().addSkillXPFromAction(material.experience, Player.playerCrafting, true);
 			attachment.startAnimation(894);
 		}
 

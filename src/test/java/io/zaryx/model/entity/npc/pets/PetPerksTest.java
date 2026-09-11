@@ -42,7 +42,7 @@ class PetPerksTest {
         assertEquals(0, PetPerks.dropBonus(12650));
         assertEquals(0, PetPerks.combatTier(12650, PetPerks.Style.MELEE));
         assertFalse(PetPerks.heals(30118));
-        assertTrue(String.join(" ", PetPerks.describe(12650)).contains("no registered"));
+        assertTrue(String.join(" ", PetPerks.describe(12650)).contains("progression bonuses"));
     }
     @Test void descriptionsFitPanelAndCustomNamesMatchClient() {
         for (PetHandler.Pets pet : PetHandler.Pets.values()) {

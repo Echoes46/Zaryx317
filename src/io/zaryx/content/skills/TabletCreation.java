@@ -42,7 +42,7 @@ public class TabletCreation {
 			player.startAnimation(721);
 			tabDelay = System.currentTimeMillis();
 			player.getPA().closeAllWindows();
-			player.getPA().addSkillXPMultiplied(level(i) / 5, Player.playerRunecrafting, true);
+			player.getPA().addSkillXPFromAction(level(i) / 5, Player.playerRunecrafting, true);
 			player.sendMessage("You use your magic powers to convert runes into tablets!");
 		}
 	}

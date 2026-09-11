@@ -211,7 +211,7 @@ public class PyramidPlunder {
         int experience = 500;
         experience += (player.nextPlunderRoomId * 100);
 
-        player.getPA().addSkillXPMultiplied(experience, Skill.THIEVING.getId(), true);
+        player.getPA().addSkillXPFromAction(experience, Skill.THIEVING.getId(), true);
         player.sendMessage("You search around inside the chest and find "+amount+" coins!");
         player.getInventory().addAnywhere(new ImmutableItem(995, amount));
 
@@ -231,7 +231,7 @@ public class PyramidPlunder {
         int experience = 300;
         experience += (player.nextPlunderRoomId * 100);
 
-        player.getPA().addSkillXPMultiplied(experience, Skill.THIEVING.getId(), true);
+        player.getPA().addSkillXPFromAction(experience, Skill.THIEVING.getId(), true);
         player.sendMessage("You search around inside the sarcophagus and find " + Misc.formatCoins(amount) + " coins!");
         player.getInventory().addAnywhere(new ImmutableItem(995, amount));
 
@@ -255,7 +255,7 @@ public class PyramidPlunder {
                 player.loot26580 = true;
             } else {
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
                 player.loot26580 = true;
             }
     }
@@ -274,7 +274,7 @@ public class PyramidPlunder {
                 player.loot26600 = true;
             } else {
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
                 player.loot26600 = true;
             }
     }
@@ -293,7 +293,7 @@ public class PyramidPlunder {
                 player.loot26601 = true;
             } else {
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
                 player.loot26601 = true;
             }
     }
@@ -318,7 +318,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -346,7 +346,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -374,7 +374,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -402,7 +402,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -430,7 +430,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -458,7 +458,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -486,7 +486,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -514,7 +514,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -542,7 +542,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -570,7 +570,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -598,7 +598,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -626,7 +626,7 @@ public class PyramidPlunder {
             } else {
                 
                 player.sendMessage("You find nothing inside of the urn.");
-                player.getPA().addSkillXPMultiplied(5, Skill.THIEVING.getId(), true);
+                player.getPA().addSkillXPFromAction(5, Skill.THIEVING.getId(), true);
 
 
 
@@ -711,35 +711,35 @@ public class PyramidPlunder {
                 player.startAnimation(4342);
                 if (player.nextPlunderRoomId == 1) {
                     player.setForceMovement(player.getX(), player.getY()-3, 0, 100, "SOUTH", 762);
-                    player.getPA().addSkillXPMultiplied(10, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(10, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 2) {
                     player.setForceMovement(player.getX(), player.getY()-3, 0, 100, "SOUTH", 762);
-                    player.getPA().addSkillXPMultiplied(12, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(12, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 3) {
                     player.setForceMovement(player.getX(), player.getY()-3, 0, 100, "SOUTH", 762);
-                    player.getPA().addSkillXPMultiplied(15, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(15, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 4) {
                     player.setForceMovement(player.getX()+3, player.getY(), 0, 100, "EAST", 762);
-                    player.getPA().addSkillXPMultiplied(18, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(18, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 5) {
                     player.setForceMovement(player.getX()-3, player.getY(), 0, 100, "WEST", 762);
-                    player.getPA().addSkillXPMultiplied(21, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(21, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 6) {
                     player.setForceMovement(player.getX(), player.getY()+3, 0, 100, "NORTH", 762);
-                    player.getPA().addSkillXPMultiplied(24, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(24, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 7) {
                     player.setForceMovement(player.getX(), player.getY()+3, 0, 100, "NORTH", 762);
-                    player.getPA().addSkillXPMultiplied(27, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(27, Skill.THIEVING.getId(), true);
                 }
                 if (player.nextPlunderRoomId == 8) {
                     player.setForceMovement(player.getX(), player.getY()+3, 0, 100, "NORTH", 762);
-                    player.getPA().addSkillXPMultiplied(30, Skill.THIEVING.getId(), true);
+                    player.getPA().addSkillXPFromAction(30, Skill.THIEVING.getId(), true);
                 }
             }
     }
@@ -747,6 +747,6 @@ public class PyramidPlunder {
     public static void urnXp(Player player) {
         int amount = 50;
         amount += (player.nextPlunderRoomId * 100);
-        player.getPA().addSkillXPMultiplied(amount, Skill.THIEVING.getId(), true);
+        player.getPA().addSkillXPFromAction(amount, Skill.THIEVING.getId(), true);
     }
 }

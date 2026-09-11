@@ -24,19 +24,19 @@ public class WildernessAgility {
 		case 23554:
 			if (c.getAgilityHandler().hotSpot(c, 2998, 3916)) {
 				c.setForceMovement(2998, 3931, 0, 400, "NORTH", 762);
-				c.getPA().addSkillXPMultiplied(1, Player.playerAgility, true);
+				c.getPA().addSkillXPFromAction(1, Player.playerAgility, true);
 			}
 			if (c.getAgilityHandler().hotSpot(c, 2998, 3931) || c.getAgilityHandler().hotSpot(c, 2997, 3931)) {
 				c.setForceMovement(2998, 3916, 0, 400, "SOUTH", 762);
-				c.getPA().addSkillXPMultiplied(1, Player.playerAgility, true);
+				c.getPA().addSkillXPFromAction(1, Player.playerAgility, true);
 			}
 			if (c.getAgilityHandler().hotSpot(c, 2997, 3931)) {
 				c.setForceMovement(2998, 3916, 0, 400, "SOUTH", 762);
-				c.getPA().addSkillXPMultiplied(1, Player.playerAgility, true);
+				c.getPA().addSkillXPFromAction(1, Player.playerAgility, true);
 			}
 			if (c.getAgilityHandler().hotSpot(c, 2996, 3931)) {
 				c.setForceMovement(2998, 3916, 0, 400, "SOUTH", 762);
-				c.getPA().addSkillXPMultiplied(1, Player.playerAgility, true);
+				c.getPA().addSkillXPFromAction(1, Player.playerAgility, true);
 			}
 			return true;
 			

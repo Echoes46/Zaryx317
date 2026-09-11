@@ -188,7 +188,7 @@ public class Smelting {
 					c.getItems().deleteItem(c.bar.getOre2(), 1);
 					int amt = (c.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33077) && Misc.random(0,100) <= 10) ? 2 : 1;
 					c.getItems().addItem(c.bar.getBar(), amt);
-					c.getPA().addSkillXPMultiplied((int) (Objects.equals(usage, "INFERNAL") ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
+					c.getPA().addSkillXPFromAction((int) (Objects.equals(usage, "INFERNAL") ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
 				} else {
 					if (!Objects.equals(usage, "INFERNAL")) {
 						c.startAnimation(899);
@@ -199,7 +199,7 @@ public class Smelting {
 					else {
 						int amt = (c.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33077) && Misc.random(0,100) <= 10) ? 2 : 1;
 						c.getItems().addItem(c.bar.getBar(), amt);
-						c.getPA().addSkillXPMultiplied((int) (usage == "INFERNAL" ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
+						c.getPA().addSkillXPFromAction((int) (usage == "INFERNAL" ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
 					}
 				}
 			}

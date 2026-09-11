@@ -164,7 +164,7 @@ public class Fletching {
 				player.startAnimation(886);
 				player.getItems().deleteItem2(g.getGem(), 1);
 				player.getItems().addItem(g.getTips(), g.getAmount());
-				player.getPA().addSkillXPMultiplied((getFletchEquipmentCount(player) > 0 ? g.getExperience() * getFletchEquipmentCount(player) : g.getExperience()), Skill.FLETCHING.getId(), true);
+				player.getPA().addSkillXPFromAction((getFletchEquipmentCount(player) > 0 ? g.getExperience() * getFletchEquipmentCount(player) : g.getExperience()), Skill.FLETCHING.getId(), true);
 				player.getPA().removeAllWindows();
 			};
 
@@ -212,7 +212,7 @@ public class Fletching {
 			player.getItems().deleteItem2(314, 10);
 			player.getItems().deleteItem2(b.getUnfinished(), 10);
 			player.getItems().addItem(b.getBolt(), 10);
-			player.getPA().addSkillXPMultiplied((getFletchEquipmentCount(player) > 0 ? b.getExperience() * getFletchEquipmentCount(player) : b.getExperience()) * 10, Skill.FLETCHING.getId(), true);
+			player.getPA().addSkillXPFromAction((getFletchEquipmentCount(player) > 0 ? b.getExperience() * getFletchEquipmentCount(player) : b.getExperience()) * 10, Skill.FLETCHING.getId(), true);
 		});
 	}
 
@@ -235,7 +235,7 @@ public class Fletching {
 		player.getItems().deleteItem2(314, 15);
 		player.getItems().deleteItem2(52, 15);
 		player.getItems().addItem(53, 15);
-		player.getPA().addSkillXPMultiplied((getFletchEquipmentCount(player) > 0 ? 15 * getFletchEquipmentCount(player) : 15), Skill.FLETCHING.getId(), true);
+		player.getPA().addSkillXPFromAction((getFletchEquipmentCount(player) > 0 ? 15 * getFletchEquipmentCount(player) : 15), Skill.FLETCHING.getId(), true);
 	}
 
 	public void fletchUnstrung(int bowId) {

@@ -179,9 +179,9 @@ public class Firemaking {
         }
 
         if (usingInfernalAxe) {
-            player.getPA().addSkillXPMultiplied((int) osrsExperience / 2, 11, true);
+            player.getPA().addSkillXPFromAction((int) osrsExperience / 2, 11, true);
         } else {
-            player.getPA().addSkillXPMultiplied((int) osrsExperience, 11, true);
+            player.getPA().addSkillXPFromAction((int) osrsExperience, 11, true);
         }
 
         if (Misc.random(2000) == 1) {

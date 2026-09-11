@@ -122,8 +122,8 @@ public class WoodcuttingEvent extends Event<Player> {
 				int woodcuttingLevel = attachment.playerLevel[Skill.WOODCUTTING.getId()];
 				double fireXp = tree.getExperience() * (1 + firemakingLevel / 200.0);
 				double woodXp = tree.getExperience() * (1 + woodcuttingLevel / 200.0);
-				attachment.getPA().addSkillXPMultiplied((int) fireXp, Skill.FIREMAKING.getId(), true);
-				attachment.getPA().addSkillXPMultiplied((int) woodXp, Skill.WOODCUTTING.getId(), true);
+				attachment.getPA().addSkillXPFromAction((int) fireXp, Skill.FIREMAKING.getId(), true);
+				attachment.getPA().addSkillXPFromAction((int) woodXp, Skill.WOODCUTTING.getId(), true);
 				attachment.getItems().deleteItem(tree.getWood(), 1);
 			}
 			if (attachment.amDonated > 250) {
@@ -133,8 +133,8 @@ public class WoodcuttingEvent extends Event<Player> {
 					int woodcuttingLevel = attachment.playerLevel[Skill.WOODCUTTING.getId()];
 					double fireXp = tree.getExperience() * (1 + firemakingLevel / 200.0);
 					double woodXp = tree.getExperience() * (1 + woodcuttingLevel / 200.0);
-					attachment.getPA().addSkillXPMultiplied((int) fireXp, Skill.FIREMAKING.getId(), true);
-					attachment.getPA().addSkillXPMultiplied((int) woodXp, Skill.WOODCUTTING.getId(), true);
+					attachment.getPA().addSkillXPFromAction((int) fireXp, Skill.FIREMAKING.getId(), true);
+					attachment.getPA().addSkillXPFromAction((int) woodXp, Skill.WOODCUTTING.getId(), true);
 					attachment.getItems().deleteItem(tree.getWood(), 1);
 				}
 			}
@@ -171,10 +171,10 @@ public class WoodcuttingEvent extends Event<Player> {
 			if (PrestigePerks.hasRelic(attachment, PrestigePerks.TRIPLE_HESPORI_KEYS) && Misc.isLucky(10)) {
 				attachment.getItems().addItem(tree.getWood(), 9);
 			}
-			attachment.getPA().addSkillXPMultiplied((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
+			attachment.getPA().addSkillXPFromAction((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
 			handleRewards();
 			Hespori.deleteEventItems(attachment);
-			attachment.getPA().addSkillXPMultiplied(330 , 19, true);
+			attachment.getPA().addSkillXPFromAction(330 , 19, true);
 			super.stop();
 			return;
 		}
@@ -203,7 +203,7 @@ public class WoodcuttingEvent extends Event<Player> {
 				return;
 			}
 			attachment.getItems().addItem(tree.getWood(), SkillcapePerks.WOODCUTTING.isWearing(attachment) || SkillcapePerks.isWearingMaxCape(attachment) ? 2 : 1);
-			attachment.getPA().addSkillXPMultiplied(attachment.playerLevel[Skill.WOODCUTTING.getId()] * 4, 8, true);
+			attachment.getPA().addSkillXPFromAction(attachment.playerLevel[Skill.WOODCUTTING.getId()] * 4, 8, true);
 			attachment.startAnimation(hatchet.getAnimation());
 			return;
 		}
@@ -227,7 +227,7 @@ public class WoodcuttingEvent extends Event<Player> {
 			attachment.getItems().addItem(tree.getWood(), 1);
 			attachment.sendSpamMessage("You get some logs.");
 			attachment.getEventCalendar().progress(EventChallenge.CUT_DOWN_X_MAGIC_LOGS);
-			attachment.getPA().addSkillXPMultiplied((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
+			attachment.getPA().addSkillXPFromAction((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
 			Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 			attachment.getPA().sendSound(2734);
 			handleRewards();
@@ -239,7 +239,7 @@ public class WoodcuttingEvent extends Event<Player> {
 			if (Misc.random(chopChance) == 0 || chops >= tree.getChopsRequired()) {
 				chops = 0;
 				int random = Misc.random(4);
-				attachment.getPA().addSkillXPMultiplied((int) osrsExperience, Skill.WOODCUTTING.getId(), true);
+				attachment.getPA().addSkillXPFromAction((int) osrsExperience, Skill.WOODCUTTING.getId(), true);
 				Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 				if ((attachment.getItems().isWearingItem(25066)) || (attachment.getItems().isWearingItem(13241) || attachment.getItems().playerHasItem(13241)) || attachment.getItems().playerHasItem(25066) && random == 2) {
 					Firemaking.lightFire(attachment, tree.getWood(), "infernal_axe");
@@ -258,10 +258,10 @@ public class WoodcuttingEvent extends Event<Player> {
 			if (attachment.playerEquipment[Player.playerWeapon] == 25110 || attachment.playerEquipmentCosmetic[Player.playerWeapon] == 25110) {
 				attachment.getItems().addItemToBankOrDrop(tree.getWood(), SkillcapePerks.WOODCUTTING.isWearing(attachment) ||
 						SkillcapePerks.isWearingMaxCape(attachment) && attachment.getWoodcuttingEffect() ? 2 : 1);
-						attachment.getPA().addSkillXPMultiplied((int)(osrsExperience), Player.playerWoodcutting, true);
+						attachment.getPA().addSkillXPFromAction((int)(osrsExperience), Player.playerWoodcutting, true);
 			} else {
 				if (osrsExperience > 0) {
-					attachment.getPA().addSkillXPMultiplied((int)(osrsExperience), Player.playerWoodcutting, true);
+					attachment.getPA().addSkillXPFromAction((int)(osrsExperience), Player.playerWoodcutting, true);
 				}
 				attachment.getItems().addItem(tree.getWood(), SkillcapePerks.WOODCUTTING.isWearing(attachment) ||
 						SkillcapePerks.isWearingMaxCape(attachment) && attachment.getWoodcuttingEffect() ? 2: 1);

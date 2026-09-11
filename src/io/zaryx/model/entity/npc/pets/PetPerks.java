@@ -92,7 +92,7 @@ public final class PetPerks {
         section(lines, "UTILITY", utility);
         if (lines.isEmpty()) {
             lines.add("@or1@COMPANION");
-            lines.add("This pet currently has no registered gameplay perk.");
+            lines.add("This companion uses the progression bonuses shown above.");
         }
         return Collections.unmodifiableList(lines);
     }

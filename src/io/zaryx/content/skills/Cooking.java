@@ -468,7 +468,7 @@ public class Cooking extends SkillHandler {
 						break;
 					}
 					
-					attachment.getPA().addSkillXPMultiplied(attachment.playerSkillProp[7][1]*xpBonus(attachment), Player.playerCooking, true);
+					attachment.getPA().addSkillXPFromAction(attachment.playerSkillProp[7][1]*xpBonus(attachment), Player.playerCooking, true);
 					attachment.getItems().addItemUnderAnyCircumstance(attachment.playerSkillProp[7][4], 1);
 					Achievements.increase(c, AchievementType.COOK, 1);
 					attachment.getPA().sendSound(1039,0,0,0);

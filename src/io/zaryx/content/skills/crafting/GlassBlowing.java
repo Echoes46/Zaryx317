@@ -49,7 +49,7 @@ public class GlassBlowing extends GlassData {
 							c.getItems().deleteItem(1775, 1);
 							c.getItems().addItem(g.getNewId(), 1);
 							c.sendMessage("You make a " + ItemDef.forId(g.getNewId()).getName() + ".");
-							c.getPA().addSkillXPMultiplied((int) g.getXP(), 12, true);
+							c.getPA().addSkillXPFromAction((int) g.getXP(), 12, true);
 							c.startAnimation(884);
 							amount--;
 						} else {

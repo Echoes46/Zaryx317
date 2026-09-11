@@ -1244,7 +1244,7 @@ public class Smithing {
 
 
 
-				c.getPA().addSkillXPMultiplied(assignXP(c, (int) xp), 13, true);
+				c.getPA().addSkillXPFromAction(assignXP(c, (int) xp), 13, true);
 				c.getPA().refreshSkill(13);
 				Achievements.increase(c, AchievementType.SMITH, 1);
 				c.sendMessage("You make a " + ItemAssistant.getItemName(toadd) + ".");
@@ -1386,7 +1386,7 @@ public class Smithing {
 					c.getItems().deleteItem(oreId2, c.getItems().getInventoryItemSlot(oreId2), 1);
 				}
 				c.getItems().addItem(barId, 1);
-				c.getPA().addSkillXPMultiplied(exp, Player.playerSmithing, true);
+				c.getPA().addSkillXPFromAction(exp, Player.playerSmithing, true);
 				c.getPA().refreshSkill(Player.playerSmithing);
 				c.smeltAmount--;
 			} else {

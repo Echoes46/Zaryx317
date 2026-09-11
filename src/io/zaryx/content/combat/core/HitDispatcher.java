@@ -142,6 +142,7 @@ public abstract class HitDispatcher {
             maximumDamage = MeleeCombatFormula.get().getMaxHit(attacker, defender, specialDamageBoost,
                     specialPassiveMultiplier);
 
+            maximumDamage = (int) Math.min(Integer.MAX_VALUE, maximumDamage * (1.0 + io.zaryx.model.entity.npc.pets.CompanionBenefits.damageBonus(attacker, defender)));
             beforeDamageCalculated(combatType);
 
             usingSythe = ScytheOfVitur.SCYTHE_EFFECT.activateSpecialEffect(attacker, defender);
@@ -557,6 +558,7 @@ public abstract class HitDispatcher {
             }
 
 
+            maximumDamage = (int) Math.min(Integer.MAX_VALUE, maximumDamage * (1.0 + io.zaryx.model.entity.npc.pets.CompanionBenefits.damageBonus(attacker, defender)));
             beforeDamageCalculated(combatType);
             damage = attacker.rubyBoltSpecial ? getRubyBoltDamage(attacker, defender) : Misc.random(maximumDamage);
             double roll = rand.nextDouble();
@@ -735,6 +737,7 @@ public abstract class HitDispatcher {
             maximumDamage = MagicCombatFormula.STANDARD.getMaxHit(attacker, defender, specialDamageBoost,
                     specialPassiveMultiplier);
 
+            maximumDamage = (int) Math.min(Integer.MAX_VALUE, maximumDamage * (1.0 + io.zaryx.model.entity.npc.pets.CompanionBenefits.damageBonus(attacker, defender)));
             beforeDamageCalculated(combatType);
             damage = Misc.random(maximumDamage);
 
@@ -1056,6 +1059,10 @@ public abstract class HitDispatcher {
     }
 
     public void addCombatXP(CombatType type, int damage) {
+        if (damage > 0 && defender.isNPC() && defender.asNPC().getNpcId() != Npcs.MAX_DUMMY
+                && defender.asNPC().getDefinition() != null && defender.asNPC().getDefinition().getCombatLevel() > 0) {
+            io.zaryx.model.entity.npc.pets.CompanionBenefits.earn(attacker, Math.min(5, 1 + damage / 10), true);
+        }
         boolean pvpExperienceDrops = attacker.playerAttackingIndex > 0;
 
         double standardExperience = damage * 4;

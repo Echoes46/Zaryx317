@@ -154,7 +154,7 @@ public class JewelryMaking extends CraftingData {
 				c.getItems().deleteItem(gem, 1);
 				c.getItems().deleteItem(GOLD_BAR, 1);
 				c.getItems().addItem(itemAdd, 1);
-				c.getPA().addSkillXPMultiplied(xp, Player.playerCrafting, true);
+				c.getPA().addSkillXPFromAction(xp, Player.playerCrafting, true);
 				c.getPA().refreshSkill(Player.playerCrafting);
 				for (TaskMasterKills taskMasterKills : c.getTaskMaster().taskMasterKillsList) {
 					if (taskMasterKills.getDesc().equalsIgnoreCase("Craft @whi@Zenyte jewelry") && gem == 19493) {
@@ -190,7 +190,7 @@ public class JewelryMaking extends CraftingData {
 				c.getItems().deleteItem(1759, 1);
 				c.getItems().deleteItem(amuletId, 1);
 				c.getItems().addItem(a.getProduct(), 1);
-				c.getPA().addSkillXPMultiplied(4, 12, true);
+				c.getPA().addSkillXPFromAction(4, 12, true);
 			}
 		}
 	}

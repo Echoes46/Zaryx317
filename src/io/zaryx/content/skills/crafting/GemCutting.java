@@ -37,7 +37,7 @@ public class GemCutting {
 					if (attachment.getItems().playerHasItem(g.getUncut())) {
 						attachment.getItems().deleteItem2(g.getUncut(), 1);
 						attachment.getItems().addItem(g.getCut(), 1);
-						attachment.getPA().addSkillXPMultiplied(g.getExperience(), Skill.CRAFTING.getId(), true);
+						attachment.getPA().addSkillXPFromAction(g.getExperience(), Skill.CRAFTING.getId(), true);
 						attachment.startAnimation(886);
 						for (TaskMasterKills taskMasterKills : attachment.getTaskMaster().taskMasterKillsList) {
 							if (taskMasterKills.getDesc().equalsIgnoreCase("Cut @whi@Gems")) {

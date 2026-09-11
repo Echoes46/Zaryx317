@@ -1411,6 +1411,8 @@ public class Player extends Entity {
         return player;
     }
 
+    public final io.zaryx.model.entity.npc.pets.CompanionProgress companionProgress = new io.zaryx.model.entity.npc.pets.CompanionProgress();
+
     public Player(Channel channel) {
         this.session = channel;
         freezeTimer = -6;

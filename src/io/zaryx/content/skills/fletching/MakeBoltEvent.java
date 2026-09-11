@@ -61,6 +61,6 @@ public class MakeBoltEvent extends Event<Player> {
         }
         Achievements.increase(attachment, AchievementType.FLETCH, 1);
         attachment.getItems().addItem(b.getBolt(), amt);
-        attachment.getPA().addSkillXPMultiplied(b.getExperience()*getFletchEquipmentCount(attachment), Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXPFromAction(b.getExperience()*getFletchEquipmentCount(attachment), Skill.FLETCHING.getId(), true);
     }
 }

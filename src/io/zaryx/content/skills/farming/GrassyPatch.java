@@ -72,7 +72,7 @@ public class GrassyPatch {
 				GrassyPatch grassyPatch = GrassyPatch.this;
 				grassyPatch.stage = ((byte) (grassyPatch.stage + 1));
 				doConfig(p);
-				p.getPA().addSkillXPMultiplied(Misc.trueRand(1) + 1, Skill.FARMING.getId(), true);
+				p.getPA().addSkillXPFromAction(Misc.trueRand(1) + 1, Skill.FARMING.getId(), true);
 				if (!p.getItems().hasItemOnOrInventory(7410)) {
 					p.getInventory().addAnywhere(new ImmutableItem(6055, 1));
 				}

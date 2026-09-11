@@ -28,7 +28,7 @@ public class Agility {
 		}
 		if (c.absX == a && c.absY == b) {
 			c.getPA().walkTo3(x, y);
-			c.getPA().addSkillXPMultiplied(xp, Player.playerAgility, true);
+			c.getPA().addSkillXPFromAction(xp, Player.playerAgility, true);
 			c.getPA().refreshSkill(Player.playerAgility);
 		}
 	}
@@ -69,7 +69,7 @@ public class Agility {
 				c.playerRunIndex = 0x338;
 				c.setUpdateRequired(true);
 				c.appearanceUpdateRequired = true;
-				c.getPA().addSkillXPMultiplied(40, Player.playerAgility, true);
+				c.getPA().addSkillXPFromAction(40, Player.playerAgility, true);
 				c.getPA().refreshSkill(Player.playerAgility);
 				container.stop();
 			}

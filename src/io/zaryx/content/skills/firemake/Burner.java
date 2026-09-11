@@ -124,6 +124,6 @@ public class Burner extends Event<Player> {
             Achievements.increase(attachment, AchievementType.FIRE, 1);
             osrsExperience = log.getExperience() + log.getExperience() / 10;
 
-            attachment.getPA().addSkillXPMultiplied((int) osrsExperience * 2, Skill.FIREMAKING.getId(), true);
+            attachment.getPA().addSkillXPFromAction((int) osrsExperience * 2, Skill.FIREMAKING.getId(), true);
         }
 }

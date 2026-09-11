@@ -546,7 +546,7 @@ public class AgilityHandler {
     public void lapProgress(Player c, int progress, int obj) {
         if (agilityProgress[progress]) {
             double exp = getXp(obj) * 5;
-            c.getPlayerAssistant().addSkillXPMultiplied((int) exp, 16, true);
+            c.getPlayerAssistant().addSkillXPFromAction((int) exp, 16, true);
         }
     }
 
@@ -607,7 +607,7 @@ public class AgilityHandler {
             resetAgilityProgress();
             experience = assignXP(c, experience);
             c.sendMessage("You received some XP for completing the track!");
-            c.getPlayerAssistant().addSkillXPMultiplied(experience, 16, true);
+            c.getPlayerAssistant().addSkillXPFromAction(experience, 16, true);
             Achievements.increase(c, AchievementType.AGIL, 1);
             if (Misc.random(petChance) == 20 && c.getItems().getItemCount(20659, false) == 0 && c.petSummonId != 20659) {
                 PlayerHandler.executeGlobalMessage("[<col=CC0000>News</col>] <col=255>" + c.getDisplayName() + "</col> is apperantly agile like a <col=CC0000>Squirrel</col> pet!");
@@ -625,7 +625,7 @@ public class AgilityHandler {
             resetAgilityProgress();
             c.sendMessage("You received some XP for completing the track!");
             experience = assignXP(c, experience);
-            c.getPlayerAssistant().addSkillXPMultiplied(experience, 16, true);
+            c.getPlayerAssistant().addSkillXPFromAction(experience, 16, true);
             Achievements.increase(c, AchievementType.ROOFTOP, 1);
             if (Misc.random(petChance) == 20 && c.getItems().getItemCount(20659, false) == 0 && c.petSummonId != 20659) {
                 PlayerHandler.executeGlobalMessage("[<col=CC0000>News</col>] @cr20@ <col=255>" + c.getDisplayName() + "</col> is apperantly agile like a <col=CC0000>Squirrel</col> pet!");

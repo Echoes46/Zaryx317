@@ -72,7 +72,7 @@ public class Herblore {
 			}
 
 			amt *= count;
-			player.getPA().addSkillXPMultiplied(amt, Skill.HERBLORE.getId(), true);
+			player.getPA().addSkillXPFromAction(amt, Skill.HERBLORE.getId(), true);
 			player.getItems().deleteItem2(h.getGrimy(), 1);
 			player.getItems().addItem(h.getClean(), 1);
 			player.sendMessage("You identify the herb as " + definition.getName() + ".");
@@ -125,7 +125,7 @@ public class Herblore {
 						}
 
 						amt *= count;
-					player.getPA().addSkillXPMultiplied(amt, Skill.HERBLORE.getId(), true);
+					player.getPA().addSkillXPFromAction(amt, Skill.HERBLORE.getId(), true);
 					player.sendMessage("You combine all of the ingredients and make a " + name + ".");
 					Achievements.increase(player, AchievementType.HERB, 1);
 					if (p.name().equalsIgnoreCase("prayer")) {

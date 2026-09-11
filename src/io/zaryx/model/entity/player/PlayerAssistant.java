@@ -3460,7 +3460,22 @@ public class PlayerAssistant {
     }
 
     public boolean addSkillXPMultiplied(double amount, int skill, boolean dropExperience) {
-        return addSkillXP((int) (c.getExpMode().getType().getExperienceRate(Skill.forId(skill)) * amount), skill, dropExperience);
+        int petId = io.zaryx.model.entity.npc.pets.CompanionBenefits.activeId(c);
+        double petBonus = c.playerAttackingIndex > 0 ? 0 : io.zaryx.model.entity.npc.pets.CompanionBenefits.xpBonus(petId, c.companionProgress.level(petId), skill);
+        double awarded = c.getExpMode().getType().getExperienceRate(Skill.forId(skill)) * amount * (1 + petBonus);
+        boolean accepted = addSkillXP((int) Math.min(200_000_000, awarded), skill, dropExperience);
+        return accepted;
+    }
+
+    /** Only real skill actions award companion XP; lamps and generic XP grants do not. */
+    public boolean addSkillXPFromAction(double amount, int skill, boolean dropExperience) {
+        boolean accepted = addSkillXPMultiplied(amount, skill, dropExperience);
+        int petId = io.zaryx.model.entity.npc.pets.CompanionBenefits.activeId(c);
+        if (accepted && amount > 0
+                && io.zaryx.model.entity.npc.pets.CompanionBenefits.xpBonus(petId, c.companionProgress.level(petId), skill) > 0) {
+            io.zaryx.model.entity.npc.pets.CompanionBenefits.earn(c, 3, false);
+        }
+        return accepted;
     }
 
     public boolean addSkillXP(int amount, int skill, boolean dropExperience) {

@@ -279,8 +279,8 @@ public enum ArielFishing {
                             RangeData.fireProjectileNPCtoPLAYER(npc, player, 50, 70, 1632, 35, 0, 37, 10);
                             player.sendMessage("Your cormorant returns with it's catch.");
                             ArielFishing reward = rollForFish(player);
-                            player.getPA().addSkillXPMultiplied(reward.fishExp * anglerBonus(player), Skill.FISHING.getId(), true);
-                            player.getPA().addSkillXPMultiplied(reward.hunterExp, Skill.HUNTER.getId(), true);
+                            player.getPA().addSkillXPFromAction(reward.fishExp * anglerBonus(player), Skill.FISHING.getId(), true);
+                            player.getPA().addSkillXPFromAction(reward.hunterExp, Skill.HUNTER.getId(), true);
                             int amt = SkillcapePerks.FISHING.isWearing(player) || SkillcapePerks.isWearingMaxCape(player) ? 2 : 1;
 
                             if (player.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33100) && Misc.random(0,100) <= 10) {

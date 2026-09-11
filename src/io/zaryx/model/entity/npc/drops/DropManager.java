@@ -1157,7 +1157,10 @@ public class DropManager {
         if (player.getItems().hasItemOnOrInventory(21126)) modifier += 0.10; // Ring of pursuit
 
         // The same registry supplies the ::pet display and live drop modifier.
-        if (player.hasFollower) modifier += io.zaryx.model.entity.npc.pets.PetPerks.dropBonus(player.petSummonId);
+        if (player.hasFollower) {
+            modifier += io.zaryx.model.entity.npc.pets.PetPerks.dropBonus(player.petSummonId);
+            modifier += io.zaryx.model.entity.npc.pets.CompanionBenefits.dropBonus(player.petSummonId, player.companionProgress.level(player.petSummonId));
+        }
 
         // Misc boosts
         if (VotePanelManager.hasDropBoost(player)) modifier += 0.10;

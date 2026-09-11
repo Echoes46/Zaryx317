@@ -55,6 +55,6 @@ public class MakeArrowEvent extends Event<Player> {
         attachment.getItems().deleteItem2(53, 15);
         attachment.getItems().deleteItem2(a.getId(), 15);
         attachment.getItems().addItem(a.getReward(), 15);
-        attachment.getPA().addSkillXPMultiplied((int) a.getExperience() * getFletchEquipmentCount(attachment), Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXPFromAction((int) a.getExperience() * getFletchEquipmentCount(attachment), Skill.FLETCHING.getId(), true);
     }
 }

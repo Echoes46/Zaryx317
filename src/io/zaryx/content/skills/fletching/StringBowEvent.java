@@ -55,7 +55,7 @@ public class StringBowEvent extends Event<Player> {
 		attachment.getItems().deleteItem2(bow.getItem(), 1);
 		attachment.getItems().deleteItem2(1777, 1);
 		attachment.getItems().addItem(bow.getProduct(), 1);
-		attachment.getPA().addSkillXPMultiplied((int) bow.getExperience(), Skill.FLETCHING.getId(), true);
+		attachment.getPA().addSkillXPFromAction((int) bow.getExperience(), Skill.FLETCHING.getId(), true);
 	}
 
 	@Override

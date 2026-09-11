@@ -161,7 +161,7 @@ public class LeatherMaking extends CraftingData {
 								c.getItems().addItem(l.getProduct(), 1);
 								c.sendMessage("You make " + ((ItemAssistant.getItemName(l.getProduct()).contains("body")) ? "a" : "some") + " "
 										+ ItemAssistant.getItemName(l.getProduct()) + ".");
-								c.getPA().addSkillXPMultiplied((int) l.getXP(), 12, true);
+								c.getPA().addSkillXPFromAction((int) l.getXP(), 12, true);
 								c.startAnimation(1249);
 								amount--;
 								if (!c.getItems().playerHasItem(1734)) {

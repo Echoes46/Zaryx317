@@ -76,7 +76,7 @@ public class Impling {
 			player.getItems().deleteItem(11260, 1);
 			player.getItems().addItem(data.jar, 1);
 			player.sendMessage("You successfully caught the " + data.name + ".");
-			player.getPA().addSkillXPMultiplied(data.experience * 30, 21, true);
+			player.getPA().addSkillXPFromAction(data.experience * 30, 21, true);
 		} else {
 			npc.startAnimation(6616);
 			player.sendMessage("You fail to catch the " + data.name + ".");

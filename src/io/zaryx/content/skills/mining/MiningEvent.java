@@ -290,7 +290,7 @@ public class MiningEvent extends Event<Player> {
 		if (BoostScrolls.checkHarvestBoost(attachment)) {
 			osrsExperience *= 1.15;
 		}
-		attachment.getPA().addSkillXPMultiplied((int) osrsExperience, Skill.MINING.getId(), true);
+		attachment.getPA().addSkillXPFromAction((int) osrsExperience, Skill.MINING.getId(), true);
 		switch (mineral) {
 			case ADAMANT:
 				break;

@@ -58,7 +58,7 @@ public class MakeDartEvent extends Event<Player> {
         attachment.getItems().deleteItem2(314, 10);
         attachment.getItems().deleteItem2(d.getId(), 10);
         attachment.getItems().addItem(d.getReward(), amt);
-        attachment.getPA().addSkillXPMultiplied((getFletchEquipmentCount(attachment) > 0 ? 10 * d.getExperience() * getFletchEquipmentCount(attachment) : 10 * d.getExperience()), Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXPFromAction((getFletchEquipmentCount(attachment) > 0 ? 10 * d.getExperience() * getFletchEquipmentCount(attachment) : 10 * d.getExperience()), Skill.FLETCHING.getId(), true);
 
     }
 }

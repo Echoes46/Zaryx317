@@ -1,0 +1,1493 @@
+[
+  {
+    "id": 12650,
+    "name": "GRAARDOR",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12649,
+    "name": "KREE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12651,
+    "name": "ZILLY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12652,
+    "name": "TSUT",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12644,
+    "name": "PRIME",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12645,
+    "name": "REX",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12643,
+    "name": "SUPREME",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 11995,
+    "name": "CHAOS",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12653,
+    "name": "KBD",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12655,
+    "name": "KRAKEN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13178,
+    "name": "CALLISTO",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12646,
+    "name": "MOLE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13179,
+    "name": "VETION",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13180,
+    "name": "VETION2",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13177,
+    "name": "VENENATIS",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12648,
+    "name": "DEVIL",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13225,
+    "name": "TZREK_JAD",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13247,
+    "name": "HELLPUPPY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 21273,
+    "name": "SKOTOS",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12921,
+    "name": "ZULRAH",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12939,
+    "name": "ZULRAH2",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12940,
+    "name": "ZULRAH3",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 7582,
+    "name": "HELL_CAT",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 21992,
+    "name": "VORKI",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12840,
+    "name": "DEATH_JR_RED",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13181,
+    "name": "SCORPIA",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12816,
+    "name": "DARK_CORE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22318,
+    "name": "CORPOREAL_CRITTER",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12654,
+    "name": "KALPHITE_PRINCESS",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 12647,
+    "name": "KALPHITE_PRINCESS_TWO",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 13320,
+    "name": "HERON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 10,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 13321,
+    "name": "ROCK_GOLEM",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21187,
+    "name": "ROCK_GOLEM_TIN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21188,
+    "name": "ROCK_GOLEM_COPPER",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21189,
+    "name": "ROCK_GOLEM_IRON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21192,
+    "name": "ROCK_GOLEM_COAL",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21193,
+    "name": "ROCK_GOLEM_GOLD",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21194,
+    "name": "ROCK_GOLEM_MITHRIL",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21196,
+    "name": "ROCK_GOLEM_ADAMANT",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21197,
+    "name": "ROCK_GOLEM_RUNE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 13322,
+    "name": "BEAVER",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 8,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 1555,
+    "name": "KITTEN",
+    "sources": [],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "Kitten companion; easy baseline, route unverified"
+  },
+  {
+    "id": 1556,
+    "name": "KITTEN_ONE",
+    "sources": [],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "Kitten companion; easy baseline, route unverified"
+  },
+  {
+    "id": 1557,
+    "name": "KITTEN_TWO",
+    "sources": [],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "Kitten companion; easy baseline, route unverified"
+  },
+  {
+    "id": 1558,
+    "name": "KITTEN_THREE",
+    "sources": [],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "Kitten companion; easy baseline, route unverified"
+  },
+  {
+    "id": 1559,
+    "name": "KITTEN_FOUR",
+    "sources": [],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "Kitten companion; easy baseline, route unverified"
+  },
+  {
+    "id": 1560,
+    "name": "KITTEN_FIVE",
+    "sources": [],
+    "tier": "COMMON",
+    "affinity": -1,
+    "evidence": "Kitten companion; easy baseline, route unverified"
+  },
+  {
+    "id": 13323,
+    "name": "RED_CHINCHOMPA",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": 21,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 13324,
+    "name": "GRAY_CHINCHOMPA",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": 21,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 13325,
+    "name": "BLACK_CHINCHOMPA",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": 21,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 13326,
+    "name": "GOLD_CHINCHOMPA",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": 21,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 20659,
+    "name": "GIANT_SQUIRREL",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": 16,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 20661,
+    "name": "TANGLEROOT",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 19,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20663,
+    "name": "ROCKY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 17,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20665,
+    "name": "RIFT_GUARDIAN_FIRE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20667,
+    "name": "RIFT_GUARDIAN_AIR",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20669,
+    "name": "RIFT_GUARDIAN_MIND",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20671,
+    "name": "RIFT_GUARDIAN_WATER",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20673,
+    "name": "RIFT_GUARDIAN_EARTH",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20675,
+    "name": "RIFT_GUARDIAN_BODY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20677,
+    "name": "RIFT_GUARDIAN_COSMIC",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20679,
+    "name": "RIFT_GUARDIAN_CHAOS",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20681,
+    "name": "RIFT_GUARDIAN_NATURE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20683,
+    "name": "RIFT_GUARDIAN_LAW",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20685,
+    "name": "RIFT_GUARDIAN_DEATH",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20687,
+    "name": "RIFT_GUARDIAN_SOUL",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20689,
+    "name": "RIFT_GUARDIAN_ASTRAL",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 20691,
+    "name": "RIFT_GUARDIAN_BLOOD",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 13262,
+    "name": "ABYSSAL_ORPHAN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 19730,
+    "name": "BLOODHOUND",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 20693,
+    "name": "PHOENIX",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 11,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 22376,
+    "name": "PUPPADILE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22378,
+    "name": "TEKTINY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22380,
+    "name": "VANGUARD",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22382,
+    "name": "VASA_MINIRO",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22384,
+    "name": "VESPINA",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 20851,
+    "name": "OLM",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\CoxBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\RaidsChestItems.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "CoxBox; RaidsChestItems"
+  },
+  {
+    "id": 21291,
+    "name": "JAL_NIB_REL",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 26348,
+    "name": "NEXLING",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22319,
+    "name": "TZREK_ZUK",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22746,
+    "name": "HYDRA",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22748,
+    "name": "HYDRA2",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22750,
+    "name": "HYDRA3",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 22752,
+    "name": "HYDRA4",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 21262,
+    "name": "VOTE_GENIE_PET",
+    "sources": [],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 8132,
+    "name": "GUARD_DOG",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 19557,
+    "name": "MONKEY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 10591,
+    "name": "TEROR_DOG",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 23760,
+    "name": "SMOLCANO",
+    "sources": [
+      "etc\\cfg\\shops\\Star Dust.yml"
+    ],
+    "tier": "RARE",
+    "affinity": 14,
+    "evidence": "Star Dust"
+  },
+  {
+    "id": 23757,
+    "name": "YOUNGLEF",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\HunllefChest.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "HunllefChest"
+  },
+  {
+    "id": 23759,
+    "name": "CORRUPT_YOUNGLEF",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 24491,
+    "name": "LITTLE_NIGHTMARE",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 30010,
+    "name": "POSTIE_PETE",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30011,
+    "name": "IMP",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30012,
+    "name": "TOUCAN",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30013,
+    "name": "PENGUIN_KING",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30014,
+    "name": "KLIK",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\ArboBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\p2pDivisionBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; ArboBox; FoeMysteryBox; p2pDivisionBox"
+  },
+  {
+    "id": 30015,
+    "name": "SHADOW_WARRIOR",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "etc\\cfg\\shops\\WeaponGames Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; WeaponGames Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30016,
+    "name": "SHADOW_ARCHER",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "etc\\cfg\\shops\\WeaponGames Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; WeaponGames Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30017,
+    "name": "SHADOW_WIZARD",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "etc\\cfg\\shops\\WeaponGames Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; WeaponGames Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30018,
+    "name": "HEALER_DEATH_SPAWN",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30019,
+    "name": "HOLY_DEATH_SPAWN",
+    "sources": [
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 30020,
+    "name": "CORRUPT_BEAST",
+    "sources": [
+      "etc\\cfg\\drops\\arraxor.yml",
+      "etc\\cfg\\drops\\vardorvis.yml",
+      "etc\\cfg\\drops\\whisperer.yml",
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "arraxor; vardorvis; whisperer; Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 22473,
+    "name": "LIL_ZIK",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25751,
+    "name": "LIL_SOT",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25748,
+    "name": "LIL_MAIDEN",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25750,
+    "name": "LIL_NYLO",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25749,
+    "name": "LIL_BLOAT",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25752,
+    "name": "LIL_XARP",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25519,
+    "name": "JALREK_JAD",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 21750,
+    "name": "MIDNIGHT",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 21748,
+    "name": "NOON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 30021,
+    "name": "ROC",
+    "sources": [
+      "etc\\cfg\\drops\\agrith naar.yml",
+      "etc\\cfg\\drops\\arraxor.yml",
+      "etc\\cfg\\drops\\groot.yml",
+      "etc\\cfg\\drops\\vardorvis.yml",
+      "etc\\cfg\\drops\\whisperer.yml",
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\DonoBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "agrith naar; arraxor; groot; vardorvis; whisperer; Item Exchange Shop; DonoBox; FoeMysteryBox"
+  },
+  {
+    "id": 30022,
+    "name": "KRATOS1",
+    "sources": [
+      "etc\\cfg\\drops\\agrith naar.yml",
+      "etc\\cfg\\drops\\Delrith.yml",
+      "etc\\cfg\\drops\\FiftyCent.yml",
+      "etc\\cfg\\drops\\galvek.yml",
+      "etc\\cfg\\drops\\seldaeh.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\DonoBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\DonoBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "Delrith; FiftyCent; agrith naar; galvek; seldaeh; DonoBox; FoeMysteryBox"
+  },
+  {
+    "id": 30023,
+    "name": "RAIN_CLOUD",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": -1,
+    "evidence": "FoeMysteryBox"
+  },
+  {
+    "id": 23495,
+    "name": "SRARACHA",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 19942,
+    "name": "MIMIC",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 23939,
+    "name": "RED_SEREN",
+    "sources": [
+      "etc\\cfg\\drops\\wildy_boss.yml",
+      "etc\\cfg\\shops\\Item Exchange Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "wildy_boss; Item Exchange Shop; FoeMysteryBox"
+  },
+  {
+    "id": 33070,
+    "name": "BEAVER_NEW",
+    "sources": [
+      "etc\\cfg\\shops\\EctoShop.yml"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": 8,
+    "evidence": "EctoShop"
+  },
+  {
+    "id": 27889,
+    "name": "GREATER_SKELETON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 27890,
+    "name": "GREATER_ZOMBIE",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 33065,
+    "name": "ROCK",
+    "sources": [
+      "etc\\cfg\\drops\\afk_goblin.yml",
+      "etc\\cfg\\shops\\Afk Shop.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FoeMysteryBox.java"
+    ],
+    "tier": "UNCOMMON",
+    "affinity": 8,
+    "evidence": "afk_goblin; Afk Shop; FoeMysteryBox"
+  },
+  {
+    "id": 33066,
+    "name": "MYSTERY_BOX",
+    "sources": [],
+    "tier": "UNCOMMON",
+    "affinity": 14,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 33067,
+    "name": "FISH",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 33068,
+    "name": "MAGIC",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 10,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 33069,
+    "name": "SKELETON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 33071,
+    "name": "HEAD",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 30122,
+    "name": "DARK_KRATOS",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "FireOfDestruction: upgraded Kratos (not donor-only)"
+  },
+  {
+    "id": 31014,
+    "name": "PAK_YAK_1",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\FortuneTable.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\PetCollectorClaim.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "FortuneTable; PetCollectorClaim"
+  },
+  {
+    "id": 33159,
+    "name": "DARK_RED_SEREN",
+    "sources": [
+      "etc\\cfg\\drops\\evil_snowman.yml",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\ChristmasBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "evil_snowman; ChristmasBox"
+  },
+  {
+    "id": 25348,
+    "name": "LIL_CREATOR",
+    "sources": [
+      "etc\\cfg\\drops\\avatar_of_creation.yml"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "avatar_of_creation"
+  },
+  {
+    "id": 25350,
+    "name": "LIL_DESTRUCTOR",
+    "sources": [
+      "etc\\cfg\\drops\\avatar_of_destruction.yml"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "avatar_of_destruction"
+  },
+  {
+    "id": 10533,
+    "name": "GUARDIAN_ANGEL",
+    "sources": [
+      "etc\\cfg\\drops\\araphel.yml",
+      "etc\\cfg\\drops\\araphel_red.yml"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "araphel; araphel_red"
+  },
+  {
+    "id": 33208,
+    "name": "LIL_GROOT",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 26899,
+    "name": "GREATISH_GUARDIAN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 20,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 8230,
+    "name": "FLYING_PUMPKIN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 8231,
+    "name": "JACK_O_KRAKEN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 8232,
+    "name": "LIL_NYX",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 33210,
+    "name": "LIL_GINGIE",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\ChristmasBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "ChristmasBox"
+  },
+  {
+    "id": 33211,
+    "name": "LIL_ELF",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\ChristmasBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "ChristmasBox"
+  },
+  {
+    "id": 33212,
+    "name": "LIL_SNOWMAN",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\ChristmasBox.java"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "ChristmasBox"
+  },
+  {
+    "id": 28669,
+    "name": "PHEASANT",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 10998,
+    "name": "CAVE_GOBLIN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 24864,
+    "name": "MANIACAL_MONKEY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 24863,
+    "name": "ZOMBIE_MONKEY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 33240,
+    "name": "BABY_RED_DRAGON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 11279,
+    "name": "BABY_GREEN_DRAGON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 33242,
+    "name": "BABY_BLACK_DRAGON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 33241,
+    "name": "BABY_BLUE_DRAGON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 33243,
+    "name": "REALM_NYX",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "Unverified route; provisional tier"
+  },
+  {
+    "id": 28250,
+    "name": "BARON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 28252,
+    "name": "LIL_VIATHON",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 28246,
+    "name": "WISP",
+    "sources": [
+      "etc\\cfg\\drops\\whisperer.yml"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "whisperer"
+  },
+  {
+    "id": 28248,
+    "name": "BUTCH",
+    "sources": [
+      "etc\\cfg\\drops\\vardorvis.yml"
+    ],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "vardorvis"
+  },
+  {
+    "id": 28801,
+    "name": "SCURRY",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 28960,
+    "name": "SMOL_HEREDIT",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 25602,
+    "name": "TINY_TEMPOR",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 10,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 21509,
+    "name": "HERBI",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 15,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 27352,
+    "name": "TUMEKENS_GUARDIAN",
+    "sources": [
+      "etc\\cfg\\drops\\banditchamp.yml"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "banditchamp"
+  },
+  {
+    "id": 28962,
+    "name": "QUETZIN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 9,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 13071,
+    "name": "CHOMPY_CHICK",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": 21,
+    "evidence": "Skilling / activity pet; see PetHandler and skill handlers"
+  },
+  {
+    "id": 27590,
+    "name": "MUPHIN",
+    "sources": [],
+    "tier": "RARE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 27354,
+    "name": "ELIDINIS_GUARDIAN",
+    "sources": [
+      "etc\\cfg\\drops\\banditchamp.yml"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "banditchamp"
+  },
+  {
+    "id": 27385,
+    "name": "ZEBO",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 27384,
+    "name": "KEPHRITI",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 27382,
+    "name": "AKKHITO",
+    "sources": [],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "PetHandler boss/activity roll or transformation; verify availability"
+  },
+  {
+    "id": 27383,
+    "name": "BABI",
+    "sources": [
+      "etc\\cfg\\drops\\banditchamp.yml"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "banditchamp"
+  },
+  {
+    "id": 18,
+    "name": "PRIMO",
+    "sources": [
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\AncientCasket.java",
+      "src\\io\\zaryx\\content\\item\\lootable\\impl\\AncientCasket.java"
+    ],
+    "tier": "ELITE",
+    "affinity": -1,
+    "evidence": "AncientCasket"
+  }
+]

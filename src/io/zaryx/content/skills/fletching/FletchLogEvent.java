@@ -91,7 +91,7 @@ public class FletchLogEvent extends Event<Player> {
 			attachment.getItems().addItem(fletch.getProduct(), 1);
 		}
 
-		attachment.getPA().addSkillXPMultiplied((getFletchEquipmentCount(attachment) > 0 ? fletch.getExperience() * getFletchEquipmentCount(attachment) : fletch.getExperience()), Skill.FLETCHING.getId(), true);
+		attachment.getPA().addSkillXPFromAction((getFletchEquipmentCount(attachment) > 0 ? fletch.getExperience() * getFletchEquipmentCount(attachment) : fletch.getExperience()), Skill.FLETCHING.getId(), true);
 		if (amount <= 0) {
 			stop();
 			return;

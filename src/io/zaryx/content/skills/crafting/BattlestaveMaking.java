@@ -71,7 +71,7 @@ public class BattlestaveMaking {
 								c.getItems().deleteItem2(1391, 1);
 								c.getItems().addItem(l.getProduct(), 1);
 								c.sendMessage("You make an " + ItemAssistant.getItemName(l.getProduct()) + ".");
-								c.getPA().addSkillXPMultiplied((int) l.getXP(), 12, true);
+								c.getPA().addSkillXPFromAction((int) l.getXP(), 12, true);
 								//c.startAnimation(1249);
 								amount--;
 								if (!c.getItems().playerHasItem(c.leatherType, l.getHideAmount())) {

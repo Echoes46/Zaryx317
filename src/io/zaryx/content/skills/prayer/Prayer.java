@@ -250,7 +250,7 @@ public class Prayer {
 		ItemDef definition = ItemDef.forId(bone2.getItemId());
 		//player.getPA().stillGfx(624, 3659, 3525, player.heightLevel, 1);
 //		player.getPA().addSkillXP(player.objectId == 31984 ? bone.getExperience() * 6 : bone.getExperience() * 3, Skill.PRAYER.getId(), true);
-		player.getPA().addSkillXPMultiplied(bone2.getExperience() * 2.5, Skill.PRAYER.getId(), true);
+		player.getPA().addSkillXPFromAction(bone2.getExperience() * 2.5, Skill.PRAYER.getId(), true);
 		player.getItems().deleteItem2(bone2.getItemId(), 1);
 		player.getItems().addItem(4278, bone2.getEctoTokens());
 		player.startAnimation(645);
@@ -286,7 +286,7 @@ public class Prayer {
 					remaining--;
 					player.facePosition(player.objectX, player.objectY);
 					//player.getPA().stillGfx(624, 3659, 3525, player.heightLevel, 1);
-					player.getPA().addSkillXPMultiplied(bone2.getExperience() * 4.2, Skill.PRAYER.getId(), true);
+					player.getPA().addSkillXPFromAction(bone2.getExperience() * 4.2, Skill.PRAYER.getId(), true);
 					player.getItems().deleteItem2(bone2.getItemId(), 1);
 					player.getItems().addItem(4278, bone2.getEctoTokens());
 					player.startAnimation(645);
@@ -296,7 +296,7 @@ public class Prayer {
 				remaining--;
 				player.facePosition(player.objectX, player.objectY);
 				//player.getPA().stillGfx(624, 3659, 3525, player.heightLevel, 1);
-				player.getPA().addSkillXPMultiplied(bone2.getExperience() * 2.5, Skill.PRAYER.getId(), true);
+				player.getPA().addSkillXPFromAction(bone2.getExperience() * 2.5, Skill.PRAYER.getId(), true);
 				player.getItems().deleteItem2(bone2.getItemId(), 1);
 				player.getItems().addItem(4278, bone2.getEctoTokens());
 				player.startAnimation(645);
@@ -328,7 +328,7 @@ public class Prayer {
 		ItemDef definition = ItemDef.forId(bone1.getItemId());
 		player.getPA().stillGfx(624, 3659, 3525, player.heightLevel, 1);
 //		player.getPA().addSkillXP(player.objectId == 31984 ? bone.getExperience() * 6 : bone.getExperience() * 3, Skill.PRAYER.getId(), true);
-		player.getPA().addSkillXPMultiplied(bone1.getExperience() / 30.5, Skill.PRAYER.getId(), true);
+		player.getPA().addSkillXPFromAction(bone1.getExperience() / 30.5, Skill.PRAYER.getId(), true);
 		player.getItems().deleteItem2(bone1.getItemId(), 1);
 		player.getItems().addItem(bone1.getBoneMealId(), 1);
 		player.startAnimation(3705);
@@ -362,7 +362,7 @@ public class Prayer {
 				remaining--;
 				player.facePosition(player.objectX, player.objectY);
 				player.getPA().stillGfx(624, 3659, 3525, player.heightLevel, 1);
-				player.getPA().addSkillXPMultiplied(bone1.getExperience() / 30.5, Skill.PRAYER.getId(), true);
+				player.getPA().addSkillXPFromAction(bone1.getExperience() / 30.5, Skill.PRAYER.getId(), true);
 				player.getItems().deleteItem2(bone1.getItemId(), 1);
 				player.getItems().addItem(bone1.getBoneMealId(), 1);
 				player.startAnimation(3705);
@@ -389,7 +389,7 @@ public class Prayer {
 		ItemDef definition = ItemDef.forId(bone.getItemId());
 		player.getPA().stillGfx(624, objectX, objectY, player.heightLevel, 1);
 //		player.getPA().addSkillXP(player.objectId == 31984 ? bone.getExperience() * 6 : bone.getExperience() * 3, Skill.PRAYER.getId(), true);
-		player.getPA().addSkillXPMultiplied(player.objectId == 31984 ? bone.getExperience() * 2 : bone.getExperience() * 1.25, Skill.PRAYER.getId(), true);
+		player.getPA().addSkillXPFromAction(player.objectId == 31984 ? bone.getExperience() * 2 : bone.getExperience() * 1.25, Skill.PRAYER.getId(), true);
 		player.getItems().deleteItem2(bone.getItemId(), 1);
 		player.startAnimation(3705);
 		lastAction.reset();
@@ -422,7 +422,7 @@ public class Prayer {
 				remaining--;
 				player.facePosition(player.objectX, player.objectY);
 				player.getPA().stillGfx(624, objectX, objectY, player.heightLevel, 1);
-				player.getPA().addSkillXPMultiplied(player.objectId == 31984 ? bone.getExperience() * 2 : bone.getExperience() * 1.25, Skill.PRAYER.getId(), true);
+				player.getPA().addSkillXPFromAction(player.objectId == 31984 ? bone.getExperience() * 2 : bone.getExperience() * 1.25, Skill.PRAYER.getId(), true);
 				if (player.getPosition().inWild() && chance == 1) {
 					player.getItems().addItem(bone.getItemId(), 1);
 					player.sendMessage("@red@The god of chaos smiles on you and returns your sacrifice.");

@@ -19,30 +19,40 @@ public class Pet extends Command {
         PetHandler.Pets pet = player.hasFollower ? PetHandler.forItem(player.petSummonId) : null;
         List<String> lines = new ArrayList<>();
         if (pet != null) {
-            for (String line : PetPerks.describe(pet.getItemId())) {
-                while (line.length() > 67) {
-                    int split = line.lastIndexOf(' ', 67);
-                    if (split <= 0) split = 67;
-                    lines.add(line.substring(0, split));
-                    line = line.substring(split).trim();
-                }
-                lines.add(line);
-            }
+            List<String> details = new ArrayList<>(io.zaryx.model.entity.npc.pets.CompanionBenefits.describe(player, pet.getItemId()));
+            details.addAll(PetPerks.describe(pet.getItemId()));
+            lines.addAll(wrapDetails(details));
         } else {
             lines.add("@or1@CHOOSE A COMPANION");
             lines.add("Summon a pet, then use ::pet to inspect its abilities.");
             lines.add("");
             lines.add("Bonuses require the pet to be summoned unless stated.");
-            lines.add("Pets without perks are shown as companions.");
+            lines.add("Every companion has its own saved level and perk bonuses.");
         }
         player.getPA().sendString(22747, pet == null ? "No pet summoned" :
-                PetPerks.displayName(pet.getItemId(), ItemAssistant.getItemName(pet.getItemId())));
-        player.getPA().sendString(22754, pet == null ? "No active companion bonuses" : "Active companion | Bonuses require summoning unless stated");
+                PetPerks.displayName(pet.getItemId(), ItemAssistant.getItemName(pet.getItemId()))
+                        + " - Level " + player.companionProgress.level(pet.getItemId()));
+        player.getPA().sendString(22754, pet == null ? "No active companion bonuses" :
+                "Companion XP: " + player.companionProgress.xp(pet.getItemId()) + " / 50,000 | Use ::pet to refresh");
         for (int i = 0; i < ROW_COUNT; i++) player.getPA().sendString(22800 + i, i < lines.size() ? lines.get(i) : "");
         // Keep old clients useful while the new scrollable panel rolls out.
         for (int i = 0; i < 5; i++) player.getPA().sendString(22742 + i, i < lines.size() ? lines.get(i) : "");
         player.getPA().setScrollableMaxHeight(22755, Math.max(176, lines.size() * 18 + 8));
         player.getPA().resetScrollBar(22755);
         player.getPA().showInterface(22731);
+    }
+
+    public static List<String> wrapDetails(List<String> details) {
+        List<String> lines = new ArrayList<>();
+        for (String line : details) {
+            while (line.length() > 67) {
+                int split = line.lastIndexOf(' ', 67);
+                if (split <= 0) split = 67;
+                lines.add(line.substring(0, split));
+                line = line.substring(split).trim();
+            }
+            lines.add(line);
+        }
+        return lines;
     }
 }

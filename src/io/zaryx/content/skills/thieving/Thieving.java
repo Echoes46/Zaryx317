@@ -159,7 +159,7 @@ public class Thieving {
 			player.getItems().addItem(item.getId(),item.getAmount());
 		}
 
-		player.getPA().addSkillXPMultiplied((BoostScrolls.checkHarvestBoost(player) ? ((stall.experience * (1 + (getRoguesPieces() * 0.12)))* 1.12) : (stall.experience * (1 + (getRoguesPieces() * 0.12)))), Skill.THIEVING.getId(), true);
+		player.getPA().addSkillXPFromAction((BoostScrolls.checkHarvestBoost(player) ? ((stall.experience * (1 + (getRoguesPieces() * 0.12)))* 1.12) : (stall.experience * (1 + (getRoguesPieces() * 0.12)))), Skill.THIEVING.getId(), true);
 		player.sendMessage("You steal a " + definition.getName() + " from the stall.");
 		Achievements.increase(player, AchievementType.THIEV, 1);
 		lastInteraction = System.currentTimeMillis();
@@ -298,7 +298,7 @@ public class Thieving {
 			 player.getCollectionLog().handleDrop(player, 5, 20663, 1);
 		 }
 		Achievements.increase(player, AchievementType.THIEV, 1);
-		player.getPA().addSkillXPMultiplied((int) (pickpocket.experience * (1 + (getRoguesPieces() * 0.65))), Skill.THIEVING.getId(), true);
+		player.getPA().addSkillXPFromAction((int) (pickpocket.experience * (1 + (getRoguesPieces() * 0.65))), Skill.THIEVING.getId(), true);
 		lastInteraction = System.currentTimeMillis();
 
 

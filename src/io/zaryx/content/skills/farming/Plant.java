@@ -151,7 +151,7 @@ public class Plant {
 					if (name.endsWith("s"))
 						name = name.substring(0, name.length() - 1);
 					player.sendMessage("You harvest " + Misc.anOrA(name) + " " + name + ".");
-					player.getPA().addSkillXPMultiplied((int) Plants.values()[plant].harvestExperience * (1 + (Farming.getFarmingPieces(player) * 0.12)), Skill.FARMING.getId(), true);
+					player.getPA().addSkillXPFromAction((int) Plants.values()[plant].harvestExperience * (1 + (Farming.getFarmingPieces(player) * 0.12)), Skill.FARMING.getId(), true);
 
 					harvested++;
 

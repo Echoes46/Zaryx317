@@ -434,7 +434,7 @@ public class Farming {
 									player.sendMessage("Your magic watering can waters and fertilizes the soil.");
 								}*/
 								doConfig();
-								player.getPA().addSkillXPMultiplied((int)(plant.plantExperience * 10), Skill.FARMING.getId(), true);
+								player.getPA().addSkillXPFromAction((int)(plant.plantExperience * 10), Skill.FARMING.getId(), true);
 							} else {
 								String name = ItemDef.forId(patch.planter).getName();
 								player.sendMessage("You need " + Misc.anOrA(name) + " " +name+ " to plant seeds.");

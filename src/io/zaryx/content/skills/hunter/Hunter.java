@@ -255,7 +255,7 @@ public final class Hunter {
 
 		double percentOfXp = (trap.experience() / 4);
 		Arrays.stream(trap.reward()).forEach(reward -> player.getItems().addItem(reward.getId(), reward.getAmount()));
-		player.getPA().addSkillXPMultiplied((int) ((int) trap.experience() + (player.getItems().isWearingItem(10071) ? percentOfXp : 0)) * (count) / 7, 21, true);
+		player.getPA().addSkillXPFromAction((int) ((int) trap.experience() + (player.getItems().isWearingItem(10071) ? percentOfXp : 0)) * (count) / 7, 21, true);
 		GLOBAL_TRAPS.get(player).getTraps().remove(trap);
 		
 		if(GLOBAL_TRAPS.get(player).getTraps().isEmpty()) {

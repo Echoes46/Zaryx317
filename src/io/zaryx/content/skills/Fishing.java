@@ -270,7 +270,7 @@ public class Fishing extends SkillHandler {
 									if (raw.raw == player.playerSkillProp[10][1]) {
 										player.getItems().addItemUnderAnyCircumstance(raw.cooked, 1);
 
-										player.getPA().addSkillXPMultiplied(50, Skill.COOKING.getId(), true);
+										player.getPA().addSkillXPFromAction(50, Skill.COOKING.getId(), true);
 										break;
 									}
 								}
@@ -280,7 +280,7 @@ public class Fishing extends SkillHandler {
 									if (raw.raw == player.playerSkillProp[10][1]) {
 										player.getItems().addItemToBankOrDrop(raw.cooked, 1);
 
-										player.getPA().addSkillXPMultiplied(50, Skill.COOKING.getId(), true);
+										player.getPA().addSkillXPFromAction(50, Skill.COOKING.getId(), true);
 										break;
 									}
 								}
@@ -366,7 +366,7 @@ public class Fishing extends SkillHandler {
 						}
 						
 						if (experience > 0) {
-							player.getPA().addSkillXPMultiplied((int)(experience), Player.playerFishing, true);
+							player.getPA().addSkillXPFromAction((int)(experience), Player.playerFishing, true);
 						}
 						if (player.playerSkillProp[10][3] > 0) {
 							player.getItems().deleteItem(player.playerSkillProp[10][3], player.getItems().getInventoryItemSlot(player.playerSkillProp[10][3]), 1);
