@@ -746,35 +746,9 @@ public class NPCProcess {
                         }
 
                         if (target != null) {
-                            for (TaskMasterKills killz : target.getTaskMaster().taskMasterKillsList) {
-                                String taskName = killz.getDesc().toLowerCase(Locale.ROOT);
-                                String npcName = npc.getName().toLowerCase(Locale.ROOT);
-                                for (Tasks value : Tasks.values()) {
-                                    if (killz.getDesc().equalsIgnoreCase(value.desc) && killz.getAmountKilled() != killz.getAmountToKill() && taskName.contains(npcName)) {
-                                        killz.incrementAmountKilled(1);
-                                        target.getTaskMaster().trackActivity(target, killz);
-                                        break;
-                                    } else {
-                                        if (killz.getDesc().equalsIgnoreCase("barrows")) {
-                                            if (npc.getName().contains("Ahrim") || npc.getName().contains("Dharok") || npc.getName().contains("Guthan") ||
-                                                    npc.getName().contains("Karil") || npc.getName().contains("Torag") || npc.getName().contains("Verac")) {
-                                                killz.incrementAmountKilled(1);
-                                                target.getTaskMaster().trackActivity(target, killz);
-                                                break;
-                                            }
-                                        } else if (killz.getDesc().equalsIgnoreCase("Dagannoth")) {
-                                            if (npc.getName().contains("Rex") || npc.getName().contains("Prime") || npc.getName().contains("Supreme")  || npc.getName().contains("Crazy arch")) {
-                                                killz.incrementAmountKilled(1);
-                                                target.getTaskMaster().trackActivity(target, killz);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            target.getTaskMaster().recordNpcKill(npc.getName());
                         }
                     }
-
 
                     /**
                      * Dungeoneering

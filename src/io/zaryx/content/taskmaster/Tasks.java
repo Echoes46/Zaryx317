@@ -1,6 +1,14 @@
 package io.zaryx.content.taskmaster;
 
 public enum Tasks {
+    ROCK_CRABS(35,"Rock crab",TaskDifficulty.EASY,TaskType.COMBAT,false,false),
+    SAND_CRABS(35,"Sand Crab",TaskDifficulty.EASY,TaskType.COMBAT,false,false),
+    HILL_GIANTS(25,"Hill Giant",TaskDifficulty.EASY,TaskType.COMBAT,false,true),
+    GIANT_MOLE_MEDIUM(5,"Giant Mole",TaskDifficulty.MEDIUM,TaskType.COMBAT,false,false),
+    BARREL_CHEST_MEDIUM(5,"Barrelchest",TaskDifficulty.MEDIUM,TaskType.COMBAT,false,false),
+    HILL_GIANTS_DAILY(75,"Hill Giant",TaskDifficulty.EASY,TaskType.COMBAT,true,true),
+    ROCK_CRABS_DAILY(100,"Rock crab",TaskDifficulty.EASY,TaskType.COMBAT,true,false),
+    GIANT_MOLE_DAILY(10,"Giant Mole",TaskDifficulty.MEDIUM,TaskType.COMBAT,true,false),
 
      //Skilling
      PRAYER_POT(10,"Craft @whi@Prayer pot's",TaskDifficulty.EASY, TaskType.SKILLING, false, true),

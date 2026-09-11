@@ -464,9 +464,7 @@ public class ItemOptionOne implements PacketType {
             if (count <= 0) {
                 return;
             }
-            c.getTaskMaster().taskMasterKillsList.clear();
-            c.getTaskMaster().generateTasks(c, true);
-            c.getItems().deleteItem2(20238, 1);
+            if (c.getTaskMaster().resetWithScroll()) c.getItems().deleteItem2(20238, 1);
         }
 
         if (itemId == 24366) {

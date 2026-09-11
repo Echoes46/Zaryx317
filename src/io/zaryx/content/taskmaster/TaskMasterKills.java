@@ -15,6 +15,10 @@ public class TaskMasterKills {
     private boolean weekly;
     private LocalDateTime localDateTime;
     private String desc;
+    private boolean weeklyChallenge;
+    private boolean rewardsAssigned;
+    private boolean pinned;
+    private transient boolean completionAnnounced;
 
     public TaskMasterKills(int amountToKill, int amountKilled, GameItem[] items, TaskDifficulty taskDifficulty, TaskType taskType, boolean weekly, LocalDateTime localDateTime, String desc) {
         this.setGameItems(items);
@@ -65,8 +69,23 @@ public class TaskMasterKills {
     }
 
     public void incrementAmountKilled(int amountKilled) {
-        this.amountKilled += amountKilled;
+        if (amountKilled <= 0 || claimedReward || localDateTime == null || !LocalDateTime.now().isBefore(localDateTime)) return;
+        this.amountKilled = (int) Math.min(amountToKill, (long) this.amountKilled + amountKilled);
     }
+
+    public boolean complete() { return amountToKill > 0 && amountKilled >= amountToKill; }
+    public boolean announceCompletion() {
+        if (!complete() || completionAnnounced) return false;
+        completionAnnounced = true; return true;
+    }
+    public boolean isWeeklyChallenge() { return weeklyChallenge; }
+    public void setWeeklyChallenge(boolean value) { weeklyChallenge = value; }
+    public boolean rewardsAssigned() { return rewardsAssigned; }
+    public void setRewardsAssigned(boolean value) { rewardsAssigned = value; }
+    public boolean isPinned() { return pinned; }
+    public void setPinned(boolean value) { pinned = value; }
+    public int slot() { return weeklyChallenge ? 3 : weekly ? 2 : taskType == TaskType.SKILLING ? 1 : 0; }
+    public boolean expired(LocalDateTime now) { return localDateTime == null || !now.isBefore(localDateTime); }
 
     public TaskDifficulty getTaskDifficulty() {
         return taskDifficulty;
