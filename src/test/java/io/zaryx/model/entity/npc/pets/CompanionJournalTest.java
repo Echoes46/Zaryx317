@@ -28,6 +28,31 @@ class CompanionJournalTest {
     private static void set(CompanionJournal journal, String key, Object value) throws Exception {
         Field field = CompanionJournal.class.getDeclaredField(key); field.setAccessible(true); field.set(journal, value);
     }
+    @Test void trackerFollowsSummonSwapDismissalAndVisibility() throws Exception {
+        player(p -> {
+            Field sent = CompanionFeedback.class.getDeclaredField("sent");
+            sent.setAccessible(true);
+            p.companionProgress.decode("30022:6500,30122:500");
+            p.petSummonId = 30022;
+            p.companionFeedback.update(p);
+            assertEquals("", ((String[]) sent.get(p.companionFeedback))[0]);
+            p.hasFollower = true;
+            p.companionFeedback.update(p);
+            assertTrue(((String[]) sent.get(p.companionFeedback))[0].endsWith("Lv 5"));
+            p.petSummonId = 30122;
+            p.companionFeedback.update(p);
+            assertTrue(((String[]) sent.get(p.companionFeedback))[0].endsWith("Lv 2"));
+            p.companionFeedback.enabled = false;
+            p.companionFeedback.update(p);
+            assertEquals("", ((String[]) sent.get(p.companionFeedback))[0]);
+            p.companionFeedback.enabled = true;
+            p.companionFeedback.update(p);
+            assertTrue(((String[]) sent.get(p.companionFeedback))[0].endsWith("Lv 2"));
+            p.hasFollower = false;
+            p.companionFeedback.update(p);
+            assertEquals("", ((String[]) sent.get(p.companionFeedback))[0]);
+        });
+    }
     @Test void ownershipAndSavedLevelsRemainIndependent() throws Exception {
         player(p -> {
             p.companionProgress.decode("30022:6500");

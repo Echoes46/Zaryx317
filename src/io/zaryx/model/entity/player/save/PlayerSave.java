@@ -715,6 +715,8 @@ public class PlayerSave {
                             p.BjPay = Long.parseLong(token2);
                         } else if (token.equals("activity-board")) {
                             p.getTaskMaster().decode(token2);
+                        } else if (token.equals("companion-tracker")) {
+                            p.companionFeedback.enabled = Boolean.parseBoolean(token2);
                         } else if (token.equals("companion-progress")) {
                             p.companionProgress.decode(token2);
                         } else if (token.equals("bj-pending-payout")) {
@@ -2226,6 +2228,8 @@ public class PlayerSave {
             characterfile.write(Long.toString(p.BjPay), 0, Long.toString(p.BjPay).length());
             characterfile.newLine();
             characterfile.write("activity-board = " + p.getTaskMaster().encode());
+            characterfile.newLine();
+            characterfile.write("companion-tracker = " + p.companionFeedback.enabled);
             characterfile.newLine();
             characterfile.write("companion-progress = " + p.companionProgress.encode());
             characterfile.newLine();

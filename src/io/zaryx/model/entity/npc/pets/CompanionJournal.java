@@ -61,7 +61,7 @@ public final class CompanionJournal {
     }
     public boolean click(Player p, int button) {
         boolean row = button >= 22800 && button < 22864;
-        boolean control = button >= 22864 && button <= 22868 || button >= 22870 && button <= 22874;
+        boolean control = button >= 22864 && button <= 22868 || button >= 22870 && button <= 22875;
         if (!row && !control) return false;
         if (button == 22867) return true; // Retired Sources button, including older clients.
         if (p.getOpenInterface() != 22731 || p.getInterfaceEvent().isActive()
@@ -75,6 +75,7 @@ public final class CompanionJournal {
         } else if (button <= 22868) tab = button - 22864;
         else if (button == 22872) { ownership = (ownership + 1) % 3; page = 0; tab = 0; }
         else if (button == 22873) { role = (role + 1) % 4; page = 0; tab = 0; }
+        else if (button == 22875) { p.companionFeedback.enabled = !p.companionFeedback.enabled; p.companionFeedback.update(p); }
         else if (button == 22874) { if (selected != -1) pinned = selected; }
         else {
             List<Integer> entries = filtered(p);
@@ -127,6 +128,7 @@ public final class CompanionJournal {
                 + (skill == -1 ? "all skills" : io.zaryx.content.skills.Skill.forId(skill).toString());
     }
     private void render(Player p) {
+        p.getPA().sendString(22875, p.companionFeedback.enabled ? "XP tracker: On" : "XP tracker: Off");
         List<Integer> entries = filtered(p);
         if (pinned != -1 && !ids().contains(pinned)) pinned = -1;
         if (!entries.contains(selected)) selected = entries.isEmpty() ? -1 : entries.get(0);

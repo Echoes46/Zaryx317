@@ -39,7 +39,8 @@ public final class CompanionBenefits {
         int old = p.companionProgress.level(id);
         if (!p.companionProgress.award(id, points, System.nanoTime())) return;
         int level = p.companionProgress.level(id);
-        if (level > old) p.sendMessage("@or1@Your companion reached level " + level + "! Use ::pet to see its bonuses.");
+        if (level > old) p.companionFeedback.levelUp(p, id, old, level);
+        p.companionFeedback.update(p);
         // The same account-wide award cooldown prevents multi-hit/AOE recovery spam.
         if (combat && Misc.random(99) < recoveryChance(id, level)) {
             p.getHealth().setCurrentHealth(restoreOne(p.getHealth().getCurrentHealth(), p.getHealth().getMaximumHealth()));

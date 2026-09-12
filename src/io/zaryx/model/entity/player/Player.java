@@ -1412,6 +1412,7 @@ public class Player extends Entity {
     }
 
     public final io.zaryx.model.entity.npc.pets.CompanionJournal companionJournal = new io.zaryx.model.entity.npc.pets.CompanionJournal();
+    public final io.zaryx.model.entity.npc.pets.CompanionFeedback companionFeedback = new io.zaryx.model.entity.npc.pets.CompanionFeedback();
     public final io.zaryx.model.entity.npc.pets.CompanionProgress companionProgress = new io.zaryx.model.entity.npc.pets.CompanionProgress();
 
     public Player(Channel channel) {
@@ -3362,6 +3363,7 @@ public class Player extends Entity {
             }
         }
         getTaskMaster().generateTasks(this, false);
+        companionFeedback.update(this);
         getItems().processContainerUpdates();
     }
 
