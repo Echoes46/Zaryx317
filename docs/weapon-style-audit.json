@@ -3636,29 +3636,29 @@
     "id": 10146,
     "name": "Orange salamander",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "SALAMANDER",
+    "result": "special-weapon implementation"
   },
   {
     "id": 10147,
     "name": "Red salamander",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "SALAMANDER",
+    "result": "special-weapon implementation"
   },
   {
     "id": 10148,
     "name": "Black salamander",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "SALAMANDER",
+    "result": "special-weapon implementation"
   },
   {
     "id": 10149,
     "name": "Swamp lizard",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "SALAMANDER",
+    "result": "special-weapon implementation"
   },
   {
     "id": 10150,
@@ -5393,8 +5393,8 @@
     "id": 21015,
     "name": "Dinh's bulwark",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "BULWARK",
+    "result": "special-weapon implementation"
   },
   {
     "id": 21028,
@@ -6527,8 +6527,8 @@
     "id": 25604,
     "name": "Gregg's eastdoor",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "BULWARK",
+    "result": "special-weapon implementation"
   },
   {
     "id": 25731,
@@ -6996,8 +6996,8 @@
     "id": 28682,
     "name": "Dinh's bulwark",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "BULWARK",
+    "result": "special-weapon implementation"
   },
   {
     "id": 28688,
@@ -7052,8 +7052,8 @@
     "id": 28997,
     "name": "Dual macuahuitl",
     "previousStyle": "UNARMED",
-    "style": "UNARMED",
-    "result": "retained fallback - see audit limitations"
+    "style": "MACE",
+    "result": "special-weapon implementation"
   },
   {
     "id": 29000,

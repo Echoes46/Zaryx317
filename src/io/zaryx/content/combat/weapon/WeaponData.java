@@ -103,6 +103,13 @@ public enum WeaponData {
             new WeaponMode(1, AttackStyle.AGGRESSIVE, CombatStyle.RANGE),
             new WeaponMode(2, AttackStyle.DEFENSIVE, CombatStyle.RANGE)),
 
+    BULWARK(new int[] {21015, 28682, 25604}, WeaponInterface.BULWARK,
+            new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.CRUSH),
+            new WeaponMode(1, AttackStyle.DEFENSIVE, CombatStyle.CRUSH)),
+    SALAMANDER(new int[] {10146, 10147, 10148, 10149}, WeaponInterface.SALAMANDER,
+            new WeaponMode(0, AttackStyle.AGGRESSIVE, CombatStyle.SLASH),
+            new WeaponMode(1, AttackStyle.ACCURATE, CombatStyle.RANGE),
+            new WeaponMode(2, AttackStyle.DEFENSIVE, CombatStyle.MAGIC)),
     UNARMED(new int[] {0}, WeaponInterface.UNARMED,
             new WeaponMode(0, AttackStyle.ACCURATE, CombatStyle.CRUSH),
             new WeaponMode(1, AttackStyle.AGGRESSIVE, CombatStyle.CRUSH),

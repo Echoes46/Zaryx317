@@ -117,6 +117,7 @@ public abstract class HitDispatcher {
          */
 
         boolean usingSythe = false;
+        boolean bloodragerProc = false;
 
         if (combatType.equals(CombatType.MELEE)) {
 
@@ -147,290 +148,308 @@ public abstract class HitDispatcher {
 
             usingSythe = ScytheOfVitur.SCYTHE_EFFECT.activateSpecialEffect(attacker, defender);
 
-            damage = isMaxHitDummy ? maximumDamage : Misc.random((int) maximumDamage);
-            boolean isAccurate = isMaxHitDummy || maximumAccuracy >= rand.nextDouble();
+            boolean infusion = special instanceof BloodInfusion;
+            boolean dual = attacker.getItems().getWeapon() == 28997 && (special == null || infusion);
+            boolean bloodMoonSet = dual && BloodInfusion.hasSet(attacker);
+            int combinedMax = maximumDamage;
+            int firstDamage = 0;
+            boolean firstAccurate = false;
+            for (int hit = 0; hit < (dual ? 2 : 1); hit++) {
+                maximumDamage = dual ? (hit == 0 ? combinedMax / 2 : combinedMax - combinedMax / 2) : combinedMax;
+                damage = isMaxHitDummy ? maximumDamage : infusion ? Misc.random(maximumDamage / 5, maximumDamage) : Misc.random(maximumDamage);
+                boolean isAccurate = (!dual || infusion || hit == 0 || firstAccurate) && (isMaxHitDummy || maximumAccuracy >= rand.nextDouble());
 
-            afterDamageCalculated(combatType, isAccurate);
+                afterDamageCalculated(combatType, isAccurate);
 
-            if (damage > 0) {
-                // Guthan's Armour effect
-                if (Misc.trueRand(4) == 1) {
-                    boolean guthanGfxFlag = false;
-                    if (GuthanEffect.INSTANCE.canUseEffect(attacker)) {
-                        guthanGfxFlag = true;
-                        GuthanEffect.INSTANCE.useEffect(attacker, defender, new Damage(damage));
-                    } else if (EquipmentSet.GUTHAN.isWearing(attacker) || attacker.playerEquipmentCosmetic[Player.playerAura] == 10559 && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
-                        guthanGfxFlag = true;
-                        attacker.getHealth().increase(damage / 2);
-                    } else if (attacker.getItems().isWearingItem(13372) && !defender.isPlayer()) {
-                        guthanGfxFlag = true;
-                        attacker.getHealth().increase(damage / 3);
+                if (damage > 0) {
+                    // Guthan's Armour effect
+                    if (Misc.trueRand(4) == 1) {
+                        boolean guthanGfxFlag = false;
+                        if (GuthanEffect.INSTANCE.canUseEffect(attacker)) {
+                            guthanGfxFlag = true;
+                            GuthanEffect.INSTANCE.useEffect(attacker, defender, new Damage(damage));
+                        } else if (EquipmentSet.GUTHAN.isWearing(attacker) || attacker.playerEquipmentCosmetic[Player.playerAura] == 10559 && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
+                            guthanGfxFlag = true;
+                            attacker.getHealth().increase(damage / 2);
+                        } else if (attacker.getItems().isWearingItem(13372) && !defender.isPlayer()) {
+                            guthanGfxFlag = true;
+                            attacker.getHealth().increase(damage / 3);
+                        }
+                        if (guthanGfxFlag) {
+                            defender.startGraphic(new Graphic(399));
+                        }
                     }
-                    if (guthanGfxFlag) {
+                }
+
+                if (attacker.getItems().isWearingItem(33808) && attacker.getItems().isWearingItem(33814)) {
+                    if (Misc.isLucky(100) && !defender.isPlayer() && !defender.isDead) {
+                        defender.appendDamage(attacker, Misc.random(35, 75), HIT);
+                        defender.startGraphic(new Graphic(2426));
+                    }
+                }
+                if (attacker.getItems().isWearingItem(33806) && Misc.isLucky(100)) {
+                    defender.getHealth().proposeStatus(HealthStatus.VENOM, 20, Optional.of(defender));
+                }
+
+                if (attacker.getItems().isWearingItem(33806) && Misc.isLucky(25)) {
+                    defender.appendDamage(defender, Misc.random(5, 22), Hitmark.ZULCANO_SHIELD);
+                    attacker.appendHeal(Misc.random(5, 12), Hitmark.HEAL_PURPLE);
+                    defender.startGraphic(new Graphic(444));
+                }
+                if (attacker.getItems().isWearingItem(33806)) {
+                    if (Misc.isLucky(25) && !defender.isPlayer() && !defender.isDead) {
+                        defender.appendDamage(attacker, Misc.random(35, 75), HIT);
                         defender.startGraphic(new Graphic(399));
                     }
                 }
-            }
-
-            if (attacker.getItems().isWearingItem(33808) && attacker.getItems().isWearingItem(33814)) {
-                if (Misc.isLucky(100) && !defender.isPlayer() && !defender.isDead) {
-                    defender.appendDamage(attacker, Misc.random(35, 75), HIT);
-                    defender.startGraphic(new Graphic(2426));
+                if (attacker.getItems().isWearingItem(33806)) {
+                    if (Misc.isLucky(25) && !defender.isPlayer() && !defender.isDead) {
+                        defender.appendDamage(attacker, Misc.random(35, 75), HIT);
+                        defender.startGraphic(new Graphic(399));
+                    }
                 }
-            }
-            if (attacker.getItems().isWearingItem(33806) && Misc.isLucky(100)) {
-                defender.getHealth().proposeStatus(HealthStatus.VENOM, 20, Optional.of(defender));
-            }
-
-            if (attacker.getItems().isWearingItem(33806) && Misc.isLucky(25)) {
-                defender.appendDamage(defender, Misc.random(5, 22), Hitmark.ZULCANO_SHIELD);
-                attacker.appendHeal(Misc.random(5, 12), Hitmark.HEAL_PURPLE);
-                defender.startGraphic(new Graphic(444));
-            }
-            if (attacker.getItems().isWearingItem(33806)) {
-                if (Misc.isLucky(25) && !defender.isPlayer() && !defender.isDead) {
-                    defender.appendDamage(attacker, Misc.random(35, 75), HIT);
-                    defender.startGraphic(new Graphic(399));
+                if (attacker.getItems().isWearingItem(39006)) {
+                    if (Misc.isLucky(15) && !defender.isPlayer() && !defender.isDead) {
+                        defender.appendDamage(attacker, Misc.random(35, 75), HIT);
+                        defender.startGraphic(new Graphic(399));
+                    }
                 }
-            }
-            if (attacker.getItems().isWearingItem(33806)) {
-                if (Misc.isLucky(25) && !defender.isPlayer() && !defender.isDead) {
-                    defender.appendDamage(attacker, Misc.random(35, 75), HIT);
-                    defender.startGraphic(new Graphic(399));
+
+                if (attacker.getChristmasWeapons().getCharges(33161) > 0 && (attacker.getChristmasWeapons().getCharges(33161) - 50) > 0
+                        && attacker.getItems().isWearingItem(33161) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                        ChristmasWeapons.removeCharges(attacker, 33161, 50);
+                    } else if (Misc.trueRand(5) == 1) {
+                        attacker.getHealth().increase((damage / 2));
+                        defender.startGraphic(new Graphic(399));
+                        ChristmasWeapons.removeCharges(attacker, 33161, 50);
+                    }
                 }
-            }
-            if (attacker.getItems().isWearingItem(39006)) {
-                if (Misc.isLucky(15) && !defender.isPlayer() && !defender.isDead) {
-                    defender.appendDamage(attacker, Misc.random(35, 75), HIT);
-                    defender.startGraphic(new Graphic(399));
+
+                if (attacker.getItems().isWearingItem(25736) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1) {
+                        attacker.getHealth().increase((damage / 4));
+                        defender.startGraphic(new Graphic(399));
+                    }
                 }
-            }
 
-            if (attacker.getChristmasWeapons().getCharges(33161) > 0 && (attacker.getChristmasWeapons().getCharges(33161) - 50) > 0
-                    && attacker.getItems().isWearingItem(33161) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
-                    ChristmasWeapons.removeCharges(attacker, 33161, 50);
-                } else if (Misc.trueRand(5) == 1) {
-                    attacker.getHealth().increase((damage / 2));
-                    defender.startGraphic(new Graphic(399));
-                    ChristmasWeapons.removeCharges(attacker, 33161, 50);
+                if (attacker.getItems().isWearingItem(39001) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
+                    if (Misc.trueRand(4) == 1) {
+                        attacker.getHealth().increase((damage / 4));
+                        defender.startGraphic(new Graphic(399));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(25736) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1) {
-                    attacker.getHealth().increase((damage / 4));
-                    defender.startGraphic(new Graphic(399));
+                if (attacker.getItems().isWearingItem(39000) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
+                    if (Misc.trueRand(6) == 1) {
+                        attacker.getHealth().increase((damage / 4));
+                        defender.startGraphic(new Graphic(399));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(39001) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
-                if (Misc.trueRand(4) == 1) {
-                    attacker.getHealth().increase((damage / 4));
-                    defender.startGraphic(new Graphic(399));
+                if (attacker.getItems().isWearingItem(39002) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
+                    if (Misc.trueRand(6) == 1) {
+                        attacker.getHealth().increase((damage / 4));
+                        defender.startGraphic(new Graphic(399));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(39000) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
-                if (Misc.trueRand(6) == 1) {
-                    attacker.getHealth().increase((damage / 4));
-                    defender.startGraphic(new Graphic(399));
+
+
+                if (attacker.getItems().isWearingItem(25739) && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 4));
+                        defender.startGraphic(new Graphic(399));
+                    } else if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(39002) && !attacker.getArboContainer().inArbo() && !defender.isPlayer()) {
-                if (Misc.trueRand(6) == 1) {
-                    attacker.getHealth().increase((damage / 4));
-                    defender.startGraphic(new Graphic(399));
+                if (attacker.getItems().isWearingItem(33184) && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 3));
+                        damage = (int) (damage + (damage * 0.15));
+                        defender.startGraphic(new Graphic(399));
+                    } else if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                    }
                 }
-            }
 
-
-
-            if (attacker.getItems().isWearingItem(25739) && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
-                    attacker.getHealth().increase((damage / 4));
-                    defender.startGraphic(new Graphic(399));
-                } else if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
+                if (attacker.getItems().isWearingItem(33203) && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 2));
+                        damage = (int) (damage + (damage * 0.15));
+                        defender.startGraphic(new Graphic(399));
+                    } else if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(33184) && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
-                    attacker.getHealth().increase((damage / 3));
-                    damage = (int) (damage + (damage * 0.15));
-                    defender.startGraphic(new Graphic(399));
-                } else if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
+                if (attacker.getItems().isWearingItem(33202) && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(33203) && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
-                    attacker.getHealth().increase((damage / 2));
-                    damage = (int) (damage + (damage * 0.15));
-                    defender.startGraphic(new Graphic(399));
-                } else if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
+                if (attacker.getItems().isWearingItem(33204) && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(33202) && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
+                if (attacker.getChristmasWeapons().getCharges(33162) > 0
+                        && (attacker.getChristmasWeapons().getCharges(33162) - 50) > 0
+                        && attacker.getItems().isWearingItem(33162)) {
+                    if (Misc.trueRand(5) == 1) {
+                        damage = (int) (damage + (damage * 0.15));
+                        attacker.startGraphic(new Graphic(400));
+                        ChristmasWeapons.removeCharges(attacker, 33162, 50);
+                    }
                 }
-            }
 
-            if (attacker.getItems().isWearingItem(33204) && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
+                if (attacker.zamorakFaction && !defender.isPlayer()) {
+                    damage = (int) (damage + (damage * 0.10));
                 }
-            }
 
-            if (attacker.getChristmasWeapons().getCharges(33162) > 0
-                    && (attacker.getChristmasWeapons().getCharges(33162) - 50) > 0
-                    && attacker.getItems().isWearingItem(33162)) {
-                if (Misc.trueRand(5) == 1) {
-                    damage = (int) (damage + (damage * 0.15));
-                    attacker.startGraphic(new Graphic(400));
-                    ChristmasWeapons.removeCharges(attacker, 33162, 50);
+                if (attacker.bonusDmg) {
+                    damage = (int) (damage + (damage * 0.20));
                 }
-            }
 
-            if (attacker.zamorakFaction && !defender.isPlayer()) {
-                damage = (int) (damage + (damage * 0.10));
-            }
-
-            if (attacker.bonusDmg) {
-                damage = (int) (damage + (damage * 0.20));
-            }
-
-            if (attacker.dailyDamage > 0) {
-                damage = (int) (damage + (damage * 0.10));
-            }
-            if (attacker.EliteCentBoost > 0 && !attacker.getPosition().inWild()) {
-                damage *= 2;
-            }
-            if (!isAccurate && attacker.getItems().isWearingItem(26219) || !isAccurate && attacker.getItems().isWearingItem(27246) || !isAccurate && attacker.getItems().isWearingItem(33202)) {
-                if (damage <= 0) {
-                    damage = 1;
-                    isAccurate = true;
+                if (attacker.dailyDamage > 0) {
+                    damage = (int) (damage + (damage * 0.10));
                 }
-            }
-
-            if (attacker.guthixFaction && !defender.isPlayer()) {
-                if (Misc.trueRand(7) == 1) {
-                    attacker.getHealth().increase(damage / 3);
-                    attacker.gfx0(1904);
+                if (attacker.EliteCentBoost > 0 && !attacker.getPosition().inWild()) {
+                    damage *= 2;
                 }
-            }
+                if (!isAccurate && attacker.getItems().isWearingItem(26219) || !isAccurate && attacker.getItems().isWearingItem(27246) || !isAccurate && attacker.getItems().isWearingItem(33202)) {
+                    if (damage <= 0) {
+                        damage = 1;
+                        isAccurate = true;
+                    }
+                }
 
-            if (attacker.getItems().isWearingItem(24780) && !defender.isPlayer()) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                if (attacker.guthixFaction && !defender.isPlayer()) {
+                    if (Misc.trueRand(7) == 1) {
+                        attacker.getHealth().increase(damage / 3);
+                        attacker.gfx0(1904);
+                    }
+                }
+
+                if (attacker.getItems().isWearingItem(24780) && !defender.isPlayer()) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 5));
+                    }
+                }
+
+                if (attacker.getItems().isWearingItem(26992) && !defender.isPlayer() && attacker.isranging) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 4));
+                    }
+                }
+
+                if (attacker.getItems().isWearingItem(26990) && !defender.isPlayer() && attacker.ismeleeing) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 4));
+                    }
+                }
+
+                if (attacker.getItems().isWearingItem(26903) && !defender.isPlayer() && attacker.ismaging) {
+                    if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
+                        attacker.getHealth().increase((damage / 4));
+                    }
+                }
+
+                if (attacker.armourofozmage()) {
+                    if (Misc.trueRand(3) == 1) {
+                        attacker.getHealth().increase((damage / 4));
+                    }
+                }
+
+                if (attacker.petSummonId == 27383) {
+                if (Misc.trueRand(3) == 1) {
                     attacker.getHealth().increase((damage / 5));
                 }
             }
 
-            if (attacker.getItems().isWearingItem(26992) && !defender.isPlayer() && attacker.isranging) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
-                    attacker.getHealth().increase((damage / 4));
+                if (attacker.getItems().isWearingItem(28585) && attacker.getItems().isWearingItem(25818)) {
+                    if (Misc.trueRand(3) == 1) {
+                        attacker.getHealth().increase((damage / 8));
+                    }
                 }
-            }
+                // melee accuracy roll
+                if (!isAccurate) {
+                    damage = 0;
+                    success = false;
 
-            if (attacker.getItems().isWearingItem(26990) && !defender.isPlayer() && attacker.ismeleeing) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
-                    attacker.getHealth().increase((damage / 4));
+                    if (attacker.getItems().isWearingItem(26219) || attacker.getItems().isWearingItem(27246) || attacker.getItems().isWearingItem(33202)) {
+                        damage = attacker.getItems().isWearingItem(33202) ? 5 : 1;
+                        success = true;
+                    }
                 }
-            }
-
-            if (attacker.getItems().isWearingItem(26903) && !defender.isPlayer() && attacker.ismaging) {
-                if (Misc.trueRand(5) == 1 && !attacker.getArboContainer().inArbo()) {
-                    attacker.getHealth().increase((damage / 4));
+                if (usingSythe) {
+                    if (defender.getEntitySize() >= 1 && !defender.isPlayer() || isMaxHitDummy) {
+                        if (damage > 0 && (damage / 2) > 0) {
+                            damage2 = (damage / 2);
+                        } else {
+                            damage2 = 0;
+                        }
+                        if (damage2 > 0 && (damage2 / 2) > 0) {
+                            damage3 = (damage2 / 2);
+                        } else {
+                            damage3 = 0;
+                        }
+                    }
                 }
-            }
 
-            if (attacker.armourofozmage()) {
-                if (Misc.trueRand(3) == 1) {
-                    attacker.getHealth().increase((damage / 4));
+                if (attacker.isPrintAttackStats() && !applyingMultiHitAttack) {
+                    double hitPercentage = attacker.ignoreDefence ? 100 : maximumAccuracy * 100;
+
+                    attacker.sendMessage("p->e Melee"
+                            + ", Hit%: " + String.format("%.2f", hitPercentage) + "%"
+                            + ", Max: " + maximumDamage + "/" + maximumDamage
+                            + ", IsAccurate: " + isAccurate
+                            + ", Style: " + attacker.getCombatConfigs().getWeaponMode());
                 }
-            }
 
-            if (attacker.petSummonId == 27383) {
-            if (Misc.trueRand(3) == 1) {
-                attacker.getHealth().increase((damage / 5));
-            }
-        }
-
-            if (attacker.getItems().isWearingItem(28585) && attacker.getItems().isWearingItem(25818)) {
-                if (Misc.trueRand(3) == 1) {
-                    attacker.getHealth().increase((damage / 8));
+                if (defender.getHealth().getCurrentHealth() - (dual && hit == 1 ? firstDamage : 0) - damage < 0) {
+                    damage = Math.max(0, defender.getHealth().getCurrentHealth() - (dual && hit == 1 ? firstDamage : 0));
                 }
-            }
-            // melee accuracy roll
-            if (!isAccurate) {
-                damage = 0;
-                success = false;
-
-                if (attacker.getItems().isWearingItem(26219) || attacker.getItems().isWearingItem(27246) || attacker.getItems().isWearingItem(33202)) {
-                    damage = attacker.getItems().isWearingItem(33202) ? 5 : 1;
-                    success = true;
-                }
-            }
-            if (usingSythe) {
-                if (defender.getEntitySize() >= 1 && !defender.isPlayer() || isMaxHitDummy) {
-                    if (damage > 0 && (damage / 2) > 0) {
-                        damage2 = (damage / 2);
-                    } else {
+                if (damage2 > 0) {
+                    if (damage == defender.getHealth().getCurrentHealth() && defender.getHealth().getCurrentHealth() - damage2 > 0) {
                         damage2 = 0;
                     }
-                    if (damage2 > 0 && (damage2 / 2) > 0) {
-                        damage3 = (damage2 / 2);
-                    } else {
-                        damage3 = 0;
-                    }
                 }
-            }
-
-            if (attacker.isPrintAttackStats() && !applyingMultiHitAttack) {
-                double hitPercentage = attacker.ignoreDefence ? 100 : maximumAccuracy * 100;
-
-                attacker.sendMessage("p->e Melee"
-                        + ", Hit%: " + String.format("%.2f", hitPercentage) + "%"
-                        + ", Max: " + maximumDamage + "/" + maximumDamage
-                        + ", IsAccurate: " + isAccurate
-                        + ", Style: " + attacker.getCombatConfigs().getWeaponMode());
-            }
-
-            if (defender.getHealth().getCurrentHealth() - damage < 0) {
-                damage = defender.getHealth().getCurrentHealth();
-            }
-            if (damage2 > 0) {
-                if (damage == defender.getHealth().getCurrentHealth() && defender.getHealth().getCurrentHealth() - damage2 > 0) {
+                if (defender.getHealth().getCurrentHealth() - damage - damage2 < 0) {
+                    damage2 = defender.getHealth().getCurrentHealth() - damage;
+                }
+                if (damage < 0) {
+                    damage = 0;
+                }
+                if (damage2 < 0 && damage2 != -1) {
                     damage2 = 0;
                 }
-            }
-            if (defender.getHealth().getCurrentHealth() - damage - damage2 < 0) {
-                damage2 = defender.getHealth().getCurrentHealth() - damage;
-            }
-            if (damage < 0) {
-                damage = 0;
-            }
-            if (damage2 < 0 && damage2 != -1) {
-                damage2 = 0;
-            }
 
+                if (bloodMoonSet && isAccurate && (infusion || rand.nextInt(3) == 0)) bloodragerProc = true;
+                if (dual && hit == 0) {
+                    firstDamage = damage;
+                    firstAccurate = isAccurate;
+                } else if (dual) {
+                    damage2 = damage;
+                    damage = firstDamage;
+                    success = firstAccurate;
+                }
+
+            }
             hitmark1 = damage > 0 ? HIT : Hitmark.MISS;
             hitmark2 = damage2 > 0 ? HIT : Hitmark.MISS;
             hitmark3 = damage3 > 0 ? HIT : Hitmark.MISS;
-
             if (gainExperience) {
                 addCombatXP(CombatType.MELEE, damage + Math.max(0, damage2) + Math.max(0, damage3));
             }
@@ -717,7 +736,7 @@ public abstract class HitDispatcher {
                 }
                 attacker.getPA().refreshSkill(5);
             }
-            dropArrows();
+            if (!io.zaryx.content.combat.weapon.SpecialWeaponRules.isSalamanderAttack(attacker)) dropArrows();
 
             /**
              * Magic attack style
@@ -868,6 +887,7 @@ public abstract class HitDispatcher {
         }
 
         attacker.attackTimer = attacker.attacking.getAttackDelay() + (Spores.isInfected(attacker) ? 1 : 0);
+        if (bloodragerProc) attacker.attackTimer = Math.max(1, attacker.attackTimer - 1);
 
 
         if (defender != null && defender.isNPC()) {
@@ -907,12 +927,12 @@ public abstract class HitDispatcher {
                 attacker.attacking.getRangedWeaponType(), special, success);
         attacker.getDamageQueue().add(hit1);
 
-        if (special != null) {
+        if (special != null && !(special instanceof ShieldBash && applyingMultiHitAttack)) {
             special.activate(attacker, defender, hit1);
         }
 
         if (damage2 > -1 || usingSythe && defender.getEntitySize() > 1) {
-            attacker.getDamageQueue().add(new Damage(defender, usingSythe ? damage2 : Math.max(0, damage2), delay, attacker.playerEquipment,
+            attacker.getDamageQueue().add(new Damage(defender, usingSythe ? damage2 : Math.max(0, damage2), delay + (attacker.getItems().getWeapon() == 28997 && defender.isNPC() ? 1 : 0), attacker.playerEquipment,
                     hitmark2, combatType));
         }
         int totalDamage = damage + Math.max(0, damage2) + Math.max(0, damage3) / 4;
@@ -934,7 +954,7 @@ public abstract class HitDispatcher {
 
         if (!(special instanceof VolatileNightmareStaff)) {
             if (!applyingMultiHitAttack && usingMultiAttack(combatType) && attacker.getPosition().inMulti() && !attacker.getItems().isWearingItem(27610)) {
-                List<Entity> multiHitEntities = getMultiHitEntities(MeleeData.usingSytheOfVitur(attacker));
+                List<Entity> multiHitEntities = special instanceof ShieldBash ? ShieldBash.secondaryTargets(attacker, defender) : getMultiHitEntities(MeleeData.usingSytheOfVitur(attacker));
                 if (attacker.isPrintAttackStats()) {
                     attacker.sendMessage("Using multi-attack, " + multiHitEntities.size() + " possible targets.");
                 }
@@ -958,7 +978,7 @@ public abstract class HitDispatcher {
                     getHitEntity(attacker, entity).playerHitEntity(combatType, special, true);
                 });
             } else if (!applyingMultiHitAttack && usingMultiAttack(combatType) && attacker.getPosition().inMulti() && defender.isNPC()) {
-                List<Entity> multiHitEntities = getMultiHitEntities(MeleeData.usingSytheOfVitur(attacker));
+                List<Entity> multiHitEntities = special instanceof ShieldBash ? ShieldBash.secondaryTargets(attacker, defender) : getMultiHitEntities(MeleeData.usingSytheOfVitur(attacker));
                 if (attacker.isPrintAttackStats()) {
                     attacker.sendMessage("Using multi-attack, " + multiHitEntities.size() + " possible targets.");
                 }
@@ -1080,7 +1100,9 @@ public abstract class HitDispatcher {
 
         attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.HITPOINTS.getId(), !pvpExperienceDrops);
 
-        if (type == CombatType.MAGE && attacker.autocastingDefensive) {
+        if (type == CombatType.MAGE && io.zaryx.content.combat.weapon.SpecialWeaponRules.isSalamanderAttack(attacker)) {
+            attacker.getPA().addSkillXPMultiplied(damage * 2.0, Skill.MAGIC.getId(), !pvpExperienceDrops);
+        } else if (type == CombatType.MAGE && attacker.autocastingDefensive) {
             attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.MAGIC.getId(), !pvpExperienceDrops);
             attacker.getPA().addSkillXPMultiplied(damage, Skill.DEFENCE.getId(), !pvpExperienceDrops);
         } else if (type == CombatType.MAGE) {
@@ -1133,6 +1155,8 @@ public abstract class HitDispatcher {
     }
 
     private boolean usingMultiAttack(CombatType combatType) {
+        if (combatType == CombatType.MELEE && attacker.usingSpecial
+                && io.zaryx.content.combat.weapon.SpecialWeaponRules.isBulwark(attacker.getItems().getWeapon())) return true;
         if (attacker.usingSpecial && attacker.getItems().isWearingItem(21902)) {
             return true;
         } else if (combatType == CombatType.MAGE && Arrays.stream(CombatSpellData.MULTI_SPELLS).anyMatch(spell -> spell == CombatSpellData.getSpellId(attacker.getSpellId()))) {

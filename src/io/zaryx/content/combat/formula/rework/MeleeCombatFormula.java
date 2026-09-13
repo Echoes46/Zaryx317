@@ -34,7 +34,7 @@ import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
-import static io.zaryx.content.bosses.nightmare.NightmareStatusNPC.npc;
+
 import static io.zaryx.model.entity.player.PlayerAssistant.*;
 
 /**
@@ -263,7 +263,7 @@ public class MeleeCombatFormula implements CombatFormula {
         }
 
 
-        int npcId = npc.getNpcId();
+        int npcId = defender.getNpcId();
         boolean hasTricksterEquipped = attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216);
 
 // Now check against each NPC ID individually and whether the player has Trickster equipped

@@ -21,14 +21,14 @@ Both server and client must be updated together for the relocated companion inte
 
 ## Remaining limitations
 
-180 weapon-slot items retain the existing unarmed fallback. They are explicitly recorded in `weapon-style-audit.json`; they are not all certified as correct. Many are held cosmetics, quest props, flowers, banners, greegrees, fishing gear, and unfinished/depleted items. Do not describe this audit as making every item combat-complete.
+172 weapon-slot items retain the existing unarmed fallback. They are explicitly recorded in `weapon-style-audit.json`; they are not all certified as correct. Many are held cosmetics, quest props, flowers, banners, greegrees, fishing gear, and unfinished/depleted items. Do not describe this audit as making every item combat-complete.
 
 Notable remaining weapon-specific work:
 
-- Bulwarks 21015/28682 and Gregg's eastdoor 25604: need a dedicated interface and verified block-mode behavior, not a generic melee mapping.
+- Bulwarks 21015/28682 and Gregg's eastdoor 25604: dedicated Pummel/Block controls and NPC damage protection are now implemented; see `special-weapons.md`.
 - Salamanders 10146–10148 and swamp lizard 10149: need verified melee/ranged/magic selection and fuel handling.
 - Custom firearms 33178–33182: require confirmation of their actual attack/ammunition implementation before choosing a style family.
-- Dual macuahuitl 28997: dedicated style/attack behavior requires review.
+- Dual macuahuitl 28997: uses the four mace styles and sequential two-hit accuracy checks.
 - Novelty launchers, holy water, mud pie, and other special held items require their own behavior review if these are to be playable.
 - `test wep` 35558 has no clear production weapon family.
 

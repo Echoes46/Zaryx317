@@ -4,6 +4,7 @@ import java.util.Map;
 final class WeaponStyleMappings {
     private WeaponStyleMappings() { }
     static void register(Map<Integer, WeaponData> map) {
+        add(map, 28997, WeaponData.MACE); // Dual macuahuitl
         // AXE
         add(map, 10129, WeaponData.AXE); // Barb-tail harpoon
         add(map, 13242, WeaponData.AXE); // Infernal axe (uncharged)

@@ -29,7 +29,7 @@ import io.zaryx.util.discord.Discord;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
-import static io.zaryx.content.bosses.nightmare.NightmareStatusNPC.npc;
+
 
 /**
  * @author Arthur Behesnilian 12:09 PM
@@ -597,7 +597,7 @@ public class RangeCombatFormula implements CombatFormula {
             multiplier += 0.05D;
         }
 
-        if (attacker.getItems().isWearingItem(28919) &&  npc.getDefinition().getCombatLevel() > 250) {
+        if (attacker.getItems().isWearingItem(28919) &&  defender.getDefinition().getCombatLevel() > 250) {
             multiplier += 0.25D;
         } else if (attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33107)) {
             multiplier += 0.10D;
@@ -606,7 +606,7 @@ public class RangeCombatFormula implements CombatFormula {
         } else if (PrestigePerks.hasRelic(attacker, PrestigePerks.ZERK_RANGE_MAGE) && attacker.wildLevel < 0) {
             multiplier += 0.10D;
         }
-        int npcId = npc.getNpcId();
+        int npcId = defender.getNpcId();
         boolean hasTricksterEquipped = attacker.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216);
 
 // Now check against each NPC ID individually and whether the player has Trickster equipped

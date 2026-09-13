@@ -1,5 +1,6 @@
 package io.zaryx.content.combat.core;
 
+import io.zaryx.content.combat.weapon.SpecialWeaponRules;
 import io.zaryx.Configuration;
 import io.zaryx.Server;
 import io.zaryx.content.WeaponGames.WGManager;
@@ -59,6 +60,9 @@ public class AttackEntity {
 
     public int getAttackDelay() {
         int weapon = attacker.playerEquipment[Player.playerWeapon];
+        if (SpecialWeaponRules.isSalamanderAttack(attacker)) return attacker.getCombatConfigs().getAttackStyle() == 1 ? 4 : 5;
+        if (weapon == 28997) return 4;
+        if (SpecialWeaponRules.isBulwark(weapon)) return 7;
         if (attacker.usingMagic) {
             switch (attacker.getSpellId()) {
                 case 98://Sanguinisti Staff
@@ -104,6 +108,8 @@ public class AttackEntity {
     }
 
     public CombatType getCombatType() {
+        if (SpecialWeaponRules.isSalamanderAttack(attacker))
+            return SpecialWeaponRules.salamanderType(attacker.getCombatConfigs().getAttackStyle());
         if (attacker.usingMagic) {
             return CombatType.MAGE;
         } else if (attacker.usingBow || attacker.usingOtherRangeWeapons || attacker.usingCross || attacker.usingBallista) {
@@ -188,7 +194,7 @@ public class AttackEntity {
     }
 
     public boolean attackEntityCheck(Entity targetEntity, boolean sendMessages) {
-        determineCombatStyle();
+        if (!determineCombatStyle()) return false;
         if (targetEntity.isNPC()) {
             return AttackNpcCheck.check(attacker, targetEntity, sendMessages);
         } else {
@@ -341,7 +347,7 @@ public class AttackEntity {
             return;
         }
 
-        if (getCombatType() == CombatType.MAGE && !MagicRequirements.checkMagicReqs(attacker, attacker.getSpellId(),
+        if (getCombatType() == CombatType.MAGE && !SpecialWeaponRules.isSalamanderAttack(attacker) && !MagicRequirements.checkMagicReqs(attacker, attacker.getSpellId(),
                 true)) {
             reset();
             return;
@@ -467,15 +473,28 @@ public class AttackEntity {
                 return;
             }
 
-            attacker.specAmount -= special.getRequiredCost();
+            if (!special.start(attacker)) {
+                attacker.usingSpecial = false;
+                attacker.getItems().updateSpecialBar();
+                return;
+            }
             HitDispatcher.getHitEntity(attacker, targetEntity).playerHitEntity(getCombatType(), special);
 
             attacker.usingSpecial = false;
             attacker.getItems().updateSpecialBar();
             attacker.getItems().addSpecialBar(attacker.playerEquipment[Player.playerWeapon]);
         } else {
-            // Standard auto attacks
-            if (getCombatType() == CombatType.MAGE) {
+            // Salamanders consume tar in all three modes, including melee.
+            if (SpecialWeaponRules.isSalamanderAttack(attacker)) {
+                attacker.startAnimation(5247);
+                if (getCombatType() == CombatType.MAGE) {
+                    attacker.oldSpellId = SpecialWeaponRules.SALAMANDER_SPELL;
+                    attacker.currentSpellId = attacker.oldSpellId;
+                }
+                attacker.getPA().createPlayersProjectile(attacker.getX(), attacker.getY(),
+                        targetEntity.getY() - attacker.getY(), targetEntity.getX() - attacker.getX(),
+                        50, 60, 952, 30, 20, Projectile.getLockon(targetEntity), 20);
+            } else if (getCombatType() == CombatType.MAGE) {
 
                 int spellId = attacker.getSpellId();
 
@@ -581,6 +600,7 @@ public class AttackEntity {
 
             // Queue hit
             HitDispatcher.getHitEntity(attacker, targetEntity).playerHitEntity(getCombatType(), null);
+            if (SpecialWeaponRules.isSalamanderAttack(attacker)) SpecialWeaponRules.consumeTar(attacker);
         }
 
         if (attacker.usingOtherRangeWeapons || attacker.usingBow) {
@@ -770,6 +790,22 @@ public class AttackEntity {
     }
 
     private boolean determineWeaponStyle() {
+        int equippedWeapon = attacker.getItems().getWeapon();
+        if (SpecialWeaponRules.isSalamanderAttack(attacker)) attacker.usingSpecial = false;
+        if (SpecialWeaponRules.blocking(attacker)) {
+            attacker.sendMessage("Select Pummel before attacking with your bulwark.");
+            return false;
+        }
+        if (SpecialWeaponRules.isSalamanderAttack(attacker)) {
+            if (!SpecialWeaponRules.hasTar(attacker)) {
+                attacker.sendMessage("Equip the correct tar in your ammunition slot to use this salamander.");
+                return false;
+            }
+            attacker.autocasting = false;
+            attacker.usingMagic = attacker.getCombatConfigs().getAttackStyle() == 2;
+            attacker.setSpellId(attacker.usingMagic ? SpecialWeaponRules.SALAMANDER_SPELL : -1);
+            return true;
+        }
         // Magic checks first
         switch (attacker.playerEquipment[Player.playerWeapon]) {
             case 25731:
@@ -1113,6 +1149,7 @@ public class AttackEntity {
     }
 
     public int getDistanceRequired(CombatType combatType, Player attacker) {
+        if (SpecialWeaponRules.isSalamanderAttack(attacker)) return 1;
         AoeWeapons aoeWeapons = AOESystem.getSingleton().getAOEData(attacker.playerEquipment[Player.playerWeapon]);
         if (aoeWeapons != null) {
             return 10;
@@ -1274,6 +1311,28 @@ public class AttackEntity {
     }
 
     public boolean clickWeaponTabButton(int buttonId) {
+        // Custom widget IDs are decoded by the legacy decimal button packet format.
+        if ((buttonId == 239239 && attacker.getCombatConfigs().getWeaponData() == io.zaryx.content.combat.weapon.WeaponData.BULWARK)
+                || (buttonId == 240013 && attacker.getCombatConfigs().getWeaponData() == io.zaryx.content.combat.weapon.WeaponData.SALAMANDER)) {
+            attacker.autoRet = attacker.autoRet == 0 ? 1 : 0;
+            attacker.getPA().sendConfig(172, attacker.autoRet);
+            return true;
+        }
+        int mode = -1;
+        if (attacker.getCombatConfigs().getWeaponData() == io.zaryx.content.combat.weapon.WeaponData.BULWARK) {
+            if (buttonId == 239221) mode = 0;
+            if (buttonId == 239222) mode = 1;
+        } else if (attacker.getCombatConfigs().getWeaponData() == io.zaryx.content.combat.weapon.WeaponData.SALAMANDER) {
+            if (buttonId == 239251) mode = 0;
+            if (buttonId == 239252) mode = 1;
+            if (buttonId == 239253) mode = 2;
+        }
+        if (mode >= 0) {
+            attacker.getCombatConfigs().setAttackStyle(mode);
+            attacker.getPA().resetAutocast();
+            attacker.usingSpecial = false;
+            return true;
+        }
         switch (buttonId) {
             // 1
             case 9125: // Accurate

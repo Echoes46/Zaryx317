@@ -927,6 +927,8 @@ public class ItemAssistant {
 	 * Two handed weapon check.
 	 **/
 	public boolean is2handed(String itemName, int itemId) {
+        if (io.zaryx.content.combat.weapon.SpecialWeaponRules.isSalamander(itemId)
+                || io.zaryx.content.combat.weapon.SpecialWeaponRules.isBulwark(itemId) || itemId == 28997) return true;
 		if (itemName.contains("demon x") && !itemName.contains("demon x bow") || itemName.contains("demonx")  && !itemName.contains("demon x bow")  && !itemName.contains("webweaver")) {
 			return false;
 		}

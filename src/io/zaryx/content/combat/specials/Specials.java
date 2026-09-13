@@ -14,6 +14,8 @@ import java.util.Set;
  * @date Apr 4, 2015, 2015, 11:47:56 PM
  */
 public enum Specials {
+    SHIELD_BASH(new ShieldBash()),
+    BLOOD_INFUSION(new BloodInfusion()),
 	GRANITE_HAMMER(new GraniteHammerSpecialAttack()),
 	GRANITE_HANDLE(new GraniteMaulHandleSpecialAttack()),
 	GRANITE_MAUL(new GraniteMaulSpecialAttack()),

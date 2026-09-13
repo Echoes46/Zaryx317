@@ -55,6 +55,16 @@ public abstract class Special {
 	 * @param target the target being hit
 	 * @param damage the damage being dealt
 	 */
+    public boolean canActivate(Player player) { return true; }
+    /** Called once after validation/payment, before any damage rolls. */
+    public void onStart(Player player) { }
+    public final boolean start(Player player) {
+        if (player.specAmount < cost || !canActivate(player)) return false;
+        player.specAmount -= cost;
+        onStart(player);
+        return true;
+    }
+
 	public abstract void activate(Player player, Entity target, Damage damage);
 
 	/**

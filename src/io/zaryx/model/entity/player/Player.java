@@ -5272,6 +5272,19 @@ public class Player extends Entity {
         setUpdateRequired(true);
     }
 
+    /** Direct health sacrifice: no armour, protection or retaliation effects. */
+    public void appendUnmitigatedSelfDamage(int amount) {
+        int damage = Math.max(0, Math.min(amount, getHealth().getCurrentHealth()));
+        if (damage == 0) return;
+        getHealth().reduce(damage);
+        if (!hitUpdateRequired) {
+            hitUpdateRequired = true; hitDiff = damage; hitmark1 = Hitmark.HIT;
+        } else {
+            hitUpdateRequired2 = true; hitDiff2 = damage; hitmark2 = Hitmark.HIT;
+        }
+        setUpdateRequired(true);
+    }
+
     @Override
     public void appendDamage(Entity entity, int damage, Hitmark h) {
         // Attempting a fix to dying after teleport here.
@@ -5316,6 +5329,10 @@ public class Player extends Entity {
         }
 
 
+        if (entity != null && entity.isNPC() && h == Hitmark.HIT
+                && io.zaryx.content.combat.weapon.SpecialWeaponRules.blockReady(this)) {
+            damage = damage * 4 / 5;
+        }
         MeleeExtras.handleRedemption(this, damage);
 
         if (entity != null && entity.isPlayer()) {

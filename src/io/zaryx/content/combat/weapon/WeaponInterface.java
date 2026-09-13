@@ -17,6 +17,8 @@ public enum WeaponInterface {
     STICKS(6103, 6132, -1, -1),
     UNARMED(5855, 5857, -1, -1),
     SCYTHE(776, 779, -1, -1),
+    BULWARK(61400, 61401, 7474, 7486),
+    SALAMANDER(61430, 61431, -1, -1),
     ;
 
     private final int interfaceId;

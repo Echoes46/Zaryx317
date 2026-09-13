@@ -29,6 +29,10 @@ public class CombatConfig {
      * [Accurate, Aggressive, Etc...]
      */
     private int attackStyle;
+    private int lastWeaponId = -1;
+    private long bulwarkReadyTick = Long.MAX_VALUE;
+    public long getBulwarkReadyTick() { return bulwarkReadyTick; }
+
 
     public CombatConfig(Player player) {
         this.player = player;
@@ -50,6 +54,15 @@ public class CombatConfig {
         this.attackStyle = Math.max(0, Math.min(this.attackStyle, data.getWeaponModes().length - 1));
 
         WeaponMode mode = data.getWeaponModes()[this.attackStyle];
+        boolean wasBlocking = weaponData == WeaponData.BULWARK && weaponMode != null && weaponMode.getIndex() == 1;
+        boolean nowBlocking = data == WeaponData.BULWARK && this.attackStyle == 1;
+        if (wasBlocking && (!nowBlocking || weaponId != lastWeaponId))
+            player.attackTimer = Math.max(player.attackTimer, 8);
+        if (nowBlocking && (!wasBlocking || weaponId != lastWeaponId)) {
+            bulwarkReadyTick = io.zaryx.Server.getTickCount() + 8;
+            player.attacking.reset();
+        } else if (!nowBlocking) bulwarkReadyTick = Long.MAX_VALUE;
+        lastWeaponId = weaponId;
         if (weaponData == null || weaponMode == null || !weaponData.equals(data) || !weaponMode.equals(mode)) {
             this.weaponMode = mode;
             this.weaponData = data;
