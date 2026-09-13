@@ -1,0 +1,7534 @@
+[
+  {
+    "id": 35,
+    "name": "Excalibur",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 84,
+    "name": "Staff of armadyl",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 278,
+    "name": "Cattleprod",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 466,
+    "name": "Pickaxe handle",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 667,
+    "name": "Blurite sword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 732,
+    "name": "Holy water",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 746,
+    "name": "Dark dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 747,
+    "name": "Glowing dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 751,
+    "name": "Gnomeball",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 767,
+    "name": "Phoenix crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 772,
+    "name": "Dramen staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 800,
+    "name": "Bronze thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 801,
+    "name": "Iron thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 802,
+    "name": "Steel thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 803,
+    "name": "Mithril thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 804,
+    "name": "Adamant thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 805,
+    "name": "Rune thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 806,
+    "name": "Bronze dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 807,
+    "name": "Iron dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 808,
+    "name": "Steel dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 809,
+    "name": "Mithril dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 810,
+    "name": "Adamant dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 811,
+    "name": "Rune dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 812,
+    "name": "Bronze dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 813,
+    "name": "Iron dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 814,
+    "name": "Steel dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 815,
+    "name": "Mithril dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 816,
+    "name": "Adamant dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 817,
+    "name": "Rune dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 818,
+    "name": "Poisoned dart(p)",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 837,
+    "name": "Crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 839,
+    "name": "Longbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 841,
+    "name": "Shortbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 843,
+    "name": "Oak shortbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 845,
+    "name": "Oak longbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 847,
+    "name": "Willow longbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 849,
+    "name": "Willow shortbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 851,
+    "name": "Maple longbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 853,
+    "name": "Maple shortbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 855,
+    "name": "Yew longbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 857,
+    "name": "Yew shortbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 859,
+    "name": "Magic longbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 861,
+    "name": "Magic shortbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 863,
+    "name": "Iron knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 864,
+    "name": "Bronze knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 865,
+    "name": "Steel knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 866,
+    "name": "Mithril knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 867,
+    "name": "Adamant knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 868,
+    "name": "Rune knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 869,
+    "name": "Black knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 870,
+    "name": "Bronze knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 871,
+    "name": "Iron knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 872,
+    "name": "Steel knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 873,
+    "name": "Mithril knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 874,
+    "name": "Black knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 875,
+    "name": "Adamant knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 876,
+    "name": "Rune knife(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 975,
+    "name": "Machete",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1203,
+    "name": "Iron dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1205,
+    "name": "Bronze dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1207,
+    "name": "Steel dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1209,
+    "name": "Mithril dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1211,
+    "name": "Adamant dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1213,
+    "name": "Rune dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1215,
+    "name": "Dragon dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1217,
+    "name": "Black dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1219,
+    "name": "Iron dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1221,
+    "name": "Bronze dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1223,
+    "name": "Steel dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1225,
+    "name": "Mithril dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1227,
+    "name": "Adamant dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1229,
+    "name": "Rune dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1231,
+    "name": "Dragon dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1233,
+    "name": "Black dagger(p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1235,
+    "name": "Poisoned dagger(p)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 1237,
+    "name": "Bronze spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1239,
+    "name": "Iron spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1241,
+    "name": "Steel spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1243,
+    "name": "Mithril spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1245,
+    "name": "Adamant spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1247,
+    "name": "Rune spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1249,
+    "name": "Dragon spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1251,
+    "name": "Bronze spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1253,
+    "name": "Iron spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1255,
+    "name": "Steel spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1257,
+    "name": "Mithril spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1259,
+    "name": "Adamant spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1261,
+    "name": "Rune spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1263,
+    "name": "Dragon spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1265,
+    "name": "Bronze pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1267,
+    "name": "Iron pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1269,
+    "name": "Steel pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1271,
+    "name": "Adamant pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1273,
+    "name": "Mithril pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1275,
+    "name": "Rune pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1277,
+    "name": "Bronze sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1279,
+    "name": "Iron sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1281,
+    "name": "Steel sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1283,
+    "name": "Black sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1285,
+    "name": "Mithril sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1287,
+    "name": "Adamant sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1289,
+    "name": "Rune sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1291,
+    "name": "Bronze longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1293,
+    "name": "Iron longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1295,
+    "name": "Steel longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1297,
+    "name": "Black longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1299,
+    "name": "Mithril longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1301,
+    "name": "Adamant longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1303,
+    "name": "Rune longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1305,
+    "name": "Dragon longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1307,
+    "name": "Bronze 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1309,
+    "name": "Iron 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1311,
+    "name": "Steel 2h sword",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 1313,
+    "name": "Black 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1315,
+    "name": "Mithril 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1317,
+    "name": "Adamant 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1319,
+    "name": "Rune 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1321,
+    "name": "Bronze scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1323,
+    "name": "Iron scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1325,
+    "name": "Steel scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1327,
+    "name": "Black scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1329,
+    "name": "Mithril scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1331,
+    "name": "Adamant scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1333,
+    "name": "Rune scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1335,
+    "name": "Iron warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1337,
+    "name": "Bronze warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1339,
+    "name": "Steel warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1341,
+    "name": "Black warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1343,
+    "name": "Mithril warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1345,
+    "name": "Adamant warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1347,
+    "name": "Rune warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1349,
+    "name": "Iron axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1351,
+    "name": "Bronze axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1353,
+    "name": "Steel axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1355,
+    "name": "Mithril axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1357,
+    "name": "Adamant axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1359,
+    "name": "Rune axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1361,
+    "name": "Black axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1363,
+    "name": "Iron battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1365,
+    "name": "Steel battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1367,
+    "name": "Black battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1369,
+    "name": "Mithril battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1371,
+    "name": "Adamant battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1373,
+    "name": "Rune battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1375,
+    "name": "Bronze battleaxe",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 1377,
+    "name": "Dragon battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1379,
+    "name": "Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 1381,
+    "name": "Staff of air",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1383,
+    "name": "Staff of water",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1385,
+    "name": "Staff of earth",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1387,
+    "name": "Staff of fire",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1389,
+    "name": "Magic staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 1391,
+    "name": "Battlestaff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 1393,
+    "name": "Fire battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1395,
+    "name": "Water battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1397,
+    "name": "Air battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1399,
+    "name": "Earth battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1401,
+    "name": "Mystic fire staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1403,
+    "name": "Mystic water staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1405,
+    "name": "Mystic air staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1407,
+    "name": "Mystic earth staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1409,
+    "name": "Iban's staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1410,
+    "name": "Iban's staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 1419,
+    "name": "Scythe",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1420,
+    "name": "Iron mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1422,
+    "name": "Bronze mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1424,
+    "name": "Steel mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1426,
+    "name": "Black mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1428,
+    "name": "Mithril mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1430,
+    "name": "Adamant mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1432,
+    "name": "Rune mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 1434,
+    "name": "Dragon mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2402,
+    "name": "Silverlight",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2415,
+    "name": "Saradomin staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2416,
+    "name": "Guthix staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2417,
+    "name": "Zamorak staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2460,
+    "name": "Assorted flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2462,
+    "name": "Red flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2464,
+    "name": "Blue flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2466,
+    "name": "Yellow flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2468,
+    "name": "Purple flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2470,
+    "name": "Orange flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2472,
+    "name": "Mixed flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2474,
+    "name": "White flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2476,
+    "name": "Black flowers",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2883,
+    "name": "Ogre bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2952,
+    "name": "Wolfbane",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 2961,
+    "name": "Silver sickle",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 2963,
+    "name": "Silver sickle (b)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 3053,
+    "name": "Lava battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3054,
+    "name": "Mystic lava staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3093,
+    "name": "Black dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3094,
+    "name": "Black dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3095,
+    "name": "Bronze claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3096,
+    "name": "Iron claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3097,
+    "name": "Steel claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3098,
+    "name": "Black claws",
+    "previousStyle": "UNARMED",
+    "style": "CLAWS",
+    "result": "corrected"
+  },
+  {
+    "id": 3099,
+    "name": "Mithril claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3100,
+    "name": "Adamant claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3101,
+    "name": "Rune claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3170,
+    "name": "Bronze spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3171,
+    "name": "Iron spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3172,
+    "name": "Steel spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3173,
+    "name": "Mithril spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3174,
+    "name": "Adamant spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3175,
+    "name": "Rune spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3176,
+    "name": "Dragon spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 3190,
+    "name": "Bronze halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3192,
+    "name": "Iron halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3194,
+    "name": "Steel halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3196,
+    "name": "Black halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3198,
+    "name": "Mithril halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3200,
+    "name": "Adamant halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3202,
+    "name": "Rune halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3204,
+    "name": "Dragon halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3689,
+    "name": "Lyre",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 3690,
+    "name": "Enchanted lyre",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 3691,
+    "name": "Enchanted lyre(1)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 3695,
+    "name": "Pet rock",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 3757,
+    "name": "Fremennik blade",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 3899,
+    "name": "Iron sickle",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4023,
+    "name": "Monkey talisman",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4024,
+    "name": "Ninja monkey greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4025,
+    "name": "Ninja monkey greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4026,
+    "name": "Gorilla greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4027,
+    "name": "Bearded gorilla greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4028,
+    "name": "Ancient gorilla greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4029,
+    "name": "Zombie monkey greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4030,
+    "name": "Zombie monkey greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4031,
+    "name": "Karamjan monkey greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4037,
+    "name": "Saradomin banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4039,
+    "name": "Zamorak banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4068,
+    "name": "Decorative sword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4084,
+    "name": "Sled",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4086,
+    "name": "Trollweiss",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4151,
+    "name": "Abyssal whip",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4153,
+    "name": "Granite maul",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4158,
+    "name": "Leaf-bladed spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4170,
+    "name": "Slayer's staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4212,
+    "name": "Crystal bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4213,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4214,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4215,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4216,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4217,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4218,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4219,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4220,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4221,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4222,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4223,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4236,
+    "name": "Signed oak bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4503,
+    "name": "Decorative sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 4508,
+    "name": "Decorative sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 4565,
+    "name": "Easter basket",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4566,
+    "name": "Rubber chicken",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 4580,
+    "name": "Black spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4582,
+    "name": "Black spear(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4584,
+    "name": "Black spear(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 4587,
+    "name": "Dragon scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4599,
+    "name": "Oak blackjack",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4600,
+    "name": "Willow blackjack",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4675,
+    "name": "Ancient staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4710,
+    "name": "Ahrim's staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4718,
+    "name": "Dharok's greataxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4726,
+    "name": "Guthan's warspear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4734,
+    "name": "Karil's crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4747,
+    "name": "Torag's hammers",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4755,
+    "name": "Verac's flail",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 4827,
+    "name": "Comp ogre bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4862,
+    "name": "Ahrim's staff 100",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 4863,
+    "name": "Ahrim's staff 75",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 4864,
+    "name": "Ahrim's staff 50",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 4865,
+    "name": "Ahrim's staff 25",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 4866,
+    "name": "Ahrim's staff 0",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 4886,
+    "name": "Dharok's greataxe 100",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 4887,
+    "name": "Dharok's greataxe 75",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 4888,
+    "name": "Dharok's greataxe 50",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 4889,
+    "name": "Dharok's greataxe 25",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 4890,
+    "name": "Dharok's greataxe 0",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 4910,
+    "name": "Guthan's warspear 100",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 4911,
+    "name": "Guthan's warspear 75",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 4912,
+    "name": "Guthan's warspear 50",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 4913,
+    "name": "Guthan's warspear 25",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 4914,
+    "name": "Guthan's warspear 0",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 4934,
+    "name": "Karil's crossbow 100",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4935,
+    "name": "Karil's crossbow 75",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4936,
+    "name": "Karil's crossbow 50",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4937,
+    "name": "Karil's crossbow 25",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4938,
+    "name": "Karil's crossbow 0",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 4958,
+    "name": "Torag's hammers 100",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4959,
+    "name": "Torag's hammers 75",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4960,
+    "name": "Torag's hammers 50",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4961,
+    "name": "Torag's hammers 25",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4962,
+    "name": "Torag's hammers 0",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 4982,
+    "name": "Verac's flail 100",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 4983,
+    "name": "Verac's flail 75",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 4984,
+    "name": "Verac's flail 50",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 4985,
+    "name": "Verac's flail 25",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 4986,
+    "name": "Verac's flail 0",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 5016,
+    "name": "Bone spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5018,
+    "name": "Bone club",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 5060,
+    "name": "Konar's Axe (Blessed)",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 5061,
+    "name": "Konar's Axe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5608,
+    "name": "Fox",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 5628,
+    "name": "Bronze dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5629,
+    "name": "Iron dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5630,
+    "name": "Steel dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5631,
+    "name": "Black dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5632,
+    "name": "Mithril dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5633,
+    "name": "Adamant dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5634,
+    "name": "Rune dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5635,
+    "name": "Bronze dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5636,
+    "name": "Iron dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5637,
+    "name": "Steel dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5638,
+    "name": "Black dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5639,
+    "name": "Mithril dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5640,
+    "name": "Adamant dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5641,
+    "name": "Rune dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5654,
+    "name": "Bronze knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5655,
+    "name": "Iron knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5656,
+    "name": "Steel knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5657,
+    "name": "Mithril knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5658,
+    "name": "Black knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5659,
+    "name": "Adamant knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5660,
+    "name": "Rune knife(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5661,
+    "name": "Bronze knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5662,
+    "name": "Iron knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5663,
+    "name": "Steel knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5664,
+    "name": "Mithril knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5665,
+    "name": "Black knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5666,
+    "name": "Adamant knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5667,
+    "name": "Rune knife(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5668,
+    "name": "Iron dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5670,
+    "name": "Bronze dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5672,
+    "name": "Steel dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5674,
+    "name": "Mithril dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5676,
+    "name": "Adamant dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5678,
+    "name": "Rune dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5680,
+    "name": "Dragon dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5682,
+    "name": "Black dagger(p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5686,
+    "name": "Iron dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5688,
+    "name": "Bronze dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5690,
+    "name": "Steel dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5692,
+    "name": "Mithril dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5694,
+    "name": "Adamant dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5696,
+    "name": "Rune dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5698,
+    "name": "Dragon dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5700,
+    "name": "Black dagger(p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5704,
+    "name": "Bronze spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5706,
+    "name": "Iron spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5708,
+    "name": "Steel spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5710,
+    "name": "Mithril spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5712,
+    "name": "Adamant spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5714,
+    "name": "Rune spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5716,
+    "name": "Dragon spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5718,
+    "name": "Bronze spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5720,
+    "name": "Iron spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5722,
+    "name": "Steel spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5724,
+    "name": "Mithril spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5726,
+    "name": "Adamant spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5728,
+    "name": "Rune spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5730,
+    "name": "Dragon spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5734,
+    "name": "Black spear(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 5736,
+    "name": "Black spear(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6082,
+    "name": "Fixed device",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6123,
+    "name": "Beer glass",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6125,
+    "name": "Enchanted lyre(2)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6126,
+    "name": "Enchanted lyre(3)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6127,
+    "name": "Enchanted lyre(4)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6313,
+    "name": "Opal machete",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6315,
+    "name": "Jade machete",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6317,
+    "name": "Red topaz machete",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6408,
+    "name": "Oak blackjack(o)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6410,
+    "name": "Oak blackjack(d)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6412,
+    "name": "Willow blackjack(o)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6414,
+    "name": "Willow blackjack(d)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6416,
+    "name": "Maple blackjack",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6418,
+    "name": "Maple blackjack(o)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6420,
+    "name": "Maple blackjack(d)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6522,
+    "name": "Toktz-xil-ul",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6523,
+    "name": "Toktz-xil-ak",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6525,
+    "name": "Toktz-xil-ek",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6526,
+    "name": "Toktz-mej-tal",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 6527,
+    "name": "Tzhaar-ket-em",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6528,
+    "name": "Tzhaar-ket-om",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6541,
+    "name": "Mouse toy",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6562,
+    "name": "Mud battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6563,
+    "name": "Mystic mud staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6587,
+    "name": "White claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6589,
+    "name": "White battleaxe",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 6591,
+    "name": "White dagger",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6593,
+    "name": "White dagger(p)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6595,
+    "name": "White dagger(p+)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6597,
+    "name": "White dagger(p++)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6599,
+    "name": "White halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6601,
+    "name": "White mace",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 6603,
+    "name": "White magic staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 6605,
+    "name": "White sword",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6607,
+    "name": "White longsword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6609,
+    "name": "White 2h sword",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6611,
+    "name": "White scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6613,
+    "name": "White warhammer",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 6721,
+    "name": "Barbarian's Scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6724,
+    "name": "Seercull",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6739,
+    "name": "Dragon axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6745,
+    "name": "Silverlight",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6746,
+    "name": "Darklight",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6760,
+    "name": "Guthix mjolnir",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 6762,
+    "name": "Saradomin mjolnir",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 6764,
+    "name": "Zamorak mjolnir",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 6773,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6774,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6775,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6776,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6777,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6778,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6779,
+    "name": "Rat pole",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 6818,
+    "name": "Bow-sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 6908,
+    "name": "Beginner wand",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6910,
+    "name": "Apprentice wand",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6912,
+    "name": "Teacher wand",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 6914,
+    "name": "Master wand",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7140,
+    "name": "Lucky cutlass",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 7141,
+    "name": "Harry's cutlass",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 7142,
+    "name": "Rapier",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7158,
+    "name": "Dragon 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7170,
+    "name": "Mud pie",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 7409,
+    "name": "Magic secateurs",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 7414,
+    "name": "Paddle",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 7433,
+    "name": "Wooden spoon",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7435,
+    "name": "Egg whisk",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7437,
+    "name": "Spork",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7439,
+    "name": "Spatula",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7441,
+    "name": "Frying pan",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7443,
+    "name": "Skewer",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7445,
+    "name": "Rolling pin",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7447,
+    "name": "Kitchen knife",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7449,
+    "name": "Meat tenderiser",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7451,
+    "name": "Cleaver",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7639,
+    "name": "Rod of ivandis (10)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7640,
+    "name": "Rod of ivandis (9)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7641,
+    "name": "Rod of ivandis (8)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7642,
+    "name": "Rod of ivandis (7)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7643,
+    "name": "Rod of ivandis (6)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7644,
+    "name": "Rod of ivandis (5)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7645,
+    "name": "Rod of ivandis (4)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7646,
+    "name": "Rod of ivandis (3)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7647,
+    "name": "Rod of ivandis (2)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7648,
+    "name": "Rod of ivandis (1)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 7668,
+    "name": "Gadderhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7671,
+    "name": "Boxing gloves",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7673,
+    "name": "Boxing gloves",
+    "previousStyle": "UNARMED",
+    "style": "CLAWS",
+    "result": "corrected"
+  },
+  {
+    "id": 7675,
+    "name": "Wooden sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7804,
+    "name": "Zaros mjolnir",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 7806,
+    "name": "Anger sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7807,
+    "name": "Anger battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7808,
+    "name": "Anger mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 7809,
+    "name": "Anger spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 8650,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8652,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8654,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8656,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8658,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8660,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8662,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8664,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8666,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8668,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8670,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8672,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8674,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8676,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8678,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8680,
+    "name": "Banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8841,
+    "name": "Void knight mace",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 8871,
+    "name": "Crate with zanik",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8872,
+    "name": "Bone dagger",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 8874,
+    "name": "Bone dagger (p)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 8876,
+    "name": "Bone dagger (p+)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 8878,
+    "name": "Bone dagger (p++)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 8880,
+    "name": "Dorgeshuun crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 8966,
+    "name": "Cutthroat flag",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8967,
+    "name": "Guilded smile flag",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8968,
+    "name": "Bronze fist flag",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8969,
+    "name": "Lucky shot flag",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8970,
+    "name": "Treasure flag",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 8971,
+    "name": "Phasmatys flag",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9013,
+    "name": "Skull sceptre",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9044,
+    "name": "Pharaoh's sceptre (3)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9046,
+    "name": "Pharaoh's sceptre (2)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9048,
+    "name": "Pharaoh's sceptre (1)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9050,
+    "name": "Pharaoh's sceptre",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9084,
+    "name": "Lunar staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9091,
+    "name": "Lunar staff - pt1",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9092,
+    "name": "Lunar staff - pt2",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9093,
+    "name": "Lunar staff - pt3",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 9174,
+    "name": "Bronze crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9176,
+    "name": "Blurite crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9177,
+    "name": "Iron crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9179,
+    "name": "Steel crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9181,
+    "name": "Mith crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9183,
+    "name": "Adamant crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9185,
+    "name": "Rune crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9702,
+    "name": "Stick",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9703,
+    "name": "Training sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9705,
+    "name": "Training bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 9906,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9907,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9908,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9909,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9910,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9911,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 9912,
+    "name": "Ghost buster 500",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10010,
+    "name": "Butterfly net",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10023,
+    "name": "Falconer's glove",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10033,
+    "name": "Chinchompa",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10034,
+    "name": "Red chinchompa",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10129,
+    "name": "Barb-tail harpoon",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 10146,
+    "name": "Orange salamander",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10147,
+    "name": "Red salamander",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10148,
+    "name": "Black salamander",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10149,
+    "name": "Swamp lizard",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10150,
+    "name": "Noose wand",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10156,
+    "name": "Hunters' crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10280,
+    "name": "Willow comp bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 10282,
+    "name": "Yew comp bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 10284,
+    "name": "Magic comp bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 10440,
+    "name": "Saradomin crozier",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 10442,
+    "name": "Guthix crozier",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 10444,
+    "name": "Zamorak crozier",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 10487,
+    "name": "Undead chicken",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10491,
+    "name": "Blessed axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10501,
+    "name": "Snowball",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10581,
+    "name": "Keris",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10582,
+    "name": "Keris(p)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 10583,
+    "name": "Keris(p+)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 10584,
+    "name": "Keris(p++)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 10840,
+    "name": "A jester stick",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 10858,
+    "name": "Shadow sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10887,
+    "name": "Barrelchest anchor",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 10888,
+    "name": "Barrelchest anchor",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 11037,
+    "name": "Brine sabre",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11061,
+    "name": "Ancient mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11230,
+    "name": "Dragon dart",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11231,
+    "name": "Dragon dart(p)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11233,
+    "name": "Dragon dart(p+)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11234,
+    "name": "Dragon dart(p++)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11235,
+    "name": "Dark bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11259,
+    "name": "Magic butterfly net",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 11367,
+    "name": "Bronze hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11369,
+    "name": "Iron hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11371,
+    "name": "Steel hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11373,
+    "name": "Mithril hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11375,
+    "name": "Adamant hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11377,
+    "name": "Rune hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11379,
+    "name": "Bronze hasta(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11381,
+    "name": "Bronze hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 11382,
+    "name": "Bronze hasta(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11384,
+    "name": "Bronze hasta(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11386,
+    "name": "Iron hasta(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11388,
+    "name": "Iron hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 11389,
+    "name": "Iron hasta(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11391,
+    "name": "Iron hasta(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11393,
+    "name": "Steel hasta(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11395,
+    "name": "Steel hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 11396,
+    "name": "Steel hasta(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11398,
+    "name": "Steel hasta(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11400,
+    "name": "Mithril hasta(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11402,
+    "name": "Mithril hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 11403,
+    "name": "Mithril hasta(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11405,
+    "name": "Mithril hasta(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11407,
+    "name": "Adamant hasta(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11409,
+    "name": "Adamant hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 11410,
+    "name": "Adamant hasta(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11412,
+    "name": "Adamant hasta(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11414,
+    "name": "Rune hasta(p)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11416,
+    "name": "Rune hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 11417,
+    "name": "Rune hasta(p+)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11419,
+    "name": "Rune hasta(p++)",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11705,
+    "name": "Beach boxing gloves",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11706,
+    "name": "Beach boxing gloves",
+    "previousStyle": "UNARMED",
+    "style": "CLAWS",
+    "result": "corrected"
+  },
+  {
+    "id": 11707,
+    "name": "Cursed goblin hammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11708,
+    "name": "Cursed goblin bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11709,
+    "name": "Cursed goblin staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 11711,
+    "name": "Magic secateurs (nz)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 11748,
+    "name": "New crystal bow (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11749,
+    "name": "Crystal bow full (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11750,
+    "name": "Crystal bow 9/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11751,
+    "name": "Crystal bow 8/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11752,
+    "name": "Crystal bow 7/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11753,
+    "name": "Crystal bow 6/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11754,
+    "name": "Crystal bow 5/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11755,
+    "name": "Crystal bow 4/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11756,
+    "name": "Crystal bow 3/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11757,
+    "name": "Crystal bow 2/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11758,
+    "name": "Crystal bow 1/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 11785,
+    "name": "Armadyl crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11787,
+    "name": "Steam battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11789,
+    "name": "Mystic steam staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11791,
+    "name": "Staff of the dead",
+    "previousStyle": "SOTD",
+    "style": "SOTD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11802,
+    "name": "Armadyl godsword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11804,
+    "name": "Bandos godsword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11806,
+    "name": "Saradomin godsword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11808,
+    "name": "Zamorak godsword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11824,
+    "name": "Zamorakian spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11838,
+    "name": "Saradomin sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11889,
+    "name": "Zamorakian hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11902,
+    "name": "Leaf-bladed sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11905,
+    "name": "Trident of the seas (full)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 11907,
+    "name": "Trident of the seas",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11908,
+    "name": "Uncharged trident",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 11920,
+    "name": "Dragon pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11959,
+    "name": "Black chinchompa",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 11998,
+    "name": "Smoke battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12000,
+    "name": "Mystic smoke staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12006,
+    "name": "Abyssal tentacle",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12199,
+    "name": "Ancient crozier",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12263,
+    "name": "Armadyl crozier",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12275,
+    "name": "Bandos crozier",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12297,
+    "name": "Black pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12357,
+    "name": "Katana",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12373,
+    "name": "Dragon cane",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 12375,
+    "name": "Black cane",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 12377,
+    "name": "Adamant cane",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 12379,
+    "name": "Rune cane",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 12389,
+    "name": "Gilded scimitar",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12422,
+    "name": "3rd age wand",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12424,
+    "name": "3rd age bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12426,
+    "name": "3rd age longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12439,
+    "name": "Royal sceptre",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12658,
+    "name": "Iban's staff (u)",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12727,
+    "name": "Event rpg",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 12765,
+    "name": "Dark bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12766,
+    "name": "Dark bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12767,
+    "name": "Dark bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12768,
+    "name": "Dark bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12773,
+    "name": "Volcanic abyssal whip",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12774,
+    "name": "Frozen abyssal whip",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12788,
+    "name": "Magic shortbow (i)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12795,
+    "name": "Steam battlestaff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12796,
+    "name": "Mystic steam staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12797,
+    "name": "Dragon pickaxe",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 12808,
+    "name": "Sara's blessed sword (full)",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 12809,
+    "name": "Saradomin's blessed sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12848,
+    "name": "Granite maul",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12899,
+    "name": "Trident of the swamp",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12900,
+    "name": "Uncharged toxic trident",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 12902,
+    "name": "Toxic staff (uncharged)",
+    "previousStyle": "SOTD",
+    "style": "SOTD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12904,
+    "name": "Toxic staff of the dead",
+    "previousStyle": "SOTD",
+    "style": "SOTD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 12924,
+    "name": "Toxic blowpipe (empty)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 12926,
+    "name": "Toxic blowpipe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13074,
+    "name": "Pharaoh's sceptre (8)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 13075,
+    "name": "Pharaoh's sceptre (7)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 13076,
+    "name": "Pharaoh's sceptre (6)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 13077,
+    "name": "Pharaoh's sceptre (5)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 13078,
+    "name": "Pharaoh's sceptre (4)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 13079,
+    "name": "Enchanted lyre(5)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13080,
+    "name": "New crystal halberd full (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13081,
+    "name": "Crystal halberd full (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13082,
+    "name": "Crystal halberd 9/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13083,
+    "name": "Crystal halberd 8/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13084,
+    "name": "Crystal halberd 7/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13085,
+    "name": "Crystal halberd 6/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13086,
+    "name": "Crystal halberd 5/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13087,
+    "name": "Crystal halberd 4/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13088,
+    "name": "Crystal halberd 3/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13089,
+    "name": "Crystal halberd 2/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13090,
+    "name": "Crystal halberd 1/10 (i)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13092,
+    "name": "Crystal halberd",
+    "previousStyle": "HALBERD",
+    "style": "HALBERD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13093,
+    "name": "Crystal halberd 9/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13094,
+    "name": "Crystal halberd 8/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13095,
+    "name": "Crystal halberd 7/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13096,
+    "name": "Crystal halberd 6/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13097,
+    "name": "Crystal halberd 5/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13098,
+    "name": "Crystal halberd 4/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13099,
+    "name": "Crystal halberd 3/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13100,
+    "name": "Crystal halberd 2/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13101,
+    "name": "Crystal halberd 1/10",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 13108,
+    "name": "Wilderness sword 1",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13109,
+    "name": "Wilderness sword 2",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13110,
+    "name": "Wilderness sword 3",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13111,
+    "name": "Wilderness sword 4",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13141,
+    "name": "Western banner 1",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13142,
+    "name": "Western banner 2",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13143,
+    "name": "Western banner 3",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13144,
+    "name": "Western banner 4",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13183,
+    "name": "Empty blaster",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13184,
+    "name": "Incomplete blaster",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13185,
+    "name": "Easter blaster",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13195,
+    "name": "Oddskull",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13241,
+    "name": "Infernal axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13242,
+    "name": "Infernal axe (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 13243,
+    "name": "Infernal pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13244,
+    "name": "Infernal pickaxe (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 13263,
+    "name": "Abyssal bludgeon",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13265,
+    "name": "Abyssal dagger",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13267,
+    "name": "Abyssal dagger (p)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13269,
+    "name": "Abyssal dagger (p+)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13271,
+    "name": "Abyssal dagger (p++)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13328,
+    "name": "Green banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 13576,
+    "name": "Dragon warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 13652,
+    "name": "Dragon claws",
+    "previousStyle": "UNARMED",
+    "style": "CLAWS",
+    "result": "corrected"
+  },
+  {
+    "id": 19478,
+    "name": "Light ballista",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 19481,
+    "name": "Heavy ballista",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 19525,
+    "name": "Kruk monkey greegree",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 19675,
+    "name": "Arclight",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 19912,
+    "name": "Zombie head",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 19918,
+    "name": "Nunchaku",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 19941,
+    "name": "Heavy casket",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20000,
+    "name": "Dragon scimitar (or)",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20011,
+    "name": "3rd age axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20014,
+    "name": "3rd age pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20056,
+    "name": "Ale of the gods",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20155,
+    "name": "Gilded 2h sword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20158,
+    "name": "Gilded spear",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 20161,
+    "name": "Gilded hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20164,
+    "name": "Large spade",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20243,
+    "name": "Crier bell",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20249,
+    "name": "Clueless scroll",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20251,
+    "name": "Arceuus banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20254,
+    "name": "Hosidius banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20257,
+    "name": "Lovakengj banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20260,
+    "name": "Piscarilius banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20263,
+    "name": "Shayzien banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20368,
+    "name": "Armadyl godsword (or)",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20370,
+    "name": "Bandos godsword (or)",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20372,
+    "name": "Saradomin godsword (or)",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20374,
+    "name": "Zamorak godsword (or)",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20397,
+    "name": "Spear",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 20401,
+    "name": "Yew shortbow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 20402,
+    "name": "Rune scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20403,
+    "name": "Maple shortbow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 20405,
+    "name": "Abyssal whip",
+    "previousStyle": "UNARMED",
+    "style": "WHIP",
+    "result": "corrected"
+  },
+  {
+    "id": 20406,
+    "name": "Dragon scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20407,
+    "name": "Dragon dagger",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20408,
+    "name": "Dark bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 20431,
+    "name": "Ancient staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20473,
+    "name": "Void knight mace (broken)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20483,
+    "name": "Decorative sword (broken)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20484,
+    "name": "Demon X Bow(en)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20486,
+    "name": "Demon X Staff(en)",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20552,
+    "name": "Rune battleaxe",
+    "previousStyle": "UNARMED",
+    "style": "BATTLEAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 20553,
+    "name": "Beginner wand",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20554,
+    "name": "Toktz-xil-ak",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20555,
+    "name": "Rune 2h sword",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20556,
+    "name": "Apprentice wand",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20557,
+    "name": "Granite maul",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 20558,
+    "name": "Magic shortbow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 20559,
+    "name": "Dragon 2h sword",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20560,
+    "name": "Master wand",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20590,
+    "name": "Stale baguette",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20593,
+    "name": "Armadyl godsword",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20720,
+    "name": "Bruma torch",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20727,
+    "name": "Leaf-bladed battleaxe",
+    "previousStyle": "BATTLEAXE",
+    "style": "BATTLEAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20730,
+    "name": "Mist battlestaff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20733,
+    "name": "Mystic mist staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 20736,
+    "name": "Dust battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20739,
+    "name": "Mystic dust staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20756,
+    "name": "Hill giant club",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20779,
+    "name": "Hunting knife",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 20784,
+    "name": "Dragon claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20785,
+    "name": "Dragon warhammer",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 20836,
+    "name": "Giant present",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 20849,
+    "name": "Dragon thrownaxe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 20997,
+    "name": "Twisted bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21003,
+    "name": "Elder maul",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21006,
+    "name": "Kodai wand",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21009,
+    "name": "Dragon sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21012,
+    "name": "Dragon hunter crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21015,
+    "name": "Dinh's bulwark",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 21028,
+    "name": "Dragon harpoon",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21031,
+    "name": "Infernal harpoon",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 21033,
+    "name": "Infernal harpoon (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 21059,
+    "name": "Killer's knife",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 21198,
+    "name": "Lava battlestaff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21200,
+    "name": "Mystic lava staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 21205,
+    "name": "Elder maul",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 21206,
+    "name": "Dragon sword",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 21207,
+    "name": "Dragon thrownaxe",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 21209,
+    "name": "Birthday balloons",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 21255,
+    "name": "Slayer's staff (e)",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21276,
+    "name": "Skull sceptre (i)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 21354,
+    "name": "Hand fan",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 21539,
+    "name": "Heat-proof vessel",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 21646,
+    "name": "Granite longsword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 21649,
+    "name": "Merfolk trident",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 21742,
+    "name": "Granite hammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 21865,
+    "name": "Fine mesh net",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 21902,
+    "name": "Dragon crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22288,
+    "name": "Trident of the seas (e)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22290,
+    "name": "Uncharged trident (e)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22292,
+    "name": "Trident of the swamp (e)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22294,
+    "name": "Uncharged toxic trident (e)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22296,
+    "name": "Staff of light",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22316,
+    "name": "Cosmetic sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 22323,
+    "name": "Sanguinesti staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22324,
+    "name": "Ghrazi rapier",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22325,
+    "name": "Scythe of vitur",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22331,
+    "name": "Starter sword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22333,
+    "name": "Starter bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22335,
+    "name": "Starter staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22355,
+    "name": "Holy handegg",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22358,
+    "name": "Peaceful handegg",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22361,
+    "name": "Chaotic handegg",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22368,
+    "name": "Bryophyta's staff (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22370,
+    "name": "Bryophyta's staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22398,
+    "name": "Ivandis flail",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 22433,
+    "name": "Emerald sickle (b)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22435,
+    "name": "Enchanted emerald sickle (b)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22481,
+    "name": "Sanguinesti staff (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 22486,
+    "name": "Scythe of vitur (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "SCYTHE",
+    "result": "corrected"
+  },
+  {
+    "id": 22516,
+    "name": "Dawnbringer",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22542,
+    "name": "Viggora's chainmace (u)",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 22545,
+    "name": "Viggora's chainmace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22547,
+    "name": "Craw's bow (u)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 22550,
+    "name": "Craw's bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22552,
+    "name": "Thammaron's sceptre (u)",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22555,
+    "name": "Thammaron's sceptre",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22610,
+    "name": "Vesta's spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22613,
+    "name": "Vesta's longsword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22622,
+    "name": "Statius's warhammer",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22634,
+    "name": "Morrigan's throwing axe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22647,
+    "name": "Zuriel's staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22684,
+    "name": "Eek",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22719,
+    "name": "Candy cane",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22731,
+    "name": "Dragon hasta",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22734,
+    "name": "Dragon hasta(p)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 22737,
+    "name": "Dragon hasta(p+)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 22740,
+    "name": "Dragon hasta(p++)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 22743,
+    "name": "Dragon hasta(kp)",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 22804,
+    "name": "Dragon knife",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 22806,
+    "name": "Dragon knife(p)",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 22808,
+    "name": "Dragon knife(p+)",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 22810,
+    "name": "Dragon knife(p++)",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 22816,
+    "name": "Cormorant's glove",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22817,
+    "name": "Cormorant's glove",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22840,
+    "name": "Golden tench",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22842,
+    "name": "Pearl barbarian rod",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22844,
+    "name": "Pearl fly fishing rod",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22846,
+    "name": "Pearl fishing rod",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 22978,
+    "name": "Dragon hunter lance",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23108,
+    "name": "Birthday cake",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23122,
+    "name": "Oily pearl fishing rod",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23206,
+    "name": "Dual sai",
+    "previousStyle": "UNARMED",
+    "style": "CLAWS",
+    "result": "corrected"
+  },
+  {
+    "id": 23235,
+    "name": "Tzhaar-ket-om (t)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 23276,
+    "name": "Gilded pickaxe",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23279,
+    "name": "Gilded axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23282,
+    "name": "Gilded spade",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23330,
+    "name": "Rune scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 23332,
+    "name": "Rune scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 23334,
+    "name": "Rune scimitar",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 23342,
+    "name": "3rd age druidic staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23357,
+    "name": "Rain bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 23360,
+    "name": "Ham joint",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23363,
+    "name": "Staff of bob the cat",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23446,
+    "name": "Giant easter egg",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23458,
+    "name": "Enchanted lyre(i)",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23528,
+    "name": "Sarachnis cudgel",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23673,
+    "name": "Crystal axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23675,
+    "name": "Crystal axe (inactive)",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23677,
+    "name": "Dragon pickaxe(or)",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23680,
+    "name": "Crystal pickaxe",
+    "previousStyle": "PICKAXE",
+    "style": "PICKAXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23682,
+    "name": "Crystal pickaxe (inactive)",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23762,
+    "name": "Crystal harpoon",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23764,
+    "name": "Crystal harpoon (inactive)",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23820,
+    "name": "Corrupted sceptre",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23821,
+    "name": "Corrupted axe",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23822,
+    "name": "Corrupted pickaxe",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23823,
+    "name": "Corrupted harpoon",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23849,
+    "name": "Corrupted halberd (basic)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23850,
+    "name": "Corrupted halberd (attuned)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23851,
+    "name": "Corrupted halberd (perfected)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23852,
+    "name": "Corrupted staff (basic)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23853,
+    "name": "Corrupted staff (attuned)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23854,
+    "name": "Corrupted staff (perfected)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23855,
+    "name": "Crrupted bow (basic)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23856,
+    "name": "Corrupted bow (attuned)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 23857,
+    "name": "Corrupted bow (perfected)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23861,
+    "name": "Crystal sceptre",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23862,
+    "name": "Crystal axe",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23863,
+    "name": "Crystal pickaxe",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23864,
+    "name": "Crystal harpoon",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 23895,
+    "name": "Crystal halberd (basic)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23896,
+    "name": "Crystal halberd (attuned)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23897,
+    "name": "Crystal halberd (perfected)",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23898,
+    "name": "Crystal staff (basic)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23899,
+    "name": "Crystal staff (attuned)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23900,
+    "name": "Crystal staff (perfected)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 23901,
+    "name": "Crystal bow (basic)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 23902,
+    "name": "Crystal bow (attuned)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23903,
+    "name": "Crystal bow (perfected)",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 23907,
+    "name": "Imbued tephra",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 23983,
+    "name": "Crystal bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23987,
+    "name": "Crystal halberd",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 23995,
+    "name": "Blade of saeldor",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 23997,
+    "name": "Blade of saeldor (inactive)",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 24000,
+    "name": "Crystal grail",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24144,
+    "name": "Staff of balance",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24157,
+    "name": "Decorative sword (l)",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 24181,
+    "name": "Void knight mace (l)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 24219,
+    "name": "Swift blade",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 24225,
+    "name": "Granite maul",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24227,
+    "name": "Granite maul",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24325,
+    "name": "Pumpkin lantern",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24327,
+    "name": "Skeleton lantern",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24372,
+    "name": "Twisted dragon trophy",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24374,
+    "name": "Twisted rune trophy",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24376,
+    "name": "Twisted adamant trophy",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24395,
+    "name": "Twisted cane",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24413,
+    "name": "Twisted banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24417,
+    "name": "Inquisitor's mace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24422,
+    "name": "Nightmare staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24423,
+    "name": "Harmonised nightmare staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24424,
+    "name": "Volatile nightmare staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24425,
+    "name": "Eldritch nightmare staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 24537,
+    "name": "Carrot sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 24539,
+    "name": "'24-carat' sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 24551,
+    "name": "Blade Of Saeldor (c)",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 24727,
+    "name": "Hallowed hammer",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 24792,
+    "name": "Severed leg",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 25059,
+    "name": "Infernal Harpoon (or)",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25063,
+    "name": "Infernal Pickaxe (or)",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25066,
+    "name": "Infernal axe (or)",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25110,
+    "name": "Trailblazer axe",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25112,
+    "name": "Trailblazer Pickaxe",
+    "previousStyle": "UNARMED",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25114,
+    "name": "Trailblazer Harpoon",
+    "previousStyle": "UNARMED",
+    "style": "AXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25314,
+    "name": "Giant boulder",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 25373,
+    "name": "Dragon harpoon(or)",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25376,
+    "name": "Dragon Pickaxe(or)",
+    "previousStyle": "AXE",
+    "style": "PICKAXE",
+    "result": "corrected"
+  },
+  {
+    "id": 25378,
+    "name": "Dragon axe(or)",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25500,
+    "name": "Cursed banana",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 25604,
+    "name": "Gregg's eastdoor",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 25731,
+    "name": "Holy Sanguinesti staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25733,
+    "name": "Holy Sanguinesti Staff (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 25734,
+    "name": "Holy Ghrazi rapier",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25736,
+    "name": "Holy Scythe of vitur",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25739,
+    "name": "Sanguine Scythe of vitur",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25849,
+    "name": "Amethyst dart",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 25865,
+    "name": "Bow of Faerdhinen",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25867,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25884,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25886,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25888,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25890,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25892,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25894,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25896,
+    "name": "Bow of Faerdhinen (c)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25916,
+    "name": "Dragon hunter crossbow (t)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25918,
+    "name": "Dragon hunter crossbow (b)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25979,
+    "name": "Keris partisan",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 25981,
+    "name": "Bronze spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26219,
+    "name": "Osmumten's fang",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26233,
+    "name": "Ancient godsword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26237,
+    "name": "Zaryte bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 26260,
+    "name": "Haunted wine bottle",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 26269,
+    "name": "Demon X crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26374,
+    "name": "Zaryte Crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26424,
+    "name": "Shattered banner",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 26482,
+    "name": "Abyssal whip (or)",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26484,
+    "name": "Abyssal tentacle (or)",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26486,
+    "name": "Rune crossbow (or)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26515,
+    "name": "Godly Trophy!",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 26649,
+    "name": "Skis",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 26708,
+    "name": "Dragon claws (or)",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26710,
+    "name": "Dragon warhammer (or)",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 26712,
+    "name": "Heavy ballista (or)",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27021,
+    "name": "Colossal Blade",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 27100,
+    "name": "Elder maul (or)",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 27246,
+    "name": "Osmumten's fang (or)",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27275,
+    "name": "Tumeken's Shadow",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 27277,
+    "name": "Toxic staff of the dead",
+    "previousStyle": "UNARMED",
+    "style": "SOTD",
+    "result": "corrected"
+  },
+  {
+    "id": 27287,
+    "name": "Keris partisan of corruption",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27291,
+    "name": "Bronze spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27414,
+    "name": "Giant clock",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 27580,
+    "name": "festive nutcracker Staff",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27586,
+    "name": "sweet nutcracker Staff",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27610,
+    "name": "Venator bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27624,
+    "name": "Ancient sceptre",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27645,
+    "name": "Mystic cards",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 27655,
+    "name": "Webweaver bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27660,
+    "name": "Ursine chainmace",
+    "previousStyle": "MACE",
+    "style": "MACE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27679,
+    "name": "Accursed sceptre (a)",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27690,
+    "name": "Voidwaker",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 27810,
+    "name": "Dragon candle dagger",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 27820,
+    "name": "10th Birthday balloons",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 27855,
+    "name": "Strongman's Anchor",
+    "previousStyle": "UNARMED",
+    "style": "MACE",
+    "result": "corrected"
+  },
+  {
+    "id": 27861,
+    "name": "Abyssal dagger (bh)",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 27871,
+    "name": "giant bronze dagger",
+    "previousStyle": "UNARMED",
+    "style": "STAB_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 28128,
+    "name": "Love crossbow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 28338,
+    "name": "Soulreaper axe",
+    "previousStyle": "AXE",
+    "style": "AXE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28531,
+    "name": "Corrupted voidwaker",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28534,
+    "name": "Corrupted dragon claws",
+    "previousStyle": "CLAWS",
+    "style": "CLAWS",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28537,
+    "name": "Corrupted armadyl godsword",
+    "previousStyle": "CRUSH_SWORD",
+    "style": "CRUSH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28540,
+    "name": "Corrupted Twisted bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28543,
+    "name": "Corrupted Scythe of vitur",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28547,
+    "name": "Corrupted tumeken's shadow",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 28583,
+    "name": "Warped Sceptre (uncharged)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 28585,
+    "name": "Warped Sceptre",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28682,
+    "name": "Dinh's bulwark",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 28688,
+    "name": "Blazing blowpipe",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28748,
+    "name": "Trailblazer reloaded torch",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 28796,
+    "name": "staff of amazement",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 28869,
+    "name": "Elven Quick-bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28919,
+    "name": "Tonalztics of ralos (uncharged)",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28922,
+    "name": "Tonalztics of ralos",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28988,
+    "name": "Blue moon spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 28997,
+    "name": "Dual macuahuitl",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 29000,
+    "name": "Eclipse atlatl",
+    "previousStyle": "THROWN",
+    "style": "THROWN",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 29084,
+    "name": "Sulphur blades",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 29594,
+    "name": "Purging Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 29599,
+    "name": "Corrupted Dark bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 29796,
+    "name": "Noxious halberd",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 33005,
+    "name": "Beckoning Bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33058,
+    "name": "Seren godbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33147,
+    "name": "Korsai's sword",
+    "previousStyle": "SLASH_SWORD",
+    "style": "SLASH_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33148,
+    "name": "Noxious scythe",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33149,
+    "name": "Noxious staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33160,
+    "name": "Candy Cane Twisted bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33161,
+    "name": "Candy Cane Scythe",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33162,
+    "name": "Candy Cane Whip",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33163,
+    "name": "AOE Tier (1) Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33164,
+    "name": "AOE Tier (2) Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33165,
+    "name": "AOE Tier (3) Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33166,
+    "name": "AOE Tier (4) Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33167,
+    "name": "AOE Tier (5) Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33168,
+    "name": "AOE God Tier Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33169,
+    "name": "AOE Tier (1) Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33170,
+    "name": "AOE Tier (2) Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33171,
+    "name": "AOE Tier (3) Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33172,
+    "name": "AOE Tier (4) Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33173,
+    "name": "AOE God Tier Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33174,
+    "name": "AOE Tier (5) Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33175,
+    "name": "Axe Of Araphel",
+    "previousStyle": "WARHAMMER",
+    "style": "WARHAMMER",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33177,
+    "name": "Golden blowpipe",
+    "previousStyle": "UNARMED",
+    "style": "THROWN",
+    "result": "corrected"
+  },
+  {
+    "id": 33178,
+    "name": "AK47",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 33179,
+    "name": "AK47",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 33180,
+    "name": "AK47",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 33181,
+    "name": "AK47",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 33182,
+    "name": "Black AR",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 33184,
+    "name": "Blood Scythe",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33202,
+    "name": "Demonx Sword",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33203,
+    "name": "Demonx Scythe",
+    "previousStyle": "SCYTHE",
+    "style": "SCYTHE",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33204,
+    "name": "Demonx Spear",
+    "previousStyle": "SPEAR",
+    "style": "SPEAR",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33205,
+    "name": "Demonx Staff",
+    "previousStyle": "STAFF",
+    "style": "STAFF",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33206,
+    "name": "Ascension crossbow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33207,
+    "name": "Demon X Bow",
+    "previousStyle": "BOW",
+    "style": "BOW",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33271,
+    "name": "Ruthless bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33272,
+    "name": "Rutheless staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33273,
+    "name": "Rutheless sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 33280,
+    "name": "Heaven scythe",
+    "previousStyle": "UNARMED",
+    "style": "SCYTHE",
+    "result": "corrected"
+  },
+  {
+    "id": 33318,
+    "name": "Wolf staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33329,
+    "name": "Starlight sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 33335,
+    "name": "Paradise sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 33342,
+    "name": "shadow scythe",
+    "previousStyle": "UNARMED",
+    "style": "SCYTHE",
+    "result": "corrected"
+  },
+  {
+    "id": 33387,
+    "name": "Alecs staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33417,
+    "name": "Gifted Sulpher Blades",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 33430,
+    "name": "Wraith Sword",
+    "previousStyle": "UNARMED",
+    "style": "SLASH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 33431,
+    "name": "Wraith Scythe",
+    "previousStyle": "UNARMED",
+    "style": "SCYTHE",
+    "result": "corrected"
+  },
+  {
+    "id": 33432,
+    "name": "Wraith Spear",
+    "previousStyle": "UNARMED",
+    "style": "SPEAR",
+    "result": "corrected"
+  },
+  {
+    "id": 33433,
+    "name": "Wraith Staff",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 33434,
+    "name": "Wraith Bow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33435,
+    "name": "Wraith Crossbow",
+    "previousStyle": "UNARMED",
+    "style": "BOW",
+    "result": "corrected"
+  },
+  {
+    "id": 33441,
+    "name": "Frying pan",
+    "previousStyle": "UNARMED",
+    "style": "WARHAMMER",
+    "result": "corrected"
+  },
+  {
+    "id": 33442,
+    "name": "100% Thrills",
+    "previousStyle": "UNARMED",
+    "style": "HALBERD",
+    "result": "corrected"
+  },
+  {
+    "id": 33446,
+    "name": "Ale of the scotty",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 33806,
+    "name": "Tachi of Ahri",
+    "previousStyle": "STAB_SWORD",
+    "style": "STAB_SWORD",
+    "result": "existing mapping retained"
+  },
+  {
+    "id": 33808,
+    "name": "Tekko-kagi",
+    "previousStyle": "WARHAMMER",
+    "style": "CLAWS",
+    "result": "corrected"
+  },
+  {
+    "id": 35558,
+    "name": "test wep",
+    "previousStyle": "UNARMED",
+    "style": "UNARMED",
+    "result": "retained fallback - see audit limitations"
+  },
+  {
+    "id": 37200,
+    "name": "Saradomin's Sword(f)",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 37201,
+    "name": "Zamorak's Sword(f)",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 37202,
+    "name": "Guthix's Sword(f)",
+    "previousStyle": "UNARMED",
+    "style": "CRUSH_SWORD",
+    "result": "corrected"
+  },
+  {
+    "id": 37300,
+    "name": "Saradomin's Staff (f)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 37302,
+    "name": "Zamorak's Staff (f)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 37304,
+    "name": "Guthix's Staff (f)",
+    "previousStyle": "UNARMED",
+    "style": "STAFF",
+    "result": "corrected"
+  },
+  {
+    "id": 39006,
+    "name": "Bulky Whip",
+    "previousStyle": "WHIP",
+    "style": "WHIP",
+    "result": "existing mapping retained"
+  }
+]

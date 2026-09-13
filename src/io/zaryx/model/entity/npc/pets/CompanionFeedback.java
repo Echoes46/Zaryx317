@@ -28,7 +28,7 @@ public final class CompanionFeedback {
             lines = new String[]{ItemAssistant.getItemName(id) + " - Lv " + p.companionProgress.level(id), progress[0], progress[1], progress[2]};
         }
         for (int i = 0; i < lines.length; i++)
-            if (sent == null || !lines[i].equals(sent[i])) p.getPA().sendString(22876 + i, lines[i]);
+            if (sent == null || !lines[i].equals(sent[i])) p.getPA().sendString(61345 + i, lines[i]);
         sent = lines;
     }
 

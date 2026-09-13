@@ -144,13 +144,13 @@ public class ObjectOptionOne {
 			return;
 		}
 
-		if (c.wildLevel > 0 && c.underAttackByPlayer > 0 && objectType != 1727 && objectType != 18987 && objectType != 14826
+		if (c.wildLevel > 0 && c.underAttackByPlayer > 0 && objectType != 411 && objectType != 26258 && objectType != 1727 && objectType != 18987 && objectType != 14826
 				&& objectType != 14829 && objectType != 14830 && objectType != 14827 && objectType != 14826 && objectType != 14828 && objectType != 9199
 				&& objectType != 14831) {
 			return;
 		}
 
-		if (c.wildLevel > 0 && c.underAttackByNpc > 0 && objectType != 1727 && objectType != 18987 && objectType != 1816 && objectType != 5959 && objectType != 14826
+		if (c.wildLevel > 0 && c.underAttackByNpc > 0 && objectType != 411 && objectType != 26258 && objectType != 1727 && objectType != 18987 && objectType != 1816 && objectType != 5959 && objectType != 14826
 				&& objectType != 14829 && objectType != 14830 && objectType != 14827 && objectType != 14826 && objectType != 14828 && objectType != 9199
 				&& objectType != 14831) {
 			return;
@@ -4897,7 +4897,8 @@ public class ObjectOptionOne {
 				c.getPA().refreshSkill(5);
 				break;
 
-			case 411:
+			case 26258: // Wilderness Chaos Temple altar.
+            case 411:
 				if (c.playerLevel[5] < c.getPA().getLevelForXP(c.playerXP[5])) {
 					if (c.getPosition().inWild()) {
 						c.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.WILDERNESS_ALTAR);

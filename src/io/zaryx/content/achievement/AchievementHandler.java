@@ -147,13 +147,14 @@ public class AchievementHandler {
     }
 
     public void kill(NPC npc) {
-        String name = npc.getNpcStats().getName();
+        Achievements.increase(player, AchievementType.SLAY_ANY_NPCS, 1);
+        // Classify the actual NPC, not a combat-stat template it may reuse.
+        String name = npc.getDefinition().getName();
         if (name == null || name.length() <= 0) {
             return;
         } else {
             name = name.toLowerCase().replaceAll("_", " ");
         }
-        Achievements.increase(player, AchievementType.SLAY_ANY_NPCS, 1);
         if ((name.contains("dragon") || name.contains("vorkath")) && !name.contains("baby"))
             Achievements.increase(player, AchievementType.SLAY_DRAGONS, 1);
         List<String> checked = new ArrayList<>();

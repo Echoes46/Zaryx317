@@ -78,7 +78,7 @@ public class WeaponDataConstants {
             Items.GRANITE_HAMMER, Items.TORAGS_HAMMERS, Items.DRAGON_WARHAMMER, 26710, Items.TZHAAR_KET_OM, Items.ELDER_MAUL,
             Items.ABYSSAL_BLUDGEON, Items.HILL_GIANT_CLUB, Items.GADDERHAMMER, Items.CURSED_GOBLIN_HAMMER, Items.FRYING_PAN,
             Items.MEAT_TENDERISER, Items.STATIUSS_WARHAMMER,
-            Items.GRANITE_MAUL, Items.GRANITE_MAUL_OR, 24225, 24227, 33175, 27580, 27586, 33808, 33814
+            Items.GRANITE_MAUL, Items.GRANITE_MAUL_OR, 24225, 24227, 33175, 27580, 27586, 33814
     };
 
     // [[accurate, slash], [shared, slash], [defensive, slash]]
@@ -89,13 +89,13 @@ public class WeaponDataConstants {
     // [[accurate, slash], [aggressive, slash], [aggressive, crush], [defensive, slash]]
     public static final int[] AXES = {
             Items.BRONZE_AXE, Items.IRON_AXE, Items.STEEL_AXE, Items.BLACK_AXE, Items.MITHRIL_AXE, Items.ADAMANT_AXE, Items.RUNE_AXE, Items.DRAGON_AXE,
-            Items.BLESSED_AXE, Items.GILDED_AXE, Items.THIRD_AGE_AXE, Items.INFERNAL_AXE, Items.CRYSTAL_AXE, Items.DRAGON_HARPOON, 25378, 25376, 25373, 28338
+            Items.BLESSED_AXE, Items.GILDED_AXE, Items.THIRD_AGE_AXE, Items.INFERNAL_AXE, Items.CRYSTAL_AXE, Items.DRAGON_HARPOON, 25378, 25373, 28338
     };
 
     // [[accurate, stab], [aggressive, stab], [aggressive, crush], [defensive, stab]]c
     public static final int[] PICKAXES = {
             Items.RUNE_PICKAXE, Items.BRONZE_PICKAXE, Items.IRON_PICKAXE, Items.STEEL_PICKAXE, Items.BLACK_PICKAXE, Items.MITHRIL_PICKAXE, Items.ADAMANT_PICKAXE, Items.RUNE_PICKAXE,
-            Items.DRAGON_PICKAXE, Items.DRAGON_PICKAXEOR, Items.THIRD_AGE_PICKAXE, Items.INFERNAL_PICKAXE, Items.CRYSTAL_PICKAXE,
+            Items.DRAGON_PICKAXE, Items.DRAGON_PICKAXEOR, 25376, Items.THIRD_AGE_PICKAXE, Items.INFERNAL_PICKAXE, Items.CRYSTAL_PICKAXE,
     };
 
     // [[accurate, crush], [aggressive, crush], [defensive, crush]]
@@ -123,7 +123,7 @@ public class WeaponDataConstants {
     // [[accurate, slash], [aggressive, slash], [shared, stab], [defensive, slash]]
     public static final int[] CLAWS = {
             Items.BRONZE_CLAWS, Items.IRON_CLAWS, Items.STEEL_CLAWS, Items.WHITE_CLAWS, Items.MITHRIL_CLAWS, Items.ADAMANT_CLAWS, Items.RUNE_CLAWS,
-            Items.DRAGON_CLAWS, 26708, Items.BEACH_BOXING_GLOVES, Items.BOXING_GLOVES, 28534,
+            Items.DRAGON_CLAWS, 33808, 26708, Items.BEACH_BOXING_GLOVES, Items.BOXING_GLOVES, 28534,
     };
 
     // [[accurate, stab], [aggressive, slash], [defensive, stab]]
@@ -132,7 +132,7 @@ public class WeaponDataConstants {
             Items.RUNE_HALBERD, Items.DRAGON_HALBERD, Items.CRYSTAL_HALBERD,
     };
 
-    public static final int[] BOWS = {
+    public static final int[] BOWS = { Items.STARTER_BOW,
             //Crossbows
             Items.CROSSBOW, Items.BRONZE_CROSSBOW, Items.IRON_CROSSBOW, Items.STEEL_CROSSBOW,  Items.MITH_CROSSBOW, Items.ADAMANT_CROSSBOW,
             Items.RUNE_CROSSBOW, Items.DRAGON_CROSSBOW, Items.ARMADYL_CROSSBOW,  Items.KARILS_CROSSBOW,

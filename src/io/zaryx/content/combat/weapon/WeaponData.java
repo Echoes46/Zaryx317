@@ -135,7 +135,12 @@ public enum WeaponData {
     private static final Map<Integer, WeaponData> weaponModeMap = new HashMap<>();
 
     static {
-        Arrays.stream(values()).forEach(data -> Arrays.stream(data.items).forEach(item -> weaponModeMap.put(item, data)));
+        Arrays.stream(values()).forEach(data -> Arrays.stream(data.items).forEach(item -> {
+            WeaponData previous = weaponModeMap.putIfAbsent(item, data);
+            if (previous != null && previous != data)
+                throw new IllegalStateException("Conflicting weapon styles for " + item);
+        }));
+        WeaponStyleMappings.register(weaponModeMap);
     }
 
     public static WeaponData forItemId(int itemId) {

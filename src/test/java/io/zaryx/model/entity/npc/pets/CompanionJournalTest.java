@@ -105,7 +105,7 @@ class CompanionJournalTest {
             assertTrue(comparison.contains("Saved level: 5 | 10"));
             assertTrue(comparison.contains("@or1@A: BASE PERKS"));
             assertTrue(comparison.contains("@or1@B: BASE PERKS"));
-            assertTrue(p.companionJournal.click(p, 22864)); // Closed interface: consumes but never opens/sends packets.
+            assertTrue(p.companionJournal.click(p, 61333)); // Closed interface: consumes but never opens/sends packets.
             assertEquals(0, p.getOpenInterface());
             assertFalse(p.companionJournal.click(p, 999));
         });
@@ -126,7 +126,7 @@ class CompanionJournalTest {
             assertEquals(5, p.companionProgress.level(12650));
             assertNotNull(PetHandler.forItem(12650));
             assertTrue(p.companionJournal.details(p, 12650, 3).isEmpty());
-            assertTrue(p.companionJournal.click(p, 22867));
+            assertTrue(p.companionJournal.click(p, 61336));
         });
     }
     @Test void onlyOwnerRankSeesIdsRegardlessOfPetOwnership() throws Exception {

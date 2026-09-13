@@ -57,29 +57,29 @@ public final class CompanionJournal {
         selected = CompanionBenefits.activeId(p);
         tab = query.isEmpty() && selected != -1 ? 1 : 0;
         render(p);
-        p.getPA().showInterface(22731);
+        p.getPA().showInterface(61200);
     }
     public boolean click(Player p, int button) {
-        boolean row = button >= 22800 && button < 22864;
-        boolean control = button >= 22864 && button <= 22868 || button >= 22870 && button <= 22875;
+        boolean row = button >= 61269 && button < 61333;
+        boolean control = button >= 61333 && button <= 61337 || button >= 61339 && button <= 61344;
         if (!row && !control) return false;
-        if (button == 22867) return true; // Retired Sources button, including older clients.
-        if (p.getOpenInterface() != 22731 || p.getInterfaceEvent().isActive()
+        if (button == 61336) return true; // Retired Sources button, including older clients.
+        if (p.getOpenInterface() != 61200 || p.getInterfaceEvent().isActive()
                 || io.zaryx.Server.getMultiplayerSessionListener().inAnySession(p)) return true;
-        if (button != 22870 && button != 22871) detailPage = 0;
+        if (button != 61339 && button != 61340) detailPage = 0;
         if (row) {
-            int index = button - 22800;
+            int index = button - 61269;
             if (tab != 0 || index >= visible.size()) return true;
             selected = visible.get(index);
             tab = 1;
-        } else if (button <= 22868) tab = button - 22864;
-        else if (button == 22872) { ownership = (ownership + 1) % 3; page = 0; tab = 0; }
-        else if (button == 22873) { role = (role + 1) % 4; page = 0; tab = 0; }
-        else if (button == 22875) { p.companionFeedback.enabled = !p.companionFeedback.enabled; p.companionFeedback.update(p); }
-        else if (button == 22874) { if (selected != -1) pinned = selected; }
+        } else if (button <= 61337) tab = button - 61333;
+        else if (button == 61341) { ownership = (ownership + 1) % 3; page = 0; tab = 0; }
+        else if (button == 61342) { role = (role + 1) % 4; page = 0; tab = 0; }
+        else if (button == 61344) { p.companionFeedback.enabled = !p.companionFeedback.enabled; p.companionFeedback.update(p); }
+        else if (button == 61343) { if (selected != -1) pinned = selected; }
         else {
             List<Integer> entries = filtered(p);
-            int direction = button == 22870 ? -1 : 1;
+            int direction = button == 61339 ? -1 : 1;
             if (tab == 4) detailPage = Math.max(0, detailPage + direction);
             else if (tab == 0) page = Math.max(0, Math.min(page + direction, Math.max(0, (entries.size() - 1) / PAGE_SIZE)));
             else if (!entries.isEmpty()) selected = entries.get(Math.floorMod(entries.indexOf(selected) + direction, entries.size()));
@@ -128,7 +128,7 @@ public final class CompanionJournal {
                 + (skill == -1 ? "all skills" : io.zaryx.content.skills.Skill.forId(skill).toString());
     }
     private void render(Player p) {
-        p.getPA().sendString(22875, p.companionFeedback.enabled ? "XP tracker: On" : "XP tracker: Off");
+        p.getPA().sendString(61344, p.companionFeedback.enabled ? "XP tracker: On" : "XP tracker: Off");
         List<Integer> entries = filtered(p);
         if (pinned != -1 && !ids().contains(pinned)) pinned = -1;
         if (!entries.contains(selected)) selected = entries.isEmpty() ? -1 : entries.get(0);
@@ -140,21 +140,21 @@ public final class CompanionJournal {
                     + " - " + (owned(p, id) ? "Owned" : "Missing"));
             if (lines.isEmpty()) lines.add("No matches. Change filters or use ::pet to reset.");
         } else lines = Pet.wrapDetails(details(p, selected, tab));
-        p.getPA().sendString(22747, tab == 0 ? "Browse companions - " + entries.size() + " matches" : selected == -1 ? "No selection" : label(p, selected, false));
-        p.getPA().sendString(22754, tab == 0 ? "Page " + (page + 1) + " / " + Math.max(1, (entries.size() + 8) / 9) + " - Click a companion to inspect"
+        p.getPA().sendString(61216, tab == 0 ? "Browse companions - " + entries.size() + " matches" : selected == -1 ? "No selection" : label(p, selected, false));
+        p.getPA().sendString(61223, tab == 0 ? "Page " + (page + 1) + " / " + Math.max(1, (entries.size() + 8) / 9) + " - Click a companion to inspect"
                 : selected == -1 ? "Change filters to find companions" : "Level " + p.companionProgress.level(selected) + " | XP " + p.companionProgress.xp(selected)
                 + " | " + (owned(p, selected) ? "Owned" : "Missing") + (CompanionBenefits.activeId(p) == selected ? " | Summoned" : " | Not summoned"));
-        for (int i = 0; i < 5; i++) p.getPA().sendString(22864 + i, (i == tab ? "@or1@" : "@whi@") + TABS[i]);
-        p.getPA().sendString(22872, OWNERSHIP[ownership]);
-        p.getPA().sendString(22873, ROLES[role]);
-        p.getPA().sendString(22874, pinned == selected && selected != -1 ? "Pinned" : "Pin");
+        for (int i = 0; i < 5; i++) p.getPA().sendString(61333 + i, (i == tab ? "@or1@" : "@whi@") + TABS[i]);
+        p.getPA().sendString(61341, OWNERSHIP[ownership]);
+        p.getPA().sendString(61342, ROLES[role]);
+        p.getPA().sendString(61343, pinned == selected && selected != -1 ? "Pinned" : "Pin");
         int pages = Math.max(1, (lines.size() + Pet.ROW_COUNT - 1) / Pet.ROW_COUNT);
         detailPage = Math.min(detailPage, pages - 1);
         List<String> displayed = lines.subList(detailPage * Pet.ROW_COUNT, Math.min(lines.size(), (detailPage + 1) * Pet.ROW_COUNT));
-        p.getPA().sendString(22757, tab == 4 ? "Comparison page " + (detailPage + 1) + " / " + pages + " | Previous / Next turns pages."
+        p.getPA().sendString(61226, tab == 4 ? "Comparison page " + (detailPage + 1) + " / " + pages + " | Previous / Next turns pages."
                 : "Search: ::pet name" + (showItemIds(p) ? " or ID" : "") + " | Pin a pet, then compare another.");
-        for (int i = 0; i < Pet.ROW_COUNT; i++) p.getPA().sendString(22800 + i, i < displayed.size() ? displayed.get(i) : "");
-        p.getPA().setScrollableMaxHeight(22755, Math.max(176, displayed.size() * 18 + 8));
-        p.getPA().resetScrollBar(22755);
+        for (int i = 0; i < Pet.ROW_COUNT; i++) p.getPA().sendString(61269 + i, i < displayed.size() ? displayed.get(i) : "");
+        p.getPA().setScrollableMaxHeight(61224, Math.max(176, displayed.size() * 18 + 8));
+        p.getPA().resetScrollBar(61224);
     }
 }
