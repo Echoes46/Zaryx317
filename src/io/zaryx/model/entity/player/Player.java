@@ -824,6 +824,7 @@ public class Player extends Entity {
     public int underAttackByPlayer;
     public int underAttackByNpc;
     public int autoRet;
+    public transient int equipmentGuidePage;
     public int specBarId;
     public int playerFollowingIndex;
     public int skullTimer;

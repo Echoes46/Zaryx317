@@ -77,6 +77,10 @@ public enum Bow {
 
     MAGIC_SHORTBOW_I(12788, Arrow.AMETHYST);
 
+    public static Optional<Bow> forWeapon(int id) {
+        return VALUES.stream().filter(b -> b.bowId == id).findFirst();
+    }
+    public Arrow getMaxArrow() { return maxArrow; }
     private final int bowId;
     private final Arrow maxArrow;
 
