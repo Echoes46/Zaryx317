@@ -1,0 +1,92 @@
+---
+# Duke baseline: same currency bounds and tier rates; ranged rewards for Leviathan.
+# VERY_RARE rolls 1/1000 at baseline, then selects one of three Pernix pieces.
+npc_id: 12214
+constant:
+  accessibility: 0
+  items:
+    - item: 33237  #1 nomad
+      minimum: 500
+      maximum: 2500
+
+common:
+  accessibility: 250
+  items:
+    - item: 139  #prayer potion (3)
+      minimum: 1
+      maximum: 3
+    - item: 12697  #super combat (3)
+      minimum: 1
+      maximum: 3
+    - item: 2301  #pineapple pizza
+      minimum: 1
+      maximum: 5
+    - item: 1608  #sapphire
+      minimum: 42
+      maximum: 42
+    - item: 1606  #emerald
+      minimum: 42
+      maximum: 42
+    - item: 1604  #ruby
+      minimum: 42
+      maximum: 42
+
+uncommon:
+  accessibility: 500
+  items:
+    - item: 441  #iron ore
+      minimum: 250
+      maximum: 500
+    - item: 454  #coal
+      minimum: 250
+      maximum: 500
+    - item: 448  #mithril ore
+      minimum: 125
+      maximum: 250
+    - item: 892  #rune arrow
+      minimum: 100
+      maximum: 250
+    - item: 9144  #runite bolts
+      minimum: 100
+      maximum: 250
+    - item: 11212  #dragon arrow
+      minimum: 50
+      maximum: 100
+    - item: 563  #law rune
+      minimum: 200
+      maximum: 400
+    - item: 7937  #pure essence
+      minimum: 100
+      maximum: 500
+
+rare:
+  accessibility: 750
+  items:
+    - item: 450  #addy ore
+      minimum: 75
+      maximum: 125
+    - item: 452  #rune ore
+      minimum: 35
+      maximum: 75
+    - item: 1618  #diamond
+      minimum: 50
+      maximum: 50
+    - item: 19582  #dragon javelin heads
+      minimum: 50
+      maximum: 100
+    - item:  11237  #dragon arrowtips
+      minimum: 50
+      maximum: 100
+
+very_rare:
+  accessibility: 1000
+  items:
+    - item: 33144  #Pernix cowl
+      minimum: 1
+      maximum: 1
+    - item: 33145  #Pernix body
+      minimum: 1
+      maximum: 1
+    - item: 33146  #Pernix chaps
+      minimum: 1
+      maximum: 1

@@ -32,11 +32,20 @@ public final class TeleportGuide {
         return t.getNpcId();
     }
     public static List<String> lines(Player player, Teleport t) {
+        return lines(player,t,t.getNpcId());
+    }
+    public static List<String> lines(Player player, Teleport t, int selectedNpc) {
         List<String> out=new ArrayList<>();
+        if(t instanceof MINIGAMES) {
+            add(out,"HOW TO PLAY",TeleportContent.howToPlay((MINIGAMES)t));
+            add(out,"REWARDS",TeleportContent.rewards((MINIGAMES)t));
+            return out;
+        }
+        if(t instanceof SKILLING) return TeleportContent.cityLines(t,true);
         add(out,"RISK", wildernessRisk(t) ? "Wilderness / PvP: items can be lost." :
                 t instanceof PK ? "Safe arrival; Wilderness is nearby." : "Outside Wilderness. Combat can still be dangerous.");
         boolean combat=t instanceof BOSSES || t instanceof MONSTERS || t instanceof DUNGEONS || t instanceof PK && dropNpc(t)>0;
-        NpcCombatDefinition def=NpcCombatDefinition.definitions.get(t.getNpcId());
+        NpcCombatDefinition def=NpcCombatDefinition.definitions.get(selectedNpc);
         if (combat) {
             int hp=def==null ? 500 : def.getLevel(NpcCombatSkill.HITPOINTS);
             String gear=hp<=100 ? "Starter / basic gear" : hp<=300 ? "Mid-tier gear" : hp<=1000 ? "Upgraded gear" : "Endgame gear; consider a team";
@@ -54,7 +63,7 @@ public final class TeleportGuide {
                     "Bring supplies for this activity. Skill and equipment needs depend on the activity.");
         } else add(out,"PREPARATION","Travel destination. Choose equipment for your planned activity.");
         add(out,"REQUIREMENTS & COST",access(t));
-        NpcDef npc=NpcDef.forId(t.getNpcId());
+        NpcDef npc=NpcDef.forId(selectedNpc);
         if (combat && npc!=null) SlayerMaster.get(npc.getName().replace('_',' ')).ifPresent(task -> {
             int required=task.getLevel();
             if(required>1) out.add("Slayer: "+required+" (you: "+player.playerLevel[18]+").");
@@ -63,8 +72,21 @@ public final class TeleportGuide {
         if (t==BOSSES.OBOR) out.add("Giant key in inventory: "+(player.getItems().playerHasItem(20754,1)?"yes":"no")+".");
         add(out,"REWARDS",dropNpc(t)>0 ? "Open Drops for loot or Collection log for progress." :
                 "Rewards depend on the activity; this location has no direct monster drop preview.");
-        if(t instanceof DUNGEONS) out.addAll(wrap("Drop preview represents one monster; others in the dungeon have different loot."));
+        if(TeleportContent.monsters(t).length>1) {
+            add(out,"MONSTER HINTS",hints(selectedNpc));
+        }
         return out;
+    }
+    private static String hints(int id) {
+        String name=NpcDef.forId(id).getName().toLowerCase();
+        if(name.contains("dragon") || name.contains("wyvern"))return "Bring appropriate dragonfire or icy-breath protection and prayer supplies. Avoid fighting additional monsters at the same time.";
+        if(name.contains("dust devil") || name.contains("smoke devil"))return "Wear a face mask or suitable Slayer helmet to protect against the dust or smoke.";
+        if(name.contains("crystalline"))return "Check your matching Slayer assignment before attacking. Bring supplies for the higher cavern floors.";
+        if(name.contains("revenant"))return "Watch for other players while fighting and looting. Keep an escape route and bank valuable drops regularly.";
+        if(name.contains("gargoyle"))return "Bring a rock hammer and check your finishing-blow unlocks before starting a trip.";
+        NpcCombatDefinition def=NpcCombatDefinition.definitions.get(id);
+        return def==null ? "Check the Slayer requirement and take food and prayer supplies. Fight one target at a time while learning its attacks." :
+            "Listed attack style: "+def.getAttackStyle()+". Use matching protection where possible and avoid pulling nearby enemies into the fight.";
     }
     private static String style(Teleport t,NpcCombatDefinition def) {
         if(t==BOSSES.DEMONIC_GORILLA || t==BOSSES.DAGANNOTH_KINGS || t==BOSSES.KALPHITE_QUEEN || t==BOSSES.ZULRAH || t==BOSSES.GROTESQUE_GUARDIANS)
@@ -91,7 +113,7 @@ public final class TeleportGuide {
         if(t==MINIGAMES.BLASTFURNACE)return prefix+"Bring ores; disconnecting loses stored ores/bars.";
         return prefix+"Check entrance requirements and any entry charge before starting the encounter or activity.";
     }
-    private static void add(List<String> lines,String title,String text) {
+    static void add(List<String> lines,String title,String text) {
         if(!lines.isEmpty())lines.add("");lines.add("@or1@"+title);lines.addAll(wrap(text));
     }
     static List<String> wrap(String text) {

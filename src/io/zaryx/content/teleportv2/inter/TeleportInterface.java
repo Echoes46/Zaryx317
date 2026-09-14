@@ -58,6 +58,18 @@ public class TeleportInterface {
     }
 
     public static boolean handleButton(Player player, int buttonID) {
+        if(buttonID==61813 || buttonID==61814) {
+            if(!player.isInterfaceOpen(31000))return false;
+            Teleport t=selected(player);if(t==null)return true;
+            int[] ids=TeleportContent.monsters(t);
+            if(ids.length>1) {
+                int index=player.getAttributes().getInt("teleport_monster",0);
+                player.getAttributes().setInt("teleport_monster",Math.floorMod(index+(buttonID==61813?-1:1),ids.length));
+                refreshDetails(player,t);
+                showPage(player,player.getAttributes().getInt("teleport_page",0));
+            }
+            return true;
+        }
         if (buttonID >= 61803 && buttonID <= 61805 || buttonID == 61807) {
             if (!player.isInterfaceOpen(31000)) return false;
             if (buttonID <= 61805) showPage(player, buttonID-61803);
@@ -368,7 +380,8 @@ public class TeleportInterface {
             if(index==203)break;
             player.getPA().itemOnInterface(item.getId(),item.getAmount(),31018,index++);
         }
-        player.getPA().setScrollableMaxHeight(31017,Math.max(141,((index+6)/7)*37+6));
+        player.getPA().sendString(61817,index==0 ? "No configured drops for this selection." : "");
+        player.getPA().setScrollableMaxHeight(31017,Math.max(114,((index+6)/7)*37+6));
         player.getPA().resetScrollBar(31017);
     }
 
@@ -394,18 +407,39 @@ public class TeleportInterface {
         if(index<0 || index>=list.length)return;
         p.setCurrentTeleportClickIndex(index);Teleport t=list[index];
         p.getPA().sendString(61802,TeleportGuide.name(t));
-        List<String> lines=TeleportGuide.lines(p,t);
-        for(int i=0;i<48;i++)p.getPA().sendString(61820+i,i<lines.size()?lines.get(i):"");
-        p.getPA().setScrollableMaxHeight(61810,Math.max(141,Math.min(48,lines.size())*15+4));
-        p.getPA().resetScrollBar(61810);
-        sendDrops(p,TeleportGuide.dropNpc(t));
+        p.getAttributes().setInt("teleport_monster",0);
+        refreshDetails(p,t);
         showPage(p,0);
     }
+    static int selectedMonster(Player p,Teleport t) {
+        int[] ids=TeleportContent.monsters(t);
+        return ids.length==0 ? TeleportGuide.dropNpc(t) : ids[Math.floorMod(p.getAttributes().getInt("teleport_monster",0),ids.length)];
+    }
+    private static void refreshDetails(Player p,Teleport t) {
+        int[] ids=TeleportContent.monsters(t);int id=selectedMonster(p,t);
+        int index=ids.length==0?0:Math.floorMod(p.getAttributes().getInt("teleport_monster",0),ids.length);
+        p.getPA().sendString(61815,ids.length>0 ? io.zaryx.model.definitions.NpcDef.forId(id).getName()+
+            (ids.length>1 ? " ("+(index+1)+"/"+ids.length+")" : "") : "");
+        p.getPA().sendInterfaceHidden(61813,ids.length<2);
+        p.getPA().sendInterfaceHidden(61814,ids.length<2);
+        p.getPA().sendInterfaceHidden(61807,t instanceof SKILLING);
+        sendDrops(p,id);
+    }
     private static void showPage(Player p,int page) {
-        p.getPA().sendInterfaceHidden(61810,page!=1);
-        p.getPA().sendInterfaceHidden(31017,page!=0);
+        Teleport t=selected(p);if(t==null || page<0 || page>2)return;
+        p.getAttributes().setInt("teleport_page",page);
+        boolean text=page==1 || page==0 && TeleportContent.textFirst(t);
+        p.getPA().sendInterfaceHidden(61810,!text);
+        p.getPA().sendInterfaceHidden(31017,page!=0 || text);
         p.getPA().sendInterfaceHidden(61811,page!=2);
-        String[] names={"Drops","Guide","Favourites"};
+        p.getPA().sendInterfaceHidden(61816,page==2 || TeleportContent.monsters(t).length==0);
+        if(text) {
+            List<String> lines=page==0 ? TeleportContent.firstPage(t) : TeleportGuide.lines(p,t,selectedMonster(p,t));
+            for(int i=0;i<48;i++)p.getPA().sendString(61820+i,i<lines.size()?lines.get(i):"");
+            p.getPA().setScrollableMaxHeight(61810,Math.max(114,Math.min(48,lines.size())*15+4));
+            p.getPA().resetScrollBar(61810);
+        }
+        String[] names={TeleportContent.firstTab(t),TeleportContent.secondTab(t),"Favourites"};
         for(int i=0;i<3;i++)p.getPA().sendString(61803+i,(i==page?"@or1@":"")+names[i]);
     }
     private static void openCollection(Player p) {
@@ -413,7 +447,7 @@ public class TeleportInterface {
         io.zaryx.content.collection_log.CollectionLog log=p.getCollectionLog();
         log.openInterface(p);
         if(!p.isInterfaceOpen(23110))return;
-        int npc=TeleportGuide.collectionNpc(t);
+        int npc=TeleportContent.monsters(t).length>1 ? selectedMonster(p,t) : TeleportGuide.collectionNpc(t);
         if(io.zaryx.content.collection_log.CollectionLog.collectionNPCS!=null)
             for(Map.Entry<io.zaryx.content.collection_log.CollectionLog.CollectionTabType,ArrayList<Integer>> e:
                     io.zaryx.content.collection_log.CollectionLog.collectionNPCS.entrySet()) {

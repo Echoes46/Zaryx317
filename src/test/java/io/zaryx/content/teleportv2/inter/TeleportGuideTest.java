@@ -8,13 +8,31 @@ class TeleportGuideTest {
   config.setAccessible(true);Object old=config.get(null);
   try {
    config.set(null,io.zaryx.ServerConfiguration.getDefault());
+   io.zaryx.model.definitions.NpcDef.load();
+   io.zaryx.model.entity.npc.stats.NpcCombatDefinition.load();
    io.zaryx.model.entity.player.Player p=new io.zaryx.model.entity.player.Player(null);
    for(int tab=0;tab<6;tab++)for(Teleport t:TeleportInterface.destinations(tab)) {
+    for(int npc:TeleportContent.monsters(t)) {
+     java.util.List<String> detail=TeleportGuide.lines(p,t,npc);
+     assertTrue(detail.size()<=48,TeleportGuide.name(t)+" NPC "+npc+": "+detail.size());
+    }
     java.util.List<String> lines=TeleportGuide.lines(p,t);
     assertTrue(lines.size()<=48,TeleportGuide.name(t));
     for(String line:lines)assertTrue(line.replaceAll("@...@", "").length()<=45,line);
    }
   } finally {config.set(null,old);}
+ }
+ @Test void areaBrowserCoversEveryDungeonAndActivity() {
+  for(Teleport t:DUNGEONS.values())assertTrue(TeleportContent.monsters(t).length>1,t.getName());
+  java.util.Set<String> guides=new java.util.HashSet<>();
+  for(MINIGAMES t:MINIGAMES.values()) {
+   assertTrue(guides.add(TeleportContent.howToPlay(t)),t.name());
+   assertEquals("Rewards",TeleportContent.firstTab(t));
+   assertEquals("How to play",TeleportContent.secondTab(t));
+  }
+  for(Teleport t:SKILLING.values())assertTrue(TeleportContent.textFirst(t));
+  assertTrue(TeleportContent.monsters(PK.REV_CAVE).length>1);
+  assertEquals(12214,TeleportContent.monsters(BOSSES.THE_LEVIATHAN)[0]);
  }
  @Test void everyDestinationHasReadableNameAndWrappedAccessAdvice() {
   for(int tab=0;tab<6;tab++) for(Teleport t:TeleportInterface.destinations(tab)) {
