@@ -58,6 +58,13 @@ public class TeleportInterface {
     }
 
     public static boolean handleButton(Player player, int buttonID) {
+        if (buttonID >= 61803 && buttonID <= 61807) {
+            if (!player.isInterfaceOpen(31000)) return false;
+            if (buttonID <= 61805) showPage(player, buttonID-61803);
+            else if (buttonID==61806) openDropTable(player);
+            else openCollection(player);
+            return true;
+        }
         switch (buttonID) {
             case 31002:
                 player.getPA().removeAllWindows();
@@ -169,7 +176,6 @@ public class TeleportInterface {
                     if (!player.getFavoriteTeleports().contains(data)) {
                         if (player.getFavoriteTeleports().size() >= 9) {
                             player.sendMessage("@red@Your favorites section is full.");
-                            updateTab(player);
                             return true;
                         }
                         player.getFavoriteTeleports().add(data);
@@ -180,7 +186,7 @@ public class TeleportInterface {
                     }
                     showFavorites(player);
                 }
-                updateTab(player);
+                player.getPA().sendString(i, data != null && player.getFavoriteTeleports().contains(data) ? "*" : "+");
                 return true;
             }
         }
@@ -191,57 +197,18 @@ public class TeleportInterface {
             if (index < player.getFavoriteTeleports().size()) {
                 Teleport data = player.getFavoriteTeleports().get(index);
                 if (data != null) {
-                    if (data instanceof MONSTERS) {
-                        handleMonsterTeleport(player, (MONSTERS) data);
-                    } else if (data instanceof BOSSES) {
-                        handleBossTeleport(player, (BOSSES) data);
-                    } else if (data instanceof MINIGAMES) {
-                        handleMinigameTeleport(player, (MINIGAMES) data);
-                    } else if (data instanceof DUNGEONS) {
-                        handleDungeonsTeleport(player, (DUNGEONS) data);
-                    } else if (data instanceof SKILLING) {
-                        handleMiscTeleport(player, (SKILLING) data);
-                    } else if (data instanceof PK) {
-                        handlePKTeleport(player, (PK) data);
-                    }
-                    player.getPreviousTeleport().clear();
+                    Teleport[] choices = destinations(tabFor(data));
+                    player.setCurrentTeleportTab(tabFor(data));
+                    cleanList(player);
+                    showList(player, choices);
+                    select(player, Arrays.asList(choices).indexOf(data));
                 }
             }
             return true;
         }
         for (int teleportButton : TELEPORT_BUTTONS) {
             if (buttonID == teleportButton) {
-                int index = ArrayUtils.indexOf(TELEPORT_BUTTONS, buttonID);
-                player.setCurrentTeleportClickIndex(index);
-                if (player.getCurrentTeleportTab() == 0 && player.getCurrentTeleportClickIndex() < MONSTERS.values().length) {
-                    MONSTERS monsterData = MONSTERS.values()[player.getCurrentTeleportClickIndex()];
-                    sendDrops(player, monsterData.npcID);
-                    player.getPA().sendString(31006, "Locations -> " + monsterData.name);
-                } else if (player.getCurrentTeleportTab() == 1 && player.getCurrentTeleportClickIndex() < BOSSES.values().length) {
-                    BOSSES bossData = BOSSES.values()[player.getCurrentTeleportClickIndex()];
-                    sendDrops(player, bossData.npcID);
-                    player.getPA().sendString(31006, "Locations -> " + bossData.name);
-                } else if (player.getCurrentTeleportTab() == 2 && player.getCurrentTeleportClickIndex() < MINIGAMES.values().length) {
-                    MINIGAMES minigameData = MINIGAMES.values()[player.getCurrentTeleportClickIndex()];
-                    sendDrops(player, minigameData.npcID);
-                    player.getPA().sendString(31006, "Locations -> " + minigameData.name);
-                    if (minigameData.name.equalsIgnoreCase("blast furnace")) {
-                        player.sendMessage("@red@Disconnecting with ores or bars in the system, will delete them!");
-                    }
-                } else if (player.getCurrentTeleportTab() == 3 && player.getCurrentTeleportClickIndex() < DUNGEONS.values().length) {
-                    DUNGEONS wildyData = DUNGEONS.values()[player.getCurrentTeleportClickIndex()];
-                    sendDrops(player, wildyData.npcID);
-                    player.getPA().sendString(31006, "Locations -> " + wildyData.name);
-                } else if (player.getCurrentTeleportTab() == 4 && player.getCurrentTeleportClickIndex() < SKILLING.values().length) {
-                    SKILLING miscData = SKILLING.values()[player.getCurrentTeleportClickIndex()];
-                    sendDrops(player, miscData.npcID);
-                    player.getPA().sendString(31006, "Locations -> " + miscData.name);
-                } else if (player.getCurrentTeleportTab() == 5 && player.getCurrentTeleportClickIndex() < PK.values().length) {
-                    PK pkData = PK.values()[player.getCurrentTeleportClickIndex()];
-                    sendDrops(player, pkData.npcID);
-                    player.getPA().sendString(31006, "Locations -> " + pkData.name);
-                }
-                player.getPreviousTeleport().clear();
+                select(player, ArrayUtils.indexOf(TELEPORT_BUTTONS, teleportButton));
                 return true;
             }
         }
@@ -273,36 +240,42 @@ public class TeleportInterface {
     }
 
     public static void handleBossTeleport(Player player, BOSSES bossData) {
+        player.getPreviousTeleport().clear();
         player.getPreviousTeleport().add(bossData);
         Position data = new Position(bossData.teleportCords[0], bossData.teleportCords[1], bossData.teleportCords[2]);
         player.getPA().startTeleport(data, "modern", false);
     }
 
     public static void handleMonsterTeleport(Player player, MONSTERS monsterData) {
+        player.getPreviousTeleport().clear();
         player.getPreviousTeleport().add(monsterData);
         Position data = new Position(monsterData.teleportCords[0], monsterData.teleportCords[1], monsterData.teleportCords[2]);
         player.getPA().startTeleport(data, "modern", false);
     }
 
     public static void handleDungeonsTeleport(Player player, DUNGEONS wildyData) {
+        player.getPreviousTeleport().clear();
         player.getPreviousTeleport().add(wildyData);
         Position data = new Position(wildyData.teleportCords[0], wildyData.teleportCords[1], wildyData.teleportCords[2]);
         player.getPA().startTeleport(data, "modern", false);
     }
 
     public static void handleMiscTeleport(Player player, SKILLING miscData) {
+        player.getPreviousTeleport().clear();
         player.getPreviousTeleport().add(miscData);
         Position data = new Position(miscData.teleportCords[0], miscData.teleportCords[1], miscData.teleportCords[2]);
         player.getPA().startTeleport(data, "modern", false);
     }
 
     public static void handleMinigameTeleport(Player player, MINIGAMES minigameData) {
+        player.getPreviousTeleport().clear();
         player.getPreviousTeleport().add(minigameData);
         Position data = new Position(minigameData.teleportCords[0], minigameData.teleportCords[1], minigameData.teleportCords[2]);
         player.getPA().startTeleport(data, "modern", false);
     }
 
     public static void handlePKTeleport(Player player, PK pkData) {
+        player.getPreviousTeleport().clear();
         player.getPreviousTeleport().add(pkData);
         Position data = new Position(pkData.teleportCords[0], pkData.teleportCords[1], pkData.teleportCords[2]);
         player.getPA().startTeleport(data, "modern", false);
@@ -312,7 +285,7 @@ public class TeleportInterface {
         int id = 31007;
         for (int i = 0; i < 9; i++) {
             if (player.getFavoriteTeleports().size() > i) {
-                player.getPA().sendString(id, player.getFavoriteTeleports().get(i).getName());
+                player.getPA().sendString(id, TeleportGuide.name(player.getFavoriteTeleports().get(i)));
             } else {
                 player.getPA().sendString(id, "");
             }
@@ -333,7 +306,7 @@ public class TeleportInterface {
 
         for (int i = 0; i < 30; i++) {
             player.getPA().sendString(id, "");
-            player.getPA().sendChangeSprite(config, (byte) 0);
+            player.getPA().sendString(config, "+");
             config += 3;
             id += 3;
         }
@@ -342,14 +315,15 @@ public class TeleportInterface {
 
     /* Updated by Khaos */
     public static void showList(Player player, Teleport[] list) {
+        cleanList(player);
         int id = 31067;
         int config = 31068;
         for (Teleport data : list) {
-            player.getPA().sendString(id, data.getName());
+            player.getPA().sendString(id, shortName(data));
             if (player.getFavoriteTeleports().contains(data))
-                player.getPA().sendChangeSprite(config, (byte) 1);
+                player.getPA().sendString(config, "*");
             else
-                player.getPA().sendChangeSprite(config, (byte) 0);
+                player.getPA().sendString(config, "+");
             config += 3;
             id += 3;
         }
@@ -364,80 +338,99 @@ public class TeleportInterface {
             }
         }
 
+        player.getPA().sendString(31006, "Destinations");
+        String[] tabs={"Monsters","Bosses","Minigames","Dungeons","Wilderness","Cities"};
+        for(int i=0;i<6;i++)player.getPA().sendString(31036+i,(i==(player.getCurrentTeleportTab()==4?5:player.getCurrentTeleportTab()==5?4:player.getCurrentTeleportTab())?"@whi@":"")+tabs[i]);
+        player.getPA().setScrollableMaxHeight(31065, Math.max(230,list.length*21));
+        select(player,0);
         player.getPA().showInterface(31000);
 
-        SortedMap<String, BOSSES> map = new TreeMap<String, BOSSES>();
-        for (BOSSES value : BOSSES.values()) {
-            map.put(value.name, value);
-        }
     }
 
 
     public static void sendDrops(Player player, int npcId) {
-        for (int i = 0; i < 108; i++) {
-            player.getPA().itemOnInterface(-1, 1, 31018, i);
-        }
-        if (npcId == -1) {
-            return;
-        }
-        try {
-            if (npcId == 8374) {
-                for (int i = 0; i < TheatreOfBloodChest.getAllDrops().size(); i++) {
-                    player.getPA().itemOnInterface(TheatreOfBloodChest.getAllDrops().get(i).getId(), TheatreOfBloodChest.getAllDrops().get(i).getAmount(), 31018, i);
-                }
-                return;
-
-            } else if (npcId == 7_519) {
-                for (int i = 0; i < RaidsChestRare.getAllRaidsDrops().size(); i++) {
-                    player.getPA().itemOnInterface(RaidsChestRare.getAllRaidsDrops().get(i).getId(), RaidsChestRare.getAllRaidsDrops().get(i).getAmount(), 31018, i);
-                }
-                return;
-
-
+        for(int i=0;i<203;i++)player.getPA().itemOnInterface(-1,0,31018,i);
+        List<GameItem> drops=new ArrayList<>();
+        if(npcId==8374)drops.addAll(TheatreOfBloodChest.getAllDrops());
+        else if(npcId==7519)drops.addAll(RaidsChestRare.getAllRaidsDrops());
+        else if(npcId==6477)drops.addAll(ArbograveChestItems.getAllDrops());
+        else if(npcId==1672) {
+            for(int id:new int[]{1672,1673,1674,1675,1676,1677}) {
+                List<GameItem> table=Server.getDropManager().getAllNPCdrops(id);
+                if(table!=null)drops.addAll(table);
             }
-            if (npcId == 6477) {
-                for (int i = 0; i < ArbograveChestItems.getAllDrops().size(); i++) {
-                    player.getPA().itemOnInterface(ArbograveChestItems.getAllDrops().get(i).getId(), ArbograveChestItems.getAllDrops().get(i).getAmount(), 31018, i);
-                }
-                return;
-
-            } else if (Server.getDropManager().getAllNPCdrops(npcId) == null) {
-                return;
-            } else if (npcId == 1672) {
-                List<GameItem> newList = new ArrayList<>();
-                newList.addAll(Server.getDropManager().getAllNPCdrops(1672));
-                newList.addAll(Server.getDropManager().getAllNPCdrops(1973));
-                newList.addAll(Server.getDropManager().getAllNPCdrops(1674));
-                newList.addAll(Server.getDropManager().getAllNPCdrops(1675));
-                newList.addAll(Server.getDropManager().getAllNPCdrops(1676));
-                newList.addAll(Server.getDropManager().getAllNPCdrops(1677));
-
-                Set<Integer> ids = new HashSet<>();
-                List<GameItem> uniqueList = new ArrayList<>();
-
-                for (GameItem gameItem : newList) {
-                    if (ids.add(gameItem.getId())) {
-                        uniqueList.add(gameItem);
-                    }
-                }
-
-                newList = uniqueList;
-
-                if (!newList.isEmpty()) {
-                    for (int i = 0; i < newList.size(); i++) {
-                        player.getPA().itemOnInterface(newList.get(i).getId(), newList.get(i).getAmount(), 31018, i);
-                    }
-                }
-            }
-
-            for (int i = 0; i < Server.getDropManager().getAllNPCdrops(npcId).size(); i++) {
-                player.getPA().itemOnInterface(Server.getDropManager().getAllNPCdrops(npcId).get(i).getId(), Server.getDropManager().getAllNPCdrops(npcId).get(i).getAmount(), 31018, i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else if(npcId>0) {
+            List<GameItem> table=Server.getDropManager().getAllNPCdrops(npcId);
+            if(table!=null)drops.addAll(table);
         }
+        Map<Integer,GameItem> unique=new LinkedHashMap<>();
+        for(GameItem item:drops)unique.putIfAbsent(item.getId(),item);
+        int index=0;for(GameItem item:unique.values()) {
+            if(index==203)break;
+            player.getPA().itemOnInterface(item.getId(),item.getAmount(),31018,index++);
+        }
+        player.getPA().setScrollableMaxHeight(31017,Math.max(141,((index+6)/7)*37+6));
+        player.getPA().resetScrollBar(31017);
     }
 
+    public static Teleport[] destinations(int tab) {
+        switch(tab) {
+            case 0:return MONSTERS.values(); case 1:return BOSSES.values(); case 2:return MINIGAMES.values();
+            case 3:return DUNGEONS.values(); case 4:return SKILLING.values(); case 5:return PK.values();
+            default:return new Teleport[0];
+        }
+    }
+    private static int tabFor(Teleport t) {
+        return t instanceof MONSTERS?0:t instanceof BOSSES?1:t instanceof MINIGAMES?2:t instanceof DUNGEONS?3:t instanceof SKILLING?4:5;
+    }
+    public static Teleport selected(Player p) {
+        Teleport[] list=destinations(p.getCurrentTeleportTab());int i=p.getCurrentTeleportClickIndex();
+        return i>=0 && i<list.length ? list[i] : null;
+    }
+    private static String shortName(Teleport t) {
+        String name=TeleportGuide.name(t);return name.length()>22?name.substring(0,21)+"~":name;
+    }
+    public static void select(Player p,int index) {
+        Teleport[] list=destinations(p.getCurrentTeleportTab());
+        if(index<0 || index>=list.length)return;
+        p.setCurrentTeleportClickIndex(index);Teleport t=list[index];
+        p.getPA().sendString(61802,TeleportGuide.name(t));
+        List<String> lines=TeleportGuide.lines(p,t);
+        for(int i=0;i<48;i++)p.getPA().sendString(61820+i,i<lines.size()?lines.get(i):"");
+        p.getPA().setScrollableMaxHeight(61810,Math.max(141,Math.min(48,lines.size())*15+4));
+        p.getPA().resetScrollBar(61810);
+        sendDrops(p,TeleportGuide.dropNpc(t));
+        showPage(p,0);
+    }
+    private static void showPage(Player p,int page) {
+        p.getPA().sendInterfaceHidden(61810,page!=0);
+        p.getPA().sendInterfaceHidden(31017,page!=1);
+        p.getPA().sendInterfaceHidden(61811,page!=2);
+        String[] names={"Guide","Drops","Favourites"};
+        for(int i=0;i<3;i++)p.getPA().sendString(61803+i,(i==page?"@whi@":"")+names[i]);
+    }
+    private static void openDropTable(Player p) {
+        Teleport t=selected(p);if(t==null)return;
+        int id=TeleportGuide.dropNpc(t);
+        if(id<=0 || t==MINIGAMES.COX || t==MINIGAMES.TOB || t==MINIGAMES.ARBOGRAVE_SWAMP) {
+            showPage(p,1);p.sendMessage("Use the Drops tab for available rewards at this destination.");return;
+        }
+        Server.getDropManager().openForNpcId(p,id);
+    }
+    private static void openCollection(Player p) {
+        Teleport t=selected(p);if(t==null)return;
+        io.zaryx.content.collection_log.CollectionLog log=p.getCollectionLog();
+        log.openInterface(p);
+        if(!p.isInterfaceOpen(23110))return;
+        int npc=TeleportGuide.collectionNpc(t);
+        if(io.zaryx.content.collection_log.CollectionLog.collectionNPCS!=null)
+            for(Map.Entry<io.zaryx.content.collection_log.CollectionLog.CollectionTabType,ArrayList<Integer>> e:
+                    io.zaryx.content.collection_log.CollectionLog.collectionNPCS.entrySet()) {
+                int index=e.getValue().indexOf(npc);
+                if(index>=0) {log.selectTab(p,e.getKey());log.selectCell(p,index,e.getKey());return;}
+            }
+        p.sendMessage("There is no dedicated collection entry for this destination. Browse the log by category.");
+    }
 
     public static void sendMonsterTab(Player player) {
         if (player.getMode().equals(Mode.forType(ModeType.WILDYMAN)) || player.getMode().equals(Mode.forType(ModeType.GROUP_WILDYMAN))) {
@@ -445,7 +438,6 @@ public class TeleportInterface {
             return;
         }
         setUp(player, 0);
-        player.getPA().sendChangeSprite(31036, (byte) 1);
         showList(player, MONSTERS.values());
     }
 
@@ -519,9 +511,9 @@ public class TeleportInterface {
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
+        public int getNpcId() { return npcID; }
+        public Position getPosition() { return new Position(teleportCords[0],teleportCords[1],teleportCords[2]); }
 
     }
 
@@ -565,9 +557,9 @@ public class TeleportInterface {
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
+        public int getNpcId() { return npcID; }
+        public Position getPosition() { return new Position(teleportCords[0],teleportCords[1],teleportCords[2]); }
     }
 
 
@@ -606,9 +598,9 @@ public class TeleportInterface {
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
+        public int getNpcId() { return npcID; }
+        public Position getPosition() { return new Position(teleportCords[0],teleportCords[1],teleportCords[2]); }
     }
 
 
@@ -642,9 +634,9 @@ public class TeleportInterface {
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
+        public int getNpcId() { return npcID; }
+        public Position getPosition() { return new Position(teleportCords[0],teleportCords[1],teleportCords[2]); }
 
     }
 
@@ -688,9 +680,9 @@ public class TeleportInterface {
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
+        public int getNpcId() { return npcID; }
+        public Position getPosition() { return new Position(teleportCords[0],teleportCords[1],teleportCords[2]); }
     }
 
     public enum PK implements Teleport {
@@ -734,14 +726,16 @@ public class TeleportInterface {
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
+        public int getNpcId() { return npcID; }
+        public Position getPosition() { return new Position(teleportCords[0],teleportCords[1],teleportCords[2]); }
 
     }
 
     public interface Teleport {
         String getName();
+        int getNpcId();
+        Position getPosition();
 
     }
 
