@@ -1,7 +1,6 @@
 package io.zaryx.content.tutorial;
 
 import io.zaryx.Configuration;
-import io.zaryx.Server;
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.dialogue.DialogueOption;
 import io.zaryx.content.items.Starter;
@@ -17,6 +16,7 @@ import java.util.function.Consumer;
 public class TutorialDialogue extends DialogueBuilder {
 
     public static final int TUTORIAL_NPC = 5525;
+    private final boolean repeat;
     private static final String IN_TUTORIAL_KEY = "in_tutorial";
     private static final DialogueOption[] XP_RATES = {
             new DialogueOption("25x Combat / 15x Skilling", p -> chosenXpRate(p, ExpModeType.TwentyFiveTimes)),
@@ -101,34 +101,32 @@ public class TutorialDialogue extends DialogueBuilder {
     public TutorialDialogue(Player player, boolean repeat, boolean tutorial) {
         super(player);
 
+        this.repeat = repeat;
         setNpcId(TUTORIAL_NPC);
-        if (!Server.isTest() && tutorial) {
-            npc(new Position(Configuration.START_LOCATION_X, Configuration.START_LOCATION_Y), "Welcome to " + Configuration.SERVER_NAME + "!", "Here is our home area!", "Don't forgot to join our ::discord.");
-            npc(new Position(2083, 5987), "Here you can find all the shops needed", "when you first start out! You can buy combat gear,", "foods and pots, or show off your fashion skills!");
-            npc(new Position(2104, 6003), "Receive your daily login rewards here, by speaking to Aretha!");
-            npc(new Position(2063, 5991), "Here is the vote chest.", "After voting for all sites 10 times you get a @blu@vote key@bla@!", "Check out '@red@::chestrewards@bla@' to see what you can get!");
-            npc(new Position(2069, 5991), "Here is the corrupt chest.", "There are 2 Wildy bosses that can be killed for keys!", "Check out '@red@::chestrewards@bla@' to see what you can get!");
-            npc(new Position(2066, 5993), "Here is the crystal chest.", "Here you can use your crystal keys for loot!", "Check out '@red@::chestrewards@bla@' to see what you can get!");
-            npc(new Position(2063, 5984), "Here is the Brimstone chest.", "This is where you can use your brimstone keys!!", "Check out '@red@::chestrewards@bla@' to see what you can get!");
-            npc(new Position(2066, 5982), "Here is the Hespori chest.", "This is where you can use your hespori keys!!", "Check out '@red@::chestrewards@bla@' to see what you can get!");
-            npc(new Position(2064, 6004), "This is the Outlast Portal.", "Anybody can join, any level or game mode!", "Use the Quest Tab to see when the next", "event will happen!");
-            npc(new Position(2034, 5988), "This is where you can plant seeds after defeating", "the world boss Hespori, which is displayed in your quest tab.");
-            npc(new Position(2062, 5964), "Here you can get Slayer tasks and spend points on rewards!");
-            npc(new Position(2087, 6009), "If you decide to be a restricted game mode", "you can use the shops here!", "Including a UIM Storage chest!");
-            npc(new Position(2105, 6005), "This is the banking area", "you can also access the vote shop!", "as well as the altars!");
-            npc(new Position(2047, 5964), "Here we have the Upgrade Table,", "Nomad is able to,", "Dissolve items for points.");
-            npc(new Position(2056, 5984), "Speaking with the Mage of Zamorak", "You can teleport to the abyss", "or even the essence mines!");
-            npc(new Position(2093, 5999), "This is the Discord Integration", "Here you can sync your player with your", "Discord account!");
-            npc(new Position(2045, 6005), "Change your character style here!", "And don't forget you can use the teleporter", "at home to open the Teleport Menu!");
-            npc(new Position(2096, 6004), "We Hope you enjoy your stay at Lumen RSPS!", "Also Don't forget to use", "::vote for a reward!");
-
+        if (tutorial) {
+            for (HomeTour.Stop stop : HomeTour.STOPS) {
+                npc(stop.position(), stop.text());
+            }
         }
+        npc(new Position(Configuration.START_LOCATION_X, Configuration.START_LOCATION_Y),
+                "You're back at the centre of " + Configuration.SERVER_NAME + " home.",
+                "Check the Activity Board for hourly, daily and weekly tasks.",
+                "Join ::discord for news and help. Enjoy your adventure!");
         if (!repeat) {
             npc("Be sure to @blu@set an account pin with ::pin@bla@!", "@blu@You will gain one hour of bonus xp scrolls!",
                     "You only have to enter it when you login", "on a different computer.");
             npc("You have the option to play as one of our <col=" + Right.IRONMAN + "><img=12></img>Iron Man</col>," , " modes or one of our, <col=" + Right.GROUP_WILDYMAN
                     + "><img=94></img> WildyMan</col> modes that is wild only", "Choose from the following interface.");
             exit(p -> p.getModeSelection().openInterface());
+        }
+    }
+
+    @Override
+    public void end() {
+        super.end();
+        // Replaying the tour must not reopen account setup or leave movement locked.
+        if (repeat) {
+            setInTutorial(getPlayer(), false);
         }
     }
 
