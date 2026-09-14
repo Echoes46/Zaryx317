@@ -413,7 +413,7 @@ public class TeleportInterface {
     }
     static int selectedMonster(Player p,Teleport t) {
         int[] ids=TeleportContent.monsters(t);
-        return ids.length==0 ? TeleportGuide.dropNpc(t) : ids[Math.floorMod(p.getAttributes().getInt("teleport_monster",0),ids.length)];
+        return ids.length==0 ? (t instanceof DUNGEONS ? -1 : TeleportGuide.dropNpc(t)) : ids[Math.floorMod(p.getAttributes().getInt("teleport_monster",0),ids.length)];
     }
     private static void refreshDetails(Player p,Teleport t) {
         int[] ids=TeleportContent.monsters(t);int id=selectedMonster(p,t);

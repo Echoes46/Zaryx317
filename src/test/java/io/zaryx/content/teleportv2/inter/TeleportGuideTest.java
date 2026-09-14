@@ -12,7 +12,7 @@ class TeleportGuideTest {
    io.zaryx.model.entity.npc.stats.NpcCombatDefinition.load();
    io.zaryx.model.entity.player.Player p=new io.zaryx.model.entity.player.Player(null);
    for(int tab=0;tab<6;tab++)for(Teleport t:TeleportInterface.destinations(tab)) {
-    for(int npc:TeleportContent.monsters(t)) {
+    for(int npc:t instanceof DUNGEONS ? TeleportContent.configuredMonsters(t) : TeleportContent.monsters(t)) {
      java.util.List<String> detail=TeleportGuide.lines(p,t,npc);
      assertTrue(detail.size()<=48,TeleportGuide.name(t)+" NPC "+npc+": "+detail.size());
     }
@@ -23,7 +23,7 @@ class TeleportGuideTest {
   } finally {config.set(null,old);}
  }
  @Test void areaBrowserCoversEveryDungeonAndActivity() {
-  for(Teleport t:DUNGEONS.values())assertTrue(TeleportContent.monsters(t).length>1,t.getName());
+  for(Teleport t:DUNGEONS.values())assertTrue(TeleportContent.configuredMonsters(t).length>1,t.getName());
   java.util.Set<String> guides=new java.util.HashSet<>();
   for(MINIGAMES t:MINIGAMES.values()) {
    assertTrue(guides.add(TeleportContent.howToPlay(t)),t.name());

@@ -3,7 +3,7 @@ package io.zaryx.content.teleportv2.inter;
 import io.zaryx.content.teleportv2.inter.TeleportInterface.*;
 import java.util.*;
 
-/** Area rosters audited against configured spawns; IDs retain different loot variants. */
+/** Area rosters audited against configured spawns. Dungeon lists show loot-bearing types once. */
 public final class TeleportContent {
     private TeleportContent() { }
     private static final Map<Teleport,int[]> AREAS=new HashMap<>();
@@ -27,20 +27,42 @@ public final class TeleportContent {
     }
     public static int[] monsters(Teleport t) {
         int[] ids=AREAS.get(t);
-        if(ids!=null)return ids.clone();
+        if(ids!=null) {
+            if(t instanceof DUNGEONS) return uniqueLootMonsters(ids,
+                id -> io.zaryx.model.definitions.NpcDef.forId(id).getName(),
+                id -> {
+                    var drops=io.zaryx.Server.getDropManager().getAllNPCdrops(id);
+                    return drops!=null && !drops.isEmpty();
+                });
+            return ids.clone();
+        }
         int id=TeleportGuide.dropNpc(t);
         return id>0 && !(t instanceof MINIGAMES) ? new int[]{id} : new int[0];
+    }
+    static int[] configuredMonsters(Teleport t) { return AREAS.get(t).clone(); }
+    static int[] uniqueLootMonsters(int[] ids,java.util.function.IntFunction<String> name,
+                                   java.util.function.IntPredicate hasDrops) {
+        Map<String,Integer> types=new LinkedHashMap<>();
+        for(int id:ids) {
+            // Filter first: an empty variant must never hide a later variant with loot.
+            if(!hasDrops.test(id))continue;
+            String label=name.apply(id);
+            if(label==null || label.trim().isEmpty() || label.equalsIgnoreCase("null") || label.equalsIgnoreCase("unknown"))continue;
+            types.putIfAbsent(label.replace('_',' ').trim().replaceAll("\\s+"," ").toLowerCase(Locale.ROOT),id);
+        }
+        return types.values().stream().mapToInt(Integer::intValue).toArray();
     }
     public static String firstTab(Teleport t) {
         if(t instanceof SKILLING)return "Travel info";
         if(t instanceof MINIGAMES)return "Rewards";
+        if(t instanceof DUNGEONS && monsters(t).length==0)return "Area info";
         return monsters(t).length>1 ? "Monsters" : TeleportGuide.dropNpc(t)>0 ? "Drops" : "Area info";
     }
     public static String secondTab(Teleport t) {
         return t instanceof MINIGAMES ? "How to play" : t instanceof SKILLING ? "Nearby NPCs" : "Guide";
     }
     public static boolean textFirst(Teleport t) {
-        return t instanceof SKILLING || TeleportGuide.dropNpc(t)<0 && monsters(t).length==0;
+        return t instanceof SKILLING || t instanceof DUNGEONS && monsters(t).length==0 || TeleportGuide.dropNpc(t)<0 && monsters(t).length==0;
     }
     public static String howToPlay(MINIGAMES t) {
         switch(t) {
