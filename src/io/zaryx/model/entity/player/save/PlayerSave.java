@@ -1081,6 +1081,9 @@ public class PlayerSave {
                             p.setRunningToggled(Boolean.parseBoolean(token2));
                         } else if (token.equals("slayer-master")) {
                             p.getSlayer().setMaster(Integer.parseInt(token2));
+                            p.getSlayer().getTask().ifPresent(saved ->
+                                    SlayerMaster.get(p.getSlayer().getMaster(), saved.getPrimaryName())
+                                            .ifPresent(resolved -> p.getSlayer().setTask(Optional.of(resolved))));
                         } else if (token.equals("konar-slayer-location")) {
                             p.setKonarSlayerLocation(token2);
                         } else if (token.equals("slayerPoints")) {

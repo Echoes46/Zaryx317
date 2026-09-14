@@ -3944,6 +3944,10 @@ public class PlayerAssistant {
             return;
         }
 
+        if (!task.hasTeleport()) {
+            player.sendMessage("This task cannot be easily teleported to.");
+            return;
+        }
         int x = task.getTeleportLocation()[0];
         int y = task.getTeleportLocation()[1];
         int z = task.getTeleportLocation()[2];
@@ -3970,6 +3974,10 @@ public class PlayerAssistant {
         }
         if (player.getPosition().inWild()) {
             player.sendMessage("You cannot use this from the wilderness.");
+            return;
+        }
+        if (!task.hasTeleport()) {
+            player.sendMessage("This task cannot be easily teleported to.");
             return;
         }
         int x = task.getTeleportLocation()[0];

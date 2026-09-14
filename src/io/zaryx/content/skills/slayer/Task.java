@@ -127,16 +127,17 @@ public class Task {
 	 * @param input the name we're looking to see matches any of the others
 	 * @return {@code true} if a match can be found, otherwise {@code false}
 	 */
-	public boolean matches(String input) {
-		if (input != null) {
-			for (String name : names) {
-				if (name != null && name.equals(input)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    public boolean matches(String input) {
+        if (input == null || names == null) return false;
+        for (String name : names) {
+            if (name == null) continue;
+            // Older saved tasks packed aliases into a single comma-separated name.
+            for (String alias : name.split(",")) {
+                if (alias.trim().equalsIgnoreCase(input.trim())) return true;
+            }
+        }
+        return false;
+    }
 
 	/**
 	 * Determines if the Task is a crystalline task
@@ -151,6 +152,11 @@ public class Task {
 	 * 
 	 * @return the x, y, and z or -1 for each axis if the location cannot be teleported to.
 	 */
+    public boolean hasTeleport() {
+        return teleport != null && teleport.length == 3 && teleport[0] > 0 && teleport[0] < 16384
+                && teleport[1] > 0 && teleport[1] < 16384 && teleport[2] >= 0 && teleport[2] <= 3;
+    }
+
 	public int[] getTeleportLocation() {
 		return teleport;
 	}
@@ -161,7 +167,7 @@ public class Task {
 	 * @return the name
 	 */
 	public String getPrimaryName() {
-		return names[0];
+		return names[0].split(",", 2)[0].trim();
 	}
 
 	/**
@@ -170,7 +176,7 @@ public class Task {
 	 * @return the name
 	 */
 	public String getFormattedName() {
-		return Misc.formatPlayerName(names[0]);
+		return Misc.formatPlayerName(getPrimaryName());
 	}
 
 }

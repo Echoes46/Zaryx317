@@ -4,8 +4,7 @@
 		"levelRequired": 1,
 		"pointRewards": [ 10],
 		"available": [
-
-			{
+      {
 				"names": [ "cave crawler", "chasm crawler" ],
               "wilderness": false,
 				"level": 10,
@@ -15,7 +14,7 @@
 				"locations": [ "Rellekka Slayer Dungeon" ],
 				"teleport": [2788, 9998, 0]
 			},
-          {
+      {
             "names": [ "cave bug" ],
             "wilderness": false,
             "level": 7,
@@ -25,7 +24,7 @@
             "locations": [ "Rellekka Slayer Dungeon" ],
             "teleport": [2779, 10014, 0]
           },
-          {
+      {
             "names": [ "cockatrice" ],
             "wilderness": false,
             "level": 37,
@@ -35,7 +34,7 @@
             "locations": [ "Rellekka Slayer Dungeon" ],
             "teleport": [2794, 10035, 0]
           },
-          {
+      {
             "names": [ "rockslug" ],
             "wilderness": false,
             "level": 20,
@@ -45,7 +44,7 @@
             "locations": [ "Rellekka Slayer Dungeon" ],
             "teleport": [2771, 10031, 0]
           },
-          {
+      {
             "names": [ "hobgoblin" ],
             "wilderness": false,
             "level": 1,
@@ -55,7 +54,7 @@
             "locations": [ "Bobs Island" ],
             "teleport": [2524, 4775, 0]
           },
-          {
+      {
             "names": [ "possessed pickaxe" ],
             "wilderness": false,
             "level": 1,
@@ -65,7 +64,7 @@
             "locations": [ "Catacombs" ],
             "teleport": [1640, 10035, 0]
           },
-          {
+      {
             "names": [ "magic axe" ],
             "wilderness": false,
             "level": 1,
@@ -75,7 +74,7 @@
             "locations": [ "Catacombs" ],
             "teleport": [1640, 10035, 0]
           },
-			{
+      {
 				"names": [ "cow" ],
               "wilderness": false,
 				"level": 1,
@@ -85,7 +84,7 @@
 				"locations": [ "Lumbridge" ],
 				"teleport": [3259, 3261, 0]
 			},
-          {
+      {
             "names": [ "rock crab" ],
             "wilderness": false,
             "level": 1,
@@ -95,7 +94,7 @@
             "locations": [ "Rock Crabs" ],
             "teleport": [2673, 3710, 0]
           },
-			{
+      {
 				"names": [ "crawling hand", "crushing hand" ],
               "wilderness": false,
 				"level": 5,
@@ -105,7 +104,7 @@
 				"locations": [ "Slayer Tower" ],
 				"teleport": [3440, 3572, 0]
 			},
-			{
+      {
 				"names": [ "ghost" ],
               "wilderness": false,
 				"level": 1,
@@ -115,7 +114,7 @@
 				"locations": [ "Taverly Dungeon" ],
 				"teleport": [2901, 9849, 0]
 			},
-          {
+      {
             "names": [ "hill giant" ],
             "wilderness": false,
             "level": 1,
@@ -125,7 +124,7 @@
             "locations": [ "Bobs Island" ],
             "teleport": [2524, 4775, 0]
           },
-			{
+      {
 				"names": [ "skeleton" ],
               "wilderness": false,
 				"level": 1,
@@ -135,7 +134,7 @@
 				"locations": [ "Taverly Dungeon" ],
 				"teleport": [2884, 9812, 0]
 			},
-			{
+      {
 				"names": [ "chaos druid" ],
               "wilderness": false,
 				"level": 1,
@@ -145,7 +144,7 @@
 				"locations": [ "Taverly Dungeon, Edgeville Dungeon (Dangerous)" ],
 				"teleport": [3115, 9929, 0]
 			},
-          {
+      {
             "names": [ "moss giant", "moss guardian" ],
             "wilderness": false,
             "level": 1,
@@ -155,14 +154,14 @@
             "locations": [ "Varrock Sewer" ],
             "teleport": [3157, 9903, 0]
           }
-        ]
+    ]
 	},
     {
         "id": 402,
         "levelRequired": 40,
         "pointRewards": [ 20 ],
         "available": [
-			{
+      {
                 "names": [ "basilisk", "basilisk knight", "monstrous basilisk" ],
               "wilderness": false,
                 "level": 40,
@@ -172,7 +171,7 @@
 				"locations": [ "Rellekka Slayer Dungeon" ],
 				"teleport": [2746, 10011, 0]
             },
-            {
+      {
                 "names": [ "ice warrior" ],
               "wilderness": false,
                 "level": 1,
@@ -182,7 +181,7 @@
 				"locations": [ "Asgarnian Ice Dungeon" ],
 				"teleport": [3054, 9578, 0]
             },
-            {
+      {
                 "names": [ "ice giant" ],
               "wilderness": false,
                 "level": 1,
@@ -192,7 +191,7 @@
 				"locations": [ "Asgarnian Ice Dungeon" ],
 				"teleport": [3054, 9578, 0]
             },
-            {
+      {
                 "names": [ "baby blue dragon", "blue dragon", "brutal blue dragon", "vorkath" ],
               "wilderness": false,
                 "level": 1,
@@ -202,7 +201,7 @@
 				"locations": [ "Taverley Dungeon" ],
 				"teleport": [2908, 9802, 0]
             },
-            {
+      {
                 "names": [ "bloodveld", "mutated bloodveld", "insatiable bloodveld" ],
               "wilderness": false,
                 "level": 50,
@@ -212,8 +211,8 @@
 				"locations": [ "Slayer Tower, God Wars Dungeon" ],
 				"teleport": [3422, 3572, 1]
             },
-            {
-                "names": [ "cyclops", 2235 ],
+      {
+                "names": [ "cyclops" ],
               "wilderness": false,
                 "level": 1,
                 "experience": 100,
@@ -222,7 +221,7 @@
 				"locations": [ "Warriors Guild, Kourend Catacombs" ],
 				"teleport": [1649, 10002, 0]
             },
-          {
+      {
             "names": [ "ankou" ],
             "wilderness": false,
             "level": 1,
@@ -232,7 +231,7 @@
             "locations": [ "Catacombs" ],
             "teleport": [1642, 9996, 0]
           },
-          {
+      {
             "names": [ "fire giant" ],
             "wilderness": false,
             "level": 1,
@@ -242,7 +241,7 @@
             "locations": [ "Catacombs", "brimhaven dungeon", "stronghold slayer cave" ],
             "teleport": [1632, 10062, 0]
           },
-            {
+      {
                 "names": [ "infernal mage", "malevolent mage" ],
               "wilderness": false,
                 "level": 45,
@@ -252,7 +251,7 @@
 				"locations": [ "Slayer Tower 2nd floor" ],
 				"teleport": [3435, 3570, 1]
             },
-            {
+      {
                 "names": [ "jelly", "warped jelly", "vitreous jelly" ],
               "wilderness": false,
                 "level": 52,
@@ -262,7 +261,7 @@
 				"locations": [ "Rellekka Slayer Dungeon", "Catacombs" ],
 				"teleport": [1687, 10000, 0]
             },
-            {
+      {
                 "names": [ "lesser demon" ],
               "wilderness": false,
                 "level": 1,
@@ -272,8 +271,7 @@
 				"locations": [ "Taverley Dungeon" ],
 				"teleport": [2932, 9808, 0]
             },
-
-            {
+      {
                 "names": [ "pyrefiend", "flaming pyrelord" ],
               "wilderness": false,
                 "level": 30,
@@ -283,8 +281,8 @@
 				"locations": [ "Fremennik Slayer Dungeon" ],
 				"teleport": [2761, 9997, 0]
             },
-          {
-            "names": [ "cave horror" ],
+      {
+            "names": ["cave horror"],
             "wilderness": false,
             "level": 58,
             "experience": 45,
@@ -293,17 +291,17 @@
             "locations": [ "Cave Horrors" ],
             "teleport": [3747, 9374, 0]
           },
-          {
-            "names": [ "dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme", "dagannoth mother" ],
+      {
+            "names": [ "dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme" ],
             "wilderness": false,
             "level": 1,
             "experience": 90,
             "minimum": 50,
             "maximum": 100,
             "locations": [ "dagannoth cave" ],
-            "teleport": [1908, 4364, 0]
+            "teleport": [1913, 4367, 0]
           },
-          {
+      {
             "names": [ "turoth" ],
             "wilderness": false,
             "level": 55,
@@ -312,25 +310,15 @@
             "maximum": 60,
             "locations": [ "Rellekka Slayer Dungeon" ],
             "teleport": [2721, 10007, 0]
-          },
-          {
-            "names": [ "cave horror" ],
-            "wilderness": false,
-            "level": 58,
-            "experience": 55,
-            "minimum": 30,
-            "maximum": 60,
-            "locations": [ "Rellekka Slayer Dungeon" ],
-            "teleport": [2800, 10019, 0]
           }
-    	]
+    ]
     },
    {
         "id": 405,
         "levelRequired": 99,
         "pointRewards": [ 30 ],
         "available": [
-          {
+      {
             "names": [ "blue dragon", "baby blue dragon", "brutal blue dragon", "vorkath" ],
             "wilderness": false,
             "level": 1,
@@ -340,7 +328,7 @@
             "locations": [ "Taverley Dungeon" ],
             "teleport": [2908, 9802, 0]
           },
-             {
+      {
                 "names": [ "abyssal demon", "abyssal sire", "greater abyssal demon" ],
                "wilderness": false,
                 "level": 85,
@@ -350,7 +338,7 @@
                 "locations": [ "slayer tower", "stronghold slayer cave", "donator zone" ],
                 "teleport": [3420, 3568, 2]
             },
-            {  
+      {
                 "names": [ "aviansie", "kree'arra" ],
               "wilderness": false,
                 "level": 1,
@@ -360,7 +348,7 @@
                 "locations": [ "god wars dungeon" ],
                 "teleport": [2865, 5313, 2]
             },
-            {
+      {
                 "names": [ "black demon", "demonic gorilla" ],
               "wilderness": false,
                 "level": 1,
@@ -370,7 +358,7 @@
                 "locations": [ "taverley dungeon", "edgeville dungeon", "brimhaven dungeon" ],
                 "teleport": [2707, 9484, 0]
             },
-            {
+      {
                 "names": [ "black dragon", "king black dragon", "brutal black dragon" ],
               "wilderness": false,
                 "level": 1,
@@ -380,7 +368,7 @@
                 "locations": [ "taverley dungeon" ],
                 "teleport": [2835, 9821, 0]
             },
-            {
+      {
                 "names": [ "bloodveld", "mutated bloodveld", "insatiable bloodveld" ],
               "wilderness": false,
                 "level": 50,
@@ -390,7 +378,7 @@
                 "locations": [ "slayer tower", "god wars dungeon", "stronghold slayer cave" ],
                 "teleport": [3422, 3572, 1]
             },
-            {
+      {
                 "names": [ "cave horror", "cave abomination" ],
               "wilderness": false,
                 "level": 58,
@@ -400,7 +388,7 @@
                 "locations": [ "Rellekka slayer dungeon", "donator zone" ],
                 "teleport": [2800, 10021, 0]
             },
-            {
+      {
                 "names": [ "cave kraken", "kraken" ],
               "wilderness": false,
                 "level": 87,
@@ -410,17 +398,17 @@
                 "locations": [ "Stronghold slayer dungeon" ],
                 "teleport": [2288, 10008, 0]
             },
-            {
-                "names": [ "dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme", "dagannoth mother" ],
+      {
+                "names": [ "dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme" ],
               "wilderness": false,
                 "level": 1,
                 "experience": 90,
                 "minimum": 50,
                 "maximum": 100,
                 "locations": [ "dagannoth cave" ],
-                "teleport": [1908, 4364, 0]
+                "teleport": [1913, 4367, 0]
             },
-            {
+      {
                 "names": [ "dark beast", "night beast" ],
               "wilderness": false,
                 "level": 90,
@@ -430,7 +418,7 @@
                 "locations": [ "catacombs", "taverley dungeon", "donator zone" ],
                 "teleport": [1621, 10060, 0]
             },
-            {
+      {
                 "names": [ "dust devil", "choke devil" ],
               "wilderness": false,
                 "level": 65,
@@ -440,7 +428,7 @@
                 "locations": [ "slayer tower","Catacombs" ],
                 "teleport": [1715, 10019, 0]
             },
-            {
+      {
                 "names": [ "fire giant" ],
               "wilderness": false,
                 "level": 1,
@@ -450,7 +438,7 @@
                 "locations": [ "Catacombs", "brimhaven dungeon", "stronghold slayer cave" ],
                 "teleport": [1632, 10062, 0]
             },
-            {
+      {
                 "names": [ "gargoyle", "marble gargoyle" ],
               "wilderness": false,
                 "level": 75,
@@ -460,7 +448,7 @@
                 "locations": [ "slayer tower" ],
                 "teleport": [3442, 3545, 2]
             },
-            {
+      {
                 "names": [ "greater demon", "k'ril tsutsaroth" ],
               "wilderness": false,
                 "level": 1,
@@ -470,7 +458,7 @@
                 "locations": [ "brimhaven dungeon", "greater demon zone (wildy)", "stronghold slayer cave" ],
                 "teleport": [2634, 9503, 2]
             },
-            {
+      {
                 "names": [ "hellhound", "cerberus" ],
               "wilderness": false,
                 "level": 1,
@@ -480,7 +468,7 @@
                 "locations": [ "taverley dungeon", "stronghold slayer cave" ],
                 "teleport": [2429, 9777, 0]
             },
-            {
+      {
 				"names": [ "elf warrior" ],
               "wilderness": false,
 				"level": 70,
@@ -490,7 +478,7 @@
                 "locations": [ "Lletya" ],
                 "teleport": [2897, 2725, 0]
 			},
-            {
+      {
                 "names": [ "iron dragon" ],
               "wilderness": false,
                 "level": 1,
@@ -500,7 +488,7 @@
                 "locations": [ "brimhaven dungeon", "stronghold slayer cave" ],
                 "teleport": [2742, 9431, 0]
             },
-            {
+      {
                 "names": [ "kurask", "king kurask" ],
               "wilderness": false,
                 "level": 70,
@@ -510,7 +498,7 @@
                 "locations": [ "freminnik slayer dungeon", "donator zone" ],
                 "teleport": [2699, 9999, 0]
             },
-            {
+      {
                 "names": [ "mithril dragon" ],
               "wilderness": false,
                 "level": 1,
@@ -520,7 +508,7 @@
                 "locations": [ "ancient cavern" ],
                 "teleport": [1745, 5339, 0]
             },
-            {
+      {
                 "names": [ "nechryael", "greater nechryael" ],
               "wilderness": false,
                 "level": 80,
@@ -530,7 +518,7 @@
                 "locations": [ "slayer tower", "stronghold slayer cave", "donator zone" ],
                 "teleport": [3442, 3565, 2]
             },
-            {
+      {
                 "names": [ "smoke devil", "thermonuclear smoke devil", "nuclear smoke devil" ],
               "wilderness": false,
                 "level": 93,
@@ -540,7 +528,7 @@
                 "locations": [ "Smoke Devil Teleport" ],
                 "teleport": [2404, 9415, 0]
             },
-            {
+      {
                 "names": [ "steel dragon" ],
               "wilderness": false,
                 "level": 1,
@@ -550,7 +538,7 @@
                 "locations": [ "brimhaven dungeon" ],
                 "teleport": [2711, 9432, 0]
             },
-			{
+      {
                 "names": [ "twisted banshee", "screaming twisted banshee" ],
               "wilderness": false,
                 "level": 15,
@@ -560,7 +548,7 @@
 				"locations": [ "Catacombs" ],
 				"teleport": [1617, 9997, 0]
             },
-			{
+      {
                 "names": [ "jelly","warped jelly", "vitreous warped jelly" ],
               "wilderness": false,
                 "level": 52,
@@ -570,14 +558,14 @@
 				"locations": [ "Rellekka Slayer Dungeon", "Catacombs" ],
 				"teleport": [1687, 10000, 0]
             }
-        ]
+    ]
     },
     {
         "id": 6797,
         "levelRequired": 101,
         "pointRewards": [ 50 ],
         "available": [
-          {
+      {
             "names": [ "sarachnis" ],
             "wilderness": false,
             "level": 1,
@@ -585,9 +573,9 @@
             "minimum": 15,
             "maximum": 45,
             "locations": [ "Boss Teleport" ],
-            "teleport": [1842, 9928, 0]
+            "teleport": [1842, 9926, 0]
           },
-          {
+      {
             "names": [ "vorkath" ],
             "wilderness": false,
             "level": 1,
@@ -597,7 +585,7 @@
             "locations": [ "Boss Teleport" ],
             "teleport": [2272, 4050, 0]
           },
-          {
+      {
             "names": [ "the nightmare" ],
             "wilderness": false,
             "level": 1,
@@ -605,9 +593,9 @@
             "minimum": 1,
             "maximum": 5,
             "locations": [ "nightmare teleport" ],
-            "teleport": [3808, 9747, 1]
+            "teleport": [3808, 9755, 1]
           },
-             {
+      {
                 "names": [ "kree'arra" ],
                "wilderness": false,
                 "level": 1,
@@ -617,7 +605,7 @@
                 "locations": [ "godwars dungeon" ],
                 "teleport": [2839, 5293, 2]
             },
-          {
+      {
             "names": [ "corporeal beast" ],
             "wilderness": false,
             "level": 1,
@@ -627,7 +615,7 @@
             "locations": [ "corporeal beast" ],
             "teleport": [2968, 4384, 2]
           },
-            {
+      {
                 "names": [ "general graardor" ],
               "wilderness": false,
                 "level": 1,
@@ -637,7 +625,7 @@
                 "locations": [ "godwars dungeon" ],
                 "teleport": [2860, 5354, 2]
             },
-            {
+      {
                 "names": [ "k'ril tsutsaroth" ],
               "wilderness": false,
                 "level": 1,
@@ -647,7 +635,7 @@
                 "locations": [ "godwars dungeon" ],
                 "teleport": [2925, 5335, 2]
             },
-            {
+      {
                 "names": [ "commander zilyana" ],
                 "wilderness": false,
                 "level": 1,
@@ -655,9 +643,9 @@
                 "minimum": 9,
                 "maximum": 20,
                 "locations": [ "wilderness" ],
-                "teleport": [2919, 5281, 1]
+                "teleport": [2909, 5265, 0]
             },
-            {
+      {
                 "names": [ "venenatis" ],
                 "wilderness": true,
                 "level": 1,
@@ -667,7 +655,7 @@
                 "locations": [ "wilderness" ],
                 "teleport": [3345, 3754, 0]
             },
-			{
+      {
                 "names": [ "thermonuclear smoke devil" ],
               "wilderness": false,
                 "level": 93,
@@ -677,7 +665,7 @@
                 "locations": [ "Smoke Devil Teleport[Bosses]" ],
                 "teleport": [2404, 9417, 0]
             },
-            {
+      {
                 "names": [ "king black dragon" ],
               "wilderness": false,
                 "wilderness": true,
@@ -688,7 +676,7 @@
                 "locations": [ "wilderness" ],
                 "teleport": [3005, 3849, 0]
             },
-            {
+      {
                 "names": [ "barrelchest" ],
               "wilderness": false,
                 "level": 1,
@@ -698,7 +686,7 @@
                 "locations": [ "bosses" ],
                 "teleport": [2903, 3612, 0]
             },
-            {
+      {
                 "names": [ "giant mole" ],
               "wilderness": false,
                 "level": 1,
@@ -708,7 +696,7 @@
                 "locations": [ "fally park" ],
                 "teleport": [2996, 3376, 0]
             },
-            {
+      {
              "names": [ "alchemical hydra", "hydra" ],
               "wilderness": false,
                 "level": 95,
@@ -718,7 +706,7 @@
                 "locations": [ "Hydra Teleport" ],
                 "teleport": [1311, 10225, 0]
             },
-            {
+      {
                 "names": [ "zulrah" ],
               "wilderness": false,
                 "level": 1,
@@ -728,7 +716,7 @@
                 "locations": [ "Zul-Areth" ],
                 "teleport": [2203, 3056, 0]
             },
-            {
+      {
                 "names": [ "cerberus" ],
               "wilderness": false,
                 "level": 91,
@@ -738,7 +726,7 @@
                 "locations": [ "cerberus lair" ],
                 "teleport": [1310, 1248, 0]
             },
-            {
+      {
                 "names": [ "lizardman shaman" ],
               "wilderness": false,
                 "level": 1,
@@ -746,9 +734,9 @@
                 "minimum": 5,
                 "maximum": 10,
                 "locations": [ "lizardman canyon" ],
-                "teleport": [1759,5490, 0]
+                "teleport": [1465, 3685, 0]
             },
-            {
+      {
                 "names": [ "demonic gorilla" ],
               "wilderness": false,
                 "level": 1,
@@ -758,7 +746,7 @@
                 "locations": [ "demonic gorilla dungeon" ],
                 "teleport": [2119, 5660, 0]
             },
-            {
+      {
                 "names": [ "kalphite queen" ],
               "wilderness": false,
                 "level": 1,
@@ -768,17 +756,17 @@
                 "locations": [ "desert kalphite hive" ],
                 "teleport": [3507, 9494, 0]
             },
-            {
-                "names": [ "dagannoth kings", "dagannoth rex", "dagannoth prime", "dagannoth supreme", "dagannoth mother" ],
+      {
+                "names": [ "dagannoth kings", "dagannoth rex", "dagannoth prime", "dagannoth supreme" ],
               "wilderness": false,
                 "level": 1,
                 "experience": 225,
                 "minimum": 7,
                 "maximum": 20,
                 "locations": [ "dagannoth cave" ],
-                "teleport": [1908, 4364, 0]
+                "teleport": [1913, 4367, 0]
             },
-          {
+      {
             "names": [ "abyssal sire" ],
             "wilderness": false,
             "level": 1,
@@ -788,14 +776,14 @@
             "locations": [ "Abyss dungeon" ],
             "teleport": [3106, 4832, 0]
           }
-		]
+    ]
  	},
 	{
         "id": 7663,
         "levelRequired": 10,
         "pointRewards": [ 50],
         "available": [
-            {              
+      {
                 "names": [ "lava dragon" ],
                 "wilderness": true,
                 "level": 1,
@@ -805,7 +793,7 @@
 				"locations": [ "Lava Dragon Teleport" ],
 				"teleport": [3202, 3859, 0]
             },
-            {
+      {
               "names": [ "vet'ion" ],
               "wilderness": true,
               "level": 1,
@@ -815,7 +803,7 @@
               "locations": [ "Vet'ion Wilderness Teleport" ],
               "teleport": [3197, 3791, 0]
             },
-            {
+      {
               "names": [ "barrow", "dharok the wretched", "verac the defiled", "ahrim the blighted", "guthan the infested", "karil the tainted", "torag the corrupted" ],
               "wilderness": true,
               "level": 1,
@@ -825,7 +813,7 @@
               "locations": [ "Deep Revenants" ],
               "teleport": [3120, 4111, 0]
             },
-			{
+      {
 			  "names": [ "elder chaos druid" ],
               "wilderness": true,
                 "level": 1,
@@ -835,7 +823,7 @@
 				"locations": [ "Elder Chaos Druids Wilderness Teleport" ],
 				"teleport": [3236, 3630, 0]
             },
-			{
+      {
 			  "names": [ "callisto" ],
               "wilderness": true,
                 "level": 1,
@@ -845,7 +833,7 @@
 				"locations": [ "Callisto Wilderness Teleport" ],
 				"teleport": [3325, 3845, 0]
             },
-			{
+      {
 			  "names": [ "scorpia" ],
               "wilderness": true,
                 "level": 1,
@@ -855,7 +843,7 @@
 				"locations": [ "Scorpia Wilderness Teleport" ],
 				"teleport": [3233, 3948, 0]
             },
-			{
+      {
 			  "names": [ "venenatis" ],
               "wilderness": true,
                 "level": 1,
@@ -865,7 +853,7 @@
 				"locations": [ "Venenatis Wilderness Teleport" ],
 				"teleport": [3345, 3754, 0]
             },
-			{
+      {
 		   	"names": [ "chaos elemental" ],
               "wilderness": true,
                 "level": 1,
@@ -875,7 +863,7 @@
 				"locations": [ "Chaos Elemental Wilderness Teleport" ],
 				"teleport": [3285, 3922, 0]
             },
-			{
+      {
 			"names": [ "chaos fanatic" ],
               "wilderness": true,
                 "level": 1,
@@ -885,8 +873,8 @@
 				"locations": [ "Chaos Fanatic Wilderness Teleport" ],
 				"teleport": [2978, 3833, 0]
             },
-			{
-			"names": [ "crazy archaeologist" ],
+      {
+			"names": ["crazy archaeologist"],
               "wilderness": true,
                 "level": 1,
                 "experience": 275,
@@ -895,18 +883,8 @@
 				"locations": [ "Crazy Archaeologist Wilderness Teleport" ],
 				"teleport": [2980, 3712, 0]
             },
-			{
-			"names": [ "crazy archaeologist" ],
-              "wilderness": true,
-                "level": 1,
-                "experience": 275,
-                "minimum": 13,
-                "maximum": 28,
-				"locations": [ "Crazy Archaeologist Wilderness Teleport" ],
-				"teleport": [2980, 3712, 0]
-            },
-			{
-			"names": [ "revenant", "revenant ork", "revenant knight", "revenant dragon", "revenant demon", "revenant cyclops", "revenant dark beast", "revenant pyrefiend", "revenant goblin" ],
+      {
+			"names": [ "revenant", "revenant ork", "revenant knight", "revenant dragon", "revenant demon", "revenant cyclops", "revenant dark beast", "revenant pyrefiend", "revenant goblin", "revenant imp", "revenant hellhound" ],
               "wilderness": true,
                 "level": 1,
                 "experience": 115,
@@ -915,7 +893,7 @@
 				"locations": [ "Revenant Cave Teleport" ],
 				"teleport": [3249, 10142, 0]
             },
-			{
+      {
                 "names": [ "green dragon", "brutal green dragon" ],
                 "wilderness": true,
                 "level": 1,
@@ -925,7 +903,7 @@
 				"locations": [ "East and West Teleports" ],
 				"teleport": [2966, 3615, 0]
             },
-			{
+      {
                 "names": [ "skeleton" ],
                 "wilderness": true,
                 "level": 1,
@@ -935,7 +913,7 @@
 				"locations": [ "Edgeville" ],
 				"teleport": [3103, 3543, 0]
             },
-			{
+      {
                 "names": [ "lesser demon" ],
               "wilderness": true,
                 "level": 1,
@@ -945,7 +923,7 @@
 				"locations": [ "Demonic Ruins" ],
 				"teleport": [3288, 3884, 0]
             },
-			{
+      {
                 "names": [ "ice warrior" ],
                 "wilderness": true,
                 "level": 1,
@@ -955,7 +933,7 @@
 				"locations": [ "South West of Wildy Agility" ],
 				"teleport": [2957, 3895, 0]
             },
-			{
+      {
                 "names": [ "ankou" ],
               "wilderness": true,
                 "level": 1,
@@ -965,7 +943,7 @@
 				"locations": [ "Forgotten Cemetary" ],
 				"teleport": [2968, 3748, 0]
             },
-			{
+      {
                 "names": [ "ent" ],
               "wilderness": true,
                 "level": 1,
@@ -975,7 +953,7 @@
 				"locations": [ "East of Chaos Altar" ],
 				"teleport": [3231, 3692, 0]
             },
-			{
+      {
                 "names": [ "hellhound" ],
               "wilderness": true,
                 "level": 1,
@@ -985,7 +963,7 @@
 				"locations": [ "North East of Wildy Resource" ],
 				"teleport": [3178, 3950, 0]
             },
-			{
+      {
                 "names": [ "mammoth" ],
               "wilderness": true,
                 "level": 1,
@@ -995,7 +973,7 @@
 				"locations": [ "East of Wildy Agility Bridge" ],
 				"teleport": [3163, 3620, 0]
             },
-            {
+      {
               "names": [ "dark warrior" ],
               "wilderness": true,
               "level": 1,
@@ -1005,7 +983,7 @@
               "locations": [ "Dark Warriors Fortress" ],
               "teleport": [3011, 3632, 0]
             },
-            {
+      {
               "names": [ "greater nechryael" ],
               "wilderness": true,
               "level": 80,
@@ -1015,7 +993,7 @@
               "locations": [ "Wilderness Slayer Cave" ],
               "teleport": [3406, 10145, 0]
             },
-            {
+      {
               "names": [ "dust devil" ],
               "wilderness": true,
               "level": 65,
@@ -1025,7 +1003,7 @@
               "locations": [ "Wilderness Slayer Cave" ],
               "teleport": [3406, 10145, 0]
             },
-            {
+      {
               "names": [ "jelly" ],
               "wilderness": true,
               "level": 52,
@@ -1035,7 +1013,7 @@
               "locations": [ "Wilderness Slayer Cave" ],
               "teleport": [3406, 10145, 0]
             },
-            {
+      {
               "names": [ "abyssal demon" ],
               "wilderness": true,
               "level": 85,
@@ -1045,14 +1023,14 @@
               "locations": [ "Wilderness Slayer Cave" ],
               "teleport": [3406, 10145, 0]
             }
-		]
+    ]
 	},
 	{
         "id": 603,
         "levelRequired": 80,
         "pointRewards": [ 50 ],
         "available": [
-            {
+      {
                 "names": [ "cave kraken", "kraken" ],
               "wilderness": false,
                 "level": 87,
@@ -1062,14 +1040,14 @@
                 "locations": [ "Stronghold slayer dungeon" ],
                 "teleport": [2288, 10008, 0]
             }
-    	]
+    ]
     },
     {
 		"id": 8761,
 	        "levelRequired": 90,
 	        "pointRewards": [ 50 ],
 	        "available": [
-	            {
+      {
 	                "names": ["crystalline rat"],
                   "wilderness": false,
 	                "level": 10,
@@ -1077,10 +1055,10 @@
 	                "minimum": 40,
 	                "maximum": 90,
 	                "locations": [ "Crystalline dungeon" ],
-	                "teleport": [3225, 12439, 0]    
-	                
+	                "teleport": [3225, 12439, 0]
+
 	    },
-		{
+      {
 					"names": ["crystalline spider"],
           "wilderness": false,
 	                "level": 30,
@@ -1088,10 +1066,10 @@
 	                "minimum": 40,
 	                "maximum": 90,
 	                "locations": [ "Crystalline dungeon" ],
-	                "teleport": [3225, 12439, 0]    
-	                
+	                "teleport": [3225, 12439, 0]
+
 	    },
-		{
+      {
 					"names": ["crystalline bat"],
           "wilderness": false,
 	                "level": 40,
@@ -1099,10 +1077,10 @@
 	                "minimum": 40,
 	                "maximum": 90,
 	                "locations": [ "Crystalline dungeon" ],
-	                "teleport": [3225, 12439, 0]    
-	                
+	                "teleport": [3225, 12439, 0]
+
 	    },
-		{
+      {
 					"names": ["crystalline unicorn"],
           "wilderness": false,
 	                "level": 50,
@@ -1110,10 +1088,10 @@
 	                "minimum": 40,
 	                "maximum": 90,
 	                "locations": [ "Crystalline dungeon" ],
-	                "teleport": [3225, 12439, 0]    
-	                
+	                "teleport": [3225, 12439, 0]
+
 	    },
-		{
+      {
 					"names": ["crystalline scorpion"],
           "wilderness": false,
 	                "level": 60,
@@ -1121,10 +1099,10 @@
 	                "minimum": 40,
 	                "maximum": 90,
 	                "locations": [ "Crystalline dungeon" ],
-	                "teleport": [3225, 12439, 0]    
-	                
+	                "teleport": [3225, 12439, 0]
+
 	    },
-		{
+      {
 					"names": ["crystalline wolf"],
           "wilderness": false,
 	                "level": 70,
@@ -1132,10 +1110,10 @@
 	                "minimum": 40,
 	                "maximum": 90,
 	                "locations": [ "Crystalline dungeon" ],
-	                "teleport": [3225, 12439, 0]    
-	                
+	                "teleport": [3225, 12439, 0]
+
 	    },
-		{
+      {
 				    "names": ["crystalline bear"],
           "wilderness": false,
 	                "level": 85,
@@ -1143,9 +1121,9 @@
 	                "minimum": 40,
 	                "maximum": 90,
 					"locations": [ "Crystalline dungeon" ],
-					"teleport": [3225, 12439, 0]    
+					"teleport": [3225, 12439, 0]
 		},
-		{
+      {
 					 "names": ["crystalline dragon"],
           "wilderness": false,
 				     "level": 88,
@@ -1153,9 +1131,9 @@
 				     "minimum": 40,
 				     "maximum": 90,
 					 "locations": [ "Crystalline dungeon" ],
-					 "teleport": [3225, 12439, 0]    
+					 "teleport": [3225, 12439, 0]
 		},
-		{
+      {
 				    "names": ["crystalline dark beast"],
           "wilderness": false,
 	                "level": 90,
@@ -1163,16 +1141,16 @@
 	                "minimum": 40,
 	                "maximum": 90,
 					"locations": [ "Crystalline dungeon" ],
-					"teleport": [3225, 12439, 0]    
+					"teleport": [3225, 12439, 0]
 		            }
-	    	]
-	    },	
+    ]
+	    },
 		{
 		 "id": 5870,
         "levelRequired": 90,
         "pointRewards": [ 50 ],
         "available": [
-            {
+      {
                 "names": [ "cerberus" ],
               "wilderness": false,
                 "level": 91,
@@ -1182,14 +1160,14 @@
                 "locations": [ "cerberus lair" ],
                 "teleport": [1310, 1248, 0]
                  }
-	    	]
-	    },	
+    ]
+	    },
 		{
         "id": 8605,
         "levelRequired": 90,
         "pointRewards": [ 50 ],
         "available": [
-            {
+      {
                 "names": [ "alchemical hydra", "hydra" ],
               "wilderness": false,
                 "level": 1,
@@ -1199,7 +1177,7 @@
                 "locations": [ "Hydra Teleport" ],
                 "teleport": [1311, 10225, 0]
             }
-    	]
+    ]
     },
   {
     "id": 8623,
@@ -1277,7 +1255,7 @@
         "teleport": [2835, 9821, 0]
       },
       {
-        "names": [ "bloodveld", "mutated bloodveld", "insatiable bloodveld" ],
+        "names": ["bloodveld", "mutated bloodveld", "insatiable bloodveld"],
         "wilderness": false,
         "level": 50,
         "experience": 134,
@@ -1317,7 +1295,7 @@
         "teleport": [1648, 10098, 0]
       },
       {
-        "names": [ "cave kraken", "kraken" ],
+        "names": ["cave kraken", "kraken"],
         "wilderness": false,
         "level": 87,
         "experience": 125,
@@ -1327,17 +1305,17 @@
         "teleport": [2288, 10008, 0]
       },
       {
-        "names": [ "dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme", "dagannoth mother" ],
+        "names": ["dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme"],
         "wilderness": false,
         "level": 1,
         "experience": 90,
         "minimum": 50,
         "maximum": 100,
         "locations": [ "dagannoth cave" ],
-        "teleport": [1908, 4364, 0]
+        "teleport": [1913, 4367, 0]
       },
       {
-        "names": [ "dark beast", "night beast" ],
+        "names": ["dark beast", "night beast"],
         "wilderness": false,
         "level": 90,
         "experience": 220,
@@ -1357,7 +1335,7 @@
         "teleport": [1312, 10227, 1]
       },
       {
-        "names": [ "dust devil", "choke devil" ],
+        "names": ["dust devil", "choke devil"],
         "wilderness": false,
         "level": 65,
         "experience": 105,
@@ -1367,7 +1345,7 @@
         "teleport": [1715, 10019, 0]
       },
       {
-        "names": [ "fire giant" ],
+        "names": ["fire giant"],
         "wilderness": false,
         "level": 1,
         "experience": 111,
@@ -1377,7 +1355,7 @@
         "teleport": [1632, 10062, 0]
       },
       {
-        "names": [ "gargoyle", "marble gargoyle" ],
+        "names": ["gargoyle", "marble gargoyle"],
         "wilderness": false,
         "level": 75,
         "experience": 105,
@@ -1387,7 +1365,7 @@
         "teleport": [3442, 3545, 2]
       },
       {
-        "names": [ "greater demon", "k'ril tsutsaroth" ],
+        "names": ["greater demon", "k'ril tsutsaroth"],
         "wilderness": false,
         "level": 1,
         "experience": 87,
@@ -1397,7 +1375,7 @@
         "teleport": [2634, 9503, 2]
       },
       {
-        "names": [ "hellhound, revenant hellhound, Revenant hellhound" ],
+        "names": ["hellhound", "revenant hellhound", "cerberus"],
         "wilderness": false,
         "level": 1,
         "experience": 116,
@@ -1417,7 +1395,7 @@
         "teleport": [1311, 10225, 0]
       },
       {
-        "names": [ "iron dragon" ],
+        "names": ["iron dragon"],
         "wilderness": false,
         "level": 1,
         "experience": 173,
@@ -1427,7 +1405,7 @@
         "teleport": [2742, 9431, 0]
       },
       {
-        "names": [ "jelly", "warped jelly", "vitreous warped jelly" ],
+        "names": ["jelly", "warped jelly", "vitreous warped jelly"],
         "wilderness": false,
         "level": 52,
         "experience": 140,
@@ -1437,7 +1415,7 @@
         "teleport": [1687, 10000, 0]
       },
       {
-        "names": [ "kurask", "king kurask" ],
+        "names": ["kurask", "king kurask"],
         "wilderness": false,
         "level": 70,
         "experience": 97,
@@ -1447,144 +1425,14 @@
         "teleport": [2699, 9999, 0]
       },
       {
-        "names": [ "lizardman shaman" ],
+        "names": ["lizardman shaman"],
         "wilderness": false,
         "level": 1,
         "experience": 250,
         "minimum": 5,
         "maximum": 10,
         "locations": [ "lizardman canyon" ],
-        "teleport": [1759,5490, 0]
-      },
-      {
-        "names": [ "bloodveld", "mutated bloodveld", "insatiable bloodveld" ],
-        "wilderness": false,
-        "level": 50,
-        "experience": 134,
-        "minimum": 40,
-        "maximum": 120,
-        "locations": [ "slayer tower", "god wars dungeon", "stronghold slayer cave" ],
-        "teleport": [3422, 3572, 1]
-      },
-      {
-        "names": [ "cave kraken", "kraken" ],
-        "wilderness": false,
-        "level": 87,
-        "experience": 125,
-        "minimum": 80,
-        "maximum": 129,
-        "locations": [ "Stronghold slayer dungeon" ],
-        "teleport": [2288, 10008, 0]
-      },
-      {
-        "names": [ "dagannoth", "dagannoth rex", "dagannoth prime", "dagannoth supreme", "dagannoth mother" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 90,
-        "minimum": 50,
-        "maximum": 100,
-        "locations": [ "dagannoth cave" ],
-        "teleport": [1908, 4364, 0]
-      },
-      {
-        "names": [ "dark beast", "night beast" ],
-        "wilderness": false,
-        "level": 90,
-        "experience": 220,
-        "minimum": 10,
-        "maximum": 50,
-        "locations": [ "catacombs", "taverley dungeon", "donator zone" ],
-        "teleport": [1621, 10060, 0]
-      },
-      {
-        "names": [ "dust devil", "choke devil" ],
-        "wilderness": false,
-        "level": 65,
-        "experience": 105,
-        "minimum": 40,
-        "maximum": 110,
-        "locations": [ "slayer tower","Catacombs" ],
-        "teleport": [1715, 10019, 0]
-      },
-      {
-        "names": [ "fire giant" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 111,
-        "minimum": 40,
-        "maximum": 70,
-        "locations": [ "Catacombs", "brimhaven dungeon", "stronghold slayer cave" ],
-        "teleport": [1632, 10062, 0]
-      },
-      {
-        "names": [ "gargoyle", "marble gargoyle" ],
-        "wilderness": false,
-        "level": 75,
-        "experience": 105,
-        "minimum": 40,
-        "maximum": 90,
-        "locations": [ "slayer tower" ],
-        "teleport": [3442, 3545, 2]
-      },
-      {
-        "names": [ "greater demon", "k'ril tsutsaroth" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 87,
-        "minimum": 40,
-        "maximum": 100,
-        "locations": [ "brimhaven dungeon", "greater demon zone (wildy)", "stronghold slayer cave" ],
-        "teleport": [2634, 9503, 2]
-      },
-      {
-        "names": [ "hellhound", "cerberus" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 116,
-        "minimum": 69,
-        "maximum": 120,
-        "locations": [ "taverley dungeon", "stronghold slayer cave" ],
-        "teleport": [2429, 9777, 0]
-      },
-      {
-        "names": [ "iron dragon" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 173,
-        "minimum": 10,
-        "maximum": 30,
-        "locations": [ "brimhaven dungeon", "stronghold slayer cave" ],
-        "teleport": [2742, 9431, 0]
-      },
-      {
-        "names": [ "jelly", "warped jelly", "vitreous warped jelly" ],
-        "wilderness": false,
-        "level": 52,
-        "experience": 140,
-        "minimum": 65,
-        "maximum": 90,
-        "locations": [ "Rellekka Slayer Dungeon", "Catacombs" ],
-        "teleport": [1687, 10000, 0]
-      },
-      {
-        "names": [ "kurask", "king kurask" ],
-        "wilderness": false,
-        "level": 70,
-        "experience": 97,
-        "minimum": 40,
-        "maximum": 100,
-        "locations": [ "freminnik slayer dungeon", "donator zone" ],
-        "teleport": [2699, 9999, 0]
-      },
-      {
-        "names": [ "lizardman shaman" ],
-        "wilderness": false,
-        "level": 1,
-        "experience": 250,
-        "minimum": 5,
-        "maximum": 10,
-        "locations": [ "lizardman canyon" ],
-        "teleport": [1759,5490, 0]
+        "teleport": [1465, 3685, 0]
       },
       {
         "names": [ "mithril dragon" ],

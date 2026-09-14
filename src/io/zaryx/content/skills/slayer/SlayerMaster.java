@@ -106,8 +106,26 @@ public class SlayerMaster {
 	 * @param name the name of the task
 	 * @return the task that has the same name, if it exists.
 	 */
-	public static Optional<Task> get(String name) {
-		return MASTERS.stream().flatMap(master -> Arrays.stream(master.available).filter(task -> task.getPrimaryName().equals(name))).findFirst();
-	}
+    /** Resolve saved tasks within their assigning master, preserving task-specific aliases and destinations. */
+    public static Optional<Task> get(int masterId, String name) {
+        if (name == null) return Optional.empty();
+        String primary = name.split(",", 2)[0].trim();
+        return get(masterId).flatMap(master -> Arrays.stream(master.available)
+                .filter(task -> task.getPrimaryName().equalsIgnoreCase(primary)).findFirst());
+    }
+
+    public static Optional<Task> get(String name) {
+        if (name == null) return Optional.empty();
+        // Preserve the alias group when loading the old comma-separated task name.
+        if (name.contains(",")) {
+            String[] aliases = name.split(",");
+            Optional<Task> legacy = MASTERS.stream().flatMap(master -> Arrays.stream(master.available))
+                    .filter(task -> Arrays.stream(aliases).allMatch(task::matches)).findFirst();
+            if (legacy.isPresent()) return legacy;
+        }
+        String primary = name.split(",", 2)[0].trim();
+        return MASTERS.stream().flatMap(master -> Arrays.stream(master.available))
+                .filter(task -> task.getPrimaryName().equalsIgnoreCase(primary)).findFirst();
+    }
 
 }

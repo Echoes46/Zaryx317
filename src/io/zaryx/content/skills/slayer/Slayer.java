@@ -280,8 +280,8 @@ public class Slayer {
 	}
 
 	public boolean isTaskNpc(NPC npc) {
-		String name = npc.getDefinition().getName().toLowerCase().replaceAll("_", "");
-		return task.isPresent() && name.equals(task.get().getPrimaryName()) || task.isPresent() && ArrayUtils.contains(task.get().getNames(), name);
+		String name = npc.getDefinition().getName().toLowerCase(java.util.Locale.ROOT).replace("_", " ");
+		return task.isPresent() && task.get().matches(name);
 	}
 
 	public boolean hasBoSInventory(Player player) {
