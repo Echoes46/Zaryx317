@@ -80,13 +80,13 @@ public class GameThread extends Thread {
         tickables.add(i -> QuestTab.Tick());
         tickables.add(i -> DailyDataTracker.newDay());
         tickables.add(i -> Server.tickCount++);
+        tickables.add(i -> TriviaBot.sequence());
     }
 
     private void tick() {
         for (Consumer<GameThread> tickable : tickables) {
             try {
                 tickable.accept(this);
-                TriviaBot.sequence();
             } catch (Exception e) {
                 logger.error("Error caught in GameThread, should be caught up the chain and handled.", e);
             }

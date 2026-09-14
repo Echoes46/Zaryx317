@@ -19,7 +19,7 @@ public class DemonxSpear extends Special {
         player.gfx0(1760);
         target.startGraphic(new Graphic(1759));
 
-        damage.setAmount(100);
+        // Keep the combat roll: its accuracy, gear scaling and target reductions already apply.
 
         if (player.getArboContainer().inArbo() && player.getInstance() != null && player.getItems().isWearingItem(33204)) {
             for (NPC npc : player.getInstance().getNpcs()) {

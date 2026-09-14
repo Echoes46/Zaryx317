@@ -563,14 +563,6 @@ public abstract class HitDispatcher {
                 return;
             }
 
-            if (attacker.weaponUsedOnAttack == 20997) {
-                maximumDamage *= 2.22;
-            }
-
-            if (attacker.weaponUsedOnAttack == 20997) {
-                maximumDamage *= 2.25;
-            }
-
             if (attacker.weaponUsedOnAttack == 29000) {
                 maximumAccuracy *= 1.25;
                 maximumDamage *= 1.75;

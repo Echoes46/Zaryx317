@@ -9,7 +9,6 @@ import io.zaryx.model.Npcs;
 import io.zaryx.model.entity.Entity;
 import io.zaryx.model.entity.npc.NPC;
 import io.zaryx.model.entity.player.Player;
-import io.zaryx.util.Misc;
 
 public class BeckoningBow extends Special {
 
@@ -21,7 +20,7 @@ public class BeckoningBow extends Special {
     public void activate(Player player, Entity target, Damage damage) {
         player.usingBow = true;
         player.startAnimation(1074);
-        damage.setAmount(Misc.random(130,200*2));
+        // Keep the combat roll: its accuracy, gear scaling and target reductions already apply.
 
         if (target.isNPC()) {
             switch (target.asNPC().getNpcId()) {

@@ -56,7 +56,7 @@ Equipment changes preserve existing bonuses and attack speed along retained path
 - Mixed Void, Torva/Sanguine/Malevolent and Sirenic/Masori pieces retain the completed lower-tier set effect. Full Malevolent retains Sanguine's combat effect.
 - Fortified Masori set modifiers now exceed Sirenic: 55% in the reworked formula, 40% in the legacy max-hit formula (previously 35%/30%).
 - Demon X crossbow retains Ascension's ranged modifiers and already shared its special and dragon-target bonus.
-- Sanguine/Demonx scythes retain healing and add damage procs; fang upgrades retain their accuracy/special mechanics. Staff progression retains the existing powered-staff formula paths.
+- Sanguine/Demonx scythes retain healing and add damage procs; fang upgrades retain their accuracy/special mechanics. Powered-staff and bow formula progression were subsequently corrected; see [weapon damage audit](weapon-damage-audit.md).
 
 ## Utility upgrades
 Spirit Angler provides 0.825 versus 0.625 additive fishing XP per piece. Golden Prospector provides 0.35 versus 0.25 mining XP per piece and stronger mining modifiers. Infernal tools retain their resource-processing effects. Golden hammer is a utility consumable. Wealth ring tiers already increase drop modifiers through 7%, 9%, 11%, 12%, 15%, then 18% for Crate ring. Greater Skeleton has an additional Slayer XP proc; companion levels remain per-type and are not transferred by upgrading.

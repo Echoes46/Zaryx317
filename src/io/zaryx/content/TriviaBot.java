@@ -18,8 +18,7 @@ import java.util.*;
 public class TriviaBot {
 	
 	
-	public static final int TIMER = 20000; //10000
-	public static int botTimer = TIMER;
+	private static final TriviaSchedule schedule = new TriviaSchedule(System::nanoTime);
 	
 	public static int answerCount;
 	public static String firstPlace;
@@ -30,16 +29,9 @@ public class TriviaBot {
 	
 	private static List<String> winners = new ArrayList<String>(3);
 
-	public static void sequence() {
-		
-		if(botTimer > 0)
-			botTimer--;
-		if(botTimer <= 0) {
-			botTimer = TIMER;
-			didSend = false;
-			askQuestion();
-		}
-	}
+    public static void sequence() {
+        schedule.tick(TriviaBot::askQuestion);
+    }
 
 	/**
 	 * Stores an array of items into each map with the corresponding rarity to the list
@@ -316,7 +308,6 @@ public class TriviaBot {
 				resetForNextQuestion();
 				currentQuestion = "";
 				didSend = false;
-				botTimer = TIMER;
 				answerCount = 0;
 				p.getPA().updateQuestTab();
 				return;
@@ -346,22 +337,16 @@ public class TriviaBot {
 		return !currentQuestion.isEmpty();
 	}
 	
-	private static void askQuestion() {
-		for (int i = 0; i < TRIVIA_DATA.length; i++) {
-			if (Misc.random(TRIVIA_DATA.length - 1) == i) {
-				if(!didSend) {
-					didSend = true;
-				currentQuestion = TRIVIA_DATA[i][0];
-				currentAnswer = TRIVIA_DATA[i][1];
-				resetForNextQuestion();
-				new Broadcast(currentQuestion).copyMessageToChatbox().submit();
-				
-				
-				}
-			}
-		}
-	}
-	
+    private static void askQuestion() {
+        int index = Misc.random(TRIVIA_DATA.length - 1);
+        currentQuestion = TRIVIA_DATA[index][0];
+        currentAnswer = TRIVIA_DATA[index][1];
+        resetForNextQuestion();
+        didSend = true;
+        new Broadcast(currentQuestion).copyMessageToChatbox().submit();
+    }
+
+
 	public static boolean didSend = false;
 
 	private static final String[][] TRIVIA_DATA = {

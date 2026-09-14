@@ -8,7 +8,7 @@ import io.zaryx.model.entity.player.Player;
 public class VestaLongsword extends Special {
 
 	public VestaLongsword() {
-		super(2.5, 1.0, 0.20, new int[] { 22613 });
+		super(2.5, 1.0, 1.20, new int[] { 22613 });
 	}
 
 	@Override

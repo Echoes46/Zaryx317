@@ -9,18 +9,17 @@ import io.zaryx.model.Npcs;
 import io.zaryx.model.entity.Entity;
 import io.zaryx.model.entity.npc.NPC;
 import io.zaryx.model.entity.player.Player;
-import io.zaryx.util.Misc;
 
 public class DemonXBow extends Special {
     public DemonXBow()  {
-        super(3.25, 1.0, 1.0, new int[] { 33207, 20484 });
+        super(3.25, 1.5, 2.5, new int[] { 33207, 20484 });
     }
 
     @Override
     public void activate(Player player, Entity target, Damage damage) {
         player.usingBow = true;
         player.startAnimation(9170);
-        damage.setAmount(Misc.random(25,50));
+        // Keep the combat roll: its accuracy, gear scaling and target reductions already apply.
 
         if (target.isNPC()) {
             switch (target.asNPC().getNpcId()) {

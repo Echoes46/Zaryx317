@@ -54,8 +54,8 @@ public class AscensionCrossbow extends Special {
     }
 
     private void doHit(Player player, Entity target, int damage, int delay) {
-        player.getDamageQueue().add(new Damage(target, damage, player.hitDelay + delay, player.playerEquipment, damage > 0 ? Hitmark.HIT : Hitmark.MISS, CombatType.MELEE));
-        player.getPA().addXpDrop(new PlayerAssistant.XpDrop(damage, Skill.ATTACK.getId()));
+        player.getDamageQueue().add(new Damage(target, damage, player.hitDelay + delay, player.playerEquipment, damage > 0 ? Hitmark.HIT : Hitmark.MISS, CombatType.RANGE));
+        player.getPA().addXpDrop(new PlayerAssistant.XpDrop(damage, Skill.RANGED.getId()));
     }
 
     @Override

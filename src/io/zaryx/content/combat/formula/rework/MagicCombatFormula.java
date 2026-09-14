@@ -358,6 +358,11 @@ public class MagicCombatFormula implements CombatFormula {
     public int getMaxHit(Entity attacker, Entity defender, double specialAttackMultiplier,
                          double specialPassiveMultiplier) {
         int[] spellData = null;
+        // Match both weapon and built-in spell: manual casts and other staves sharing
+        // a spell must retain their existing damage rules.
+        boolean upgradedPoweredAttack = attacker.isPlayer() && !attacker.asPlayer().usingSpecial
+                && ((attacker.asPlayer().getItems().getWeapon() == 27275 && attacker.asPlayer().getSpellId() == 100)
+                || (attacker.asPlayer().getItems().getWeapon() == 33205 && attacker.asPlayer().getSpellId() == 101));
         double hit = 0;
         if (attacker.isPlayer()) {
             Player player = attacker.asPlayer();
@@ -385,6 +390,11 @@ public class MagicCombatFormula implements CombatFormula {
             hit = this.maxHit;
         } else if (spellData != null && hit == 0) {
             hit = CombatSpellData.getBaseDamage(spellData);
+            if (upgradedPoweredAttack) {
+                // Noxious starts at 60. Each upgrade gains 5% of that base and
+                // shares its scaling, so extra magic damage cannot reverse the tiers.
+                hit = attacker.asPlayer().getItems().getWeapon() == 27275 ? 63 : 66;
+            }
         } else if (attacker.isNPC()) {
             NPC npc = attacker.asNPC();
             hit = npc.maxHit;
@@ -449,7 +459,7 @@ public class MagicCombatFormula implements CombatFormula {
             }
 
             if (player.getItems().isWearingItem(27275, Player.playerWeapon)) {
-                multiplier += 1.000;
+                multiplier += upgradedPoweredAttack ? -0.430 : 1.000;
             }
 
             if (player.hasActivePet(27352)) {
@@ -461,7 +471,7 @@ public class MagicCombatFormula implements CombatFormula {
             }
 
             if (player.getItems().isWearingItem(33205, Player.playerWeapon)) {
-                multiplier += 1.000;
+                multiplier += upgradedPoweredAttack ? -0.430 : 1.000;
             }
 
             if (player.getItems().isWearingItem(33149, Player.playerWeapon)) {

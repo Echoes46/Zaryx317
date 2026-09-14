@@ -2,6 +2,7 @@ package io.zaryx.content.combat.formula.rework;
 
 
 import io.zaryx.Server;
+import io.zaryx.content.combat.weapon.TwistedBowFamily;
 import io.zaryx.content.bonus.BoostScrolls;
 import io.zaryx.content.combat.effects.damageeffect.impl.amuletofthedamned.impl.ToragsEffect;
 import io.zaryx.content.combat.melee.CombatPrayer;
@@ -261,31 +262,12 @@ public class RangeCombatFormula implements CombatFormula {
         hit *= getEquipmentMultiplier(attacker);
         hit = Math.floor(hit);
 
-        if (specialAttackMultiplier == 1.0) {
-            double multiplier = 1.0;
-
-            // Twisted Bow Effect
-            if (attacker.getItems().isWearingItem(Items.TWISTED_BOW, Player.playerWeapon)) {
-                if (defender.isNPC()) {
-                    double damageCap = 140.0;
-                    int magicLevel = 0;
-                    if (defender.isPlayer())
-                        magicLevel = defender.asPlayer().playerLevel[Skill.MAGIC.getId()];
-                    else {
-                        NpcCombatDefinition definition = defender.asNPC().getCombatDefinition();
-                        if (definition != null) {
-                            magicLevel = definition.getLevel(NpcCombatSkill.MAGIC);
-                        }
-                    }
-                    multiplier += getTwistedBowAccuracyBoost(magicLevel, Boundary.isIn(attacker, Boundary.XERIC));
-                }
-            }
-
-            hit *= multiplier;
-            hit = Math.floor(hit);
-        } else {
-            hit *= specialAttackMultiplier;
-            hit = Math.floor(hit);
+        hit = Math.floor(hit * specialAttackMultiplier);
+        if (TwistedBowFamily.contains(attacker.getItems().getWeapon()) && defender.isNPC()) {
+            NpcCombatDefinition definition = defender.asNPC().getCombatDefinition();
+            int magicLevel = definition == null ? 0 : definition.getLevel(NpcCombatSkill.MAGIC);
+            hit = Math.floor(hit * (1.0 + getTwistedBowAccuracyBoost(magicLevel,
+                    Boundary.isIn(attacker, Boundary.XERIC))));
         }
 
         return hit;
@@ -404,6 +386,10 @@ public class RangeCombatFormula implements CombatFormula {
         }
 
         base = applyRangedSpecials(attacker, defender, base, specialAttackMultiplier, specialPassiveMultiplier);
+        if (attacker.isPlayer() && TwistedBowFamily.contains(attacker.asPlayer().getItems().getWeapon())) {
+            // Apply once here, including max-hit previews, rather than twice in HitDispatcher.
+            base = (int) Math.floor(base * TwistedBowFamily.DAMAGE_MULTIPLIER);
+        }
 
 
 
@@ -496,29 +482,13 @@ public class RangeCombatFormula implements CombatFormula {
             hit = Math.floor(hit);
         }
 
-        if (player != null && specialAttackMultiplier == 1.0) {
-            double multiplier = 1.0;
-
-            if (player.getItems().isWearingItem(Items.TWISTED_BOW, Player.playerWeapon)) {
-                if (defender.isNPC()) {
-                    int magicLevel = 1;
-                    if (defender.isPlayer()) {
-                        magicLevel = defender.asPlayer().playerLevel[Skill.DEFENCE.getId()];
-                    } else {
-                        NpcCombatDefinition definition = defender.asNPC().getCombatDefinition();
-                        if (definition != null) {
-                            magicLevel = definition.getLevel(NpcCombatSkill.MAGIC);
-                        }
-                    }
-                    multiplier = getTwistedBowDamageBoost(magicLevel, Boundary.isIn(player, Boundary.XERIC));
-                }
-            }
-
-            hit *= multiplier;
-            hit = Math.floor(hit);
-        } else {
-            hit *= specialAttackMultiplier;
-            hit = Math.floor(hit);
+        hit = Math.floor(hit * specialAttackMultiplier);
+        if (player != null && TwistedBowFamily.contains(player.getItems().getWeapon()) && defender.isNPC()) {
+            NpcCombatDefinition definition = defender.asNPC().getCombatDefinition();
+            int magicLevel = definition == null ? 1 : definition.getLevel(NpcCombatSkill.MAGIC);
+            double multiplier = TwistedBowFamily.targetDamageMultiplier(player.getItems().getWeapon(),
+                    getTwistedBowDamageBoost(magicLevel, Boundary.isIn(player, Boundary.XERIC)));
+            hit = Math.floor(hit * multiplier);
         }
 
         if (defender.isPlayer()) {

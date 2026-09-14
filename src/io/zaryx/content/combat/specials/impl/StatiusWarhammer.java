@@ -8,7 +8,7 @@ import io.zaryx.model.entity.player.Player;
 public class StatiusWarhammer extends Special {
 
 	public StatiusWarhammer() {
-		super(3.5, 1.25, 0.25, new int[] { 22622 });
+		super(3.5, 1.25, 1.25, new int[] { 22622 });
 	}
 
 	@Override
