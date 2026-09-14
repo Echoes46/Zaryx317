@@ -104,7 +104,7 @@ public class RangeMaxHit extends RangeData {
 		} else if (c.fullMasori() && !c.getPosition().inWild()) {
 			b += .25;
 		} else if (c.fullMasoriF() && !c.getPosition().inWild()) {
-			b += .3;
+			b += .40;
 		} else if (c.fullMalar()) {
 			b += .50;
 		} else if (c.fullSirenic() && !c.getPosition().inWild()) {
@@ -120,7 +120,7 @@ public class RangeMaxHit extends RangeData {
 		} else if (c.hasActivePet(27352)) {
 			b += .15;
 
-		} else if (c.getItems().isWearingItem(33206)) {
+		} else if ((c.getItems().isWearingItem(33206) || c.getItems().isWearingItem(26269))) {
 		b += .5;
 		}  else if (c.getItems().isWearingItem(22634) && !c.getPosition().inWild()) {
 			b += .5;

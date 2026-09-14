@@ -9,7 +9,7 @@ import io.zaryx.model.entity.player.Player;
 public class TentacleWhip extends Special {
 
 	public TentacleWhip() {
-		super(5.0, 1.25, 1.1, new int[] { 12006, 26484});
+		super(5.0, 1.25, 1.1, new int[] { 12006, 26484, 39006});
 	}
 
 	@Override

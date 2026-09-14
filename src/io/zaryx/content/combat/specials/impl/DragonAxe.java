@@ -8,7 +8,7 @@ import io.zaryx.model.entity.player.Player;
 
 public class DragonAxe extends Special {
 	public DragonAxe() {
-		super(10.0, 1.0, 1.0, new int[] { 6739 });
+		super(10.0, 1.0, 1.0, new int[] { 6739, 13241 });
 	}
 
 	@Override

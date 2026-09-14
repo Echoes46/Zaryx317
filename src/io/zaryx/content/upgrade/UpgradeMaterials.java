@@ -52,7 +52,7 @@ public enum UpgradeMaterials {
 
     SANGUINGE_SCYTHE(WEAPON, 0, new GameItem(25739, 1), new GameItem(33203, 1), 500_000_000, 39, 500000,true),
 
-    REALMSCYTHE(WEAPON, 0, new GameItem(33203, 1), new GameItem(39001, 1), 999_000_000, 20, 500000,true),
+    // Unavailable terminal reward: REALMSCYTHE (missing model or equipment definition).
 
 
     HEAVY_BALLISTA(WEAPON, 0, new GameItem(19481, 1), new GameItem(26712, 1), 7_500_000, 79, 150000,true),
@@ -67,7 +67,7 @@ public enum UpgradeMaterials {
 
     SEREN(WEAPON, 0, new GameItem(33058, 1), new GameItem(33207, 1), 500_000_000, 39, 500000,true),
 
-    REALMBOW(WEAPON, 0, new GameItem(33207, 1), new GameItem(33434, 1), 999_000_000, 20, 500000,true),
+    // Unavailable terminal reward: REALMBOW (missing model or equipment definition).
 
 
     ANCIENT_STAFF(WEAPON, 0, new GameItem(4675, 1), new GameItem(27624, 1), 50_000_000, 59, 100000, true),
@@ -78,7 +78,7 @@ public enum UpgradeMaterials {
 
     Tumeken(WEAPON, 0, new GameItem(27275, 1), new GameItem(33205, 1), 500_000_000, 39, 500000,true),
 
-    REALMSTAFF(WEAPON, 0, new GameItem(33205, 1), new GameItem(33433, 1), 999_000_000, 20, 500000,true),
+    // Unavailable terminal reward: REALMSTAFF (missing model or equipment definition).
 
 
 

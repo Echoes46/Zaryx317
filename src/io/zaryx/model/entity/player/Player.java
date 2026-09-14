@@ -4313,35 +4313,43 @@ public class Player extends Entity {
         return this.getExpMode().getType().equals(type);
     }
     public boolean fullEliteVoidRange() {
-        return getItems().isWearingItem(24184) && getItems().isWearingItem(13073) && getItems().isWearingItem(13072) && getItems().isWearingItem(24182);
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 1);
+        return tier == 1;
     }
     public boolean fullEliteVoidMelee() {
-        return getItems().isWearingItem(24185) && getItems().isWearingItem(13073) && getItems().isWearingItem(13072) && getItems().isWearingItem(24182);
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 2);
+        return tier == 1;
     }
     public boolean fullEliteVoidMage() {
-        return getItems().isWearingItem(24183) && getItems().isWearingItem(13073) && getItems().isWearingItem(13072) && getItems().isWearingItem(24182);
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 0);
+        return tier == 1 || tier == 2 && getPosition().inWild();
     }
 
     public boolean fullEliteORVoidRange() {
-        return getItems().isWearingItem(26475) && getItems().isWearingItem(26469) && getItems().isWearingItem(26471) && getItems().isWearingItem(26467);
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 1);
+        return tier == 2;
     }
 
     public boolean fullEliteORVoidMage() {
-        return getItems().isWearingItem(26473) && getItems().isWearingItem(26469) && getItems().isWearingItem(26471) && getItems().isWearingItem(26467);
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 0);
+        return tier == 2;
     }
     public boolean fullEliteORVoidMelee() {
-        return getItems().isWearingItem(26477) && getItems().isWearingItem(26469) && getItems().isWearingItem(26471) && getItems().isWearingItem(26467);
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 2);
+        return tier == 2;
     }
     public boolean fullVoidMage() {
-        return (getItems().isWearingItem(11663) && getItems().isWearingItem(8840) && getItems().isWearingItem(8839) && getItems().isWearingItem(8842));
-        }
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 0);
+        return tier == 0 || tier > 0 && getPosition().inWild();
+    }
 
     public boolean fullVoidMelee() {
-        return (getItems().isWearingItem(11665) && getItems().isWearingItem(8840) && getItems().isWearingItem(8839) && getItems().isWearingItem(8842));
-
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 2);
+        return tier == 0 || tier > 0 && getPosition().inWild();
     }
     public boolean fullVoidRange() {
-        return (getItems().isWearingItem(11664) && getItems().isWearingItem(8840) && getItems().isWearingItem(8839) && getItems().isWearingItem(8842));
+        int tier = io.zaryx.content.upgrade.UpgradeSetRules.voidTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs], playerEquipment[playerHands], 1);
+        return tier == 0 || tier > 0 && getPosition().inWild();
     }
     public boolean armourofozrange() {
         return getItems().isWearingItem(33195) && getItems().isWearingItem(33196) && getItems().isWearingItem(33197);
@@ -4387,15 +4395,11 @@ public class Player extends Entity {
     }
 
     public boolean fullTorva() {
-        return getItems().isWearingItem(26382) &&
-                getItems().isWearingItem(26384) &&
-                getItems().isWearingItem(26386);
+        return io.zaryx.content.upgrade.UpgradeSetRules.torvaTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs]) == 0;
     }
 
     public boolean fullSanguine() {
-        return getItems().isWearingItem(28254) &&
-                getItems().isWearingItem(28256) &&
-                getItems().isWearingItem(28258);
+        return io.zaryx.content.upgrade.UpgradeSetRules.torvaTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs]) >= 1;
     }
 
     public boolean fullCeremonial() {
@@ -4425,9 +4429,7 @@ public class Player extends Entity {
     }
 
     public boolean fullSirenic() {
-        return getItems().isWearingItem(33150) &&
-                getItems().isWearingItem(33151) &&
-                getItems().isWearingItem(33152);
+        return io.zaryx.content.upgrade.UpgradeSetRules.rangedTier(playerEquipment[playerHat], playerEquipment[playerChest], playerEquipment[playerLegs]) == 1;
     }
 
     public boolean fullTectonic() {

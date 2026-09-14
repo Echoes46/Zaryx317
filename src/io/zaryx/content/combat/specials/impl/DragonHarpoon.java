@@ -8,7 +8,7 @@ import io.zaryx.model.entity.player.Player;
 
 public class DragonHarpoon extends Special {
 	public DragonHarpoon() {
-		super(10.0, 1.0, 1.0, new int[] { 21028 });
+		super(10.0, 1.0, 1.0, new int[] { 21028, 21031 });
 	}
 
 	@Override

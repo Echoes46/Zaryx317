@@ -53,7 +53,7 @@ public class UpgradeInterface {
     }
 
     public void handleItemAction(int slot) {
-        if (upgradeMaterialsArrayList != null && upgradeMaterialsArrayList.get(slot) != null) {
+        if (upgradeMaterialsArrayList != null && slot >= 0 && slot < upgradeMaterialsArrayList.size() && upgradeMaterialsArrayList.get(slot) != null) {
             showUpgrade(upgradeMaterialsArrayList.get(slot));
         }
     }

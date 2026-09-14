@@ -188,14 +188,14 @@ public class RangeCombatFormula implements CombatFormula {
             effectiveLevel += effectiveLevel * 0.35;
             effectiveLevel = Math.floor(effectiveLevel);
         } else if (player.fullMasoriF() && !player.getPosition().inWild()) {
-            effectiveLevel += effectiveLevel * 0.40;
+            effectiveLevel += effectiveLevel * 0.55;
             effectiveLevel = Math.floor(effectiveLevel);
         } else if (player.fullMalar()) {
             effectiveLevel += effectiveLevel * 0.70;
             effectiveLevel = Math.floor(effectiveLevel);
         }
 
-        if (player.getItems().isWearingItem(33206)) {
+        if ((player.getItems().isWearingItem(33206) || player.getItems().isWearingItem(26269))) {
             effectiveLevel += effectiveLevel * 0.2;
             effectiveLevel = Math.floor(effectiveLevel);
         }
@@ -434,7 +434,7 @@ public class RangeCombatFormula implements CombatFormula {
             effectiveLevel += effectiveLevel * 0.30;
             effectiveLevel = Math.floor(effectiveLevel);
         } else if (player.fullMasoriF() && !player.getPosition().inWild()) {
-            effectiveLevel += effectiveLevel * 0.35;
+            effectiveLevel += effectiveLevel * 0.55;
             effectiveLevel = Math.floor(effectiveLevel);
         } else if (player.fullMalar() && !player.getPosition().inWild()) {
             effectiveLevel += effectiveLevel * 0.35;
@@ -444,7 +444,7 @@ public class RangeCombatFormula implements CombatFormula {
             effectiveLevel = Math.floor(effectiveLevel);
         }
 
-        if (player.getItems().isWearingItem(33206)) {
+        if ((player.getItems().isWearingItem(33206) || player.getItems().isWearingItem(26269))) {
             effectiveLevel += effectiveLevel * 0.2;
             effectiveLevel = Math.floor(effectiveLevel);
         }
