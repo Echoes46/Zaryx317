@@ -61,7 +61,7 @@ public final class TeleportGuide {
         });
         if (t==BOSSES.BRYOPHYTA) out.add("Mossy key in inventory: "+(player.getItems().playerHasItem(22375,1)?"yes":"no")+".");
         if (t==BOSSES.OBOR) out.add("Giant key in inventory: "+(player.getItems().playerHasItem(20754,1)?"yes":"no")+".");
-        add(out,"REWARDS",dropNpc(t)>0 ? "Open Drops for loot, Full drop table for rates, or Collection log for progress." :
+        add(out,"REWARDS",dropNpc(t)>0 ? "Open Drops for loot or Collection log for progress." :
                 "Rewards depend on the activity; this location has no direct monster drop preview.");
         if(t instanceof DUNGEONS) out.addAll(wrap("Drop preview represents one monster; others in the dungeon have different loot."));
         return out;

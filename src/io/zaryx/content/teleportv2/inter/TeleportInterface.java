@@ -58,10 +58,9 @@ public class TeleportInterface {
     }
 
     public static boolean handleButton(Player player, int buttonID) {
-        if (buttonID >= 61803 && buttonID <= 61807) {
+        if (buttonID >= 61803 && buttonID <= 61805 || buttonID == 61807) {
             if (!player.isInterfaceOpen(31000)) return false;
             if (buttonID <= 61805) showPage(player, buttonID-61803);
-            else if (buttonID==61806) openDropTable(player);
             else openCollection(player);
             return true;
         }
@@ -340,7 +339,7 @@ public class TeleportInterface {
 
         player.getPA().sendString(31006, "Destinations");
         String[] tabs={"Monsters","Bosses","Minigames","Dungeons","Wilderness","Cities"};
-        for(int i=0;i<6;i++)player.getPA().sendString(31036+i,(i==(player.getCurrentTeleportTab()==4?5:player.getCurrentTeleportTab()==5?4:player.getCurrentTeleportTab())?"@whi@":"")+tabs[i]);
+        for(int i=0;i<6;i++)player.getPA().sendString(31036+i,(i==(player.getCurrentTeleportTab()==4?5:player.getCurrentTeleportTab()==5?4:player.getCurrentTeleportTab())?"@or1@":"")+tabs[i]);
         player.getPA().setScrollableMaxHeight(31065, Math.max(230,list.length*21));
         select(player,0);
         player.getPA().showInterface(31000);
@@ -403,19 +402,11 @@ public class TeleportInterface {
         showPage(p,0);
     }
     private static void showPage(Player p,int page) {
-        p.getPA().sendInterfaceHidden(61810,page!=0);
-        p.getPA().sendInterfaceHidden(31017,page!=1);
+        p.getPA().sendInterfaceHidden(61810,page!=1);
+        p.getPA().sendInterfaceHidden(31017,page!=0);
         p.getPA().sendInterfaceHidden(61811,page!=2);
-        String[] names={"Guide","Drops","Favourites"};
-        for(int i=0;i<3;i++)p.getPA().sendString(61803+i,(i==page?"@whi@":"")+names[i]);
-    }
-    private static void openDropTable(Player p) {
-        Teleport t=selected(p);if(t==null)return;
-        int id=TeleportGuide.dropNpc(t);
-        if(id<=0 || t==MINIGAMES.COX || t==MINIGAMES.TOB || t==MINIGAMES.ARBOGRAVE_SWAMP) {
-            showPage(p,1);p.sendMessage("Use the Drops tab for available rewards at this destination.");return;
-        }
-        Server.getDropManager().openForNpcId(p,id);
+        String[] names={"Drops","Guide","Favourites"};
+        for(int i=0;i<3;i++)p.getPA().sendString(61803+i,(i==page?"@or1@":"")+names[i]);
     }
     private static void openCollection(Player p) {
         Teleport t=selected(p);if(t==null)return;
