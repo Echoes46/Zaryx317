@@ -178,92 +178,10 @@ public class ServerStartup {
      * Updated by Khaos
      */
     public static void loadWalkableTiles() {
-        String path = Server.getDataDirectory() + "/cfg/obj/walkable_tiles.cfg";
-        java.io.File file = new java.io.File(path);
-
-        if (!file.exists()) {
-            System.out.println("[WALKABLE] walkable_tiles.cfg not found: " + file.getAbsolutePath());
-            return;
+        try {
+            io.zaryx.model.collisionmap.WalkableTiles.reload();
+        } catch (java.io.IOException | IllegalArgumentException ex) {
+            throw new IllegalStateException("Unable to load walkable tile overrides: " + ex.getMessage(),ex);
         }
-
-        int count = 0;
-        int skipped = 0;
-
-        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-
-                if (line.isEmpty() || line.startsWith("//")) {
-                    continue;
-                }
-
-                String[] parts = line.split("\\s+");
-
-                if (parts.length < 4) {
-                    skipped++;
-                    continue;
-                }
-
-                try {
-                    int[] xRange = parseWalkableTileRange(parts[0]);
-                    int[] yRange = parseWalkableTileRange(parts[1]);
-                    int[] zRange = parseWalkableTileRange(parts[2]);
-                    String state = parts[3];
-
-                    for (int x = xRange[0]; x <= xRange[1]; x++) {
-                        for (int y = yRange[0]; y <= yRange[1]; y++) {
-                            for (int z = zRange[0]; z <= zRange[1]; z++) {
-                                io.zaryx.model.collisionmap.Region region =
-                                        io.zaryx.model.collisionmap.RegionProvider.getGlobal().get(x, y);
-
-                                if (region == null) {
-                                    skipped++;
-                                    continue;
-                                }
-
-                                if (state.equalsIgnoreCase("walkable")) {
-                                    // Clear base tile clipping.
-                                    region.setClipToZero(x, y, z);
-
-                                    // Clear object clipping that may still make the tile invalid as a destination.
-                                    for (int type = 0; type <= 22; type++) {
-                                        for (int face = 0; face < 4; face++) {
-                                            region.removeObject(0, x, y, z, type, face);
-                                            region.removeObject(-1, x, y, z, type, face);
-                                        }
-                                    }
-
-                                    // Clear again after object removals.
-                                    region.setClipToZero(x, y, z);
-                                    count++;
-
-                                } else if (state.equalsIgnoreCase("blocked")) {
-                                    region.addClip(x, y, z, 0x200000);
-                                    count++;
-                                }
-                            }
-                        }
-                    }
-
-                } catch (NumberFormatException ignored) {
-                    skipped++;
-                }
-            }
-
-        } catch (Exception e) {
-            System.out.println("[WALKABLE] Error loading walkable tiles: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        System.out.println("[WALKABLE] Loaded " + count + " custom walkable tile overrides. Skipped " + skipped + ".");
-    }
-
-    private static int[] parseWalkableTileRange(String value) {
-        String[] bounds = value.split("-", 2);
-        int start = Integer.parseInt(bounds[0]);
-        int end = bounds.length == 2 ? Integer.parseInt(bounds[1]) : start;
-        return new int[]{Math.min(start, end), Math.max(start, end)};
     }
 }

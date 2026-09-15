@@ -14,6 +14,7 @@ public class ChangeRegions implements PacketType {
 		c.getFarming().regionChanged();
 		Server.itemHandler.reloadItems(c);
 		Server.getGlobalObjects().updateRegionObjects(c);
+        io.zaryx.model.collisionmap.WalkableTiles.sync(c);
 		if (c.getPA().viewingOtherBank) {
 			c.getPA().resetOtherBank();
 		}

@@ -418,7 +418,7 @@ public class TeleportInterface {
     private static void refreshDetails(Player p,Teleport t) {
         int[] ids=TeleportContent.monsters(t);int id=selectedMonster(p,t);
         int index=ids.length==0?0:Math.floorMod(p.getAttributes().getInt("teleport_monster",0),ids.length);
-        p.getPA().sendString(61815,ids.length>0 ? io.zaryx.model.definitions.NpcDef.forId(id).getName()+
+        p.getPA().sendString(61815,ids.length>1 ? io.zaryx.model.definitions.NpcDef.forId(id).getName()+
             (ids.length>1 ? " ("+(index+1)+"/"+ids.length+")" : "") : "");
         p.getPA().sendInterfaceHidden(61813,ids.length<2);
         p.getPA().sendInterfaceHidden(61814,ids.length<2);
@@ -432,7 +432,7 @@ public class TeleportInterface {
         p.getPA().sendInterfaceHidden(61810,!text);
         p.getPA().sendInterfaceHidden(31017,page!=0 || text);
         p.getPA().sendInterfaceHidden(61811,page!=2);
-        p.getPA().sendInterfaceHidden(61816,page==2 || TeleportContent.monsters(t).length==0);
+        p.getPA().sendInterfaceHidden(61816,page==2 || TeleportContent.monsters(t).length<2);
         if(text) {
             List<String> lines=page==0 ? TeleportContent.firstPage(t) : TeleportGuide.lines(p,t,selectedMonster(p,t));
             for(int i=0;i<48;i++)p.getPA().sendString(61820+i,i<lines.size()?lines.get(i):"");
