@@ -1,5 +1,7 @@
 package io.zaryx.content.combat.death;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import com.google.common.collect.Lists;
 import io.zaryx.Configuration;
 import io.zaryx.Server;
@@ -674,6 +676,7 @@ public class PlayerDeath {
         if (c.wildLevel > 0) {
             Entity killer = c.getKiller();
             Player playerKiller = killer != null && killer.isPlayer() ? killer.asPlayer() : null;
+            if (OwnerEconomyLock.isLocked(c) || OwnerEconomyLock.isLocked(playerKiller)) playerKiller = null;
 
             if (playerKiller != null) {
                 Discord.writeDeathHandler("[PvP Death] " + c.getDisplayName()
@@ -733,7 +736,7 @@ public class PlayerDeath {
                 dropItemsForKiller(c, playerKiller, new GameItem(Items.BONES));
             }
 
-            lostItems.forEach(item -> dropItemsForKiller(c, playerKiller, item));
+            for (GameItem item : lostItems) dropItemsForKiller(c, playerKiller, item);
 
             if (playerKiller != null)
                 PkpRewards.award(c, playerKiller);

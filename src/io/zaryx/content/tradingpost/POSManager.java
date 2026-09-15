@@ -1,5 +1,7 @@
 package io.zaryx.content.tradingpost;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Configuration;
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.dialogue.DialogueOption;
@@ -212,6 +214,7 @@ public class POSManager {
     }
 
     private void promptCreateOffer(int itemId, int amount) {
+        if (OwnerEconomyLock.deny(player)) return;
         if (tradePostOffers.size() >= MAX_MY_OFFERS) {
             player.sendErrorMessage("You cannot create more offers.");
             return;
@@ -244,6 +247,7 @@ public class POSManager {
     }
 
     private void handleItemListing(int itemId, int currencyId, int unnotedId, int amount) {
+        if (OwnerEconomyLock.deny(player)) return;
         if (amount <= 0 || amount == Integer.MAX_VALUE) {
             player.sendErrorMessage("You entered an invalid amount!");
             player.getPA().closeAllWindows();
@@ -273,6 +277,7 @@ public class POSManager {
                 return;
             }
 
+            if (OwnerEconomyLock.deny(plr)) return;
             plr.getItems().deleteItem2(itemId, amount);
 
             TradePostOffer newOffer = new TradePostOffer(
@@ -335,6 +340,7 @@ public class POSManager {
     }
 
     private void buy(int index, int amount) {
+        if (OwnerEconomyLock.deny(player)) return;
         if (index == -1) {
             return;
         }
@@ -350,6 +356,7 @@ public class POSManager {
         TradePostOffer offer = viewOffers.get(index);
         String sellerName = offer.getUsername();
         Player seller = PlayerHandler.getPlayerByDisplayName(sellerName);
+        if (OwnerEconomyLock.denyTransfer(player, seller)) return;
 
         if (Objects.isNull(seller) || !seller.isOnline()) {
             player.sendMessage("That player is not online!");
@@ -382,6 +389,7 @@ public class POSManager {
         player.start(new DialogueBuilder(player).option("Are you sure you want to purchase: " + finalAmount + "x "
                         + offer.getItem().getDef().getName() + " for a price of: " + formatPrice(price) + " " + getCurrencyName(offer) + "?",
                 new DialogueOption("Yes", p -> {
+                    if (OwnerEconomyLock.denyTransfer(p, seller)) return;
                     p.getPA().closeAllWindows();
 
                     if (!seller.isOnline()) {

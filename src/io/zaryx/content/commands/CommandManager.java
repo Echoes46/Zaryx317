@@ -1,5 +1,7 @@
 package io.zaryx.content.commands;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import com.google.common.collect.Lists;
 import io.zaryx.Server;
 import io.zaryx.content.TriviaBot;
@@ -79,6 +81,7 @@ public class CommandManager {
     }
 
     public static boolean executeCommand(Player c, String playerCommand, String commandPackage) {
+        if (OwnerEconomyLock.denyCommand(c, playerCommand)) return true;
         if (playerCommand == null) {
             return true;
         }

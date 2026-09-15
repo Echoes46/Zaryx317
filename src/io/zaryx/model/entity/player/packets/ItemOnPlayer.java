@@ -1,5 +1,7 @@
 package io.zaryx.model.entity.player.packets;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import java.util.Objects;
 
 import io.zaryx.Server;
@@ -50,6 +52,7 @@ public class ItemOnPlayer implements PacketType {
             return;
         }
         Player other = PlayerHandler.players[playerIndex];
+        if (OwnerEconomyLock.denyTransfer(c, other)) return;
         if (other == null) {
             return;
         }

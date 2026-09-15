@@ -106767,12 +106767,12 @@
     "isImmuneToCannons": true,
     "isImmuneToThralls": true,
     "levels": {
-      "MAGIC": 490,
-      "ATTACK": 470,
-      "DEFENCE": 300,
-      "RANGE": 400,
-      "STRENGTH": 490,
-      "HITPOINTS": 1200
+      "MAGIC": 150,
+      "ATTACK": 300,
+      "DEFENCE": 150,
+      "RANGE": 250,
+      "STRENGTH": 300,
+      "HITPOINTS": 1000
     },
     "attackBonuses": {
       "ATTACK_MAGIC_BONUS": 25,
@@ -106783,11 +106783,11 @@
       "RANGE_STRENGTH_BONUS": 25
     },
     "defensiveBonuses": {
-      "SLASH_BONUS": 260,
-      "STAB_BONUS": 260,
-      "RANGE_BONUS": 850,
-      "MAGIC_BONUS": 850,
-      "CRUSH_BONUS": 260
+      "SLASH_BONUS": 180,
+      "STAB_BONUS": 180,
+      "RANGE_BONUS": 400,
+      "MAGIC_BONUS": 50,
+      "CRUSH_BONUS": 180
     }
   },
   {

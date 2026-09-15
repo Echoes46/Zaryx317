@@ -1,5 +1,7 @@
 package io.zaryx.model.entity.player.mode.wildygroup;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Server;
 import io.zaryx.model.ContainerAction;
 import io.zaryx.model.SlottedItem;
@@ -48,6 +50,7 @@ public class GroupWildyManBank {
     }
 
     public static void bankAll(Player player, boolean equipment) {
+        if (OwnerEconomyLock.deny(player)) return;
         GroupWildyManBank bank = getBank(player);
         if (bank == null)
             return;
@@ -103,6 +106,7 @@ public class GroupWildyManBank {
     }
 
     public void open(Player player) {
+        if (OwnerEconomyLock.deny(player)) return;
         updateContainer(player);
         player.getPA().sendInterfaceSet(INTERFACE_ID, INVENTORY_INTERFACE_ID);
         player.getPA().sendString(48_672, "Group Bank of " + groupWildyman.getName());
@@ -130,6 +134,7 @@ public class GroupWildyManBank {
     }
 
     public void deposit(final Player player, final SlottedItem item, boolean equipment) {
+        if (OwnerEconomyLock.deny(player)) return;
         var itemId = item.getId();
         var slot = item.getSlot();
         var amountInContainer = equipment ? player.playerEquipmentN[item.getSlot()] : player.getItems().getItemAmount(item.getId());
@@ -180,6 +185,7 @@ public class GroupWildyManBank {
     }
 
     public void withdraw(Player player, int itemId, int itemSlot, int amount) {
+        if (OwnerEconomyLock.deny(player)) return;
         boolean withdrawNote = player.takeAsNote;
         amount = Math.min(inventory.getAmount(itemId), amount);
         if (amount <= 0)

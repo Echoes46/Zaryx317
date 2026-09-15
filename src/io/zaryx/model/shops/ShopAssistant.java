@@ -1,5 +1,7 @@
 package io.zaryx.model.shops;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Configuration;
 import io.zaryx.Server;
 import io.zaryx.content.achievement.AchievementTier;
@@ -1486,6 +1488,7 @@ public class ShopAssistant {
 	 * 					else false
 	 */
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
+        if (OwnerEconomyLock.deny(c)) return false;
 		if (c.myShopId == 0 || !c.isInterfaceOpen(SHOP_INTERFACE_ID) && !c.isInterfaceOpen(SHOP_INTERFACE_ID2))
 			return false;
 		if (Configuration.DISABLE_SHOP_SELL) {

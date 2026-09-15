@@ -1,5 +1,7 @@
 package io.zaryx.model.entity.player.packets;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 /**
  * @author Ryan / Lmctruck30
  */
@@ -38,6 +40,7 @@ public class ItemOnObject implements PacketType {
 		int b = c.getInStream().readUnsignedWord();
 		int objectX = c.getInStream().readSignedWordBigEndianA();
 		int itemId = c.getInStream().readUnsignedWord();
+        if ((itemId == 5733 || itemId == 6713) && OwnerEconomyLock.deny(c)) return;
 
 		c.objectX = objectX;
 		c.objectY = objectY;
@@ -78,7 +81,7 @@ public class ItemOnObject implements PacketType {
 
 			c.getFarming().handleItemOnObject(itemId, objectId, objectX, objectY);
             // Rotten Potato on Object — permanently removes the object
-            if (itemId == 5733 && c.getRights().getPrimary().isManagement()) {
+            if ((itemId == 5733 || itemId == 6713) && c.getRights().getPrimary().isManagement()) {
                 Server.getGlobalObjects().remove(objectId, objectX, objectY, c.heightLevel);
                 java.util.Arrays.stream(io.zaryx.model.entity.player.PlayerHandler.players).forEach(p -> {
                     if (p != null) p.getPA().object(-1, objectX, objectY, 0, 10, true);

@@ -1,5 +1,7 @@
 package io.zaryx.model.multiplayersession.trade;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Configuration;
 import io.zaryx.Server;
 import io.zaryx.content.DiceHandler;
@@ -18,6 +20,7 @@ import java.util.Objects;
 public class Trade extends Multiplayer {
 
 	public static boolean requestable(Player player, Player requested) {
+        if (OwnerEconomyLock.denyTransfer(player, requested)) return false;
 		if (requested == null) {
 			player.sendMessage("The requested player cannot be found.");
 			return false;

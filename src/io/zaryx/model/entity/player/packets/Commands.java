@@ -1,5 +1,7 @@
 package io.zaryx.model.entity.player.packets;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import com.google.common.collect.Lists;
 import io.zaryx.Configuration;
 import io.zaryx.Server;
@@ -108,6 +110,7 @@ public class Commands implements PacketType {
         String playerCommand = null;
         try {
             playerCommand = c.getInStream().readString();
+            if (OwnerEconomyLock.denyCommand(c, playerCommand)) return;
             if (!playerCommand.startsWith("/")) {
                 playerCommand = playerCommand.toLowerCase();
             }

@@ -5,6 +5,7 @@ import io.zaryx.model.cycleevent.CycleEvent;
 import io.zaryx.model.cycleevent.CycleEventContainer;
 import io.zaryx.model.cycleevent.CycleEventHandler;
 import io.zaryx.model.entity.player.Player;
+import io.zaryx.model.entity.player.OwnerEconomyLock;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.entity.player.lock.CompleteLock;
 import io.zaryx.model.SoundType;
@@ -176,6 +177,7 @@ public class BJManager {
     // ==================== BETTING ====================
 
     public void placeBet(long amount) {
+        if (OwnerEconomyLock.deny(player)) return;
         if (Configuration.DISABLE_BLACKJACK) return;
         if (state == State.PLAYING) {
             player.sendErrorMessage("You can't bet while a game is in play!");

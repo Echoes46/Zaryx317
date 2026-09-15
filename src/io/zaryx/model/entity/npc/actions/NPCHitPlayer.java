@@ -469,10 +469,8 @@ public class NPCHitPlayer {
                                     c.sendMessage("@red@Your stats have been drained, next time bring something of fortune like a ring of wealth!");
                                     int[] toDecrease = { 0, 1, 2, 4, 6 };
                                     for (int tD : toDecrease) {
-                                        c.playerLevel[tD] -= c.playerLevel[tD];
-                                        if (c.playerLevel[tD] < 0) {
-                                            c.playerLevel[tD] = 1;
-                                        }
+                                        c.playerLevel[tD] = io.zaryx.content.bosses.ForestGuardianBalance.drainedLevel(
+                                                c.playerLevel[tD], c.getPA().getLevelForXP(c.playerXP[tD]));
                                         c.getPA().refreshSkill(tD);
                                         c.getPA().setSkillLevel(tD, c.playerLevel[tD], c.playerXP[tD]);
                                     }

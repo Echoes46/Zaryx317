@@ -2148,6 +2148,7 @@ public class Player extends Entity {
 
 
     public void finishLogin() {
+        OwnerEconomyLock.applyRank(this);
         Server.getLogging().write(new ConnectionLog(this, true, null));
         queuedLoginActions.forEach(it -> it.accept(this));
 

@@ -1,5 +1,7 @@
 package io.zaryx.model.items;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import com.google.common.base.Preconditions;
 import io.zaryx.content.instances.InstancedArea;
 import io.zaryx.model.entity.player.Player;
@@ -77,6 +79,7 @@ public class GroundItem {
 	}
 
 	public boolean isViewable(Player player) {
+        if (OwnerEconomyLock.isLocked(getOwnerName()) && !isOwner(player)) return false;
 		boolean ironman = !player.getMode().isItemScavengingPermitted();
 		boolean isGroupIronman = player.isApartOfGroupIronmanGroup();
 		boolean isGroupWildyman = player.isApartOfGroupWildyManGroup();

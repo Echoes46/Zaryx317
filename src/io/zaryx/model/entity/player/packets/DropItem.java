@@ -1,5 +1,7 @@
 package io.zaryx.model.entity.player.packets;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Configuration;
 import io.zaryx.Server;
 import io.zaryx.content.combat.magic.SanguinestiStaff;
@@ -32,6 +34,7 @@ public class DropItem implements PacketType {
 
 	@Override
 	public void processPacket(Player c, int packetType, int packetSize) {
+        if (OwnerEconomyLock.deny(c)) return;
 		if (c.getMovementState().isLocked() || c.getLock().cannotInteract(c))
 			return;
 		if (c.isFping()) {
@@ -336,6 +339,7 @@ public class DropItem implements PacketType {
 	}
 
 	public static void dropItem(Player c, int itemId, int itemSlot) {
+        if (OwnerEconomyLock.deny(c)) return;
 		if (!c.getItems().isItemInInventorySlot(itemId, itemSlot) || c.isDead)
 			return;
 		if (c.jailEnd > 0)

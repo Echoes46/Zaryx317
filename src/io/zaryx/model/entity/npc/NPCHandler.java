@@ -2341,8 +2341,9 @@ public class NPCHandler {
         case 6612:
             case 8164:
             case 8172:
-            case 13201:
             return npc.getAttackType() == CombatType.RANGE ? 70 : npc.getAttackType() == CombatType.MAGE ? 70 : 50;
+            case 13201:
+                return io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
         case 1046:
             return npc.getAttackType() == CombatType.MAGE ? 40 : 50;
         case 6610:

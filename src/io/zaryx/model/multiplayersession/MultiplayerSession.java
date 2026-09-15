@@ -1,5 +1,7 @@
 package io.zaryx.model.multiplayersession;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -77,6 +79,7 @@ public abstract class MultiplayerSession implements MultiplayerSessionItemDistri
 	 * @param item The game item the player is offering
 	 */
 	public void addItem(Player player, GameItem item) {
+        if (OwnerEconomyLock.denyTransfer(player, getOther(player))) return;
 		int id = item.getId();
 		int amount = item.getAmount();
 		boolean listContainsItem = items.get(player).stream().anyMatch(i -> i.getId() == id);
@@ -262,6 +265,10 @@ public abstract class MultiplayerSession implements MultiplayerSessionItemDistri
 	}
 
 	public void accept(Player player, int stageId) {
+        if (OwnerEconomyLock.denyTransfer(player, getOther(player))) {
+            finish(MultiplayerSessionFinalizeType.WITHDRAW_ITEMS);
+            return;
+        }
 		Player other = getOther(player);
 		if (player.getPosition().inWild()) {
 			if (this instanceof TradeSession) {
@@ -358,6 +365,8 @@ public abstract class MultiplayerSession implements MultiplayerSessionItemDistri
 	 * @param type the type of declining protocol
 	 */
 	public void finish(MultiplayerSessionFinalizeType type) {
+        if (type == MultiplayerSessionFinalizeType.GIVE_ITEMS && players.stream().anyMatch(OwnerEconomyLock::isLocked))
+            type = MultiplayerSessionFinalizeType.WITHDRAW_ITEMS;
 		if (stage.getStage() == MultiplayerSessionStage.FINALIZE) {
 			throw new IllegalStateException("Attempted to finish session after already being finished once before.");
 		}

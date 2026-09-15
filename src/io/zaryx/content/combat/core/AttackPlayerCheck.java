@@ -1,5 +1,7 @@
 package io.zaryx.content.combat.core;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Configuration;
 import io.zaryx.Server;
 import io.zaryx.content.WeaponGames.WGManager;
@@ -45,6 +47,10 @@ public class AttackPlayerCheck {
      */
     public static boolean check(Player c, Entity targetEntity, boolean sendMessages) {
         Player o = targetEntity.asPlayer();
+        if (OwnerEconomyLock.isLocked(c) || OwnerEconomyLock.isLocked(o)) {
+            sendCheckMessage(c, sendMessages, "PvP is disabled for economy-locked accounts.");
+            return false;
+        }
         if (o == null || c.getIndex() == o.getIndex() || c.equals(o)) {
             return false;
         }

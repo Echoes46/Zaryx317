@@ -1,5 +1,7 @@
 package io.zaryx.content;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import io.zaryx.Server;
 import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
@@ -130,6 +132,7 @@ public class DiceHandler {
 	}
 
 	public static void rollDice(Player c) {
+        if (OwnerEconomyLock.deny(c)) return;
 		if (c.isGambleBanned()) {
 			c.sendMessage("You cannot gamble.");
 			return;

@@ -206,8 +206,9 @@ public class NpcMaxHit {
             case 6611:
             case 8164:
             case 8172:
-            case 13201:
                 return 46;
+            case 13201:
+                return io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
             case 6615:
                 return 20;
             case 6616:

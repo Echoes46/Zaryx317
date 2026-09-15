@@ -1,5 +1,7 @@
 package io.zaryx.model.multiplayersession.duel;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -24,6 +26,7 @@ public class Duel extends Multiplayer {
 
     @Override
     public boolean requestable(Player requested) {
+        if (OwnerEconomyLock.denyTransfer(player, requested)) return false;
         if (!Configuration.NEW_DUEL_ARENA_ACTIVE) {
             player.getDH().sendStatement(
                     "@red@Dueling Temporarily Disabled",

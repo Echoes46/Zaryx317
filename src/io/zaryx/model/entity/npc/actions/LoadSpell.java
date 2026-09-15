@@ -819,14 +819,14 @@ public class LoadSpell {
                         npc.forceChat("ZabuzAAAA!!!");
                         npc.projectileId = 280;
                         npc.endGfx = 281;
-                        npc.maxHit = 70;
+                        npc.maxHit = io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
                         npc.attackTimer = 5;
                     } else if (randomAttack4 > 6) {
                         npc.forceChat("I will rid of you Evildoer!");
                         npc.setAttackType(CombatType.RANGE);
                         npc.projectileId = 1259;
                         npc.endGfx = 140;
-                        npc.maxHit = 70;
+                        npc.maxHit = io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
                         npc.attackTimer = 5;
                     } else {
                         npc.forceChat("RRRAAAaaarRRRGGGHhhh!!!");
@@ -834,7 +834,7 @@ public class LoadSpell {
                         npc.projectileId = 280;
                         npc.endGfx = 281;
                         npc.hitDelayTimer = 3;
-                        npc.maxHit = 70;
+                        npc.maxHit = io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
                         npc.attackTimer = 5;
                         handler().groundSpell(npc, player, 165, 166, "guardian", 4);
                     }
@@ -844,7 +844,7 @@ public class LoadSpell {
                         npc.setAttackType(CombatType.RANGE);
                         npc.projectileId = 1259;
                         npc.endGfx = 140;
-                        npc.maxHit = 70;
+                        npc.maxHit = io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
                         npc.attackTimer = 5;
                     } else {
                         npc.forceChat("RRRAAAaaarRRRGGGHhhh!!!");
@@ -852,7 +852,7 @@ public class LoadSpell {
                         npc.projectileId = -1;
                         npc.endGfx = -1;
                         npc.hitDelayTimer = 3;
-                        npc.maxHit = 70;
+                        npc.maxHit = io.zaryx.content.bosses.ForestGuardianBalance.MAX_HIT;
                         npc.attackTimer = 5;
                         handler().groundSpell(npc, player, 165, 166, "guardian", 4);
                     }

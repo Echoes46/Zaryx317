@@ -1,5 +1,6 @@
 package io.zaryx.model.multiplayersession;
 
+import io.zaryx.model.entity.player.OwnerEconomyLock;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,7 @@ public class MultiplayerSessionListener {
 	 * @return
 	 */
 	public boolean appendable(MultiplayerSession sessionPending) {
-		return true;
+		return sessionPending.getPlayers().stream().noneMatch(OwnerEconomyLock::deny);
 	}
 
 	/**
