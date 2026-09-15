@@ -43,6 +43,7 @@ public class hiscores implements Runnable {
 
     @Override
     public void run() {
+        if (io.zaryx.testing.TestWorld.enabled()) return;
         try {
             if (!connect("localhost", "hiscores", "ark", "neK6R2p5")) {
                 destroy();

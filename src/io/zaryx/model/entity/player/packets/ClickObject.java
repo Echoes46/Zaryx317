@@ -231,6 +231,8 @@ public class ClickObject implements PacketType {
             return;
         }
 
+        if (io.zaryx.content.holiday.HolidayEvents.clickObject(c, worldObject.getId(), worldObject.getX(), worldObject.getY())) return;
+
         if (c.getInstance() != null && c.getInstance().handleClickObject(c, worldObject, option)) {
             return;
         }

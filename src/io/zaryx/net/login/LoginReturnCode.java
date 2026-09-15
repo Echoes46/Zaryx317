@@ -2,6 +2,7 @@ package io.zaryx.net.login;
 
 public enum LoginReturnCode {
     SUCCESS(2),
+    TEST_WORLD_RESTRICTED(29),
     INVALID_USERNAME_OR_PASSWORD(3),
     ACCOUNT_DISABLED(4),
     ACCOUNT_ALREADY_ONLINE(5),

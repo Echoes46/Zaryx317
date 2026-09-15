@@ -127,6 +127,7 @@ public class ServerStartup {
         // Keep this below region load and object loading
         NpcSpawnLoader.load();
         NpcSpawnLoaderOSRS.initOsrsSpawns();
+        io.zaryx.content.holiday.HolidayEvents.startup();
         MonsterHunt.spawnNPC();
         Runtime.getRuntime().addShutdownHook(new ShutdownHook());
         CommandManager.initializeCommands();

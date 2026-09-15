@@ -28,6 +28,7 @@ public class StoreDonation implements Runnable {
 
     @Override
     public void run() {
+        if (io.zaryx.testing.TestWorld.enabled()) return;
         try {
             if (!connect("198.12.15.138", "runecres_store", "runecres_store", "MohammadPbuh1212!")) {
                 return;

@@ -11,7 +11,7 @@ import java.util.Set;
 /** Login-bound economy restrictions; only the server operator can change the switch. */
 public final class OwnerEconomyLock {
     private static final boolean ENABLED = load(Path.of("etc/cfg/owner-economy-lock.properties"));
-    private static final Set<String> SAFE_COMMANDS = Set.of("home", "pet", "pets", "activity", "tasks", "commands", "help", "rules", "players", "staff", "time", "discord", "website");
+    private static final Set<String> SAFE_COMMANDS = Set.of("home", "holiday", "pet", "pets", "activity", "tasks", "commands", "help", "rules", "players", "staff", "time", "discord", "website");
     private OwnerEconomyLock() { }
 
     static boolean load(Path path) {

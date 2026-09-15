@@ -590,6 +590,10 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
     }
 
     public static LoginReturnCode loadPlayer(Player player, String name, LoginReturnCode returnCode, boolean passedCaptcha) throws Exception {
+        if (io.zaryx.testing.TestWorld.enabled()) {
+            LoginReturnCode testAccess=io.zaryx.testing.TestWorld.checkLogin(java.nio.file.Path.of("."),player.getLoginName(),player.playerPass);
+            if(testAccess!=LoginReturnCode.SUCCESS)return testAccess;
+        }
         LoadGameResult load = PlayerSave.loadGame(player, player.getLoginName(), player.playerPass, passedCaptcha);
 
         if (load == LoadGameResult.ERROR_OCCURRED) {
@@ -629,6 +633,7 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
             }
 
             if (load == LoadGameResult.NEW_PLAYER) {
+                if (io.zaryx.testing.TestWorld.enabled()) return LoginReturnCode.TEST_WORLD_RESTRICTED;
                 if (!isValidNewName(name) || Censor.isCensoredName(name)) {
                     return LoginReturnCode.INVALID_USERNAME_OR_PASSWORD;
                 }

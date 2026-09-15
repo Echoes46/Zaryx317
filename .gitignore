@@ -48,3 +48,7 @@ config/discord.properties
 
 
 !/gradle/wrapper/gradle-wrapper.jar
+
+# Isolated, private World 2 runtime (accounts and copied data)
+/worlds/
+/build-test-world/

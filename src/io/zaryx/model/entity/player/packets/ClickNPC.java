@@ -161,7 +161,7 @@ public class ClickNPC implements PacketType {
                     c.sendMessage("[DEBUG] NPC Option #1-> Click index: " + npcIndex + ", NPC Id: " + c.npcType);
                 }
 
-                if (Christmas.handleCandies(c, n.getNpcId()) && Christmas.isChristmas()) {
+                if (!(n instanceof io.zaryx.content.holiday.HolidayNpc) && Christmas.handleCandies(c, n.getNpcId()) && Christmas.isChristmas()) {
                     return;
                 }
 

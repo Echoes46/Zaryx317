@@ -27,6 +27,7 @@ import io.zaryx.util.logging.player.DonatedLog;
 public class Claim extends Command {
 
 	public static void claimDonations(Player player) {
+        if (io.zaryx.testing.TestWorld.enabled()) { player.sendMessage("Live donation claims are disabled on World 2."); return; }
 		Server.getDatabaseManager().exec(Server.getConfiguration().getStoreDatabase(), (context, connection) -> {
 			DonationItemList donationItemList = new GetDonationsQuery(player.getLoginName()).execute(context, connection);
 

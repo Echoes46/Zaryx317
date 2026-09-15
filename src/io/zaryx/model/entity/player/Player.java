@@ -2147,6 +2147,8 @@ public class Player extends Entity {
 
 
 
+    public final java.util.Map<io.zaryx.content.holiday.Holiday, io.zaryx.content.holiday.HolidayProgress> holidayProgress = new java.util.EnumMap<>(io.zaryx.content.holiday.Holiday.class);
+
     public void finishLogin() {
         OwnerEconomyLock.applyRank(this);
         Server.getLogging().write(new ConnectionLog(this, true, null));

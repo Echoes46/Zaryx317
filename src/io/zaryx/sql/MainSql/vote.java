@@ -23,6 +23,7 @@ public class vote implements Runnable {
 
     @Override
     public void run() {
+        if (io.zaryx.testing.TestWorld.enabled()) return;
         try {
             if (!connect(HOST, DATABASE, USER, PASS)) {
                 return;

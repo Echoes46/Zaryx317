@@ -117,3 +117,14 @@ tasks.withType(JavaCompile).configureEach {
 test {
     useJUnitPlatform()
 }
+
+// Build World 2 without replacing classes/JARs a live Gradle server may be using.
+if (project.hasProperty('testWorldBuild')) {
+    buildDir = file('build-test-world')
+}
+tasks.register('testWorldRuntime', Sync) {
+    dependsOn jar
+    into layout.buildDirectory.dir('test-world-lib')
+    from tasks.jar.archiveFile
+    from(configurations.runtimeClasspath) { exclude 'log4j-slf4j2-impl-*.jar' }
+}

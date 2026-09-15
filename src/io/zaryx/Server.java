@@ -152,6 +152,7 @@ public class Server {
     public static SQLNetwork gameSqlNetwork;
     public static SQLNetwork realmSqlNetwork;
     public static void loadSqlNetwork() {
+        if (io.zaryx.testing.TestWorld.enabled()) return;
         if (Configuration.DISABLE_DATABASES)
             return;
         Properties properties = new Properties();
@@ -185,6 +186,7 @@ public class Server {
     }
 
     public static void loadRealmSqlNetwork() {
+        if (io.zaryx.testing.TestWorld.enabled()) return;
       /*  if (Configuration.DISABLE_DATABASES)
             return;*/
         Properties properties = new Properties();
@@ -235,6 +237,7 @@ public class Server {
         new GameThread(() -> {
             try {
                 System.out.println("[" + Calendar.getInstance().getTime() + "]: Launching " + Configuration.SERVER_NAME + ".");
+                io.zaryx.testing.TestWorld.initialise();
                 enableExceptionLogging();
                 long startTime = System.nanoTime();
                 System.setOut(new OutstreamStyle(System.out));
@@ -255,7 +258,7 @@ public class Server {
                 }
 
                 bindPorts();
-                System.out.println("Server Online on Port: " + Configuration.PORT_DEFAULT);
+                System.out.println("Server Online on Port: " + (io.zaryx.testing.TestWorld.enabled() ? io.zaryx.testing.TestWorld.PORT : configuration.getServerState().getPort()));
                 long endTime = System.nanoTime();
                 long elapsed = endTime - startTime;
                 System.out.println(Configuration.SERVER_NAME + " has successfully started up in " + TimeUnit.SECONDS.convert(elapsed, TimeUnit.NANOSECONDS)+ " seconds.");
@@ -299,6 +302,7 @@ public class Server {
     }
 
     public static ServerConfiguration loadConfiguration() throws IOException {
+        if (io.zaryx.testing.TestWorld.enabled()) return ServerConfiguration.getDefault();
         File configurationFile = new File(ServerConfiguration.CONFIGURATION_FILE);
         ServerConfiguration configuration;
         if (!configurationFile.exists()) {
@@ -347,7 +351,7 @@ public class Server {
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new PipelineFactory());
         bootstrap.childOption(ChannelOption.TCP_NODELAY, true).childOption(ChannelOption.SO_KEEPALIVE, true);
-        bootstrap.bind(new InetSocketAddress(configuration.getServerState().getPort()));
+        bootstrap.bind(new InetSocketAddress(io.zaryx.testing.TestWorld.enabled() ? io.zaryx.testing.TestWorld.PORT : configuration.getServerState().getPort())).syncUninterruptibly();
     }
 
     public static GameCalendar getCalendar() {

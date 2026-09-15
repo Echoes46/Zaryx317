@@ -130,6 +130,7 @@ public class Discord extends ListenerAdapter {
 
     // ===== Init / Shutdown =====
     public static synchronized void init() {
+        if (io.zaryx.testing.TestWorld.enabled()) return;
 //        if (Configuration.isDev()) {
 //            logger.info("Discord skipped because server is in dev mode.");
 //            return;
