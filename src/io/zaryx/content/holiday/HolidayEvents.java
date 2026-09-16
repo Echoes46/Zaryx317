@@ -142,7 +142,7 @@ public final class HolidayEvents {
     }
     private static void pouch(Player p,Holiday h,int index){
         HolidayProgress s=progress(p,h);
-        p.start(new DialogueBuilder(p).itemStatement(h.supplyItems[index],h.supplies[index],
+        p.start(new DialogueBuilder(p).itemStatement(h.supplies[index],h.supplyItems[index],
             (s.gathered&(1<<index))!=0?"Your event pouch holds this supply.":"Find this supply at its festival station.",
             "Quest supplies cannot be traded or lost on death."));
     }
@@ -165,7 +165,7 @@ public final class HolidayEvents {
         if(!s.gather(station.role)){journal(p,h);return;}
         s.nextAction=System.currentTimeMillis()+1500;
         p.startAnimation(832);save(p);
-        p.start(new DialogueBuilder(p).itemStatement(h.supplyItems[station.role],"Festival supplies",
+        p.start(new DialogueBuilder(p).itemStatement("Festival supplies",h.supplyItems[station.role],
             "You collect "+h.supplies[station.role].toLowerCase(Locale.ROOT)+" for your event pouch.",
             s.stage==2?"All supplies found! Visit the crafting station.":"Find the other marked festival stations."));
     }
