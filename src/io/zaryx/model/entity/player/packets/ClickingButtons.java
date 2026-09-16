@@ -918,7 +918,7 @@ public class ClickingButtons implements PacketType {
                 c.setSidebarInterface(2, 10280);
                 c.setSidebarInterface(3, 3213);
                 c.setSidebarInterface(4, 1644);
-                c.setSidebarInterface(5, 15608);
+                c.setSidebarInterface(5, c.usingcurseprayers ? 27674 : 15608);
                 switch (c.playerMagicBook) {
                     case 0:
                         c.setSidebarInterface(6, 938); // modern

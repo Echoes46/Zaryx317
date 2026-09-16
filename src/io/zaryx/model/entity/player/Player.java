@@ -2349,7 +2349,6 @@ public class Player extends Entity {
         setSidebarInterface(2, 10280);
         setSidebarInterface(3, 3213);
         setSidebarInterface(4, 1644);
-        setSidebarInterface(5, 15608);
         setSidebarInterface(5, usingcurseprayers ? 27674 : 15608);
         switch (playerMagicBook) {
             case 0:

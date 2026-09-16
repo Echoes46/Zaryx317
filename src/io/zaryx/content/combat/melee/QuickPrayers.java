@@ -91,7 +91,7 @@ public class QuickPrayers {
 		}
 		if (button == 67080) {
 			player.isSelectingQuickprayers = false;
-			player.setSidebarInterface(5, 15608);
+			player.setSidebarInterface(5, player.usingcurseprayers ? 27674 : 15608);
 			return true;
 		}
 		return false;

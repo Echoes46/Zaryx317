@@ -467,6 +467,8 @@ public class PlayerSave {
                             p.augury = Boolean.parseBoolean(token2);
                         } else if (token.equals("curses")) {
                             p.cursePrayers = Boolean.parseBoolean(token2);
+                        } else if (token.equals("using-curses")) {
+                            p.usingcurseprayers = Boolean.parseBoolean(token2);
                         } else if (token.equals("crystalDrop")) {
                             p.crystalDrop = Boolean.parseBoolean(token2);
                         } else if (token.equals("spawnedbarrows")) {
@@ -1887,6 +1889,8 @@ public class PlayerSave {
             characterfile.newLine();
             characterfile.write("curses = ", 0, 9);
             characterfile.write(Boolean.toString(p.cursePrayers), 0, Boolean.toString(p.cursePrayers).length());
+            characterfile.newLine();
+            characterfile.write("using-curses = " + p.usingcurseprayers);
             characterfile.newLine();
             characterfile.write("crystalDrop = ", 0, 14);
             characterfile.write(Boolean.toString(p.crystalDrop), 0, Boolean.toString(p.crystalDrop).length());
