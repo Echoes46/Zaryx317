@@ -56,6 +56,8 @@ class HolidayAssetTest {
     }
     for(var n:layout.npcs)assertFalse(occupied.contains(n.x+","+n.y),"NPC inside scenery: "+n.id);
     if(layout.holiday==Holiday.HALLOWEEN){
+     assertTrue(clear(3096,3358,1,1),"Bookcase arrival must be clear");
+     assertTrue(clear(3098,3357,1,1),"Lever arrival must be clear");
      var walker=new io.zaryx.model.entity.player.Player(null){@Override public void updateController(){}};
      walker.moveTo(new io.zaryx.model.entity.player.Position(layout.entryX,layout.entryY,0));walker.getNextPlayerMovement();
      for(var station:layout.objects)if(station.role>=0&&station.role<3){

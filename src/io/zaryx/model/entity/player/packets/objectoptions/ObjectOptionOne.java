@@ -2630,10 +2630,10 @@ public class ObjectOptionOne {
 
 			case 155:
 			case 156:
-				AgilityHandler.delayEmote(c, "BALANCE", 3096, 3359, 0, 2);
+				AgilityHandler.delayEmote(c, "BALANCE", 3096, 3358, c.heightLevel, 2);
 				break;
 			case 160:
-				AgilityHandler.delayEmote(c, 2140, 3098, 3357, 0, 2);
+				AgilityHandler.delayEmote(c, 2140, 3098, 3357, c.heightLevel, 2);
 				break;
 
 			case 23568:

@@ -32,6 +32,9 @@ class HolidayRuntimeTest {
         var settings=HolidayEvents.class.getDeclaredField("settings");settings.setAccessible(true);
         var oldSettings=settings.get(null);Properties props=new Properties();props.setProperty("halloween.enabled","true");
         settings.set(null,new HolidaySettings(props));
+        var eventsField=io.zaryx.model.cycleevent.CycleEventHandler.class.getDeclaredField("instance");eventsField.setAccessible(true);
+        var oldEvents=eventsField.get(null);
+        var events=new io.zaryx.model.cycleevent.CycleEventHandler();eventsField.set(null,events);
         var ticks=Player.class.getDeclaredMethod("processTickables");ticks.setAccessible(true);
         var layoutsField=HolidayEvents.class.getDeclaredField("layouts");layoutsField.setAccessible(true);
         Map<Holiday,HolidayEvents.Layout> layouts=(Map<Holiday,HolidayEvents.Layout>)layoutsField.get(null);
@@ -57,6 +60,16 @@ class HolidayRuntimeTest {
                 for(int tick=0;tick<10;tick++)for(var n:new ArrayList<>(instance.getNpcs())) {
                     n.process();assertFalse(n.processDeregistration(),"Removed NPC "+n.getNpcId());
                     assertTrue(p.viewable(n,false),"Invisible NPC "+n.getNpcId());
+                }
+                for(int objectId:new int[]{156,160,155,160}) {
+                    p.teleTimer=0;
+                    io.zaryx.model.entity.player.packets.objectoptions.ObjectOptionOne.handleOption(p,objectId,3097,3359);
+                    events.process();events.process();p.getNextPlayerMovement();p.checkInstanceCoords();
+                    p.teleTimer=0;instance.tick(p);p.getNextPlayerMovement();
+                    assertSame(instance,p.getInstance());assertEquals(instance.getHeight(),p.heightLevel);
+                    assertEquals(objectId==160?3098:3096,p.absX);
+                    assertEquals(objectId==160?3357:3358,p.absY,"Passage must not bounce back to the main room");
+                    assertFalse(instance.isDisposed());
                 }
                 // Reproduce the reported state: an attached owner at public height zero.
                 p.heightLevel=0;
@@ -104,6 +117,7 @@ class HolidayRuntimeTest {
             for(var npc:actors)if(npc.getIndex()>0)npc.unregisterInstant();
             Server.getGlobalObjects().pulse();
             layouts.clear();layouts.putAll(oldLayouts);
+            eventsField.set(null,oldEvents);
             settings.set(null,oldSettings);config.set(null,oldConfig);
         }
     }
