@@ -14,7 +14,7 @@ public final class HolidayNpc extends NPC {
     public HolidayNpc(Holiday holiday,int id,int x,int y,int height,int role,boolean home){
         super(id,new Position(x,y,height));this.holiday=holiday;this.role=role;this.home=home;
         getBehaviour().setAggressive(false);getBehaviour().setRespawn(false);
-        getCombatDefinition().setAggressive(false);walkingType=0;
+        getCombatDefinition().setAggressive(false);walkingType=0;randomWalk=false;
     }
     @Override public boolean canBeAttacked(Entity entity){return false;}
     @Override public boolean canBeDamaged(Entity entity){return false;}

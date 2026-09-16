@@ -55,6 +55,16 @@ class HolidayAssetTest {
      RegionProvider.getGlobal().get(o.x,o.y).addObject(o.id,o.x,o.y,0,10,o.face);
     }
     for(var n:layout.npcs)assertFalse(occupied.contains(n.x+","+n.y),"NPC inside scenery: "+n.id);
+    if(layout.holiday==Holiday.HALLOWEEN){
+     var walker=new io.zaryx.model.entity.player.Player(null){@Override public void updateController(){}};
+     walker.moveTo(new io.zaryx.model.entity.player.Position(layout.entryX,layout.entryY,0));walker.getNextPlayerMovement();
+     for(var station:layout.objects)if(station.role>=0&&station.role<3){
+      var def=ObjectDef.getObjectDef(station.id);
+      io.zaryx.model.entity.player.PathFinder.getPathFinder().findRoute(walker,station.x,station.y,true,def.xLength,def.yLength);
+      for(int tick=0;tick<100;tick++)walker.getNextPlayerMovement();
+      assertTrue(Math.abs(walker.absX-station.x)<=1&&Math.abs(walker.absY-station.y)<=1,"Route seed "+seed+" station "+station.id+" stopped "+walker.absX+","+walker.absY+" target "+station.x+","+station.y);
+     }
+    }
     Set<String> reached=new HashSet<>();ArrayDeque<int[]> queue=new ArrayDeque<>();queue.add(new int[]{layout.entryX,layout.entryY});reached.add(layout.entryX+","+layout.entryY);
     while(!queue.isEmpty()){int[] at=queue.remove();for(int[] step:new int[][]{{1,0},{-1,0},{0,1},{0,-1}}){
      int x=at[0]+step[0],y=at[1]+step[1];if(Math.abs(x-layout.entryX)>30||Math.abs(y-layout.entryY)>30||reached.contains(x+","+y))continue;

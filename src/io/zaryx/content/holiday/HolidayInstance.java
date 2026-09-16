@@ -10,6 +10,7 @@ import io.zaryx.model.world.objects.GlobalObject;
 public final class HolidayInstance extends InstancedArea {
     final HolidayEvents.Layout layout;
     private final Player owner;
+    private boolean refreshPending=true;
     HolidayInstance(Player owner,HolidayEvents.Layout layout) {
         super(new InstanceConfigurationBuilder().setCloseOnPlayersEmpty(true).createInstanceConfiguration(),new Boundary(3072,3328,3135,3391));
         this.owner=owner;this.layout=layout;
@@ -25,5 +26,27 @@ public final class HolidayInstance extends InstancedArea {
         p.sendMessage("Your private Halloween round is ready. Speak to Jack for your journal.");
     }
     void leave(Player p){p.moveTo(new Position(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0));if(p.getInstance()==this)remove(p);}
+    @Override public void tick(io.zaryx.model.entity.Entity entity) {
+        if(isDisposed() || entity!=owner || owner.getInstance()!=this)return;
+        // Jack is required to claim/exit; recover if an external NPC cleanup removes him.
+        boolean hasHost=getNpcs().stream().anyMatch(n->n instanceof HolidayNpc
+                && ((HolidayNpc)n).role==-1 && !n.isUnregister() && !n.isDead() && !n.needRespawn);
+        if(!hasHost) {
+            for(var n:new java.util.ArrayList<>(getNpcs()))
+                if(n instanceof HolidayNpc && ((HolidayNpc)n).role==-1)n.unregister();
+            for(var spawn:layout.npcs)if(!spawn.home && spawn.role==-1) {
+                add(new HolidayNpc(layout.holiday,spawn.id,spawn.x,spawn.y,getHeight(),spawn.role,false));
+                org.slf4j.LoggerFactory.getLogger(HolidayInstance.class).warn(
+                        "Restored missing Halloween host in instance height {}",getHeight());
+            }
+        }
+        // Starting another round can reuse both the same region and the same height.
+        // In that case the client sends no map-load packet to request the new stations.
+        if(refreshPending && entity==owner && owner.getInstance()==this
+                && owner.getTeleportToX()==-1 && owner.getTeleportToY()==-1 && owns(owner,layout.holiday)) {
+            Server.getGlobalObjects().updateRegionObjects(owner);
+            refreshPending=false;
+        }
+    }
     @Override public void onDispose(){ }
 }

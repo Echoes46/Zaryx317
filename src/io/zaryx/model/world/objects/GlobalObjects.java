@@ -322,7 +322,9 @@ public class GlobalObjects {
         objects.stream()
                 .filter(Objects::nonNull)
                 .filter(object -> player.distanceToPoint(object.getX(), object.getY()) <= 60
-                        && object.getHeight() == player.heightLevel)
+                        && object.getHeight() == player.heightLevel
+                        && object.getInstance() == player.getInstance()
+                        && (object.getInstance() == null || !object.getInstance().isDisposed()))
                 .forEach(object ->
                         player.getPA().object(
                                 object.getObjectId(),

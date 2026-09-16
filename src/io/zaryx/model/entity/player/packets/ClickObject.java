@@ -62,6 +62,7 @@ public class ClickObject implements PacketType {
     }
 
     private static void walkTo(Player player, int option) {
+        if (io.zaryx.content.holiday.HolidayEvents.walkToObject(player, player.objectId, player.objectX, player.objectY)) return;
         WorldObject object = getObject(player, player.objectId, player.objectX, player.objectY);
 
         if (object != null) {

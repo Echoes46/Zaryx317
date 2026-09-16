@@ -152,6 +152,33 @@ public final class HolidayEvents {
             (s.gathered&(1<<index))!=0?"Your event pouch holds this supply.":"Find this supply at its festival station.",
             "Quest supplies cannot be traded or lost on death."));
     }
+    /** Route to this round's station instead of trusting the client's cached object footprint. */
+    public static boolean walkToObject(Player p,int id,int x,int y) {
+        if (!(p.getInstance() instanceof HolidayInstance)) return false;
+        HolidayInstance instance=(HolidayInstance)p.getInstance();
+        if (!instance.owns(p,Holiday.HALLOWEEN)) return false;
+        for (Station station:instance.layout.objects) {
+            if (station.x!=x || station.y!=y || station.role<0) continue;
+            if(!available(p,Holiday.HALLOWEEN,x,y,32))return true;
+            if (station.id!=id) {
+                Server.getGlobalObjects().updateRegionObjects(p);
+                p.sendMessage("The festival stations have refreshed. Please click the station again.");
+                return true;
+            }
+            var object=io.zaryx.model.entity.player.packets.ClickObject.getObject(p,id,x,y);
+            if(object==null)return true;
+            var size=object.getObjectSize();
+            io.zaryx.model.entity.player.PathFinder.getPathFinder().findRoute(p,x,y,true,size.getX(),size.getY());
+            p.setTickable(new io.zaryx.model.tickable.impl.WalkToTickable(p,
+                    new io.zaryx.model.entity.player.Position(x,y,p.heightLevel),size.getX(),size.getY(),pl->{
+                if(pl.getInstance()!=instance || !instance.owns(pl,Holiday.HALLOWEEN))return;
+                pl.facePosition(x,y);
+                clickObject(pl,id,x,y);
+            }));
+            return true;
+        }
+        return false;
+    }
     public static boolean clickObject(Player p,int id,int x,int y) {
         for(Holiday h:Holiday.values()) {
             Layout layout=h==Holiday.HALLOWEEN?(p.getInstance() instanceof HolidayInstance?((HolidayInstance)p.getInstance()).layout:null):layouts.get(h);if(layout==null)continue;
