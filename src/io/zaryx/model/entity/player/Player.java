@@ -72,6 +72,7 @@ import io.zaryx.content.item.lootable.impl.*;
 import io.zaryx.content.item.lootable.unref.*;
 import io.zaryx.content.items.ChristmasWeapons;
 import io.zaryx.content.items.Degrade;
+import io.zaryx.content.items.IslandScrolls;
 import io.zaryx.content.items.PvpWeapons;
 import io.zaryx.content.items.pouch.GemBag;
 import io.zaryx.content.items.pouch.HerbSack;
@@ -2277,15 +2278,7 @@ public class Player extends Entity {
         if (SafetyTimer > 0) {
             getPA().sendGameTimer(ClientGameTimer.SAFETY_BUFFER, TimeUnit.MINUTES, (int) (SafetyTimer / 100));
         }
-        if (IslandTimer > 0) {
-            if (IslandTimer <= 15) {
-                getPA().sendGameTimer(ClientGameTimer.ISLAND_TIMER_15, TimeUnit.MINUTES, (int) (IslandTimer / 100));
-            } else if (IslandTimer <= 30) {
-                getPA().sendGameTimer(ClientGameTimer.ISLAND_TIMER_30, TimeUnit.MINUTES, (int) (IslandTimer / 100));
-            } else if (IslandTimer > 30) {
-                getPA().sendGameTimer(ClientGameTimer.ISLAND_TIMER_60, TimeUnit.MINUTES, (int) (IslandTimer / 100));
-            }
-        }
+        IslandScrolls.syncTimer(this);
 
         if (CollTimer > 0) {
             if (CollTimer <= 15) {

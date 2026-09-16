@@ -18,6 +18,7 @@ import io.zaryx.content.dwarfmulticannon.Cannon;
 import io.zaryx.content.elonmusk.Island;
 import io.zaryx.content.item.lootable.impl.*;
 import io.zaryx.content.items.CluescrollRateIncreaseScroll;
+import io.zaryx.content.items.IslandScrolls;
 import io.zaryx.content.items.Packs;
 import io.zaryx.content.items.pouch.RunePouch;
 import io.zaryx.content.lootbag.LootingBag;
@@ -467,82 +468,7 @@ public class ItemOptionOne implements PacketType {
             if (c.getTaskMaster().resetWithScroll()) c.getItems().deleteItem2(20238, 1);
         }
 
-        if (itemId == 24366) {
-            int count = c.getItems().getInventoryCount(24366);
-            if (count <= 0) {
-                return;
-            }
-            if (System.currentTimeMillis() - c.clickDelay <= 2200) {
-                return;
-            }
-            if (!Boundary.isIn(c, Boundary.UNICOW_AREA)) {
-                c.moveTo(new Position(2847, 5086, 0));
-            }
-            if ((c.IslandTimer/100) >= 55) {//o theres a max, but timer is working in-game at-least
-                return;
-            }
-            c.clickDelay = System.currentTimeMillis();
-            c.IslandTimer += (TimeUnit.MINUTES.toMillis(60) / 600);
-            c.getPA().sendConfig(39, 60);
-            c.getPA().sendGameTimer(ClientGameTimer.ISLAND_TIMER_60, TimeUnit.MINUTES, (int) (c.IslandTimer/100));
-            if (c.IslandTimer == 0) {
-                c.sendMessage("You now have 60 minutes time remaining at Unicows!");
-            } else if (c.IslandTimer > 0) {
-                c.sendMessage("You have added 60 more minutes to your Unicow timer!");
-            }
-            c.getItems().deleteItem2(24366, 1);
-            return;
-        } else if (itemId == 24365) {
-
-            int count = c.getItems().getInventoryCount(24365);
-            if (count <= 0) {
-                return;
-            }
-            if (System.currentTimeMillis() - c.clickDelay <= 2200) {
-                return;
-            }
-            if (!Boundary.isIn(c, Boundary.UNICOW_AREA)) {
-                c.moveTo(new Position(2847, 5086, 0));
-            }
-            if ((c.IslandTimer/100) >= 55) {
-                return;
-            }
-            c.clickDelay = System.currentTimeMillis();
-            c.IslandTimer += (TimeUnit.MINUTES.toMillis(30) / 600);
-            c.getPA().sendGameTimer(ClientGameTimer.ISLAND_TIMER_30, TimeUnit.MINUTES, (int) (c.IslandTimer/100));
-            c.getPA().sendConfig(39, 30);
-            if (c.IslandTimer == 0) {
-                c.sendMessage("You now have 30 minutes time remaining at Unicows!");
-            } else if (c.IslandTimer > 0) {
-                c.sendMessage("You have added 30 more minutes to your Unicow timer!");
-            }
-            c.getItems().deleteItem2(24365, 1);
-            return;
-        } else if (itemId == 24364) {
-
-            int count = c.getItems().getInventoryCount(24364);
-            if (count <= 0) {
-                return;
-            }
-            if (System.currentTimeMillis() - c.clickDelay <= 2200) {
-                return;
-            }
-            if (!Boundary.isIn(c, Boundary.UNICOW_AREA)) {
-                c.moveTo(new Position(2847, 5086, 0));
-            }
-            if ((c.IslandTimer/100) >= 55) {
-                return;
-            }
-            c.clickDelay = System.currentTimeMillis();
-            c.IslandTimer += (TimeUnit.MINUTES.toMillis(15) / 600);
-            c.getPA().sendConfig(39, 15);
-            c.getPA().sendGameTimer(ClientGameTimer.ISLAND_TIMER_15, TimeUnit.MINUTES, (int) (c.IslandTimer/100));
-            if (c.IslandTimer == 0) {
-                c.sendMessage("You now have 15 minutes time remaining at Unicows!");
-            } else if (c.IslandTimer > 0) {
-                c.sendMessage("You have added 15 more minutes to your Unicow timer!");
-            }
-            c.getItems().deleteItem2(24364, 1);
+        if (IslandScrolls.use(c, itemId)) {
             return;
         }
 

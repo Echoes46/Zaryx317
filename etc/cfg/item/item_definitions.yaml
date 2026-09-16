@@ -75648,12 +75648,15 @@
 - id: 24364
   name: Island Scroll (15min)
   description: 15 minutes inside a mystical place!
+  stackable: true
 - id: 24365
   name: Island Scroll (30min)
   description: 30 minutes inside a mystical place!
+  stackable: true
 - id: 24366
   name: Island Scroll (60min)
   description: 60 minutes inside a mystical place!
+  stackable: true
 - id: 27670
   name: Fangs of venenatis
   description: The fangs of a matriarch spider. They seem to maintain a sense of her power.
