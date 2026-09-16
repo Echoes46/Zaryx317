@@ -127,7 +127,7 @@ public class DailyDataTracker {
         }
         if (!today.equals(now) && ENABLED) {
             today = now;
-            DataStorage.saveData("today", today);
+            DataStorage.saveData("today", today.toString());
             insertData();
         }
     }

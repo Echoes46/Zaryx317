@@ -91,7 +91,8 @@ public final class WalkableTiles {
         return skipped;
     }
     public static boolean visible(Tile t,int plane,int baseX,int baseY) {
-        return t.z==plane && t.x>=baseX && t.x<baseX+104 && t.y>=baseY && t.y<baseY+104;
+        // Instanced raids use heights 4, 8, ... for the same base map plane.
+        return t.z==Math.floorMod(plane,4) && t.x>=baseX && t.x<baseX+104 && t.y>=baseY && t.y<baseY+104;
     }
     public static void sync(Player p) {
         if(p.getOutStream()==null)return;

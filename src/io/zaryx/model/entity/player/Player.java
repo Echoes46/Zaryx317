@@ -2362,6 +2362,13 @@ public class Player extends Entity {
                 setSidebarInterface(6, 29999); // ancient
                 break;
         }
+        // Pet restoration can request an immediate save, so restore trading-post
+        // balances and offers before spawning the saved companion.
+        if (tradePost == null) {
+            tradePost = new POSManager();
+        }
+        tradePost.init(this);
+
         if (hasFollower) {
             if (petSummonId > 0) {
                 PetHandler.Pets pet = PetHandler.forItem(petSummonId);
@@ -2606,12 +2613,6 @@ public class Player extends Entity {
         if (doubleDropRate > 0) {
             sendErrorMessage("You have the Double Drop Rate Boost Active!");
         }
-        if (tradePost == null) {
-            tradePost = new POSManager();
-        }
-        tradePost.init(this);
-
-
         if (!StoreTransfer) {
             amDonated += (int) getStoreDonated();
             StoreTransfer = true;

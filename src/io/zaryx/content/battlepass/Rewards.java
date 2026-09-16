@@ -7,6 +7,7 @@ import io.zaryx.model.items.GameItem;
 import io.zaryx.util.Misc;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,13 +56,8 @@ public class Rewards {
     public static void saveInformation() {
         try {
             File file = new File(INFO_FILE_PATH);
-            if (file.exists() && file.isFile()) {
-                file.delete();
-            }
-            if (file.createNewFile()) {
-                System.out.println("New info.txt file made!");
-            }
-            FileWriter fileWriter = new FileWriter(file,true);
+            Files.createDirectories(file.toPath().getParent());
+            FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(String.valueOf(Pass.SEASON));
             fileWriter.write(System.lineSeparator());
             fileWriter.write(String.valueOf(Pass.getDaysUntilEnd()));
@@ -71,45 +67,38 @@ public class Rewards {
             fileWriter.write(String.valueOf(Pass.isSeasonEnded()));
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file " + new File(INFO_FILE_PATH).getAbsolutePath());
+            System.err.println("Error writing to file " + new File(INFO_FILE_PATH).getAbsolutePath());
+            e.printStackTrace();
         }
     }
 
     public static void saveDefaultRewards() {
         try {
             File file = new File(DEFAULT_REWARDS_FILE_PATH);
-            if (file.exists() && file.isFile()) {
-                file.delete();
-            }
-            if (file.createNewFile()) {
-                System.out.println("New defaultrewards.txt file made!");
-            }
-            FileWriter fileWriter = new FileWriter(file,true);
+            Files.createDirectories(file.toPath().getParent());
+            FileWriter fileWriter = new FileWriter(file);
             for (GameItem defaultReward : defaultRewards) {
                 fileWriter.write(defaultReward.getId() + " : " + defaultReward.getAmount() + System.lineSeparator());
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file defaultrewards.txt");
+            System.err.println("Error writing to file " + new File(DEFAULT_REWARDS_FILE_PATH).getAbsolutePath());
+            e.printStackTrace();
         }
     }
 
     public static void saveMemberRewards() {
         try {
             File file = new File(REWARDS_FILE_PATH);
-            if (file.exists() && file.isFile()) {
-                file.delete();
-            }
-            if (file.createNewFile()) {
-                System.out.println("New memberrewards.txt file made!");
-            }
-            FileWriter fileWriter = new FileWriter(file,true);
+            Files.createDirectories(file.toPath().getParent());
+            FileWriter fileWriter = new FileWriter(file);
             for (GameItem memberReward : memberRewards) {
                 fileWriter.write(memberReward.getId() + " : " + memberReward.getAmount() + System.lineSeparator());
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file memberrewards.txt");
+            System.err.println("Error writing to file " + new File(REWARDS_FILE_PATH).getAbsolutePath());
+            e.printStackTrace();
         }
     }
 

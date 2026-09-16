@@ -29,6 +29,8 @@ class WalkableTilesTest {
  @Test void clientUpdatesStayOnTheCorrectPlaneAndLoadedMap() {
   var tile=new WalkableTiles.Tile(3038,6415,0);
   assertTrue(WalkableTiles.visible(tile,0,3000,6400));
+  assertTrue(WalkableTiles.visible(tile,4,3000,6400));
+  assertTrue(WalkableTiles.visible(tile,8,3000,6400));
   assertFalse(WalkableTiles.visible(tile,1,3000,6400));
   assertFalse(WalkableTiles.visible(tile,0,2000,3000));
  }

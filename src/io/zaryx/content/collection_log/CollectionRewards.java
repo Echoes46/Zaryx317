@@ -303,7 +303,7 @@ public enum CollectionRewards {
 
                         for (CollectionRewards value : CollectionRewards.values()) {
                             if (value.NpcID == player.getCollectionLogNPC()) {
-                                Discord.getJDA().getTextChannelById(1269835340429004820L).sendMessage(player.getDisplayName() + " has just completed " + value.name().toLowerCase()).queue();
+                                Discord.writeAchievements("{} has just completed {}", player.getDisplayName(), value.name().toLowerCase());
                                 break;
                             }
                         }

@@ -1105,12 +1105,15 @@ public class Misc {
 	}
 
 	public static String replaceBracketsWithArguments(String string, Object...args) {
+		StringBuilder result = new StringBuilder();
+		int from = 0;
 		for (Object arg : args) {
-			int index = string.indexOf("{}");
+			int index = string.indexOf("{}", from);
 			Preconditions.checkState(index != -1, "Invalid number of parameters for string replace.");
-			string = string.replaceFirst("\\{}", arg == null ? "null" : arg.toString());
+			result.append(string, from, index).append(arg == null ? "null" : arg.toString());
+			from = index + 2;
 		}
-		return string;
+		return result.append(string, from, string.length()).toString();
 	}
 
 	public static double get() {

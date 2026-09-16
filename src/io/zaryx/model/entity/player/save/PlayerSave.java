@@ -25,6 +25,7 @@ import io.zaryx.content.skills.slayer.TaskExtension;
 import io.zaryx.content.teleportv2.inter.TeleportInterface;
 import io.zaryx.content.titles.Title;
 import io.zaryx.content.tradingpost.TradePostOffer;
+import io.zaryx.content.tradingpost.POSManager;
 import io.zaryx.model.controller.ControllerRepository;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.model.entity.player.mode.ExpMode;
@@ -2266,10 +2267,13 @@ public class PlayerSave {
             characterfile.write(Long.toString(p.getDailyDonated()), 0, Long.toString(p.getDailyDonated()).length());
             characterfile.newLine();
             characterfile.write("tpNomad = ", 0, 10);
-            characterfile.write(Long.toString(p.getTradePost().getNomadCoffer()), 0, Long.toString(p.getTradePost().getNomadCoffer()).length());
+            POSManager tradePost = p.getTradePost();
+            long nomadCoffer = tradePost == null ? p.tempNomadCoffer : tradePost.getNomadCoffer();
+            characterfile.write(Long.toString(nomadCoffer), 0, Long.toString(nomadCoffer).length());
             characterfile.newLine();
             characterfile.write("tpPlat = ", 0, 9);
-            characterfile.write(Long.toString(p.getTradePost().getCoinCoffer()), 0, Long.toString(p.getTradePost().getCoinCoffer()).length());
+            long coinCoffer = tradePost == null ? p.tempPlatCoffer : tradePost.getCoinCoffer();
+            characterfile.write(Long.toString(coinCoffer), 0, Long.toString(coinCoffer).length());
             characterfile.newLine();
             characterfile.write("donW = ", 0, 6);
             characterfile.write(Long.toString(p.getWeeklyDonated()), 0, Long.toString(p.getWeeklyDonated()).length());
@@ -3187,7 +3191,7 @@ public class PlayerSave {
             /* TradingPost */
             characterfile.write("[TRADINGPOST]");
             characterfile.newLine();
-            List<TradePostOffer> tradingPostOffers = p.getTradePost().tradePostOffers; // Assuming there's a method to get trading post offers
+            List<TradePostOffer> tradingPostOffers = tradePost == null ? p.tempTradeOffers : tradePost.tradePostOffers;
             for (int i = 0; i < tradingPostOffers.size(); i++) {
                 characterfile.write("trading-post = "); // Write the offer identifier
                 TradePostOffer offer = tradingPostOffers.get(i);
