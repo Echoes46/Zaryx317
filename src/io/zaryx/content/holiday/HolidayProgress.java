@@ -12,7 +12,20 @@ public final class HolidayProgress {
     }
     public boolean start(int sequence) {
         if(stage!=0)return false;
-        layoutSeed=1+Math.floorMod(layoutSeed+sequence, 18);
+        // Start new rounds in the expanded pool. Existing seeds 1-18 keep their
+        // original layouts when a player resumes an unfinished round.
+        int choice=Math.floorMod(sequence,6);
+        int variant, arrangement;
+        if(layoutSeed<HolidayLayouts.LEGACY_LAYOUTS){
+            variant=choice%3;
+            arrangement=Math.floorMod(layoutSeed+choice*5,18);
+        }else{
+            int previous=Math.floorMod(layoutSeed-HolidayLayouts.LEGACY_LAYOUTS,HolidayLayouts.NEW_LAYOUTS);
+            // Move to a different set of ghost and supply tiles every round.
+            variant=(previous/18+1+choice%2)%3;
+            arrangement=(previous%18+1+choice*5)%18;
+        }
+        layoutSeed=HolidayLayouts.LEGACY_LAYOUTS+variant*18+arrangement;
         stage=1;gathered=puzzle=delivered=0;order=Math.floorMod(sequence,ORDERS.length);return true;
     }
     public boolean gather(int index) {

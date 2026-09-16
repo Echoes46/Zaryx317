@@ -8,7 +8,10 @@ class HolidayProgressTest {
   assertEquals(0,p.layoutSeed);assertFalse(p.start(2));
   p.stage=4;p.gathered=7;p.puzzle=3;p.delivered=7;assertTrue(p.complete());
   for(int i=0;i<30;i++){
-   int prior=p.layoutSeed;assertTrue(p.start(i%6));assertNotEquals(prior%18,p.layoutSeed%18);
+   int prior=p.layoutSeed;assertTrue(p.start(i%6));assertTrue(p.layoutSeed>=HolidayLayouts.LEGACY_LAYOUTS);assertNotEquals(prior,p.layoutSeed);
+   if(prior>=HolidayLayouts.LEGACY_LAYOUTS)
+    assertNotEquals((prior-HolidayLayouts.LEGACY_LAYOUTS)/18,(p.layoutSeed-HolidayLayouts.LEGACY_LAYOUTS)/18,
+      "Consecutive rounds should move ghosts and supplies to different tiles");
    assertEquals(p.layoutSeed,HolidayProgress.decode(p.encode()).layoutSeed);
    assertFalse(p.start(5));p.stage=4;p.gathered=7;p.puzzle=3;p.delivered=7;p.complete();
   }

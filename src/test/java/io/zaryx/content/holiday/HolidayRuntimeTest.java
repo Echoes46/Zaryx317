@@ -48,7 +48,7 @@ class HolidayRuntimeTest {
                     .filter(l->l.holiday==Holiday.HALLOWEEN).findFirst().orElseThrow();
             layouts.put(Holiday.HALLOWEEN,base);
             Integer previousHeight=null;
-            for(int seed:new int[]{1,7,13}) {
+            for(int seed:new int[]{1,7,13,19,37,55}) {
                 var instance=new HolidayInstance(p,HolidayLayouts.round(base,seed));instances.add(instance);
                 instance.enter(p);actors.addAll(instance.getNpcs());
                 p.getNextPlayerMovement();p.checkInstanceCoords();assertSame(instance,p.getInstance());

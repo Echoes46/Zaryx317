@@ -10,7 +10,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HolidayAssetTest {
- @Test void allRoundLayoutsAreReachable() throws Exception {for(int seed=0;seed<18;seed++)layoutUsesExistingAssetsAndReachableStations(seed);}
+ @Test void allRoundLayoutsAreReachable() throws Exception {for(int seed=0;seed<HolidayLayouts.LEGACY_LAYOUTS+HolidayLayouts.NEW_LAYOUTS;seed++)layoutUsesExistingAssetsAndReachableStations(seed);}
  void layoutUsesExistingAssetsAndReachableStations(int seed) throws Exception {
   var config=Server.class.getDeclaredField("configuration");config.setAccessible(true);Object old=config.get(null);config.set(null,ServerConfiguration.getDefault());
   var field=RegionProvider.class.getDeclaredField("regions");field.setAccessible(true);
@@ -47,7 +47,7 @@ class HolidayAssetTest {
     }
     assertTrue(clear(layout.entryX,layout.entryY,1,1),"Entry "+layout.holiday);
    }
-   assertTrue(problems.isEmpty(),String.join("; ",problems));
+   assertTrue(problems.isEmpty(),"Seed "+seed+": "+String.join("; ",problems));
    for(var layout:layouts){
     Set<String> occupied=new HashSet<>();
     for(var o:layout.objects){ObjectDef d=ObjectDef.getObjectDef(o.id);int w=o.face%2==0?d.xLength:d.yLength,h=o.face%2==0?d.yLength:d.xLength;
@@ -75,7 +75,7 @@ class HolidayAssetTest {
     for(var n:layout.npcs)if(!n.home&&!reached.contains(n.x+","+n.y))problems.add("Unreachable NPC "+n.id+" at "+n.x+","+n.y+" suggestion "+suggest(reached,n.x,n.y,1,1));
     for(var o:layout.objects)if(o.role>=0){ObjectDef d=ObjectDef.getObjectDef(o.id);if(!adjacent(reached,o.x,o.y,d.xLength,d.yLength))problems.add("Unreachable station "+o.id+" at "+o.x+","+o.y+" suggestion "+suggest(reached,o.x,o.y,d.xLength,d.yLength));}
    }
-   assertTrue(problems.isEmpty(),String.join("; ",problems));
+   assertTrue(problems.isEmpty(),"Seed "+seed+": "+String.join("; ",problems));
   }finally{regions.clear();regions.putAll(previous);config.set(null,old);}
  }
  private static String suggest(Set<String> reached,int x,int y,int w,int h){

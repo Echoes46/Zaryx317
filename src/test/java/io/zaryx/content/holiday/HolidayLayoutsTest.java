@@ -5,14 +5,24 @@ import java.nio.file.*;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 class HolidayLayoutsTest {
- @Test void allEighteenLayoutsAreDistinctStableAndDoNotMutateOtherRounds() throws Exception {
+ @Test void oldAndExpandedLayoutsAreStableReachableAndVaried() throws Exception {
   Gson gson=new Gson();var base=Arrays.stream(gson.fromJson(Files.readString(Path.of("etc/cfg/holiday-events.json")),HolidayEvents.Layout[].class)).filter(l->l.holiday==Holiday.HALLOWEEN).findFirst().orElseThrow();
   String original=gson.toJson(base);Set<String> layouts=new HashSet<>();
-  for(int seed=0;seed<18;seed++){
+  Map<Integer,Set<String>> ghostSpots=new HashMap<>(),supplySpots=new HashMap<>();
+  for(int seed=0;seed<HolidayLayouts.LEGACY_LAYOUTS+HolidayLayouts.NEW_LAYOUTS;seed++){
    var layout=HolidayLayouts.round(base,seed);HolidayEvents.validateLayout(layout);
-   String encoded=gson.toJson(layout);assertTrue(layouts.add(encoded));assertEquals(encoded,gson.toJson(HolidayLayouts.round(base,seed)));
+   String encoded=gson.toJson(layout);
+   if(seed==18)assertEquals(gson.toJson(HolidayLayouts.round(base,0)),encoded);
+   else assertTrue(layouts.add(encoded),"Repeated layout seed "+seed);
+   if(seed>=HolidayLayouts.LEGACY_LAYOUTS){
+    for(var n:layout.npcs)if(n.role>=0)ghostSpots.computeIfAbsent(n.id,k->new HashSet<>()).add(n.x+","+n.y);
+    for(var station:layout.objects)if(station.role>=0&&station.role<3)supplySpots.computeIfAbsent(station.id,k->new HashSet<>()).add(station.x+","+station.y);
+   }assertEquals(encoded,gson.toJson(HolidayLayouts.round(base,seed)));
    Set<String> rooms=new HashSet<>();for(var n:layout.npcs)if(n.role>=0)assertTrue(rooms.add(n.x+","+n.y));
    layout.objects[0].x=1;assertEquals(original,gson.toJson(base));assertEquals(encoded,gson.toJson(HolidayLayouts.round(base,seed)));
   }
+  assertEquals(3,ghostSpots.size());assertEquals(3,supplySpots.size());
+  ghostSpots.values().forEach(spots->assertTrue(spots.size()>=9,"Ghost has too few possible spots"));
+  supplySpots.values().forEach(spots->assertTrue(spots.size()>=9,"Supply has too few possible spots"));
  }
 }
