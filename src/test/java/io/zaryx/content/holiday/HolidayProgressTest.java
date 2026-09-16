@@ -3,6 +3,17 @@ import org.junit.jupiter.api.Test;
 import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.*;
 class HolidayProgressTest {
+ @Test void roundLayoutPersistsAndChangesOnlyWhenNewRoundStarts(){
+  HolidayProgress p=HolidayProgress.decode("2026,1,0,0,0,0,0,2");
+  assertEquals(0,p.layoutSeed);assertFalse(p.start(2));
+  p.stage=4;p.gathered=7;p.puzzle=3;p.delivered=7;assertTrue(p.complete());
+  for(int i=0;i<30;i++){
+   int prior=p.layoutSeed;assertTrue(p.start(i%6));assertNotEquals(prior%18,p.layoutSeed%18);
+   assertEquals(p.layoutSeed,HolidayProgress.decode(p.encode()).layoutSeed);
+   assertFalse(p.start(5));p.stage=4;p.gathered=7;p.puzzle=3;p.delivered=7;p.complete();
+  }
+ }
+
  @Test void fullRoundCannotSkipStepsOrClaimTwice(){
   HolidayProgress p=new HolidayProgress();p.useEdition(2026);
   assertFalse(p.complete());assertFalse(p.deliver(0));assertFalse(p.mix(0));

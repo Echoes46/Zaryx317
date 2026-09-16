@@ -12,5 +12,11 @@ public class HolidaySaveEntry implements PlayerSaveEntry {
         p.holidayProgress.put(type(key),HolidayProgress.decode(value));return true;
     }
     public String encode(Player p,String key){return p.holidayProgress.computeIfAbsent(type(key),h->new HolidayProgress()).encode();}
-    public void login(Player p){ }
+    public void login(Player p){
+        // Instance heights are recycled. Never restore a saved player into another round.
+        if(p.absX>=3072&&p.absX<=3135&&p.absY>=3328&&p.absY<=3391&&p.heightLevel>=4){
+            p.moveTo(new io.zaryx.model.entity.player.Position(io.zaryx.Configuration.START_LOCATION_X,io.zaryx.Configuration.START_LOCATION_Y,0));
+            p.sendMessage("Speak to Jack at home to resume your saved Halloween round.");
+        }
+    }
 }

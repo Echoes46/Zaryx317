@@ -10,13 +10,15 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HolidayAssetTest {
- @Test void layoutUsesExistingAssetsAndReachableStations() throws Exception {
+ @Test void allRoundLayoutsAreReachable() throws Exception {for(int seed=0;seed<18;seed++)layoutUsesExistingAssetsAndReachableStations(seed);}
+ void layoutUsesExistingAssetsAndReachableStations(int seed) throws Exception {
   var config=Server.class.getDeclaredField("configuration");config.setAccessible(true);Object old=config.get(null);config.set(null,ServerConfiguration.getDefault());
   var field=RegionProvider.class.getDeclaredField("regions");field.setAccessible(true);
   Map<Integer,Region> regions=(Map<Integer,Region>)field.get(RegionProvider.getGlobal());Map<Integer,Region> previous=new HashMap<>(regions);regions.clear();
   try {
    ObjectDef.loadConfig();
    HolidayEvents.Layout[] layouts=new Gson().fromJson(Files.readString(Path.of("etc/cfg/holiday-events.json")),HolidayEvents.Layout[].class);
+   for(int i=0;i<layouts.length;i++)if(layouts[i].holiday==Holiday.HALLOWEEN)layouts[i]=HolidayLayouts.round(layouts[i],seed);
    Set<Integer> required=new HashSet<>();
    for(var layout:layouts){required.add(hash(layout.entryX,layout.entryY));for(var n:layout.npcs)required.add(hash(n.x,n.y));for(var o:layout.objects)required.add(hash(o.x,o.y));}
    var loader=Region.class.getDeclaredMethod("loadMap",RegionData.class);loader.setAccessible(true);
@@ -29,6 +31,7 @@ class HolidayAssetTest {
      }
     }
    }
+   HolidayLayouts.openDoors(RegionProvider.getGlobal(),0);
    List<String> problems=new ArrayList<>();
    for(var layout:layouts){
     for(var node:layout.objects){ObjectDef def=ObjectDef.getObjectDef(node.id);assertNotNull(def);assertNotNull(def.name,"Object "+node.id);
@@ -57,7 +60,7 @@ class HolidayAssetTest {
      int x=at[0]+step[0],y=at[1]+step[1];if(Math.abs(x-layout.entryX)>30||Math.abs(y-layout.entryY)>30||reached.contains(x+","+y))continue;
      if(RegionProvider.getGlobal().get(at[0],at[1]).canMove(at[0],at[1],x,y,0,1,1)){reached.add(x+","+y);queue.add(new int[]{x,y});}
     }}
-    for(var n:layout.npcs)if(!n.home&&!adjacent(reached,n.x,n.y,1,1))problems.add("Unreachable NPC "+n.id+" at "+n.x+","+n.y+" suggestion "+suggest(reached,n.x,n.y,1,1));
+    for(var n:layout.npcs)if(!n.home&&!reached.contains(n.x+","+n.y))problems.add("Unreachable NPC "+n.id+" at "+n.x+","+n.y+" suggestion "+suggest(reached,n.x,n.y,1,1));
     for(var o:layout.objects)if(o.role>=0){ObjectDef d=ObjectDef.getObjectDef(o.id);if(!adjacent(reached,o.x,o.y,d.xLength,d.yLength))problems.add("Unreachable station "+o.id+" at "+o.x+","+o.y+" suggestion "+suggest(reached,o.x,o.y,d.xLength,d.yLength));}
    }
    assertTrue(problems.isEmpty(),String.join("; ",problems));

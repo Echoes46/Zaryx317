@@ -58,8 +58,8 @@ public final class HolidayEvents {
             Layout layout=layouts.get(h);
             if(layout==null)throw new IllegalArgumentException("Missing holiday layout: "+h);
             if(!settings.enabled(h))continue;
-            for(Station station:layout.objects) Server.getGlobalObjects().add(new GlobalObject(station.id,station.x,station.y,0,station.face,10,-1));
-            for(NpcSpawn npc:layout.npcs)new HolidayNpc(h,npc.id,npc.x,npc.y,npc.role,npc.home);
+            for(Station station:layout.objects) if(h!=Holiday.HALLOWEEN) Server.getGlobalObjects().add(new GlobalObject(station.id,station.x,station.y,0,station.face,10,-1));
+            for(NpcSpawn npc:layout.npcs)if(h!=Holiday.HALLOWEEN||npc.home)new HolidayNpc(h,npc.id,npc.x,npc.y,npc.role,npc.home);
             System.out.println("[Holiday] "+h+" enabled, edition "+settings.edition(h));
         }
         started=true;
@@ -81,16 +81,16 @@ public final class HolidayEvents {
             throw new IllegalArgumentException("A holiday needs a home host, event host, three guests and four stations");
     }
     public static boolean enabled(Holiday h){return settings.enabled(h);}
-    private static HolidayProgress progress(Player p,Holiday h) {
+    static HolidayProgress progress(Player p,Holiday h) {
         HolidayProgress state=p.holidayProgress.computeIfAbsent(h,k->new HolidayProgress());
         state.useEdition(settings.edition(h));return state;
     }
     private static boolean available(Player p,Holiday h,int x,int y,int distance) {
-        return enabled(h)&&p.getInstance()==null&&p.heightLevel==0&&Math.max(Math.abs(p.absX-x),Math.abs(p.absY-y))<=distance
+        return enabled(h)&&((p.getInstance()==null&&p.heightLevel==0)||(p.getInstance() instanceof HolidayInstance&&((HolidayInstance)p.getInstance()).owns(p,h)))&&Math.max(Math.abs(p.absX-x),Math.abs(p.absY-y))<=distance
                 &&p.teleTimer==0&&!p.isDead&&!p.getMovementState().isLocked()&&!p.getLock().cannotInteract(p)
                 &&!p.getBankPin().requiresUnlock()&&!Server.getMultiplayerSessionListener().inAnySession(p);
     }
-    private static boolean near(Player p,HolidayNpc npc) {return available(p,npc.holiday,npc.absX,npc.absY,4);}
+    private static boolean near(Player p,HolidayNpc npc) {return p.getInstance()==npc.getInstance()&&p.heightLevel==npc.heightLevel&&available(p,npc.holiday,npc.absX,npc.absY,4);}
     private static void save(Player p){PlayerSave.saveGame(p);}
     private static void close(Player p){p.getPA().closeAllWindows();}
     private static void say(Player p,String... text){p.start(new DialogueBuilder(p).statement(text));}
@@ -114,13 +114,19 @@ public final class HolidayEvents {
             .option(h.title+" festival",
                 new DialogueOption(npc.home?"Visit the festival":"Start / continue / claim quest",pl->{
                     if(!near(pl,npc))return;close(pl);
-                    if(npc.home){Layout l=layouts.get(h);pl.getPA().spellTeleport(l.entryX,l.entryY,0,false);}
+                    if(npc.home){if(h==Holiday.HALLOWEEN){enterHalloween(pl);return;}Layout l=layouts.get(h);pl.getPA().spellTeleport(l.entryX,l.entryY,0,false);}
                     else if(progress(pl,h).stage==4)claim(pl,npc);
-                    else {HolidayProgress state=progress(pl,h);if(state.start(ThreadLocalRandom.current().nextInt(6)))save(pl);journal(pl,h);}
+                    else {HolidayProgress state=progress(pl,h);if(state.start(ThreadLocalRandom.current().nextInt(6))){save(pl);if(h==Holiday.HALLOWEEN){enterHalloween(pl);return;}}journal(pl,h);}
                 }),
                 new DialogueOption("Quest journal and event pouch",pl->{if(near(pl,npc))journal(pl,h);}),
                 new DialogueOption("Festival reward shop ("+s.tokens+" tokens)",pl->{if(near(pl,npc))shop(pl,npc);}),
-                new DialogueOption("Return home",pl->{if(near(pl,npc)){close(pl);pl.getPA().spellTeleport(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0,false);}})));
+                new DialogueOption("Return home",pl->{if(near(pl,npc)){close(pl);if(pl.getInstance() instanceof HolidayInstance){((HolidayInstance)pl.getInstance()).leave(pl);return;}pl.getPA().spellTeleport(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0,false);}})));
+    }
+    private static void enterHalloween(Player p) {
+        HolidayProgress state=progress(p,Holiday.HALLOWEEN);
+        if(state.stage==0){state.start(ThreadLocalRandom.current().nextInt(6));save(p);}
+        if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).leave(p);
+        new HolidayInstance(p,HolidayLayouts.round(layouts.get(Holiday.HALLOWEEN),state.layoutSeed)).enter(p);
     }
     public static void journal(Player p,Holiday h) {
         if(!enabled(h)){say(p,h.title+" is not currently enabled.");return;}
@@ -148,8 +154,8 @@ public final class HolidayEvents {
     }
     public static boolean clickObject(Player p,int id,int x,int y) {
         for(Holiday h:Holiday.values()) {
-            Layout layout=layouts.get(h);if(layout==null)continue;
-            for(Station station:layout.objects)if(station.id==id&&station.x==x&&station.y==y&&p.heightLevel==0) {
+            Layout layout=h==Holiday.HALLOWEEN?(p.getInstance() instanceof HolidayInstance?((HolidayInstance)p.getInstance()).layout:null):layouts.get(h);if(layout==null)continue;
+            for(Station station:layout.objects)if(station.id==id&&station.x==x&&station.y==y&&(h==Holiday.HALLOWEEN||p.heightLevel==0)) {
                 if(!available(p,h,x,y,5))return true;
                 if(station.role>=0&&station.role<3)gather(p,h,station);
                 else if(station.role==3)puzzle(p,h,station);

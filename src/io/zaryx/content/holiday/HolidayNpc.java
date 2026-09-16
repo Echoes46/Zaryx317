@@ -9,7 +9,10 @@ public final class HolidayNpc extends NPC {
     public final int role;
     public final boolean home;
     public HolidayNpc(Holiday holiday,int id,int x,int y,int role,boolean home){
-        super(id,new Position(x,y,0));this.holiday=holiday;this.role=role;this.home=home;
+        this(holiday,id,x,y,0,role,home);
+    }
+    public HolidayNpc(Holiday holiday,int id,int x,int y,int height,int role,boolean home){
+        super(id,new Position(x,y,height));this.holiday=holiday;this.role=role;this.home=home;
         getBehaviour().setAggressive(false);getBehaviour().setRespawn(false);
         getCombatDefinition().setAggressive(false);walkingType=0;
     }

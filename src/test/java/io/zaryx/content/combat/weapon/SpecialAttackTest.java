@@ -92,11 +92,13 @@ class SpecialAttackTest {
         assertArrayEquals(new int[]{95,95,80,70},ShieldBash.drain(100,100,80,70));
         assertArrayEquals(new int[]{80,80,95,90},ShieldBash.drain(80,80,100,90));
         assertArrayEquals(new int[]{80,80,90,95},ShieldBash.drain(80,80,90,100));
+        // Initialize player-owned systems before capturing the target's baseline stats.
+        Player attacker=player(21015,0);
         NPC n=npc();
         n.getCombatDefinition().setLevel(io.zaryx.model.entity.npc.stats.NpcCombatSkill.ATTACK,100);
         n.getCombatDefinition().setLevel(io.zaryx.model.entity.npc.stats.NpcCombatSkill.STRENGTH,100);
         int defence=n.getDefenceLevel();
-        new ShieldBash().hit(player(21015,0),n,new Damage(0));
+        new ShieldBash().hit(attacker,n,new Damage(0));
         assertEquals(defence,n.getDefenceLevel());
         assertEquals(95,n.getCombatDefinition().getLevel(io.zaryx.model.entity.npc.stats.NpcCombatSkill.ATTACK));
         assertEquals(1,npc().getCombatDefinition().getLevel(io.zaryx.model.entity.npc.stats.NpcCombatSkill.ATTACK));

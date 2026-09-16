@@ -7138,13 +7138,14 @@ public class Player extends Entity {
 
     public BlastFurnace blastFurnace = new BlastFurnace();
 
-    public Island island = new Island();
+    private Island island;
 
     public BlastFurnace getBlastFurnace() {
         return blastFurnace;
     }
 
     public Island getElonIsland() {
+        if (island == null || island.isDisposed()) island = new Island();
         return island;
     }
 

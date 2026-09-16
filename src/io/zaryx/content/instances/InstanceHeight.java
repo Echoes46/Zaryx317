@@ -37,12 +37,10 @@ public class InstanceHeight {
      * that must be reserved with {@link InstanceHeight#reserve(int)}.
      * @return a free height level.
      */
-    public static int getFree() {
-        for (int height = 0; height <= MAXIMUM_HEIGHT; height += STEP) {
+    public static synchronized int getFree() {
+        for (int height = STEP; height <= MAXIMUM_HEIGHT; height += STEP) {
             if (!RESERVED.contains(height)) {
                 return height;
-            } else {
-                free(height);
             }
         }
 
@@ -55,7 +53,7 @@ public class InstanceHeight {
      * in which case it will automatically call {@link InstanceHeight#free(int)}.
      * @param height the height level to reserve
      */
-    public static void reserve(int height) {
+    public static synchronized void reserve(int height) {
         Preconditions.checkState(!RESERVED.contains(height), "Already reserved.");
         logger.debug("Reserved height level {}", height);
         RESERVED.add(height);
@@ -65,7 +63,7 @@ public class InstanceHeight {
      * Dispose of a height level, freeing it for other instances.
      * @param height the height level to free.
      */
-    public static void free(int height) {
+    public static synchronized void free(int height) {
         logger.debug("Freed height level {}", height);
         RESERVED.remove(height);
     }
@@ -75,13 +73,13 @@ public class InstanceHeight {
      * using {@link InstanceHeight#reserve(int)}.
      * @return the reserved height level.
      */
-    public static int getFreeAndReserve() {
+    public static synchronized int getFreeAndReserve() {
         int height = getFree();
         reserve(height);
         return height;
     }
 
-    public static int getReservedCount() {
+    public static synchronized int getReservedCount() {
         return RESERVED.size();
     }
 }

@@ -60,3 +60,11 @@ The JSON file contains all event placements. NPC role -1 is a host (`home` selec
 The existing legacy seasonal boss/bonus classes are not activated by these switches. This setup supplies the new quest events independently.
 
 Automated verification covers both event flags, progression order, duplicate actions/claims, persistence, existing object definitions, scenery footprints and paths to the event stations/NPCs using server map collision. Server and client tests/builds passed. A live visual/playthrough check remains necessary before opening an event to players.
+
+## Private Halloween rounds
+
+Talking to Jack at home now starts or resumes a private ground-floor manor. Each round chooses one of 18 layouts: the three ghosts are assigned to three separate room anchors, and the three supply types rotate between the existing gathering spots. Jack and the cauldron stay fixed. Selected interior doorways remain open inside the private instance so the rooms are accessible; the public manor is unaffected.
+
+The layout choice is saved with quest progress. Reconnecting from the private manor returns the player home; talk to Jack again to resume the same layout and supplies. A completed round chooses a different layout on replay. Existing eight-field holiday saves are supported and keep their progress. Christmas is unchanged.
+
+This update is server-only. Stop the test world, update the server, run Prepare Test Server.bat, and restart it. Existing holiday enable flags remain intact.
