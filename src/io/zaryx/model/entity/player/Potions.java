@@ -1323,19 +1323,13 @@ public class Potions {
 		c.getPA().refreshSkill(1);
 		c.getPA().refreshSkill(2);
 		c.getPA().refreshSkill(3);
-		c.getPA().sendGameTimer(ClientGameTimer.DIVINE_SUPER_COMBAT, TimeUnit.SECONDS, 300);//i mean this, i need this in game cycles/ticks not seconds
+		c.getPA().sendGameTimer(ClientGameTimer.DIVINE_SUPER_COMBAT, TimeUnit.SECONDS, 300);
 
 		c.getPA().sendConfig(13663 ,500);
 		c.getPA().sendConfig(8429 ,500);
 		c.getPA().sendConfig(8430 ,500);
 		c.getPA().sendConfig(8431 ,500);
 
-		TaskManager.submit(180, () -> {
-			c.getPA().sendConfig(13663 ,0);
-			c.getPA().sendConfig(8429 ,0);
-			c.getPA().sendConfig(8430 ,0);
-			c.getPA().sendConfig(8431 ,0);
-		});
 	}
 	public void doDivineRange(int replaceItem, int slot) {
 		int health = c.getHealth().getCurrentHealth();
@@ -1441,7 +1435,11 @@ public class Potions {
 		if (!c.hasDivineCombatBoost)
 			return;
 		c.hasDivineCombatBoost = false;
-		int[] toNormalise = { 0, 1, 2, 4, 6 };
+		c.getPA().sendConfig(13663, 0);
+		c.getPA().sendConfig(8429, 0);
+		c.getPA().sendConfig(8430, 0);
+		c.getPA().sendConfig(8431, 0);
+		int[] toNormalise = { 0, 1, 2 };
 		for (int i = 0; i < toNormalise.length; i++) {
 			c.playerLevel[toNormalise[i]] = c.getLevelForXP(c.playerXP[toNormalise[i]]);
 			c.getPA().refreshSkill(toNormalise[i]);
