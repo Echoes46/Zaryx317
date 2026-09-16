@@ -128,6 +128,20 @@ public final class HolidayEvents {
         if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).leave(p);
         new HolidayInstance(p,HolidayLayouts.round(layouts.get(Holiday.HALLOWEEN),state.layoutSeed)).enter(p);
     }
+    /** Re-enter a saved round from the manor or the home host, never from another activity. */
+    public static void resumeHalloween(Player p) {
+        Layout layout=layouts.get(Holiday.HALLOWEEN);
+        if(!enabled(Holiday.HALLOWEEN)||layout==null)return;
+        boolean atEntrance=Arrays.stream(layout.npcs).anyMatch(n->n.home
+                && Math.max(Math.abs(p.absX-n.x),Math.abs(p.absY-n.y))<=4);
+        boolean atManor=HolidayInstance.MANOR.in(p);
+        if((!atEntrance&&!atManor) || (p.getInstance()!=null && !(p.getInstance() instanceof HolidayInstance))
+                || p.teleTimer!=0 || p.isDead || p.getMovementState().isLocked() || p.getLock().cannotInteract(p)
+                || p.getBankPin().requiresUnlock() || Server.getMultiplayerSessionListener().inAnySession(p)) {
+            say(p,"Speak to Jack at home to resume your Halloween round.");return;
+        }
+        close(p);enterHalloween(p);
+    }
     public static void journal(Player p,Holiday h) {
         if(!enabled(h)){say(p,h.title+" is not currently enabled.");return;}
         HolidayProgress s=progress(p,h);
@@ -139,13 +153,17 @@ public final class HolidayEvents {
             case 4: goal="Return to "+(h==Holiday.HALLOWEEN?"Jack":"Santa")+" at the festival to claim.";break;
             default:goal="Speak to the festival host to begin a round.";
         }
+        List<DialogueOption> options=new ArrayList<>();
+        for(int i=0;i<3;i++) {
+            final int index=i;
+            options.add(new DialogueOption(h.supplies[i]+((s.gathered&(1<<i))!=0?" - collected":" - missing"),pl->pouch(pl,h,index)));
+        }
+        if(h==Holiday.HALLOWEEN)options.add(new DialogueOption("Resume private Halloween round",HolidayEvents::resumeHalloween));
+        options.add(new DialogueOption("Close",HolidayEvents::close));
         p.start(new DialogueBuilder(p).statement(h.quest,goal,"Completed rounds: "+s.runs+" | Festival tokens: "+s.tokens)
-            .option("Event pouch (account-bound)",
-                new DialogueOption(h.supplies[0]+((s.gathered&1)!=0?" - collected":" - missing"),pl->pouch(pl,h,0)),
-                new DialogueOption(h.supplies[1]+((s.gathered&2)!=0?" - collected":" - missing"),pl->pouch(pl,h,1)),
-                new DialogueOption(h.supplies[2]+((s.gathered&4)!=0?" - collected":" - missing"),pl->pouch(pl,h,2)),
-                new DialogueOption("Close",HolidayEvents::close)));
+                .option("Event pouch (account-bound)",options.toArray(new DialogueOption[0])));
     }
+
     private static void pouch(Player p,Holiday h,int index){
         HolidayProgress s=progress(p,h);
         p.start(new DialogueBuilder(p).itemStatement(h.supplies[index],h.supplyItems[index],
@@ -154,7 +172,17 @@ public final class HolidayEvents {
     }
     /** Route to this round's station instead of trusting the client's cached object footprint. */
     public static boolean walkToObject(Player p,int id,int x,int y) {
-        if (!(p.getInstance() instanceof HolidayInstance)) return false;
+        if (!(p.getInstance() instanceof HolidayInstance)) {
+            Layout base=layouts.get(Holiday.HALLOWEEN);
+            if(p.getInstance()==null && enabled(Holiday.HALLOWEEN) && base!=null && HolidayInstance.MANOR.in(p)
+                    && Arrays.stream(base.objects).anyMatch(station->station.role>=0 && station.x==x && station.y==y)
+                    && Arrays.stream(base.objects).anyMatch(station->station.role>=0 && station.id==id)) {
+                p.sendMessage("You are outside your private Halloween round.");
+                p.sendMessage("Use ::holiday, choose Halloween, then Resume private Halloween round.");
+                return true;
+            }
+            return false;
+        }
         HolidayInstance instance=(HolidayInstance)p.getInstance();
         if (!instance.owns(p,Holiday.HALLOWEEN)) return false;
         for (Station station:instance.layout.objects) {
