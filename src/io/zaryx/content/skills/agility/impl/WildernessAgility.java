@@ -12,17 +12,29 @@ import io.zaryx.model.entity.player.Player;
  */
 
 public class WildernessAgility {
+	public static final int REQUIRED_LEVEL = 52;
 
 	public static final int WILDERNESS_PIPE_OBJECT = 23137, WILDERNESS_SWING_ROPE_OBJECT = 23132,
 			WILDERNESS_STEPPING_STONE_OBJECT = 23556, WILDERNESS_LOG_BALANCE_OBJECT = 23542,
 			WILDERNESS_ROCKS_OBJECT = 23640;
 
 	public boolean wildernessCourse(final Player c, final int objectId) {
+		if (objectId == WILDERNESS_PIPE_OBJECT || objectId == WILDERNESS_SWING_ROPE_OBJECT
+				|| objectId == WILDERNESS_STEPPING_STONE_OBJECT || objectId == WILDERNESS_LOG_BALANCE_OBJECT
+				|| objectId == WILDERNESS_ROCKS_OBJECT) {
+			if (c.getAgilityHandler().checkLevel(c, objectId)) {
+				return true;
+			}
+		}
 		switch (objectId) {
 		case 23552:
 		case 23555:
 		case 23554:
 			if (c.getAgilityHandler().hotSpot(c, 2998, 3916)) {
+				if (c.playerLevel[Player.playerAgility] < REQUIRED_LEVEL) {
+					c.sendMessage("You need an Agility level of at least " + REQUIRED_LEVEL + " to enter the Wilderness course.");
+					return true;
+				}
 				c.setForceMovement(2998, 3931, 0, 400, "NORTH", 762);
 				c.getPA().addSkillXPFromAction(1, Player.playerAgility, true);
 			}
@@ -41,9 +53,6 @@ public class WildernessAgility {
 			return true;
 			
 		case WILDERNESS_PIPE_OBJECT: // pipe
-/*			if (c.getAgilityHandler().checkLevel(c, objectId)) {
-				return false;
-			}*/
 			if (c.getAgilityHandler().hotSpot(c, 3004, 3937)) {
 				c.setForceMovement(3004, 3950, 0, 400, "NORTH", c.getAgilityHandler().getAnimation(objectId));
 			}
@@ -52,9 +61,6 @@ public class WildernessAgility {
 
 			return true;
 		case WILDERNESS_SWING_ROPE_OBJECT:
-/*			if (c.getAgilityHandler().checkLevel(c, objectId)) {
-				return false;
-			}*/
 			if (c.absY >= 3955) {
 				c.getPA().movePlayer(3005, 3958);
 			}
@@ -65,9 +71,6 @@ public class WildernessAgility {
 			}
 			return true;
 		case WILDERNESS_STEPPING_STONE_OBJECT:
-/*			if (c.getAgilityHandler().checkLevel(c, objectId)) {
-				return false;
-			}*/
 			c.setForceMovement(2996, 3960, 0, 255, "WEST", c.getAgilityHandler().getAnimation(objectId));
 			if (c.getAgilityHandler().agilityProgress[1] == true) {
 				c.getAgilityHandler().agilityProgress[3] = true;
@@ -75,9 +78,6 @@ public class WildernessAgility {
 			return true;
 
 		case WILDERNESS_LOG_BALANCE_OBJECT:
-/*			if (c.getAgilityHandler().checkLevel(c, objectId)) {
-				return false;
-			}*/
 			if (c.getAgilityHandler().hotSpot(c, 3002, 3945)) {
 				c.setForceMovement(2994, 3945, 0, 200, "WEST", c.getAgilityHandler().getAnimation(objectId));
 			}
@@ -87,9 +87,6 @@ public class WildernessAgility {
 			return true;
 
 		case WILDERNESS_ROCKS_OBJECT:
-/*			if (c.getAgilityHandler().checkLevel(c, objectId)) {
-				return false;
-			}*/
 			c.setForceMovement(c.absX, 3933, 0, 50, "SOUTH", c.getAgilityHandler().getAnimation(objectId));
 			c.getAgilityHandler().lapFinished(c, 5, 571, 6000);
 			c.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.WILDERNESS_AGILITY);

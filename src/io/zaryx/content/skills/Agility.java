@@ -3,6 +3,7 @@ package io.zaryx.content.skills;
 import io.zaryx.model.cycleevent.CycleEvent;
 import io.zaryx.model.cycleevent.CycleEventContainer;
 import io.zaryx.model.cycleevent.CycleEventHandler;
+import io.zaryx.content.skills.agility.impl.WildernessAgility;
 import io.zaryx.model.entity.player.Player;
 
 /**
@@ -48,6 +49,10 @@ public class Agility {
 	}
 
 	public void doWildernessEntrance(final Player c, int x, int y, boolean reverse) {
+		if (c.playerLevel[Player.playerAgility] < WildernessAgility.REQUIRED_LEVEL) {
+			c.sendMessage("You need an Agility level of at least " + WildernessAgility.REQUIRED_LEVEL + " to enter the Wilderness course.");
+			return;
+		}
 		if (c.freezeTimer > 0) {
 			return;
 		}
@@ -56,7 +61,7 @@ public class Agility {
 		c.playerWalkIndex = 762;
 		c.setUpdateRequired(true);
 		c.appearanceUpdateRequired = true;
-		c.getAgility().wildernessEntrance(c, "Door", 1, 0, reverse ? -15 : +15, x, y);// 2998, 3916
+		c.getAgility().wildernessEntrance(c, "Door", WildernessAgility.REQUIRED_LEVEL, 0, reverse ? -15 : +15, x, y);// 2998, 3916
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {

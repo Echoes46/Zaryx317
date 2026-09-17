@@ -289,7 +289,7 @@ public class AgilityHandler {
             case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
             case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
             case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
-                return 1;
+                return WildernessAgility.REQUIRED_LEVEL;
 
             case Lighthouse.BASALT_ROCK:
                 return 40;

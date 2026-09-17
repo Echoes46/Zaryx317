@@ -68,7 +68,20 @@ public class ClickObject implements PacketType {
         if (object != null) {
             Position size = object.getObjectSize();
             Server.getLogging().write(new ClickObjectLog(player, object, option));
-            if (object.getId() == 31561) { // Rev agility shortcut
+            if (object.getId() == 26763 && Boundary.isIn(player, Boundary.SCORPIA_LAIR)
+                    && (object.getY() == 10352 || object.getY() == 10331)) {
+                // The cave crevice is a wall object. Route to the adjacent cave tile,
+                // rather than asking the player to walk onto the blocked wall.
+                Position approach = new Position(object.getX(),
+                        object.getY() == 10352 ? 10351 : 10332, object.getHeight());
+                if (player.distance(approach) <= 1) {
+                    finishObjectClick(player, option, object);
+                } else {
+                    PathFinder.getPathFinder().findRoute(player, approach.getX(), approach.getY(), true, 1, 1);
+                    player.setTickable(new WalkToTickable(player, approach, 1, 1,
+                            plr -> finishObjectClick(plr, option, object)));
+                }
+            } else if (object.getId() == 31561) { // Rev agility shortcut
                 PathFinder.getPathFinder().findRoute(player, object.getX(), object.getY(), true, 1, 1);
                 player.setTickable((container, plr) -> {
                     if (plr.distance(object.getPosition()) < 2.5) {

@@ -1529,6 +1529,7 @@ public class ObjectOptionOne {
 
             case 26762:
 				c.getPA().movePlayer(3232, 10351, 0);
+				c.sendMessage("Use the crevice just north of you to leave Scorpia's cave.");
 				return;
 
 			case 12202:
