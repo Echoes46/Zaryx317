@@ -15,9 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class HolidayRuntimeTest {
     static class TestPlayer extends Player {
         final List<String> objects=new ArrayList<>();
+        final Map<Integer,String> trackerText=new HashMap<>();
         final PlayerAssistant assistant=new PlayerAssistant(this) {
             @Override public void object(int id,int x,int y,int face,int type,boolean flush) {
                 objects.add(id+":"+x+":"+y);
+            }
+            @Override public void sendString(int id,String value) {
+                if(id>=61410&&id<=61414)trackerText.put(id,value);
+                else super.sendString(id,value);
             }
         };
         TestPlayer(){super(null);saveCharacter=false;}
@@ -52,6 +57,8 @@ class HolidayRuntimeTest {
                 var instance=new HolidayInstance(p,HolidayLayouts.round(base,seed));instances.add(instance);
                 instance.enter(p);actors.addAll(instance.getNpcs());
                 p.getNextPlayerMovement();p.checkInstanceCoords();assertSame(instance,p.getInstance());
+                assertEquals("Halloween supplies",p.trackerText.get(61410));
+                assertEquals(Integer.toString(HolidayEvents.progress(p,Holiday.HALLOWEEN).gathered),p.trackerText.get(61414));
                 if(previousHeight!=null)assertEquals(previousHeight.intValue(),instance.getHeight());
                 previousHeight=instance.getHeight();
                 p.objects.clear();instance.tick(p);
@@ -78,11 +85,13 @@ class HolidayRuntimeTest {
                 assertEquals(instance.getHeight(),p.heightLevel);
                 assertTrue(instance.getNpcs().stream().allMatch(n->p.viewable(n,false)));
                 var progress=HolidayEvents.progress(p,Holiday.HALLOWEEN);progress.stage=0;progress.start(0);
+                instance.refreshSupplyTracker(p);assertEquals("0",p.trackerText.get(61414));
                 for(var station:instance.layout.objects)if(station.role>=0&&station.role<3) {
                     progress.nextAction=0;
                     assertTrue(HolidayEvents.walkToObject(p,station.id,station.x,station.y));
                     for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
                     assertNotEquals(0,progress.gathered&(1<<station.role),"Uncollected supply "+station.id);
+                    assertEquals(Integer.toString(progress.gathered),p.trackerText.get(61414));
                 }
                 assertEquals(2,progress.stage);assertEquals(7,progress.gathered);
                 var host=instance.getNpcs().stream().filter(n->((HolidayNpc)n).role==-1).findFirst().orElseThrow();
@@ -92,6 +101,7 @@ class HolidayRuntimeTest {
                 assertFalse(replacement.randomWalk);
                 instance.leave(p);
                 instance.tick(p);assertEquals(0,p.heightLevel,"Leaving must not pull a player back");
+                assertEquals("",p.trackerText.get(61410));
             }
             p.moveTo(new Position(3108,3361,0));p.getNextPlayerMovement();
             var saved=HolidayEvents.progress(p,Holiday.HALLOWEEN);
@@ -112,8 +122,22 @@ class HolidayRuntimeTest {
                 for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
             }
             assertEquals(7,saved.gathered);assertEquals(2,saved.stage);
-
-            resumed.leave(p);
+            saved.stage=4;saved.puzzle=3;saved.delivered=7;assertTrue(saved.complete());
+            int previousManorHeight=resumed.getHeight();
+            HolidayEvents.enterRound(p,Holiday.HALLOWEEN);
+            var halloweenReplay=(HolidayInstance)p.getInstance();instances.add(halloweenReplay);actors.addAll(halloweenReplay.getNpcs());
+            p.getNextPlayerMovement();p.checkInstanceCoords();
+            assertNotEquals(previousManorHeight,halloweenReplay.getHeight(),"A replay needs a fresh map height");
+            assertEquals(1,saved.stage);assertEquals(0,saved.gathered);
+            assertEquals("0",p.trackerText.get(61414));
+            p.objects.clear();halloweenReplay.tick(p);
+            var firstHalloweenStation=Arrays.stream(halloweenReplay.layout.objects).filter(station->station.role==0).findFirst().orElseThrow();
+            assertTrue(p.objects.contains(firstHalloweenStation.id+":"+firstHalloweenStation.x+":"+firstHalloweenStation.y));
+            saved.nextAction=0;
+            assertTrue(HolidayEvents.walkToObject(p,firstHalloweenStation.id,firstHalloweenStation.x,firstHalloweenStation.y));
+            for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
+            assertEquals(1,saved.gathered);
+            halloweenReplay.leave(p);
             var christmas=Arrays.stream(new Gson().fromJson(Files.readString(Path.of("etc/cfg/holiday-events.json")),HolidayEvents.Layout[].class))
                     .filter(l->l.holiday==Holiday.CHRISTMAS).findFirst().orElseThrow();
             layouts.put(Holiday.CHRISTMAS,christmas);
@@ -128,6 +152,8 @@ class HolidayRuntimeTest {
                 actors.addAll(round.getNpcs());
                 p.getNextPlayerMovement();p.checkInstanceCoords();
                 assertSame(round,p.getInstance());
+                assertEquals("Christmas supplies",p.trackerText.get(61410));
+                assertEquals("0",p.trackerText.get(61414));
                 assertEquals(5,round.getNpcs().size(),"Santa, three helpers and the penguin must appear");
                 assertTrue(round.getNpcs().stream().allMatch(n->p.viewable(n,false)));
                 p.objects.clear();round.tick(p);
@@ -139,10 +165,12 @@ class HolidayRuntimeTest {
                     assertTrue(HolidayEvents.walkToObject(p,station.id,station.x,station.y));
                     for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
                     assertNotEquals(0,christmasProgress.gathered&(1<<station.role),"Uncollected Christmas supply "+station.id);
+                    assertEquals(Integer.toString(christmasProgress.gathered),p.trackerText.get(61414));
                 }
                 assertEquals(7,christmasProgress.gathered);
                 assertEquals(2,christmasProgress.stage);
                 round.leave(p);
+                assertEquals("",p.trackerText.get(61410));
             }
             christmasProgress.stage=1;
             christmasProgress.gathered=1;
@@ -157,6 +185,24 @@ class HolidayRuntimeTest {
             assertEquals(christmasSave,christmasProgress.encode());
             assertEquals(new Gson().toJson(HolidayLayouts.round(christmas,37)),new Gson().toJson(christmasResumed.layout));
             assertTrue(christmasResumed.getNpcs().stream().allMatch(n->p.viewable(n,false)));
+            christmasProgress.stage=4;christmasProgress.gathered=7;christmasProgress.puzzle=3;christmasProgress.delivered=7;
+            assertTrue(christmasProgress.complete());
+            int previousChristmasHeight=christmasResumed.getHeight();
+            HolidayEvents.enterRound(p,Holiday.CHRISTMAS);
+            var christmasReplay=(HolidayInstance)p.getInstance();instances.add(christmasReplay);actors.addAll(christmasReplay.getNpcs());
+            p.getNextPlayerMovement();p.checkInstanceCoords();
+            assertNotEquals(previousChristmasHeight,christmasReplay.getHeight());
+            assertEquals(1,christmasProgress.stage);assertEquals(0,christmasProgress.gathered);
+            p.objects.clear();christmasReplay.tick(p);
+            var firstChristmasStation=Arrays.stream(christmasReplay.layout.objects).filter(station->station.role==0).findFirst().orElseThrow();
+            assertTrue(p.objects.contains(firstChristmasStation.id+":"+firstChristmasStation.x+":"+firstChristmasStation.y));
+            christmasProgress.nextAction=0;
+            assertTrue(HolidayEvents.walkToObject(p,firstChristmasStation.id,firstChristmasStation.x,firstChristmasStation.y));
+            for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
+            assertEquals(1,christmasProgress.gathered);
+            p.moveTo(new Position(3098,3508,0));p.getNextPlayerMovement();p.checkInstanceCoords();
+            assertNull(p.getInstance());
+            assertEquals("",p.trackerText.get(61410),"Leaving the instance must hide the checklist");
         } finally {
             for(var instance:instances)if(!instance.isDisposed())instance.dispose();
             for(var npc:actors)if(npc.getIndex()>0)npc.unregisterInstant();

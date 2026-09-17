@@ -2,7 +2,7 @@ package io.zaryx.content.holiday;
 
 public enum Holiday {
     HALLOWEEN("Halloween", "The Lanterns of Lost Souls", 2305,
-            new String[]{"Pumpkin pulp", "Bat bones", "Ghost slime"}, new int[]{1959,530,4286},
+            new String[]{"Pumpkin pulp", "Bat bones", "Ghost ooze"}, new int[]{1959,530,4286},
             new int[]{9925,9924,9923,9922,9921}),
     CHRISTMAS("Christmas", "The Missing Christmas Delivery", 2315,
             new String[]{"Snowballs", "Bell baubles", "Unfinished toys"}, new int[]{10501,6846,7759},

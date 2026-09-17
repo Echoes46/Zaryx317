@@ -120,11 +120,14 @@ public final class HolidayEvents {
                 new DialogueOption("Festival reward shop ("+s.tokens+" tokens)",pl->{if(near(pl,npc))shop(pl,npc);}),
                 new DialogueOption("Return home",pl->{if(near(pl,npc)){close(pl);if(pl.getInstance() instanceof HolidayInstance){((HolidayInstance)pl.getInstance()).leave(pl);return;}pl.getPA().spellTeleport(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0,false);}})));
     }
-    private static void enterRound(Player p,Holiday holiday) {
+    static void enterRound(Player p,Holiday holiday) {
         HolidayProgress state=progress(p,holiday);
         if(state.stage==0){state.start(ThreadLocalRandom.current().nextInt(6));save(p);}
-        if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).leave(p);
-        new HolidayInstance(p,HolidayLayouts.round(layouts.get(holiday),state.layoutSeed)).enter(p);
+        // Reserve the destination height while the old round still owns its height.
+        // Reusing the same height in one tick can leave the client's old stations visible.
+        HolidayInstance next=new HolidayInstance(p,HolidayLayouts.round(layouts.get(holiday),state.layoutSeed));
+        if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).remove(p);
+        next.enter(p);
     }
     /** Re-enter a saved round from its festival area or home host, never from another activity. */
     private static void resumeRound(Player p,Holiday holiday) {
@@ -231,6 +234,7 @@ public final class HolidayEvents {
         if(!s.gather(station.role)){journal(p,h);return;}
         s.nextAction=System.currentTimeMillis()+1500;
         p.startAnimation(832);save(p);
+        if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).refreshSupplyTracker(p);
         p.start(new DialogueBuilder(p).itemStatement("Festival supplies",h.supplyItems[station.role],
             "You collect "+h.supplies[station.role].toLowerCase(Locale.ROOT)+" for your event pouch.",
             s.stage==2?"All supplies found! Visit the crafting station.":"Find the other marked festival stations."));
@@ -256,19 +260,20 @@ public final class HolidayEvents {
         Holiday h=npc.holiday;HolidayProgress s=progress(p,h);int role=npc.role;
         if(s.stage!=3){journal(p,h);return;}
         if((s.delivered&(1<<role))!=0){say(p,"Thank you! Please help the other festival guests.");return;}
-        String[] clues=h==Holiday.HALLOWEEN?new String[]{"I follow you in light, but vanish in darkness.","I have a face and hands, but no arms or legs.","Feed me wood and I live. Give me water and I die."}:
-            new String[]{"I need something that marches to guard the workshop.","I promised a little friend a toy that meows.","I want a gift that shows a tiny winter world."};
-        String[] answers=h==Holiday.HALLOWEEN?new String[]{"A shadow","A clock","A fire"}:new String[]{"Toy soldier","Toy cat","Snow globe"};
+        int roundSeed=s.layoutSeed;
+        String clue=h==Holiday.HALLOWEEN?HalloweenRiddles.question(roundSeed,role):
+                new String[]{"I need something that marches to guard the workshop.","I promised a little friend a toy that meows.","I want a gift that shows a tiny winter world."}[role];
+        String[] answers=h==Holiday.HALLOWEEN?HalloweenRiddles.answers(roundSeed):new String[]{"Toy soldier","Toy cat","Snow globe"};
         DialogueOption[] options=new DialogueOption[3];
         for(int i=0;i<3;i++){final int choice=i;options[i]=new DialogueOption(answers[i],pl->{
             if(!near(pl,npc))return;HolidayProgress state=progress(pl,h);
-            if(state.stage!=3||(state.delivered&(1<<role))!=0)return;
+            if(state.stage!=3||state.layoutSeed!=roundSeed||(state.delivered&(1<<role))!=0)return;
             if(choice!=role){say(pl,h==Holiday.HALLOWEEN?"That is not the answer. Listen to my riddle again.":"That gift belongs to someone else. Listen to my request.");return;}
             state.deliver(role);save(pl);
             say(pl,h==Holiday.HALLOWEEN?"The ghost's lantern lights up. Its soul is at peace.":"The helper unwraps the perfect Christmas gift!",
                 state.stage==4?"All three helped! Return to the festival host.":"Keep going! Other guests still need your help.");
         });}
-        p.start(new DialogueBuilder(p).npc(npc.getNpcId(),clues[role]).option(h==Holiday.HALLOWEEN?"Answer the ghost":"Choose a wrapped gift",options));
+        p.start(new DialogueBuilder(p).npc(npc.getNpcId(),clue).option(h==Holiday.HALLOWEEN?"Answer the ghost":"Choose a wrapped gift",options));
     }
     private static void claim(Player p,HolidayNpc npc) {
         if(!near(p,npc)||npc.home)return;
@@ -278,6 +283,7 @@ public final class HolidayEvents {
         if(!s.complete())return;
         if(first)for(int id:npc.holiday.rewards)p.getItems().addItem(id,1);
         save(p);
+        if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).refreshSupplyTracker(p);
         say(p,"Quest complete: "+npc.holiday.quest,"You earned 5 festival tokens.",first?"Your festive costume has been added to your inventory.":"Thank you for helping the festival again!","Speak to me to replay or browse the cosmetic rewards.");
     }
     private static void shop(Player p,HolidayNpc npc) {

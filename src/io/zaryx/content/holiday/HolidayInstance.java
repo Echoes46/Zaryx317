@@ -14,6 +14,8 @@ public final class HolidayInstance extends InstancedArea {
     final HolidayEvents.Layout layout;
     private final Player owner;
     private boolean refreshPending=true;
+    private boolean trackerShown;
+    private int trackedSupplies=-1;
     HolidayInstance(Player owner,HolidayEvents.Layout layout) {
         super(new InstanceConfigurationBuilder().setCloseOnPlayersEmpty(true).createInstanceConfiguration(),
                 layout.holiday==Holiday.HALLOWEEN?MANOR:CHRISTMAS_GARDEN);
@@ -29,11 +31,30 @@ public final class HolidayInstance extends InstancedArea {
         for(var s:layout.objects)Server.getGlobalObjects().add(new GlobalObject(s.id,s.x,s.y,getHeight(),s.face,10,-1).setInstance(this));
         for(var n:layout.npcs)if(!n.home)add(new HolidayNpc(layout.holiday,n.id,n.x,n.y,getHeight(),n.role,false));
         p.moveTo(new Position(layout.entryX,layout.entryY,getHeight()));
+        refreshSupplyTracker(p);
         LOG.info("{} round entry: player={}, height={}, npcs={}",
                 layout.holiday,p.getLoginName(),getHeight(),getNpcs().size());
         p.sendMessage("Your private "+layout.holiday.title+" round is ready. Speak to the host for your journal.");
     }
     void leave(Player p){p.moveTo(new Position(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0));if(p.getInstance()==this)remove(p);}
+    void refreshSupplyTracker(Player p) {
+        if(p!=owner || p.getInstance()!=this || !owns(p,layout.holiday))return;
+        if(!trackerShown) {
+            p.getPA().sendString(61410,layout.holiday.title+" supplies");
+            for(int i=0;i<3;i++)p.getPA().sendString(61411+i,layout.holiday.supplies[i]);
+            trackerShown=true;
+        }
+        int gathered=HolidayEvents.progress(p,layout.holiday).gathered;
+        if(gathered!=trackedSupplies){p.getPA().sendString(61414,Integer.toString(gathered));trackedSupplies=gathered;}
+    }
+    @Override public void remove(Player p) {
+        if(p==owner && trackerShown){
+            for(int id=61410;id<=61414;id++)p.getPA().sendString(id,"");
+            trackerShown=false;
+            trackedSupplies=-1;
+        }
+        super.remove(p);
+    }
     @Override public void tick(io.zaryx.model.entity.Entity entity) {
         if(isDisposed() || entity!=owner || owner.getInstance()!=this)return;
         // A public-map teleport must not leave an active round attached at the wrong height.
@@ -64,6 +85,7 @@ public final class HolidayInstance extends InstancedArea {
             Server.getGlobalObjects().updateRegionObjects(owner);
             refreshPending=false;
         }
+        refreshSupplyTracker(owner);
     }
     @Override public void onDispose(){ }
 }

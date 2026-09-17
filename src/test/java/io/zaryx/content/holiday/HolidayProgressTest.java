@@ -43,4 +43,22 @@ class HolidayProgressTest {
   props.setProperty("halloween.enabled","false");assertFalse(s.enabled(Holiday.HALLOWEEN));assertTrue(s.enabled(Holiday.CHRISTMAS));
   props.setProperty("halloween.enabled","tru");assertThrows(IllegalArgumentException.class,()->s.enabled(Holiday.HALLOWEEN));
  }
+ @Test void ghostQuestionsChangeBetweenRoundsAndStayFixedOnResume(){
+  HolidayProgress progress=new HolidayProgress();progress.useEdition(2026);
+  int previousSet=-1;
+  for(int round=0;round<12;round++){
+   assertTrue(progress.start(round%6));
+   int set=HalloweenRiddles.setFor(progress.layoutSeed);
+   if(previousSet>=0)assertNotEquals(previousSet,set);
+   String[] answers=HalloweenRiddles.answers(progress.layoutSeed);
+   assertEquals(3,answers.length);
+   assertEquals(3,java.util.Set.of(answers).size());
+   for(int role=0;role<3;role++)assertFalse(HalloweenRiddles.question(progress.layoutSeed,role).isBlank());
+   HolidayProgress restored=HolidayProgress.decode(progress.encode());
+   assertEquals(HalloweenRiddles.question(progress.layoutSeed,0),HalloweenRiddles.question(restored.layoutSeed,0));
+   previousSet=set;
+   progress.stage=4;progress.gathered=7;progress.puzzle=3;progress.delivered=7;
+   assertTrue(progress.complete());
+  }
+ }
 }
