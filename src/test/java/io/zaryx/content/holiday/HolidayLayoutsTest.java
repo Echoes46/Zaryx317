@@ -25,4 +25,29 @@ class HolidayLayoutsTest {
   ghostSpots.values().forEach(spots->assertTrue(spots.size()>=9,"Ghost has too few possible spots"));
   supplySpots.values().forEach(spots->assertTrue(spots.size()>=9,"Supply has too few possible spots"));
  }
+ @Test void christmasHelpersAndSuppliesMoveWithinGarden() throws Exception {
+  Gson gson=new Gson();
+  var base=Arrays.stream(gson.fromJson(Files.readString(Path.of("etc/cfg/holiday-events.json")),HolidayEvents.Layout[].class))
+      .filter(l->l.holiday==Holiday.CHRISTMAS).findFirst().orElseThrow();
+  String original=gson.toJson(base);
+  Map<Integer,Set<String>> guests=new HashMap<>(),supplies=new HashMap<>();
+  Set<String> penguin=new HashSet<>();
+  for(int seed=HolidayLayouts.LEGACY_LAYOUTS;seed<HolidayLayouts.LEGACY_LAYOUTS+HolidayLayouts.NEW_LAYOUTS;seed++){
+   var layout=HolidayLayouts.round(base,seed);
+   HolidayEvents.validateLayout(layout);
+   assertEquals(gson.toJson(layout),gson.toJson(HolidayLayouts.round(base,seed)));
+   for(var npc:layout.npcs){
+    if(npc.role>=0)guests.computeIfAbsent(npc.id,k->new HashSet<>()).add(npc.x+","+npc.y);
+    if(npc.role==-2)penguin.add(npc.x+","+npc.y);
+    if(npc.role==-1&&!npc.home){assertEquals(2987,npc.x);assertEquals(3382,npc.y);}
+   }
+   for(var station:layout.objects)if(station.role>=0&&station.role<3)
+    supplies.computeIfAbsent(station.id,k->new HashSet<>()).add(station.x+","+station.y);
+  }
+  assertEquals(3,guests.size());assertEquals(3,supplies.size());
+  guests.values().forEach(spots->assertTrue(spots.size()>=9));
+  supplies.values().forEach(spots->assertTrue(spots.size()>=9));
+  assertEquals(3,penguin.size());
+  assertEquals(original,gson.toJson(base));
+ }
 }

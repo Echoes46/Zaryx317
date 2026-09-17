@@ -24,9 +24,23 @@ final class HolidayLayouts {
         {{3104,3354},{3105,3365},{3111,3358}},
         {{3098,3365},{3105,3370},{3107,3360}}
     };
+    // Three compact garden arrangements. Santa stays at the entrance; helpers,
+    // the penguin and all three supply stations change places between rounds.
+    static final int[][][] CHRISTMAS_GUEST_SPOTS={
+        {{2994,3387},{2980,3386},{2992,3389}},
+        {{2992,3386},{2982,3384},{2990,3389}},
+        {{2995,3386},{2983,3387},{2991,3388}}
+    };
+    static final int[][][] CHRISTMAS_SUPPLY_SPOTS={
+        {{2980,3381},{2990,3388},{2994,3383}},
+        {{2982,3382},{2990,3387},{2996,3385}},
+        {{2983,3384},{2992,3387},{2995,3380}}
+    };
+    static final int[][] CHRISTMAS_PENGUIN_SPOTS={{2975,3381},{2977,3382},{2983,3379}};
     static final int LEGACY_LAYOUTS=19;
     static final int NEW_LAYOUTS=54;
     static HolidayEvents.Layout round(HolidayEvents.Layout base,int seed) {
+        if(base.holiday==Holiday.CHRISTMAS)return christmasRound(base,seed);
         Gson gson=new Gson();
         HolidayEvents.Layout result=gson.fromJson(gson.toJson(base),HolidayEvents.Layout.class);
         boolean legacy=seed<LEGACY_LAYOUTS;
@@ -49,6 +63,32 @@ final class HolidayLayouts {
         int[] ids=supplies.stream().mapToInt(s->s.id).toArray();
         int[] roles=supplies.stream().mapToInt(s->s.role).toArray();
         for(int i=0;i<3;i++){supplies.get(i).id=ids[(i+shift)%3];supplies.get(i).role=roles[(i+shift)%3];}
+        return result;
+    }
+    private static HolidayEvents.Layout christmasRound(HolidayEvents.Layout base,int seed) {
+        Gson gson=new Gson();
+        HolidayEvents.Layout result=gson.fromJson(gson.toJson(base),HolidayEvents.Layout.class);
+        int slot=Math.floorMod(seed-LEGACY_LAYOUTS,NEW_LAYOUTS);
+        int variant=slot/18;
+        int[][] permutations={{0,1,2},{0,2,1},{1,0,2},{1,2,0},{2,0,1},{2,1,0}};
+        int[] permutation=permutations[slot%6];
+        for(var npc:result.npcs) {
+            if(npc.home||npc.role==-1)continue;
+            int[] tile=npc.role>=0?CHRISTMAS_GUEST_SPOTS[variant][permutation[npc.role]]:CHRISTMAS_PENGUIN_SPOTS[variant];
+            npc.x=tile[0];npc.y=tile[1];
+        }
+        List<HolidayEvents.Station> supplies=new ArrayList<>();
+        for(var station:result.objects)if(station.role>=0&&station.role<3)supplies.add(station);
+        int[] ids=supplies.stream().mapToInt(s->s.id).toArray();
+        int[] roles=supplies.stream().mapToInt(s->s.role).toArray();
+        int shift=(slot/6)%3;
+        for(int i=0;i<3;i++) {
+            HolidayEvents.Station station=supplies.get(i);
+            station.x=CHRISTMAS_SUPPLY_SPOTS[variant][i][0];
+            station.y=CHRISTMAS_SUPPLY_SPOTS[variant][i][1];
+            station.id=ids[(i+shift)%3];
+            station.role=roles[(i+shift)%3];
+        }
         return result;
     }
 }

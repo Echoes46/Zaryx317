@@ -30,7 +30,7 @@ class HolidayRuntimeTest {
         var config=Server.class.getDeclaredField("configuration");config.setAccessible(true);
         var oldConfig=config.get(null);config.set(null,ServerConfiguration.getDefault());
         var settings=HolidayEvents.class.getDeclaredField("settings");settings.setAccessible(true);
-        var oldSettings=settings.get(null);Properties props=new Properties();props.setProperty("halloween.enabled","true");
+        var oldSettings=settings.get(null);Properties props=new Properties();props.setProperty("halloween.enabled","true");props.setProperty("christmas.enabled","true");
         settings.set(null,new HolidaySettings(props));
         var eventsField=io.zaryx.model.cycleevent.CycleEventHandler.class.getDeclaredField("instance");eventsField.setAccessible(true);
         var oldEvents=eventsField.get(null);
@@ -112,6 +112,51 @@ class HolidayRuntimeTest {
                 for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
             }
             assertEquals(7,saved.gathered);assertEquals(2,saved.stage);
+
+            resumed.leave(p);
+            var christmas=Arrays.stream(new Gson().fromJson(Files.readString(Path.of("etc/cfg/holiday-events.json")),HolidayEvents.Layout[].class))
+                    .filter(l->l.holiday==Holiday.CHRISTMAS).findFirst().orElseThrow();
+            layouts.put(Holiday.CHRISTMAS,christmas);
+            var christmasProgress=HolidayEvents.progress(p,Holiday.CHRISTMAS);
+            for(int seed:new int[]{19,37,55}) {
+                christmasProgress.stage=0;
+                christmasProgress.gathered=0;
+                christmasProgress.layoutSeed=seed;
+                var round=new HolidayInstance(p,HolidayLayouts.round(christmas,seed));
+                instances.add(round);
+                round.enter(p);
+                actors.addAll(round.getNpcs());
+                p.getNextPlayerMovement();p.checkInstanceCoords();
+                assertSame(round,p.getInstance());
+                assertEquals(5,round.getNpcs().size(),"Santa, three helpers and the penguin must appear");
+                assertTrue(round.getNpcs().stream().allMatch(n->p.viewable(n,false)));
+                p.objects.clear();round.tick(p);
+                assertEquals(round.layout.objects.length,p.objects.size());
+                for(var station:round.layout.objects)assertTrue(p.objects.contains(station.id+":"+station.x+":"+station.y));
+                christmasProgress.stage=1;
+                for(var station:round.layout.objects)if(station.role>=0&&station.role<3) {
+                    christmasProgress.nextAction=0;
+                    assertTrue(HolidayEvents.walkToObject(p,station.id,station.x,station.y));
+                    for(int tick=0;tick<60;tick++){p.getNextPlayerMovement();ticks.invoke(p);}
+                    assertNotEquals(0,christmasProgress.gathered&(1<<station.role),"Uncollected Christmas supply "+station.id);
+                }
+                assertEquals(7,christmasProgress.gathered);
+                assertEquals(2,christmasProgress.stage);
+                round.leave(p);
+            }
+            christmasProgress.stage=1;
+            christmasProgress.gathered=1;
+            christmasProgress.layoutSeed=37;
+            String christmasSave=christmasProgress.encode();
+            p.moveTo(new Position(christmas.entryX,christmas.entryY,0));p.getNextPlayerMovement();
+            HolidayEvents.resumeChristmas(p);
+            assertTrue(p.getInstance() instanceof HolidayInstance);
+            var christmasResumed=(HolidayInstance)p.getInstance();
+            instances.add(christmasResumed);actors.addAll(christmasResumed.getNpcs());
+            p.getNextPlayerMovement();p.checkInstanceCoords();
+            assertEquals(christmasSave,christmasProgress.encode());
+            assertEquals(new Gson().toJson(HolidayLayouts.round(christmas,37)),new Gson().toJson(christmasResumed.layout));
+            assertTrue(christmasResumed.getNpcs().stream().allMatch(n->p.viewable(n,false)));
         } finally {
             for(var instance:instances)if(!instance.isDisposed())instance.dispose();
             for(var npc:actors)if(npc.getIndex()>0)npc.unregisterInstant();

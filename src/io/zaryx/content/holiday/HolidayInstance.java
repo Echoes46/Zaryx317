@@ -6,37 +6,42 @@ import io.zaryx.content.instances.*;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.model.world.objects.GlobalObject;
 
-/** A single account's manor; no other player's round can move its actors. */
+/** A single account's holiday round; no other player's round can move its actors. */
 public final class HolidayInstance extends InstancedArea {
     static final Boundary MANOR=new Boundary(3072,3328,3135,3391);
+    static final Boundary CHRISTMAS_GARDEN=new Boundary(2944,3328,3007,3455);
     private static final org.slf4j.Logger LOG=org.slf4j.LoggerFactory.getLogger(HolidayInstance.class);
     final HolidayEvents.Layout layout;
     private final Player owner;
     private boolean refreshPending=true;
     HolidayInstance(Player owner,HolidayEvents.Layout layout) {
-        super(new InstanceConfigurationBuilder().setCloseOnPlayersEmpty(true).createInstanceConfiguration(),MANOR);
+        super(new InstanceConfigurationBuilder().setCloseOnPlayersEmpty(true).createInstanceConfiguration(),
+                layout.holiday==Holiday.HALLOWEEN?MANOR:CHRISTMAS_GARDEN);
         this.owner=owner;this.layout=layout;
     }
-    boolean owns(Player p,Holiday holiday){return !isDisposed()&&p==owner&&holiday==Holiday.HALLOWEEN&&p.heightLevel==getHeight();}
+    boolean owns(Player p,Holiday holiday){return !isDisposed()&&p==owner&&layout.holiday==holiday&&p.heightLevel==getHeight();}
     void enter(Player p) {
         add(p);
-        HolidayLayouts.openDoors(this,getHeight());
-        for(int[] d:HolidayLayouts.DOORS)Server.getGlobalObjects().add(new GlobalObject(-1,d[1],d[2],getHeight(),d[3],0,-1).setInstance(this));
+        if(layout.holiday==Holiday.HALLOWEEN){
+            HolidayLayouts.openDoors(this,getHeight());
+            for(int[] d:HolidayLayouts.DOORS)Server.getGlobalObjects().add(new GlobalObject(-1,d[1],d[2],getHeight(),d[3],0,-1).setInstance(this));
+        }
         for(var s:layout.objects)Server.getGlobalObjects().add(new GlobalObject(s.id,s.x,s.y,getHeight(),s.face,10,-1).setInstance(this));
         for(var n:layout.npcs)if(!n.home)add(new HolidayNpc(layout.holiday,n.id,n.x,n.y,getHeight(),n.role,false));
         p.moveTo(new Position(layout.entryX,layout.entryY,getHeight()));
-        LOG.info("Halloween round entry: player={}, height={}, npcs={}",
-                p.getLoginName(),getHeight(),getNpcs().size());
-        p.sendMessage("Your private Halloween round is ready. Speak to Jack for your journal.");
+        LOG.info("{} round entry: player={}, height={}, npcs={}",
+                layout.holiday,p.getLoginName(),getHeight(),getNpcs().size());
+        p.sendMessage("Your private "+layout.holiday.title+" round is ready. Speak to the host for your journal.");
     }
     void leave(Player p){p.moveTo(new Position(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0));if(p.getInstance()==this)remove(p);}
     @Override public void tick(io.zaryx.model.entity.Entity entity) {
         if(isDisposed() || entity!=owner || owner.getInstance()!=this)return;
         // A public-map teleport must not leave an active round attached at the wrong height.
         // Respect an in-progress teleport out of the manor instead of pulling the player back.
-        if(owner.heightLevel==0 && MANOR.in(owner)
+        Boundary area=layout.holiday==Holiday.HALLOWEEN?MANOR:CHRISTMAS_GARDEN;
+        if(owner.heightLevel==0 && area.in(owner)
                 && owner.getTeleportToX()==-1 && owner.getTeleportToY()==-1 && owner.teleTimer==0) {
-            LOG.warn("Restoring Halloween instance height for {}: 0 -> {}",owner.getLoginName(),getHeight());
+            LOG.warn("Restoring {} instance height for {}: 0 -> {}",layout.holiday,owner.getLoginName(),getHeight());
             owner.moveTo(new Position(layout.entryX,layout.entryY,getHeight()));
             refreshPending=true;
         }
@@ -49,7 +54,7 @@ public final class HolidayInstance extends InstancedArea {
             for(var spawn:layout.npcs)if(!spawn.home && spawn.role==-1) {
                 add(new HolidayNpc(layout.holiday,spawn.id,spawn.x,spawn.y,getHeight(),spawn.role,false));
                 org.slf4j.LoggerFactory.getLogger(HolidayInstance.class).warn(
-                        "Restored missing Halloween host in instance height {}",getHeight());
+                        "Restored missing {} host in instance height {}",layout.holiday,getHeight());
             }
         }
         // Starting another round can reuse both the same region and the same height.

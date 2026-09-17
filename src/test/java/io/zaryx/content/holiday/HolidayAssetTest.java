@@ -18,7 +18,8 @@ class HolidayAssetTest {
   try {
    ObjectDef.loadConfig();
    HolidayEvents.Layout[] layouts=new Gson().fromJson(Files.readString(Path.of("etc/cfg/holiday-events.json")),HolidayEvents.Layout[].class);
-   for(int i=0;i<layouts.length;i++)if(layouts[i].holiday==Holiday.HALLOWEEN)layouts[i]=HolidayLayouts.round(layouts[i],seed);
+   for(int i=0;i<layouts.length;i++)layouts[i]=HolidayLayouts.round(layouts[i],seed);
+   for(var layout:layouts)HolidayEvents.validateLayout(layout);
    Set<Integer> required=new HashSet<>();
    for(var layout:layouts){required.add(hash(layout.entryX,layout.entryY));for(var n:layout.npcs)required.add(hash(n.x,n.y));for(var o:layout.objects)required.add(hash(o.x,o.y));}
    var loader=Region.class.getDeclaredMethod("loadMap",RegionData.class);loader.setAccessible(true);
