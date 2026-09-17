@@ -423,6 +423,10 @@ public class PlayerSave {
                             p.getBankPin().setUnlockDelay(Long.parseLong(token2));
                         } else if (token.equals("placeholders")) {
                             p.placeHolders = Boolean.parseBoolean(token2);
+                        } else if (token.equals("bank-insert-mode")) {
+                            p.swaping = Boolean.parseBoolean(token2);
+                        } else if (token.equals("bank-withdraw-noted")) {
+                            p.takeAsNote = Boolean.parseBoolean(token2);
                         } else if (token.equals("show-drop-warning")) {
                             p.setDropWarning(Boolean.parseBoolean(token2));
                         } else if (token.equals("show-alch-warning")) {
@@ -1747,6 +1751,10 @@ public class PlayerSave {
             characterfile.write("bank-pin-unlock-delay = " + p.getBankPin().getUnlockDelay());
             characterfile.newLine();
             characterfile.write("placeholders = " + p.placeHolders);
+            characterfile.newLine();
+            characterfile.write("bank-insert-mode = " + p.swaping);
+            characterfile.newLine();
+            characterfile.write("bank-withdraw-noted = " + p.takeAsNote);
             characterfile.newLine();
             characterfile.write("bank-pin-cancellation-delay = " + p.getBankPin().getCancellationDelay());
             characterfile.newLine();

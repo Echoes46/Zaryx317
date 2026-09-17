@@ -2979,6 +2979,8 @@ public class ItemAssistant {
 			return;
 		}
 		player.getPA().sendChangeSprite(58014, player.placeHolders ? (byte) 1 : (byte) 0);
+		player.getPA().sendChangeSprite(58002, player.swaping ? (byte) 1 : (byte) 0);
+		player.getPA().sendChangeSprite(58010, player.takeAsNote ? (byte) 1 : (byte) 0);
 		if (player.getLootingBag().isWithdrawInterfaceOpen() || player.getLootingBag().isDepositInterfaceOpen() || player.viewingRunePouch) {
 			player.sendMessage("You should stop what you are doing before opening the bank.");
 			return;

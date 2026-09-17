@@ -48,6 +48,7 @@ import io.zaryx.model.definitions.ItemDef;
 import io.zaryx.model.entity.npc.NPCHandler;
 import io.zaryx.model.entity.npc.pets.PetHandler;
 import io.zaryx.model.entity.player.*;
+import io.zaryx.model.entity.player.save.PlayerSave;
 import io.zaryx.model.entity.player.mode.Mode;
 import io.zaryx.model.entity.player.mode.ModeType;
 import io.zaryx.model.entity.player.mode.group.ExpModeType;
@@ -825,6 +826,7 @@ public class ClickingButtons implements PacketType {
                 }
                 c.placeHolders = !c.placeHolders;
                 c.getPA().sendChangeSprite(58014, c.placeHolders ? (byte) 1 : (byte) 0);
+                PlayerSave.saveGame(c);
 //			if (!c.placeHolders) {
 //				for (BankTab bankTab : c.getBank().getBankTab()) {
 //					for (BankItem item : bankTab.getItems()) {
@@ -2627,15 +2629,9 @@ public class ClickingButtons implements PacketType {
                 break;
 
             case 226146:
-                if (!c.swaping) {
-                    c.getPA().sendChangeSprite(58002, c.placeHolders ? (byte) 0 : (byte) 1);
-                    c.getPA().sendConfig(305, 0);
-                    c.swaping = false;
-                    break;
-                }
-                c.getPA().sendChangeSprite(58002, c.placeHolders ? (byte) 1 : (byte) 0);
-                c.getPA().sendConfig(304, 1);
-                c.swaping = true;
+                c.swaping = !c.swaping;
+                c.getPA().sendChangeSprite(58002, c.swaping ? (byte) 1 : (byte) 0);
+                PlayerSave.saveGame(c);
                 break;
 
             case 73241:
@@ -2650,15 +2646,9 @@ public class ClickingButtons implements PacketType {
                 break;
 
             case 226154:
-                if (c.takeAsNote) {
-                    c.getPA().sendChangeSprite(58010, c.placeHolders ? (byte) 1 : (byte) 0);
-                    c.getPA().sendConfig(116, 1);
-                    c.takeAsNote = false;
-                    break;
-                }
-                c.getPA().sendChangeSprite(58010, c.placeHolders ? (byte) 0 : (byte) 1);
-                c.getPA().sendConfig(115, 0);
-                c.takeAsNote = true;
+                c.takeAsNote = !c.takeAsNote;
+                c.getPA().sendChangeSprite(58010, c.takeAsNote ? (byte) 1 : (byte) 0);
+                PlayerSave.saveGame(c);
                 break;
 
 
