@@ -99,7 +99,10 @@ class HolidayRuntimeTest {
                 var replacement=instance.getNpcs().stream().filter(n->((HolidayNpc)n).role==-1).findFirst().orElseThrow();
                 actors.add(replacement);assertNotSame(host,replacement);assertTrue(p.viewable(replacement,false));
                 assertFalse(replacement.randomWalk);
+                p.objects.clear();
                 instance.leave(p);
+                for(var station:instance.layout.objects)
+                    assertTrue(p.objects.contains("-1:"+station.x+":"+station.y),"Old manor station remains visible at "+station.x+","+station.y);
                 instance.tick(p);assertEquals(0,p.heightLevel,"Leaving must not pull a player back");
                 assertEquals("",p.trackerText.get(61410));
             }
@@ -124,7 +127,13 @@ class HolidayRuntimeTest {
             assertEquals(7,saved.gathered);assertEquals(2,saved.stage);
             saved.stage=4;saved.puzzle=3;saved.delivered=7;assertTrue(saved.complete());
             int previousManorHeight=resumed.getHeight();
+            p.objects.clear();
             HolidayEvents.enterRound(p,Holiday.HALLOWEEN);
+            for(var station:resumed.layout.objects)
+                assertTrue(p.objects.contains("-1:"+station.x+":"+station.y),"Replay did not clear the prior manor station");
+            Server.getGlobalObjects().pulse();
+            for(var station:resumed.layout.objects)
+                assertFalse(Server.getGlobalObjects().exists(station.id,station.x,station.y,previousManorHeight));
             var halloweenReplay=(HolidayInstance)p.getInstance();instances.add(halloweenReplay);actors.addAll(halloweenReplay.getNpcs());
             p.getNextPlayerMovement();p.checkInstanceCoords();
             assertNotEquals(previousManorHeight,halloweenReplay.getHeight(),"A replay needs a fresh map height");
@@ -169,7 +178,10 @@ class HolidayRuntimeTest {
                 }
                 assertEquals(7,christmasProgress.gathered);
                 assertEquals(2,christmasProgress.stage);
+                p.objects.clear();
                 round.leave(p);
+                for(var station:round.layout.objects)
+                    assertTrue(p.objects.contains("-1:"+station.x+":"+station.y),"Old Christmas station remains visible");
                 assertEquals("",p.trackerText.get(61410));
             }
             christmasProgress.stage=1;
@@ -188,7 +200,13 @@ class HolidayRuntimeTest {
             christmasProgress.stage=4;christmasProgress.gathered=7;christmasProgress.puzzle=3;christmasProgress.delivered=7;
             assertTrue(christmasProgress.complete());
             int previousChristmasHeight=christmasResumed.getHeight();
+            p.objects.clear();
             HolidayEvents.enterRound(p,Holiday.CHRISTMAS);
+            for(var station:christmasResumed.layout.objects)
+                assertTrue(p.objects.contains("-1:"+station.x+":"+station.y),"Replay did not clear the prior Christmas station");
+            Server.getGlobalObjects().pulse();
+            for(var station:christmasResumed.layout.objects)
+                assertFalse(Server.getGlobalObjects().exists(station.id,station.x,station.y,previousChristmasHeight));
             var christmasReplay=(HolidayInstance)p.getInstance();instances.add(christmasReplay);actors.addAll(christmasReplay.getNpcs());
             p.getNextPlayerMovement();p.checkInstanceCoords();
             assertNotEquals(previousChristmasHeight,christmasReplay.getHeight());

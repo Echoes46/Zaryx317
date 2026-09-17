@@ -5,6 +5,8 @@ import io.zaryx.Server;
 import io.zaryx.content.instances.*;
 import io.zaryx.model.entity.player.*;
 import io.zaryx.model.world.objects.GlobalObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /** A single account's holiday round; no other player's round can move its actors. */
 public final class HolidayInstance extends InstancedArea {
@@ -16,6 +18,7 @@ public final class HolidayInstance extends InstancedArea {
     private boolean refreshPending=true;
     private boolean trackerShown;
     private int trackedSupplies=-1;
+    private final List<GlobalObject> spawnedObjects=new ArrayList<>();
     HolidayInstance(Player owner,HolidayEvents.Layout layout) {
         super(new InstanceConfigurationBuilder().setCloseOnPlayersEmpty(true).createInstanceConfiguration(),
                 layout.holiday==Holiday.HALLOWEEN?MANOR:CHRISTMAS_GARDEN);
@@ -26,9 +29,9 @@ public final class HolidayInstance extends InstancedArea {
         add(p);
         if(layout.holiday==Holiday.HALLOWEEN){
             HolidayLayouts.openDoors(this,getHeight());
-            for(int[] d:HolidayLayouts.DOORS)Server.getGlobalObjects().add(new GlobalObject(-1,d[1],d[2],getHeight(),d[3],0,-1).setInstance(this));
+            for(int[] d:HolidayLayouts.DOORS)addObject(new GlobalObject(-1,d[1],d[2],getHeight(),d[3],0,-1).setInstance(this));
         }
-        for(var s:layout.objects)Server.getGlobalObjects().add(new GlobalObject(s.id,s.x,s.y,getHeight(),s.face,10,-1).setInstance(this));
+        for(var s:layout.objects)addObject(new GlobalObject(s.id,s.x,s.y,getHeight(),s.face,10,-1).setInstance(this));
         for(var n:layout.npcs)if(!n.home)add(new HolidayNpc(layout.holiday,n.id,n.x,n.y,getHeight(),n.role,false));
         p.moveTo(new Position(layout.entryX,layout.entryY,getHeight()));
         refreshSupplyTracker(p);
@@ -36,7 +39,8 @@ public final class HolidayInstance extends InstancedArea {
                 layout.holiday,p.getLoginName(),getHeight(),getNpcs().size());
         p.sendMessage("Your private "+layout.holiday.title+" round is ready. Speak to the host for your journal.");
     }
-    void leave(Player p){p.moveTo(new Position(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0));if(p.getInstance()==this)remove(p);}
+    private void addObject(GlobalObject object){Server.getGlobalObjects().add(object);spawnedObjects.add(object);}
+    void leave(Player p){if(p.getInstance()==this)remove(p);p.moveTo(new Position(Configuration.START_LOCATION_X,Configuration.START_LOCATION_Y,0));}
     void refreshSupplyTracker(Player p) {
         if(p!=owner || p.getInstance()!=this || !owns(p,layout.holiday))return;
         if(!trackerShown) {
@@ -48,6 +52,11 @@ public final class HolidayInstance extends InstancedArea {
         if(gathered!=trackedSupplies){p.getPA().sendString(61414,Integer.toString(gathered));trackedSupplies=gathered;}
     }
     @Override public void remove(Player p) {
+        // Object packets do not encode the instance height. Clear the old scene before moving
+        // this player to another round, or old stations remain alongside the new layout.
+        if(p==owner && p.getInstance()==this && p.heightLevel==getHeight())
+            for(GlobalObject object:spawnedObjects)
+                p.getPA().object(-1,object.getX(),object.getY(),object.getFace(),object.getType(),true);
         if(p==owner && trackerShown){
             for(int id=61410;id<=61414;id++)p.getPA().sendString(id,"");
             trackerShown=false;
@@ -87,5 +96,8 @@ public final class HolidayInstance extends InstancedArea {
         }
         refreshSupplyTracker(owner);
     }
-    @Override public void onDispose(){ }
+    @Override public void onDispose(){
+        for(GlobalObject object:spawnedObjects)Server.getGlobalObjects().remove(object);
+        spawnedObjects.clear();
+    }
 }
