@@ -4734,7 +4734,7 @@ public class PlayerAssistant {
     }
 
     public void sendGameTimer(ClientGameTimer timer, TimeUnit unitOfTime, int duration) {
-/*		if (c == null || c.isDisconnected()) {
+		if (c == null || c.isDisconnected() || timer == null || unitOfTime == null || !isPotionTimer(timer)) {
 			return;
 		}
 		Stream stream = c.getOutStream();
@@ -4742,20 +4742,38 @@ public class PlayerAssistant {
 			return;
 		}
 
+		int seconds = (int) Math.max(0, Math.min(unitOfTime.toSeconds(duration), 65535));
 		if (timer.isItem()) {
-			int seconds = (int) Long.min(unitOfTime.toSeconds(duration), 65535);
 			stream.createFrame(224);
 			stream.writeUnsignedWord(timer.getTimerId());
 			stream.writeUnsignedWord(timer.getTimerId());
 			stream.writeUnsignedWord(seconds);
 			c.flushOutStream();
 		} else {
-			int seconds = (int) Long.min(unitOfTime.toSeconds(duration), 65535);
 			stream.createFrame(223);
 			stream.writeByte(timer.getTimerId());
 			stream.writeUnsignedWord(seconds);
 			c.flushOutStream();
-		}*/
+		}
+    }
+
+    private static boolean isPotionTimer(ClientGameTimer timer) {
+        switch (timer) {
+            case OVERLOAD:
+            case ANTIFIRE:
+            case ANTIVENOM:
+            case ANTIPOISON:
+            case STAMINA:
+            case DIVINE_SUPER_COMBAT:
+            case DIVINE_RANGE:
+            case DIVINE_MAGIC:
+            case INF_PRAYER_POT:
+            case INF_AGGRESSION:
+            case RAGE_POT:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public void sendProgressBarUpdate(int interfaceID, byte amount, byte state) {
