@@ -61,21 +61,61 @@ public class ClickObject implements PacketType {
         return worldObject.orElse(null);
     }
 
+    private static boolean isScorpiaExit(int x, int y) {
+        return (y == 10352 && (x == 3232 || x == 3243)) || (x == 3233 && y == 10331);
+    }
+
+    private static void leaveScorpia(Player player) {
+        if (!Boundary.isIn(player, Boundary.SCORPIA_LAIR)) {
+            return;
+        }
+        if (player.wildLevel > 0 && player.underAttackByPlayer > 0) {
+            player.sendMessage("You cannot leave the cave while fighting another player.");
+            return;
+        }
+        if (player.teleTimer > 0 || Server.getMultiplayerSessionListener().inAnySession(player)) {
+            return;
+        }
+        AgilityHandler.delayFade(player, "CRAWL", 3233, 3950, 0,
+                "You crawl out of scorpia's cave..", "and end up outside.", 3);
+    }
+
     private static void walkTo(Player player, int option) {
         if (io.zaryx.content.holiday.HolidayEvents.walkToObject(player, player.objectId, player.objectX, player.objectY)) return;
+        if (option == 1 && player.objectId == 26763 && Boundary.isIn(player, Boundary.SCORPIA_LAIR)
+                && isScorpiaExit(player.objectX, player.objectY)) {
+            WorldObject exit = getObject(player, player.objectId, player.objectX, player.objectY);
+            if (exit == null) {
+                exit = new WorldObject(26763, player.objectX, player.objectY, player.getHeight(), 0, 0);
+            }
+            Server.getLogging().write(new ClickObjectLog(player, exit, option));
+            Position exitPosition = exit.getPosition();
+            if (player.distance(exitPosition) <= 6) {
+                leaveScorpia(player);
+            } else {
+                Position approach = new Position(exit.getX(), exit.getY() == 10352 ? 10351 : 10332,
+                        player.getHeight());
+                PathFinder.getPathFinder().findRoute(player, approach.getX(), approach.getY(), true, 1, 1);
+                player.setTickable((container, plr) -> {
+                    if (!Boundary.isIn(plr, Boundary.SCORPIA_LAIR)) {
+                        container.stop();
+                    } else if (plr.distance(exitPosition) <= 6) {
+                        container.stop();
+                        leaveScorpia(plr);
+                    }
+                });
+            }
+            return;
+        }
         WorldObject object = getObject(player, player.objectId, player.objectX, player.objectY);
 
         if (object != null) {
             Position size = object.getObjectSize();
             Server.getLogging().write(new ClickObjectLog(player, object, option));
-            if ((object.getId() == 26762 && object.getX() == 3231 && object.getY() == 3951)
-                    || (object.getId() == 26763 && Boundary.isIn(player, Boundary.SCORPIA_LAIR)
-                    && (object.getY() == 10352 || object.getY() == 10331))) {
-                // The cavern and crevices sit against cave walls. Use the walkable side
-                // of each object for routing and allow interaction near the opening.
+            if (object.getId() == 26762 && object.getX() == 3231 && object.getY() == 3951) {
+                // The cavern sits against the cave wall. Route to its walkable side.
                 Position approach = new Position(object.getX(),
-                        object.getId() == 26762 ? 3950 : object.getY() == 10352 ? 10351 : 10332,
-                        object.getHeight());
+                        3950, object.getHeight());
                 if (player.distance(object.getPosition()) <= 3) {
                     finishObjectClick(player, option, object);
                 } else {
