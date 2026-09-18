@@ -957,6 +957,7 @@ public class NpcOptionOne {
                 break;
 
             case 953: // Banker
+            case 2898: // Home banker
             case 2574: // Banker
             case 166: // Gnome Banker
             case 1702: // Ghost Banker

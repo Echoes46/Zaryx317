@@ -407,6 +407,7 @@ public class NpcOptionTwo {
 			player.sendMessage("You currently have <col=a30027>" + Misc.insertCommas(player.getSlayer().getPoints()) + " </col>slayer points.");
 			break;
 		case 953: // Banker
+		case 2898: // Home banker
 		case 2574: // Banker
 		case 166: // Gnome Banker
 		case 1702: // Ghost Banker

@@ -115,6 +115,7 @@ public class NpcOptionThree {
 			player.getDH().sendDialogues(903, 1909);
 			break;
 		case 2897:
+		case 2898:
 			player.getPA().c.itemAssistant.openUpBank();
 			break;
 			case 4321:
