@@ -64,6 +64,11 @@ public class AlchemicalHydra extends LegacySoloPlayerInstance {
     private static final int MIDDLE_HEAD = 0;
     private static final int LEFT_HEAD = 1;
     private static final int RIGHT_HEAD = 2;
+    private static final Location[] VENTS = {
+            new Location(1371, 10263), // poison
+            new Location(1371, 10272), // lightning
+            new Location(1362, 10272)  // flame
+    };
 
     private static final int[][] ATTACK_ANIMS = {
             //Poison phase
@@ -96,8 +101,9 @@ public class AlchemicalHydra extends LegacySoloPlayerInstance {
         if (player.getInstance() != null && player.getInstance() instanceof AlchemicalHydra) {
             AlchemicalHydra instance = (AlchemicalHydra) player.getInstance();
             if (instance.npc == npc) {
-                if (!instance.sprayed) {
-                    damage.setAmount(0);
+                if (damage.getAmount() > 0 && !instance.sprayed && instance.currentStage != HydraStage.ENRAGED) {
+                    // The active vent weakens Hydra, but missing it must not make the fight unwinnable.
+                    damage.setAmount(Math.max(1, damage.getAmount() / 4));
                 }
             }
         }
@@ -134,12 +140,10 @@ public class AlchemicalHydra extends LegacySoloPlayerInstance {
 
     private int tickCount;
     private boolean sprayed;
-    private int ventTicks;
 
 
     public void onTick() {
         tickCount++;
-        ventTicks++;
 
         if(!Boundary.isIn(player, AREA)) {
             player.removeFromInstance();
@@ -162,23 +166,28 @@ public class AlchemicalHydra extends LegacySoloPlayerInstance {
         }
 		npc.lastDamageTaken = System.currentTimeMillis();
         checkTransform();
-        if (sprayed) {
-            buffed = false;
-        }
-        if(ventTicks >= 4 && ventTicks <= 11) {
-        	  if (currentStage != HydraStage.ENRAGED) {
-                  if (Boundary.isIn(npc, currentStage.getBoundary())) {
-                      sprayed = true;
-                  } else if (!sprayed && HydraStage.stream()
-                          .filter(hydraStage -> hydraStage != currentStage)
-                          .anyMatch(hydraStage -> Boundary.isIn(npc, hydraStage.getBoundary()))) {
-                  
-                      buffed = true;
-                  }
+        checkVents();
+    }
 
-              }
-        } else if(ventTicks >= 26) {
-        	ventTicks = 0;
+    private void checkVents() {
+        if (currentStage == HydraStage.ENRAGED || sprayed) {
+            return;
+        }
+        for (int index = 0; index < VENTS.length; index++) {
+            Location vent = VENTS[index];
+            // NPC coordinates are the south-west corner of its six-tile footprint.
+            if (vent.getX() >= npc.getX() && vent.getX() < npc.getX() + npc.getSize()
+                    && vent.getY() >= npc.getY() && vent.getY() < npc.getY() + npc.getSize()) {
+                if (index == currentStage.ordinal()) {
+                    sprayed = true;
+                    buffed = false;
+                    player.sendMessage("The vent weakens the Alchemical Hydra!");
+                } else if (!buffed) {
+                    buffed = true;
+                    player.sendMessage("The wrong vent strengthens the Alchemical Hydra!");
+                }
+                return;
+            }
         }
     }
 

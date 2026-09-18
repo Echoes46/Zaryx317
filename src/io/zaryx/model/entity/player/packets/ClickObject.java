@@ -68,18 +68,24 @@ public class ClickObject implements PacketType {
         if (object != null) {
             Position size = object.getObjectSize();
             Server.getLogging().write(new ClickObjectLog(player, object, option));
-            if (object.getId() == 26763 && Boundary.isIn(player, Boundary.SCORPIA_LAIR)
-                    && (object.getY() == 10352 || object.getY() == 10331)) {
-                // The cave crevice is a wall object. Route to the adjacent cave tile,
-                // rather than asking the player to walk onto the blocked wall.
+            if ((object.getId() == 26762 && object.getX() == 3231 && object.getY() == 3951)
+                    || (object.getId() == 26763 && Boundary.isIn(player, Boundary.SCORPIA_LAIR)
+                    && (object.getY() == 10352 || object.getY() == 10331))) {
+                // The cavern and crevices sit against cave walls. Use the walkable side
+                // of each object for routing and allow interaction near the opening.
                 Position approach = new Position(object.getX(),
-                        object.getY() == 10352 ? 10351 : 10332, object.getHeight());
-                if (player.distance(approach) <= 1) {
+                        object.getId() == 26762 ? 3950 : object.getY() == 10352 ? 10351 : 10332,
+                        object.getHeight());
+                if (player.distance(object.getPosition()) <= 3) {
                     finishObjectClick(player, option, object);
                 } else {
                     PathFinder.getPathFinder().findRoute(player, approach.getX(), approach.getY(), true, 1, 1);
-                    player.setTickable(new WalkToTickable(player, approach, 1, 1,
-                            plr -> finishObjectClick(plr, option, object)));
+                    player.setTickable((container, plr) -> {
+                        if (plr.distance(object.getPosition()) <= 3) {
+                            container.stop();
+                            finishObjectClick(plr, option, object);
+                        }
+                    });
                 }
             } else if (object.getId() == 31561) { // Rev agility shortcut
                 PathFinder.getPathFinder().findRoute(player, object.getX(), object.getY(), true, 1, 1);

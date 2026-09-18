@@ -23,7 +23,8 @@ public class BankTab {
      * Adds an item to this tab, stacking when possible.
      */
     public void add(BankItem bankItem) {
-        if (bankItem == null || bankItem.getId() <= 0 || bankItem.getAmount() <= 0)
+        // A zero amount is an empty placeholder. Player saves and tab moves must keep it.
+        if (bankItem == null || bankItem.getId() <= 0 || bankItem.getAmount() < 0)
             return;
 
         lock.lock();
