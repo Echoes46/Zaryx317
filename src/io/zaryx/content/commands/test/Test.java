@@ -46,16 +46,16 @@ public class Test extends Command {
 	private static final int[] rewards = { 20773, 20775, 20777, 20779 };
 	
 	private enum RankUpgrade {
-		KRILLIN(Right.Donator, 25),
+		KRILLIN(Right.Donator, 20),
 		GOTEN(Right.Super_Donator, 50),
 		GOHAN(Right.Great_Donator,100),
 		CELL(Right.Extreme_Donator, 250),
 		VEGETA(Right.Major_Donator, 500),
-		GOKU(Right.Supreme_Donator, 750),
-		GOGETTA(Right.Gilded_Donator, 1000),
-		GOGETTA_SS(Right.Platinum_Donator, 1500),
-		GOGETTA_SS2(Right.Apex_Donator, 2500),
-		SS_BROLY(Right.Almighty_Donator, 5000);
+		GOKU(Right.Supreme_Donator, 1250),
+		GOGETTA(Right.Gilded_Donator, 2500),
+		GOGETTA_SS(Right.Platinum_Donator, 4000),
+		GOGETTA_SS2(Right.Apex_Donator, 6500),
+		SS_BROLY(Right.Almighty_Donator, 15000);
 
 		
 		/**

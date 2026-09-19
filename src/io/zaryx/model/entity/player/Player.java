@@ -3969,7 +3969,7 @@ public class Player extends Entity {
         }
         if (amDonated >= 1250 && amDonated < 2500) {
             if (!getRights().isOrInherits(Right.Supreme_Donator)) {
-                PlayerHandler.executeGlobalMessage("<img=43>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Supreme Donator ($1000)!");
+                PlayerHandler.executeGlobalMessage("<img=43>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Supreme Donator ($1250)!");
             }
             if (getRights().isOrInherits(Right.YOUTUBER) || getRights().isOrInherits(Right.IRONMAN) || getRights().isOrInherits(Right.ULTIMATE_IRONMAN) || getRights().isOrInherits(Right.OSRS) || getRights().isOrInherits(Right.HELPER) || getRights().isOrInherits(Right.MODERATOR) || getRights().isOrInherits(Right.HC_IRONMAN)) {
                 getRights().add(Right.Supreme_Donator);
@@ -3979,7 +3979,7 @@ public class Player extends Entity {
         }
         if (amDonated >= 2500 && amDonated < 4000) {
             if (!getRights().isOrInherits(Right.Gilded_Donator)) {
-                PlayerHandler.executeGlobalMessage("<img=42>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Gilded Donator ($2000)!");
+                PlayerHandler.executeGlobalMessage("<img=42>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Gilded Donator ($2500)!");
             }
             if (getRights().isOrInherits(Right.YOUTUBER) || getRights().isOrInherits(Right.IRONMAN) || getRights().isOrInherits(Right.ULTIMATE_IRONMAN) || getRights().isOrInherits(Right.OSRS) || getRights().isOrInherits(Right.HELPER) || getRights().isOrInherits(Right.MODERATOR) || getRights().isOrInherits(Right.HC_IRONMAN)) {
                 getRights().add(Right.Gilded_Donator);
@@ -3989,7 +3989,7 @@ public class Player extends Entity {
         }
         if (amDonated >= 4000 && amDonated < 6500) {
             if (!getRights().isOrInherits(Right.Platinum_Donator)) {
-                PlayerHandler.executeGlobalMessage("<img=41>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Platinum Donator ($3500)!");
+                PlayerHandler.executeGlobalMessage("<img=41>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Platinum Donator ($4000)!");
             }
             if (getRights().isOrInherits(Right.YOUTUBER) || getRights().isOrInherits(Right.IRONMAN) || getRights().isOrInherits(Right.ULTIMATE_IRONMAN) || getRights().isOrInherits(Right.OSRS) || getRights().isOrInherits(Right.HELPER) || getRights().isOrInherits(Right.MODERATOR) || getRights().isOrInherits(Right.HC_IRONMAN)) {
                 getRights().add(Right.Platinum_Donator);
@@ -3999,7 +3999,7 @@ public class Player extends Entity {
         }
         if (amDonated >= 6500 && amDonated < 15000) {
             if (!getRights().isOrInherits(Right.Apex_Donator)) {
-                PlayerHandler.executeGlobalMessage("<img=40>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Apex Donator ($5000)!");
+                PlayerHandler.executeGlobalMessage("<img=40>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Apex Donator ($6500)!");
             }
             if (getRights().isOrInherits(Right.YOUTUBER) || getRights().isOrInherits(Right.IRONMAN) || getRights().isOrInherits(Right.ULTIMATE_IRONMAN) || getRights().isOrInherits(Right.OSRS) || getRights().isOrInherits(Right.HELPER) || getRights().isOrInherits(Right.MODERATOR) || getRights().isOrInherits(Right.HC_IRONMAN)) {
                 getRights().add(Right.Apex_Donator);
@@ -4009,7 +4009,7 @@ public class Player extends Entity {
         }
         if (amDonated >= 15000) {
             if (!getRights().isOrInherits(Right.Almighty_Donator)) {
-                PlayerHandler.executeGlobalMessage("<img=34>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Almighty Donator ($10000)!");
+                PlayerHandler.executeGlobalMessage("<img=34>@bla@[@gre@Donator@bla@] "+getDisplayName()+" has just earned rank Almighty Donator ($15000)!");
             }
             if (getRights().isOrInherits(Right.YOUTUBER) || getRights().isOrInherits(Right.IRONMAN) || getRights().isOrInherits(Right.ULTIMATE_IRONMAN) || getRights().isOrInherits(Right.OSRS) || getRights().isOrInherits(Right.HELPER) || getRights().isOrInherits(Right.MODERATOR) || getRights().isOrInherits(Right.HC_IRONMAN)) {
                 getRights().add(Right.Almighty_Donator);

@@ -6,10 +6,10 @@ enum RankUpgrade {
     GOHAN(Right.Great_Donator,100),
     CELL(Right.Extreme_Donator, 250),
     VEGETA(Right.Major_Donator, 500),
-    GOKU(Right.Supreme_Donator, 750),
-    GOGETTA(Right.Gilded_Donator, 1000),
-    GOGETTA_SS(Right.Platinum_Donator, 1500),
-    GOGETTA_SS2(Right.Apex_Donator, 2000),
+    GOKU(Right.Supreme_Donator, 1250),
+    GOGETTA(Right.Gilded_Donator, 2500),
+    GOGETTA_SS(Right.Platinum_Donator, 4000),
+    GOGETTA_SS2(Right.Apex_Donator, 6500),
     SS_BROLY(Right.Almighty_Donator, 15000);
 
     /**

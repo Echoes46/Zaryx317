@@ -28,11 +28,11 @@ public enum Right implements Comparator<Right> {
 	Great_Donator(9, "6D0000", Super_Donator), // $100 - Red
 	Extreme_Donator(17, "005C6D", Great_Donator), // $250 - blue
 	Major_Donator(18, "4a4a4a", Extreme_Donator), // $500 - black
-	Supreme_Donator(32, "e38400", Major_Donator), // $750 - orange
-	Gilded_Donator(8, "e3bd00", Supreme_Donator), // $1000 - Yellow
-	Platinum_Donator(33, "ffffff", Gilded_Donator), // $1500 - White
-	Apex_Donator(34, "fb00ff", Platinum_Donator), // $2000 - Transparent
-	Almighty_Donator(35, "2fff00", Apex_Donator), // $3000 - Lime Green
+	Supreme_Donator(32, "e38400", Major_Donator), // $1250 - orange
+	Gilded_Donator(8, "e3bd00", Supreme_Donator), // $2500 - Yellow
+	Platinum_Donator(33, "ffffff", Gilded_Donator), // $4000 - White
+	Apex_Donator(34, "fb00ff", Platinum_Donator), // $6500 - Transparent
+	Almighty_Donator(35, "2fff00", Apex_Donator), // $15000 - Lime Green
 
 	GUIDE_GURU(36, "4287f5", HELPER), //Guide Guru
 
