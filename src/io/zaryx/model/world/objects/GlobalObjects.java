@@ -199,7 +199,8 @@ public class GlobalObjects {
      */
     public boolean anyExists(int x, int y, int height) {
         return objects.stream().anyMatch(object ->
-                object.getX() == x
+                object.getObjectId() != -1
+                        && object.getX() == x
                         && object.getY() == y
                         && object.getHeight() == height
         );

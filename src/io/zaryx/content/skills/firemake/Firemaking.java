@@ -16,6 +16,8 @@ import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
 
 public class Firemaking {
+
+    private static final int FIRE_OBJECT_ID = 5249;
 	
 	public static int[] pyromancerOutfit = { 20704, 20706, 20708, 20710 };
 
@@ -58,13 +60,12 @@ public class Firemaking {
         /*
          * Only real tinderbox firemaking needs a valid ground tile.
          * Infernal axe firemaking happens during woodcutting and should not try to place a fire object.
-         * A player can only light a fire on the tile they currently occupy, so rejecting the
-         * tile's aggregate clipping flags also rejects many otherwise usable floors. Actual
-         * placement conflicts are covered by NPC and spawned-object occupancy checks below.
+         * A player can only light a fire on the tile they currently occupy. Global object
+         * occupancy cannot be used here because it includes object-removal placeholders (-1),
+         * which are common throughout the custom home map despite leaving an empty floor tile.
          */
         if (usingTinderbox) {
-            if (player.getRegionProvider().isOccupiedByNpc(player.absX, player.absY, player.heightLevel)
-                    || Server.getGlobalObjects().anyExists(player.absX, player.absY, player.heightLevel)
+            if (Server.getGlobalObjects().exists(FIRE_OBJECT_ID, player.absX, player.absY, player.heightLevel)
                     || Boundary.isIn(player, Boundary.HALLOWEEN_ORDER_MINIGAME)) {
                 player.sendMessage("You cannot light a fire here.");
                 return;
@@ -114,9 +115,9 @@ public class Firemaking {
                 @Override
                 public void execute(CycleEventContainer container) {
                     if (player.getArboContainer().inArbo()) {
-                        Server.getGlobalObjects().add(new GlobalObject(5249, coords[0], coords[1], coords[2], 0, 10, 50, -1).setInstance(player.getInstance()));
+                        Server.getGlobalObjects().add(new GlobalObject(FIRE_OBJECT_ID, coords[0], coords[1], coords[2], 0, 10, 50, -1).setInstance(player.getInstance()));
                     } else {
-                        Server.getGlobalObjects().add(new GlobalObject(5249, coords[0], coords[1], coords[2], 0, 10, 50, -1));
+                        Server.getGlobalObjects().add(new GlobalObject(FIRE_OBJECT_ID, coords[0], coords[1], coords[2], 0, 10, 50, -1));
                     }
 
                     Server.itemHandler.removeGroundItem(player, log.getlogId(), coords[0], coords[1], coords[2], false);
