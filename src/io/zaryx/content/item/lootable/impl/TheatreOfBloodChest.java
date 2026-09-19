@@ -188,10 +188,7 @@ public class TheatreOfBloodChest implements Lootable {
 
          */
 
-        rareChance = (int) (rareChance - (DropManager.getModifier(player) < 10 ? DropManager.getModifier(player) : DropManager.getModifier(player) / 10));
-        if (rareChance <= 0) {
-            rareChance = 30;
-        }
+        rareChance = DropManager.applyModifierToDenominator(rareChance, DropManager.getModifier(player));
         int chance = Misc.random(1, rareChance);
         if (player.getItems().hasItemOnOrInventory(Items.BUCKET_OF_MILK)) {
             player.sendMessage("[@red@MommyMilkers@bla@] Your milk has been consumed and you feel a rush through your system!");

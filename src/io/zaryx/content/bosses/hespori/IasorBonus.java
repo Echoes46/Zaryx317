@@ -12,8 +12,8 @@ public class IasorBonus implements HesporiBonus {
     public void activate(Player player) {
         Hespori.activeIasorSeed = true;
         Hespori.IASOR_TIMER += TimeUnit.HOURS.toMillis(1) / 600;
-        Discord.writeIngameEvents("```The Iasor has sprouted and is granting 1 hour of double drops!```");
-        PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] @blu@" + player.getDisplayNameFormatted() + " @bla@sprouted the Iasor and it is granting 1 hr of double drops!");
+        Discord.writeIngameEvents("```The Iasor has sprouted and is granting 1 hour of +10% drop rate!```");
+        PlayerHandler.executeGlobalMessage("@bla@[@gre@Hespori@bla@] @blu@" + player.getDisplayNameFormatted() + " @bla@sprouted the Iasor and it is granting 1 hr of +10% drop rate!");
         QuestTab.updateAllQuestTabs();
     }
 

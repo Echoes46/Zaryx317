@@ -73,6 +73,7 @@ public class DropManager {
     };
 
     private final Map<List<Integer>, TableGroup> groups = new HashMap<>();
+    private final Map<Integer, TableGroup> groupsByNpcId = new HashMap<>();
 
     private final List<Integer> ordered = new ArrayList<>();
 
@@ -89,6 +90,8 @@ public class DropManager {
 
     public void read() throws IOException, ParseException {
         ItemConstants itemConstants = new ItemConstants().load();
+        groups.clear();
+        groupsByNpcId.clear();
         readFromDirectory(new File(Server.getDataDirectory() + "/cfg/drops/"), itemConstants);
         ordered.clear();
 
@@ -111,7 +114,9 @@ public class DropManager {
 
     private void readFromDirectory(File directory, ItemConstants itemConstants) throws IOException, ParseException {
         Preconditions.checkState(directory.isDirectory());
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
+        File[] files = Objects.requireNonNull(directory.listFiles());
+        Arrays.sort(files, Comparator.comparing(File::getName, String.CASE_INSENSITIVE_ORDER));
+        for (File file : files) {
             if (file.isDirectory()) {
                 readFromDirectory(file, itemConstants);
             } else {
@@ -142,8 +147,15 @@ public class DropManager {
                     continue;
                 }
                 ObjectNode dropTable = (ObjectNode) jsonNode.get(policy.name().toLowerCase());
-                Table table = new Table(policy, dropTable.get("accessibility").intValue());
+                int accessibility = dropTable.get("accessibility").intValue();
+                if (policy != TablePolicy.CONSTANT && accessibility <= 0) {
+                    throw new IllegalStateException(policy + " accessibility must be positive: " + file);
+                }
+                Table table = new Table(policy, accessibility);
                 TreeNode tableItems = dropTable.get("items");
+                if (tableItems == null || tableItems.size() == 0) {
+                    throw new IllegalStateException(policy + " table has no items: " + file);
+                }
 
                 for (int i = 0; i < tableItems.size(); i++) {
                     ObjectNode item = (ObjectNode) tableItems.get(i);
@@ -162,6 +174,12 @@ public class DropManager {
                 group.add(table);
             }
             groups.put(npcIds, group);
+            for (int npcId : npcIds) {
+                TableGroup replaced = groupsByNpcId.put(npcId, group);
+                if (replaced != null && replaced != group) {
+                    log.warn("NPC {} has more than one drop table; using {} as the deterministic override.", npcId, file.getName());
+                }
+            }
         } catch (Exception e) {
             System.err.println("Error in " + file);
             throw e;
@@ -341,7 +359,7 @@ public class DropManager {
 
 
     public List<GameItem> getDropSample(Player player, int npcId) {
-        Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(npcId)).findFirst();
+        Optional<TableGroup> group = groupFor(npcId);
         if (group.isPresent()) {
             double modifier = 1.0 + getModifier(player);
             return group.get().access(player, null, modifier, 1, npcId);
@@ -1070,7 +1088,7 @@ public class DropManager {
         }
         else player.sendMessage("You were missing the mimic casket and did not get a drop.");
 
-        Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(npcId)).findFirst();
+        Optional<TableGroup> group = groupFor(npcId);
         group.ifPresent(g -> {
             double modifier = 1.0 + getModifier(player);
 
@@ -1093,7 +1111,7 @@ public class DropManager {
     }
 
     public static double getModifier(Player player) {
-        final double cap = 0.90;
+        final double cap = 1.00;
         double modifier = 0.0;
 
         final PerkSystem perkSystem = player.getPerkSytem();
@@ -1141,16 +1159,15 @@ public class DropManager {
         else if (player.hasItemEquipped(RING_OF_WEALTH_I1)) modifier += 0.07;
         else if (player.hasItemEquipped(RING_OF_WEALTH_I2)) modifier += 0.09;
         else if (player.hasItemEquipped(RING_OF_WEALTH_I3)) modifier += 0.11;
-        else if (player.hasItemEquipped(RING_OF_WEALTH_I4)) modifier += 0.12;
+        else if (player.hasItemEquipped(RING_OF_WEALTH_I4)) modifier += 0.13;
         else if (player.hasItemEquipped(RING_OF_WEALTH_I5)) modifier += 0.15;
-        else if (player.hasItemEquipped(25975)) modifier += 0.18;
+        else if (player.hasItemEquipped(25975)) modifier += 0.20;
         else if (player.hasItemEquipped(26939)) modifier += 0.18;
-        else if (player.hasItemEquipped(33238)) modifier += 0.90;
-        else if (player.hasItemEquipped(20788)) modifier += 0.05;
         else if (player.hasItemEquipped(26314)) modifier += 0.25;
-        else if (player.hasItemEquipped(20787)) modifier += 0.05;
-        else if (player.hasItemEquipped(20786)) modifier += 0.05;
-        else if (player.hasItemEquipped(13069)) modifier += 0.02;
+
+        // Hats and capes occupy different slots and must not be suppressed by an equipped ring.
+        if (player.hasItemEquipped(33238)) modifier += 1.00;
+        if (player.hasItemEquipped(13069)) modifier += 0.02;
         else if (player.hasItemEquipped(33056) || player.hasItemEquipped(23859)) modifier += 0.05;
 
         // Inventory / equipment
@@ -1164,7 +1181,7 @@ public class DropManager {
 
         // Misc boosts
         if (VotePanelManager.hasDropBoost(player)) modifier += 0.10;
-        if (Hespori.KRONOS_TIMER > 0) modifier += 0.10;
+        if (Hespori.IASOR_TIMER > 0) modifier += 0.10;
 
         // Location based boosts
         if (player.isSkulled && Boundary.isIn(player, Boundary.REV_CAVE)) modifier += 0.10;
@@ -1180,6 +1197,19 @@ public class DropManager {
         else if (player.getRights().contains(Right.Great_Donator)) modifier += 0.05;
 
         return Math.min(modifier, cap);
+    }
+
+    private Optional<TableGroup> groupFor(int npcId) {
+        return Optional.ofNullable(groupsByNpcId.get(npcId));
+    }
+
+    /** Applies the displayed bonus to systems that use a direct 1/N roll. */
+    public static int applyModifierToDenominator(int baseDenominator, double bonus) {
+        if (baseDenominator <= 0) {
+            throw new IllegalArgumentException("Drop denominator must be positive.");
+        }
+        double cappedBonus = Math.max(0.0, Math.min(bonus, 1.0));
+        return Math.max(1, (int) Math.ceil(baseDenominator / (1.0 + cappedBonus)));
     }
 
     public void clearSearch(Player player) {
@@ -1226,7 +1256,7 @@ public class DropManager {
     }
 
     public List<GameItem> getNPCdrops(int id) {
-        Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(id)).findFirst();
+        Optional<TableGroup> group = groupFor(id);
         try {
             return group.map(g -> {
                 List<GameItem> items = new ArrayList<>();
@@ -1250,7 +1280,7 @@ public class DropManager {
     }
 
     public List<GameItem> getAllNPCdrops(int id) {
-        Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(id)).findFirst();
+        Optional<TableGroup> group = groupFor(id);
         try {
             return group.map(g -> {
                 List<GameItem> items = new ArrayList<>();
@@ -1272,7 +1302,7 @@ public class DropManager {
     }
 
     public void getDrops(Player player, int id) {
-        Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(id)).findFirst();
+        Optional<TableGroup> group = groupFor(id);
         group.ifPresent(g -> {
             List<GameItem> items = new ArrayList<>();
             for (TablePolicy policy : TablePolicy.POLICIES) {
@@ -1318,7 +1348,7 @@ public class DropManager {
             player.getPA().setScrollableMaxHeight(NPC_RESULTS_CONTAINER_INTERFACE_ID, 250 + (definitions.size() > 16 ? (definitions.size() - 16) * 14 : 0));
 
             for(Integer index : definitions) {
-                Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(index)).findFirst();
+                Optional<TableGroup> group = groupFor(index);
                 if(group.isPresent()) {
                     TableGroup g = group.get();
 
@@ -1397,9 +1427,7 @@ public class DropManager {
 
     public void openForNpcId(Player player, int npcId) {
         player.getAttributes().setInt(LAST_OPENED_TABLE_KEY, npcId);
-        Optional<TableGroup> group = groups.values().stream()
-                .filter(g -> g.getNpcIds().contains(npcId))
-                .findFirst();
+        Optional<TableGroup> group = groupFor(npcId);
 
         // If the group in the search area contains this NPC
         group.ifPresent(g -> {
@@ -1432,23 +1460,18 @@ public class DropManager {
 
             player.lastDropTableSelected = System.currentTimeMillis();
 
-            double playerDropRate = getModifier(player);
-            double modifier = 1.0 + playerDropRate;  // 1.0 at no drop rate, scaling with playerDropRate
+            double modifier = 1.0 + getModifier(player);  // 1.0 at no drop rate
 
             player.getPA().resetScrollBar(DROP_TABLE__CONTAINER_INTERFACE_ID);
 
-            // Iterates through all 5 drop table policies (found in TablePolicy -> Enum)
+            // Iterates through every drop-table policy (found in TablePolicy).
             for (TablePolicy policy : TablePolicy.POLICIES) {
                 Optional<Table> table = g.stream().filter(t -> t.getPolicy() == policy).findFirst();
                 if (table.isPresent()) {
-                    int rate = table.get().getAccessibility();
-
-                    // Calculate the drop chance using the player's modifier
-                    double baseChance = rate / modifier;
-                    double finalChance = Math.max(baseChance, 1);  // Ensure chance is not below 1%
-
-                    // Display the drop chance
-                    if (!updateAmounts(player, policy, table.get(), (int) Math.ceil(finalChance))) {
+                    // A table first rolls for access and then selects one entry. Include both
+                    // steps so this is the same per-item chance used by the live loot roll.
+                    int finalChance = TableGroup.individualDropDenominator(table.get(), modifier);
+                    if (!updateAmounts(player, policy, table.get(), finalChance)) {
                         System.out.println("breaking 1");
                         break;
                     }
@@ -1545,7 +1568,7 @@ public class DropManager {
      */
 
     public void test(Player player, int npcId, int amount) {
-        Optional<TableGroup> group = groups.values().stream().filter(g -> g.getNpcIds().contains(npcId)).findFirst();
+        Optional<TableGroup> group = groupFor(npcId);
 
         amountt = amount;
 

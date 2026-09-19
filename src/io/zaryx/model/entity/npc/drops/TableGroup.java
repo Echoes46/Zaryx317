@@ -29,8 +29,7 @@ public class TableGroup extends ArrayList<Table> {
     public List<GameItem> access(Player player, NPC npc, double modifier, int repeats, int npcId) {
         List<GameItem> items = new ArrayList<>();
 
-        // A modifier of 1.0 is the baseline. Cap bonuses to prevent excessive drops.
-        modifier = Math.max(1.0, Math.min(modifier, 1.5));
+        modifier = normalizeModifier(modifier);
 
         for (Table table : this) {
             TablePolicy policy = table.getPolicy();
@@ -46,33 +45,16 @@ public class TableGroup extends ArrayList<Table> {
             }
 
             if (policy.equals(TablePolicy.CONSTANT)) {
-                // Constant drops: unaffected by modifier, always 100% chance
-                Drop drop = table.fetchRandom();
-                int minimumAmount = drop.getMinimumAmount();
-                items.add(new GameItem(drop.getItemId(), minimumAmount + Misc.random(drop.getMaximumAmount() - minimumAmount)));
+                // Every entry in a constant table is guaranteed. Selecting one at random caused
+                // NPCs such as dragons to drop either their bones or hide instead of both.
+                for (Drop drop : table) {
+                    int minimumAmount = drop.getMinimumAmount();
+                    items.add(new GameItem(drop.getItemId(), minimumAmount + Misc.random(drop.getMaximumAmount() - minimumAmount)));
+                }
             } else {
                 for (int i = 0; i < repeats; i++) {
-                    double scaledModifier = modifier;
-                    switch (policy) {
-                        case COMMON:
-                            scaledModifier = 1.0 + ((modifier - 1.0) * 0.5); // 50% effect on common items
-                            break;
-                        case UNCOMMON:
-                            scaledModifier = 1.0 + ((modifier - 1.0) * 0.75); // 75% effect on uncommon items
-                            break;
-                        case RARE:
-                            scaledModifier = 1.0 + ((modifier - 1.0)); // Full effect on rare items
-                            break;
-                        case VERY_RARE:
-                            scaledModifier = 1.0 + ((modifier - 1.0) * 1.25); // 125% effect on very rare items
-                            break;
-                        case EXTREMELY_RARE:
-                            scaledModifier = 1.0 + ((modifier - 1.0) * 1.5); // 150% effect on extremely rare items
-                            break;
-                    }
-
-                    double chance = (1.0 / table.getAccessibility()) * 100D;
-                    chance *= scaledModifier;
+                    double chance = (100D * effectiveMultiplier(policy, modifier)) / table.getAccessibility();
+                    chance = Math.min(chance, 100D);
 
                     double roll = Misc.preciseRandom(Range.between(0.0, 100.0));
 
@@ -189,6 +171,48 @@ public class TableGroup extends ArrayList<Table> {
             }
         }
         return items;
+    }
+
+    /** The caller supplies 1.0 plus the player's displayed drop-rate bonus. */
+    static double normalizeModifier(double modifier) {
+        return Math.max(1.0, Math.min(modifier, 2.0));
+    }
+
+    /**
+     * Preserve the existing rarity weighting while using one calculation for live rolls and
+     * the drop viewer. A +100% player bonus therefore doubles rare-table access exactly.
+     */
+    public static double effectiveMultiplier(TablePolicy policy, double modifier) {
+        double bonus = normalizeModifier(modifier) - 1.0;
+        switch (policy) {
+            case COMMON:
+                return 1.0 + bonus * 0.5;
+            case UNCOMMON:
+                return 1.0 + bonus * 0.75;
+            case VERY_RARE:
+                return 1.0 + bonus * 1.25;
+            case EXTREMELY_RARE:
+                return 1.0 + bonus * 1.5;
+            case RARE:
+                return 1.0 + bonus;
+            case CONSTANT:
+            default:
+                return 1.0;
+        }
+    }
+
+    /** Returns the true per-item 1/N rate shown by the drop viewer. */
+    public static int individualDropDenominator(Table table, double modifier) {
+        if (table.getPolicy() == TablePolicy.CONSTANT) {
+            return 1;
+        }
+        if (table.isEmpty() || table.getAccessibility() <= 0) {
+            throw new IllegalArgumentException("Non-constant drop tables require items and positive accessibility.");
+        }
+        double tableChance = Math.min(1.0,
+                effectiveMultiplier(table.getPolicy(), modifier) / table.getAccessibility());
+        double denominator = table.size() / tableChance;
+        return Math.max(1, (int) Math.ceil(denominator));
     }
 
     public List<Integer> getNpcIds() {

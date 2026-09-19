@@ -5197,7 +5197,7 @@
   shopValue: 900000
 - id: 33238
   name: Sponges hat
-  description: This belong to Sponge and Sponge only!
+  description: Grants a 100% drop-rate bonus while equipped.
   shopValue: 0
   untradeable: true
   undroppable: true
