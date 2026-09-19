@@ -1,6 +1,7 @@
 package io.zaryx.content.items;
 
 import io.zaryx.model.entity.player.Player;
+import io.zaryx.model.entity.player.ClientGameTimer;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,19 @@ public class CluescrollRateIncreaseScroll {
 
 		player.fasterCluesScroll = true;
 		player.fasterCluesTicks = TIME;
+		syncTimer(player);
+	}
+
+	public static void syncTimer(Player player) {
+		if (player.fasterCluesTicks <= 0) {
+			return;
+		}
+		player.getPA().sendGameTimer(ClientGameTimer.BONUS_CLUES, TimeUnit.SECONDS,
+				remainingSeconds(player.fasterCluesTicks));
+	}
+
+	static int remainingSeconds(long ticks) {
+		return (int) Math.min(Integer.MAX_VALUE, Math.max(0L, (ticks * 600L + 999L) / 1000L));
 	}
 	
 

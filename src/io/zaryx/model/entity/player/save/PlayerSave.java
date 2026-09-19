@@ -557,6 +557,8 @@ public class PlayerSave {
                             p.petSummonId = Integer.parseInt(token2);
                         } else if (token.equals("has-npc")) {
                             p.hasFollower = Boolean.parseBoolean(token2);
+                        } else if (token.equals("pet-hidden")) {
+                            p.petHidden = Boolean.parseBoolean(token2);
                         } else if (token.equals("setPin")) {
                             p.setPin = Boolean.parseBoolean(token2);
                         } else if (token.equals("hasBankpin")) {
@@ -1878,6 +1880,9 @@ public class PlayerSave {
             characterfile.newLine();
             characterfile.write("has-npc = ", 0, 10);
             characterfile.write(Boolean.toString(p.hasFollower), 0, Boolean.toString(p.hasFollower).length());
+            characterfile.newLine();
+            characterfile.write("pet-hidden = ", 0, 13);
+            characterfile.write(Boolean.toString(p.petHidden), 0, Boolean.toString(p.petHidden).length());
             characterfile.newLine();
             characterfile.write("summonId = ", 0, 11);
             characterfile.write(Integer.toString(p.petSummonId), 0, Integer.toString(p.petSummonId).length());

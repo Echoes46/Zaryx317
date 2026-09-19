@@ -228,6 +228,9 @@ public class NPCSpawning {
             newNPC.underAttack = true;
             newNPC.setPlayerAttackingIndex(player.getIndex());
         }
+        if (player.getInstance() != null) {
+            player.getInstance().add(newNPC);
+        }
         NPCHandler.npcs[slot] = newNPC;
         log(newNPC);
     }

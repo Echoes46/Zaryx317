@@ -71,6 +71,7 @@ import io.zaryx.content.games.blackjack.BJManager;
 import io.zaryx.content.item.lootable.impl.*;
 import io.zaryx.content.item.lootable.unref.*;
 import io.zaryx.content.items.ChristmasWeapons;
+import io.zaryx.content.items.CluescrollRateIncreaseScroll;
 import io.zaryx.content.items.Degrade;
 import io.zaryx.content.items.IslandScrolls;
 import io.zaryx.content.items.PvpWeapons;
@@ -1111,6 +1112,7 @@ public class Player extends Entity {
     public boolean playerIsCrafting;
     public boolean viewingRunePouch;
     public boolean hasFollower;
+    public boolean petHidden;
     public boolean hasThrall;
     public boolean updateItems;
     public boolean claimedReward;
@@ -2273,7 +2275,7 @@ public class Player extends Entity {
             getPA().sendGameTimer(ClientGameTimer.BONUS_SKILLING_PET_RATE, TimeUnit.MINUTES, (int) (skillingPetRateTicks / 100));
         }
         if (fasterCluesTicks > 0) {
-            getPA().sendGameTimer(ClientGameTimer.BONUS_CLUES, TimeUnit.MINUTES, (int) (fasterCluesTicks / 100));
+            CluescrollRateIncreaseScroll.syncTimer(this);
         }
         if (SafetyTimer > 0) {
             getPA().sendGameTimer(ClientGameTimer.SAFETY_BUFFER, TimeUnit.MINUTES, (int) (SafetyTimer / 100));
@@ -2361,7 +2363,7 @@ public class Player extends Entity {
         }
         tradePost.init(this);
 
-        if (hasFollower) {
+        if (hasFollower && !petHidden) {
             if (petSummonId > 0) {
                 PetHandler.Pets pet = PetHandler.forItem(petSummonId);
                 if (pet != null) {
@@ -3211,7 +3213,9 @@ public class Player extends Entity {
                 }
             } else if(yakLevel == 1 && yakplayTime > 30_000) {
                 NPC yourpet = getSpawnedNPC();
-                yourpet.forceChat("Baa!");
+                if (yourpet != null) {
+                    yourpet.forceChat("Baa!");
+                }
                 sendMessage("Your yak grew! It can now carry @bla@(@blu@15@bla@) slots.");
                 packyakSlots = 15;
                 yakLevel = 2;

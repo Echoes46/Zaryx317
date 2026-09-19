@@ -433,13 +433,53 @@ public class PetHandler {
         return player.getItems().playerHasItem(pet.itemId) || ignore;
     }
 
+    public static boolean hidePet(Player player) {
+        if (!player.hasFollower || player.petSummonId <= 0 || forItem(player.petSummonId) == null) {
+            return false;
+        }
+        for (NPC npc : NPCHandler.npcs) {
+            if (npc != null && npc.isPet && npc.spawnedBy == player.getIndex()) {
+                npc.unregister();
+            }
+        }
+        player.hasPetSpawned = false;
+        player.petHidden = true;
+        PlayerSave.saveGame(player);
+        return true;
+    }
+
+    public static boolean showPet(Player player) {
+        if (!player.hasFollower || player.petSummonId <= 0) {
+            return false;
+        }
+        Pets pet = forItem(player.petSummonId);
+        if (pet == null) {
+            return false;
+        }
+        player.petHidden = false;
+        spawn(player, pet, true, true);
+        boolean visible = false;
+        for (NPC npc : NPCHandler.npcs) {
+            if (npc != null && !npc.isUnregister() && npc.isPet && npc.spawnedBy == player.getIndex()) {
+                visible = true;
+                break;
+            }
+        }
+        if (!visible) {
+            player.petHidden = true;
+            player.hasPetSpawned = false;
+        }
+        PlayerSave.saveGame(player);
+        return visible;
+    }
+
     public static void spawn(Player player, Pets pet, boolean ignore, boolean ignoreAll) {
-        if (player.getInventory().freeInventorySlots() < 2) {
+        if (!ignore && player.getInventory().freeInventorySlots() < 2) {
             player.sendMessage("You don't have enough space to drop a pet!");
             return;
         }
 
-        if (player.getInstance() != null) {
+        if (!ignore && player.getInstance() != null) {
             player.sendMessage("@red@You can't spawn pet's within an instance!");
             return;
         }
@@ -467,6 +507,7 @@ public class PetHandler {
 
         if (pet.itemId == 12840 && !ignore) {
             player.getItems().deleteItem2(pet.itemId, 1);
+            player.petHidden = false;
             player.hasPetSpawned = true;
             player.hasFollower = true;
             player.petSummonId = pet.itemId;
@@ -496,6 +537,9 @@ public class PetHandler {
         } else {
             if (!ignoreAll) {
                 player.getItems().deleteItem2(pet.itemId, 1);
+            }
+            if (!ignore) {
+                player.petHidden = false;
             }
             player.hasPetSpawned = true;
             player.hasFollower = true;

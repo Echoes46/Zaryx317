@@ -4770,6 +4770,7 @@ public class PlayerAssistant {
             case INF_PRAYER_POT:
             case INF_AGGRESSION:
             case RAGE_POT:
+			case BONUS_CLUES:
                 return true;
             default:
                 return false;

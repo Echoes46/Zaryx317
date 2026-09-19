@@ -341,7 +341,7 @@ public class PlayerDeath {
             c.setGlodDamageCounter(79);
             c.setIceQueenDamageCounter(79);
         }
-        if (c.hasFollower) {
+        if (c.hasFollower && !c.petHidden) {
             if (c.petSummonId > 0) {
                 PetHandler.Pets pet = PetHandler.forItem(c.petSummonId);
                 if (pet != null) {

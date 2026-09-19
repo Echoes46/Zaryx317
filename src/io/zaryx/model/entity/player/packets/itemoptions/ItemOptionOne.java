@@ -1217,7 +1217,6 @@ public class ItemOptionOne implements PacketType {
                     c.getItems().deleteItem(24460, 1);
                     CluescrollRateIncreaseScroll.openScroll(c);
                     c.sendMessage("@red@You have activated 30 minutes of bonus clues for pvm and skilling.");
-                    c.getPA().sendGameTimer(ClientGameTimer.BONUS_CLUES, TimeUnit.MINUTES, 30);
                 } else if (c.fasterCluesScroll == true) {
                     c.sendMessage("@red@You already have a faster clue rate going.");
                 }

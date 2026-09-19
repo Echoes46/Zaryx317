@@ -25,6 +25,9 @@ class PetPerksTest {
         player.hasFollower = true;
         assertTrue(PetHandler.hasDarkMagePet(player));
         assertTrue(PetHandler.hasDarkMeleePet(player));
+        player.petHidden = true;
+        assertTrue(PetHandler.hasDarkMagePet(player));
+        assertTrue(PetHandler.hasDarkMeleePet(player));
         player.hasFollower = false;
         assertFalse(PetHandler.hasDarkMagePet(player));
         assertFalse(PetHandler.hasDarkMeleePet(player));

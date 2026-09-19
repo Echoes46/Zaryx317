@@ -21,7 +21,7 @@ public enum ClientGameTimer {
 	INF_PRAYER_POT(11481, true, true),
 	BONUS_XP(12, false, false),
 	BONUS_SKILLING_PET_RATE(13, false, false),
-	BONUS_CLUES(2722, false, true),
+	BONUS_CLUES(24460, false, true),
 	BONUS_DAMAGE(14, false, false),
 	SAFETY_BUFFER(15,false,false),
 	ISLAND_TIMER_15(24364,false,true),
