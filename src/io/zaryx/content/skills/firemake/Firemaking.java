@@ -19,12 +19,6 @@ public class Firemaking {
 	
 	public static int[] pyromancerOutfit = { 20704, 20706, 20708, 20710 };
 
-    private static boolean isHomeBankTile(Player player) {
-        return player.heightLevel == 0
-                && player.absX >= 3086 && player.absX <= 3091
-                && player.absY >= 3496 && player.absY <= 3501;
-    }
-
     public static void lightFire(final Player player, final int logUsed, final String usage) {
         final boolean usingTinderbox = "tinderbox".equalsIgnoreCase(usage);
         final boolean usingInfernalAxe = "infernal_axe".equalsIgnoreCase(usage);
@@ -71,7 +65,6 @@ public class Firemaking {
         if (usingTinderbox) {
             if (player.getRegionProvider().isOccupiedByNpc(player.absX, player.absY, player.heightLevel)
                     || Server.getGlobalObjects().anyExists(player.absX, player.absY, player.heightLevel)
-                    || isHomeBankTile(player)
                     || Boundary.isIn(player, Boundary.HALLOWEEN_ORDER_MINIGAME)) {
                 player.sendMessage("You cannot light a fire here.");
                 return;
