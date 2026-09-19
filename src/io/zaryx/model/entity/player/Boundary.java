@@ -599,7 +599,6 @@ public class Boundary {
 	public static final Boundary PRESET_GAMBLING_BANK = new Boundary(3118, 3504, 3121, 3509);
 	public static final Boundary DONATOR_ZONE = new Boundary(1728, 5436, 1794, 5507);
 	public static final Boundary DONATOR_ZONE_NEW = new Boundary(2543, 3835, 2625, 3909);
-	public static final Boundary DONATOR_1000 = new Boundary(2543, 3835, 2625, 3909);
 	public static final Boundary DONATOR_2500 = new Boundary(2359, 3768, 2428, 3887);
 
 	public static final Boundary FORESTZONE = new Boundary(2254, 5006, 2280, 5030);

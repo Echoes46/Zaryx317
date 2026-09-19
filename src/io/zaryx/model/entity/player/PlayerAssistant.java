@@ -3499,7 +3499,8 @@ public class PlayerAssistant {
             }
         }
 
-        if (Boundary.isIn(c, Boundary.DONATOR_ZONE_NEW) || Boundary.isIn(c, Boundary.DONATOR_ZONE)  || Boundary.isIn(c, Boundary.DONATOR_1000) || Boundary.isIn(c, Boundary.DONATOR_2500)) {
+        if (Boundary.isIn(c, Boundary.DONATOR_ZONE_NEW) || Boundary.isIn(c, Boundary.DONATOR_ZONE)
+                || Boundary.isIn(c, Boundary.ONYX_ZONE) || Boundary.isIn(c, Boundary.DONATOR_2500)) {
             if (c.getRights().isOrInherits(Right.Almighty_Donator)) {
                 amount *= 2.00;
             } else if (c.getRights().isOrInherits(Right.Apex_Donator)) {
