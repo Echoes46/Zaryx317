@@ -6,7 +6,6 @@ import io.zaryx.content.achievement.Achievements;
 import io.zaryx.content.achievement_diary.impl.LumbridgeDraynorDiaryEntry;
 import io.zaryx.content.bonus.BoostScrolls;
 import io.zaryx.content.taskmaster.TaskMasterKills;
-import io.zaryx.model.collisionmap.RegionProvider;
 import io.zaryx.model.cycleevent.CycleEvent;
 import io.zaryx.model.cycleevent.CycleEventContainer;
 import io.zaryx.model.cycleevent.CycleEventHandler;
@@ -17,8 +16,6 @@ import io.zaryx.model.world.objects.GlobalObject;
 import io.zaryx.util.Misc;
 
 public class Firemaking {
-
-    private static final int BLOCKED_FIRE_TILE_FLAGS = 0x200000 | 0x100 | RegionProvider.FULL_NPC_TILE_FLAG;
 	
 	public static int[] pyromancerOutfit = { 20704, 20706, 20708, 20710 };
 
@@ -40,7 +37,7 @@ public class Firemaking {
         }
 
         final int[] time = new int[3];
-        final int[] coords = new int[2];
+        final int[] coords = new int[3];
         final LogData log = LogData.getLogData(player, logUsed);
 
         if (logUsed == 13355) {
@@ -67,12 +64,12 @@ public class Firemaking {
         /*
          * Only real tinderbox firemaking needs a valid ground tile.
          * Infernal axe firemaking happens during woodcutting and should not try to place a fire object.
+         * A player can only light a fire on the tile they currently occupy, so rejecting the
+         * tile's aggregate clipping flags also rejects many otherwise usable floors. Actual
+         * placement conflicts are covered by NPC and spawned-object occupancy checks below.
          */
         if (usingTinderbox) {
-            int clipping = player.getRegionProvider().getClipping(player.absX, player.absY, player.heightLevel);
-            // Wall and decoration flags do not make the player's tile unsuitable for a fire.
-            if ((clipping & BLOCKED_FIRE_TILE_FLAGS) != 0
-                    || player.getRegionProvider().isOccupiedByNpc(player.absX, player.absY, player.heightLevel)
+            if (player.getRegionProvider().isOccupiedByNpc(player.absX, player.absY, player.heightLevel)
                     || Server.getGlobalObjects().anyExists(player.absX, player.absY, player.heightLevel)
                     || isHomeBankTile(player)
                     || Boundary.isIn(player, Boundary.HALLOWEEN_ORDER_MINIGAME)) {
@@ -100,6 +97,7 @@ public class Firemaking {
 
         coords[0] = player.absX;
         coords[1] = player.absY;
+        coords[2] = player.heightLevel;
 
         if (usingTinderbox) {
             if (System.currentTimeMillis() - player.lastFire > 3000) {
@@ -123,12 +121,12 @@ public class Firemaking {
                 @Override
                 public void execute(CycleEventContainer container) {
                     if (player.getArboContainer().inArbo()) {
-                        Server.getGlobalObjects().add(new GlobalObject(5249, coords[0], coords[1], player.heightLevel, 0, 10, 50, -1).setInstance(player.getInstance()));
+                        Server.getGlobalObjects().add(new GlobalObject(5249, coords[0], coords[1], coords[2], 0, 10, 50, -1).setInstance(player.getInstance()));
                     } else {
-                        Server.getGlobalObjects().add(new GlobalObject(5249, coords[0], coords[1], player.heightLevel, 0, 10, 50, -1));
+                        Server.getGlobalObjects().add(new GlobalObject(5249, coords[0], coords[1], coords[2], 0, 10, 50, -1));
                     }
 
-                    Server.itemHandler.removeGroundItem(player, log.getlogId(), coords[0], coords[1], player.heightLevel, false);
+                    Server.itemHandler.removeGroundItem(player, log.getlogId(), coords[0], coords[1], coords[2], false);
                     player.playerIsFiremaking = false;
                     container.stop();
                 }
@@ -139,13 +137,13 @@ public class Firemaking {
                 }
             }, time[0]);
 
-            if (player.getRegionProvider().getClipping(player.getX() - 1, player.getY(), player.heightLevel, -1, 0)) {
+            if (player.getRegionProvider().getClipping(player.getX(), player.getY(), player.heightLevel, -1, 0)) {
                 player.getPA().walkTo(-1, 0);
-            } else if (player.getRegionProvider().getClipping(player.getX() + 1, player.getY(), player.heightLevel, 1, 0)) {
+            } else if (player.getRegionProvider().getClipping(player.getX(), player.getY(), player.heightLevel, 1, 0)) {
                 player.getPA().walkTo(1, 0);
-            } else if (player.getRegionProvider().getClipping(player.getX(), player.getY() - 1, player.heightLevel, 0, -1)) {
+            } else if (player.getRegionProvider().getClipping(player.getX(), player.getY(), player.heightLevel, 0, -1)) {
                 player.getPA().walkTo(0, -1);
-            } else if (player.getRegionProvider().getClipping(player.getX(), player.getY() + 1, player.heightLevel, 0, 1)) {
+            } else if (player.getRegionProvider().getClipping(player.getX(), player.getY(), player.heightLevel, 0, 1)) {
                 player.getPA().walkTo(0, 1);
             }
 
