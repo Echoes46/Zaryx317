@@ -39,7 +39,7 @@ class HomeTourTest {
                 "Slayer",8623,"Trading post",2897);
         Map<String,Integer> objectIds = Map.of("Reward chests",172,"Skilling and deposits",29104,
                 "Prayer altar",409,"Equipment upgrades",30943,"Spellbooks",31858,
-                "Restoration pool",39651,"Tournaments",31622);
+                "Restoration pool",39651,"Tournaments",31622,"Perk Paradise",4152);
         JsonArray npcs = JsonParser.parseString(Files.readString(Path.of("etc/cfg/npc/spawns/home_area.json"))).getAsJsonArray();
         List<int[]> objects = new ArrayList<>();
         for (String line : Files.readAllLines(Path.of("etc/cfg/obj/global_objects.cfg"))) {

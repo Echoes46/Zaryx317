@@ -4444,7 +4444,12 @@ public class ObjectOptionOne {
 				c.sendMessage("You climb down.");
 				break;
 			case 4152:
-				c.start(new SkillingPortalDialogue(c));
+				if (c.objectX == 3079 && c.objectY == 3487 && c.heightLevel == 0) {
+					c.getPA().startTeleport(3363, 9640, 0, "modern", false);
+					c.sendMessage("You enter Perk Paradise. Defeat the avatars to find perk relics.");
+				} else {
+					c.start(new SkillingPortalDialogue(c));
+				}
 				break;
 			case 5084:
 				c.getPA().movePlayer(2744, 3151, 0);
