@@ -4444,7 +4444,7 @@ public class ObjectOptionOne {
 				c.sendMessage("You climb down.");
 				break;
 			case 4152:
-				if (c.objectX == 3079 && c.objectY == 3487 && c.heightLevel == 0) {
+				if (c.objectX == 3103 && c.objectY == 3488 && c.heightLevel == 0) {
 					c.getPA().startTeleport(3363, 9640, 0, "modern", false);
 					c.sendMessage("You enter Perk Paradise. Defeat the avatars to find perk relics.");
 				} else {

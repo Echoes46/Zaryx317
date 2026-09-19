@@ -73,7 +73,7 @@ final class HomeTour {
             "This portal is the entrance for Outlast tournaments.",
             "Watch the event announcements for the next round.",
             "Join when registration is open."),
-        new Stop("Perk Paradise", 3081, 3488,
+        new Stop("Perk Paradise", 3101, 3488,
             "Use the nearby portal to enter Perk Paradise.",
             "Defeat avatars there for a chance at perk relics.",
             "Use a relic in your inventory to attune its perk.")
