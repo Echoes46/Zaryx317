@@ -388,7 +388,8 @@ public class RangeCombatFormula implements CombatFormula {
         base = applyRangedSpecials(attacker, defender, base, specialAttackMultiplier, specialPassiveMultiplier);
         if (attacker.isPlayer() && TwistedBowFamily.contains(attacker.asPlayer().getItems().getWeapon())) {
             // Apply once here, including max-hit previews, rather than twice in HitDispatcher.
-            base = (int) Math.floor(base * TwistedBowFamily.DAMAGE_MULTIPLIER);
+            base = (int) Math.floor(base * TwistedBowFamily.localDamageMultiplier(
+                    attacker.asPlayer().getItems().getWeapon()));
         }
 
 

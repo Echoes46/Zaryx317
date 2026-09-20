@@ -13,5 +13,20 @@ public final class TwistedBowFamily {
         return weapon == 20997 ? twistedMultiplier : Math.max(1.0, twistedMultiplier);
     }
 
-    public static final double DAMAGE_MULTIPLIER = 2.25;
+    /**
+     * Keeps every upgrade tier measurably ahead of the bow used to create it.
+     * Equipment bonuses and attack speed still contribute separately.
+     */
+    public static double localDamageMultiplier(int weapon) {
+        switch (weapon) {
+            case 33058: // Seren godbow
+                return 2.50;
+            case 33207: // Demon X bow
+            case 20484: // Demon X bow (en)
+                return 2.75;
+            case 20997: // Twisted bow
+            default:
+                return 2.25;
+        }
+    }
 }

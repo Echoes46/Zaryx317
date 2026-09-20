@@ -147,6 +147,23 @@ class WeaponProgressionTest {
         }
     }
 
+    @Test void twistedBowUpgradeChainIncreasesNormalDamageAtEveryTargetMagicLevel() {
+        for (int magic : new int[]{1, 100, 250, 350}) {
+            NPC target = npc();
+            target.getCombatDefinition().setLevel(NpcCombatSkill.MAGIC, magic);
+
+            Player twistedPlayer = equipped(20997, 100, 99);
+            int twisted = formula(twistedPlayer).getMaxHit(twistedPlayer, target);
+            Player serenPlayer = equipped(33058, 100, 99);
+            int seren = formula(serenPlayer).getMaxHit(serenPlayer, target);
+            Player demonPlayer = equipped(33207, 100, 99);
+            int demon = formula(demonPlayer).getMaxHit(demonPlayer, target);
+
+            assertTrue(seren > twisted, "Seren godbow must beat twisted bow at magic level " + magic);
+            assertTrue(demon > seren, "Demon X bow must beat Seren godbow at magic level " + magic);
+        }
+    }
+
     @Test void demonBowSpecialRetainsSerenModifiersAndCostsLess() {
         Special seren = Specials.forWeaponId(33058), demon = Specials.forWeaponId(33207);
         assertTrue(demon.getAccuracy() >= seren.getAccuracy());

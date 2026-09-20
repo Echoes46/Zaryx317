@@ -303,6 +303,7 @@ public class PathChecker {
                     || theNPC.getNpcId() == Skotizo.AWAKENED_ALTAR_EAST
                     || theNPC.getNpcId() == 7559
                     || theNPC.getNpcId() == 7560
+                    || theNPC.getNpcId() == 12214 // Leviathan's 9x9 model occupies its projectile endpoint
                     || theNPC.getNpcId() == 7706 /* Inferno final boss */) {
                 return true;
             }
