@@ -15,7 +15,7 @@ public class DonorBoss2 {
                 player.setDonorBossKCx(0);
                 player.setDonorBossDatex(LocalDate.now());
                 if (player.amDonated >= 250) {
-                    player.sendMessage("You can now kill the Extreme Donator+ donor boss!");
+                    player.sendMessage("You can now kill the Arcane+ donor boss!");
                 }
             }
         }

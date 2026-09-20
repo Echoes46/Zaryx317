@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import io.zaryx.Configuration;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
+import io.zaryx.model.entity.player.RankUpgrade;
 import io.zaryx.model.entity.player.save.PlayerSave;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
@@ -30,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Updated by Khaos
@@ -38,6 +40,10 @@ public class DiscordIntegration {
 
     private static final String DISCORD_SAVE_PATH = "./save_files/discord/discordConnectedAccounts.json";
     private static final long GUILD_ID = 1182479719095078914L;
+    private static final List<String> LEGACY_DONATOR_ROLE_NAMES = Arrays.asList(
+            "Donator", "Super Donator", "Great Donator", "Extreme Donator", "Major Donator",
+            "Supreme Donator", "Gilded Donator", "Platinum Donator", "Apex Donator", "Almighty Donator"
+    );
 
     public static Map<String, Long> connectedAccounts = new HashMap<>();
     public static ArrayList<Long> disableMessage = new ArrayList<>();
@@ -177,15 +183,16 @@ public class DiscordIntegration {
                         + "```"
         );
 
-        if (!player.getDiscordlinked() && player.getDiscordPoints() <= 10) {
+        boolean firstLinkReward = !player.getDiscordlinked() && player.getDiscordPoints() <= 10;
+        player.setDiscordlinked(true);
+
+        if (firstLinkReward) {
             player.amDonated += 10;
-            player.updateRank();
-
             player.sendMessage("@mag@You received $10 to your total donated amount for linking your Discord account!");
-
-            player.setDiscordlinked(true);
             player.setDiscordPoints(player.getDiscordPoints() + 10);
         }
+
+        player.updateRank();
 
         saveConnectedAccounts();
         PlayerSave.saveGame(player);
@@ -203,6 +210,71 @@ public class DiscordIntegration {
             connectedAccounts.put(player.getLoginName(), player.getDiscordUser());
             player.setDiscordUser(player.getDiscordUser());
             player.setDiscordTag(player.getDiscordTag());
+        }
+    }
+
+    /**
+     * Keeps a linked member's Discord donor role aligned with their highest earned tier.
+     * Discord roles are resolved by their visible names so role IDs can change without a server update.
+     */
+    public static void syncDonatorRole(Player player) {
+        if (player == null || player.getDiscordUser() <= 0) return;
+        if (Configuration.DISABLE_DISCORD_MESSAGING || Discord.getJDA() == null) return;
+
+        Guild guild = Discord.getJDA().getGuildById(GUILD_ID);
+        if (guild == null) return;
+
+        Member member = guild.getMemberById(player.getDiscordUser());
+        if (member != null) {
+            applyDonatorRole(guild, member, player.amDonated);
+            return;
+        }
+
+        guild.retrieveMemberById(player.getDiscordUser()).queue(
+                found -> applyDonatorRole(guild, found, player.amDonated),
+                ignored -> { }
+        );
+    }
+
+    private static void applyDonatorRole(Guild guild, Member member, int totalDonated) {
+        RankUpgrade earned = RankUpgrade.forAmount(totalDonated);
+        List<Role> configuredRoles = Arrays.stream(RankUpgrade.values())
+                .flatMap(rank -> guild.getRolesByName(rank.rights.toString(), true).stream())
+                .collect(Collectors.toList());
+        for (String legacyName : LEGACY_DONATOR_ROLE_NAMES) {
+            configuredRoles.addAll(guild.getRolesByName(legacyName, true));
+        }
+        List<Role> donorRoles = configuredRoles.stream().distinct().collect(Collectors.toList());
+
+        Role target = earned == null ? null : guild.getRolesByName(earned.rights.toString(), true)
+                .stream().findFirst().orElse(null);
+
+        // Do not strip a valid donor role while the newly earned role is still being created/configured.
+        if (earned != null && target == null) return;
+
+        List<Role> remove = member.getRoles().stream()
+                .filter(donorRoles::contains)
+                .filter(role -> !role.equals(target))
+                .collect(Collectors.toList());
+        List<Role> add = target != null && !member.getRoles().contains(target)
+                ? Arrays.asList(target)
+                : new ArrayList<>();
+
+        if (!add.isEmpty() || !remove.isEmpty()) {
+            guild.modifyMemberRoles(member, add, remove).queue();
+        }
+    }
+
+    private static void removeDonatorRoles(long discordUserId) {
+        if (discordUserId <= 0 || Configuration.DISABLE_DISCORD_MESSAGING || Discord.getJDA() == null) return;
+        Guild guild = Discord.getJDA().getGuildById(GUILD_ID);
+        if (guild == null) return;
+
+        Member member = guild.getMemberById(discordUserId);
+        if (member != null) {
+            applyDonatorRole(guild, member, 0);
+        } else {
+            guild.retrieveMemberById(discordUserId).queue(found -> applyDonatorRole(guild, found, 0), ignored -> { });
         }
     }
 
@@ -395,6 +467,7 @@ public class DiscordIntegration {
             if (entry.getKey().equalsIgnoreCase(player.getLoginName())) {
                 it.remove();
 
+                removeDonatorRoles(player.getDiscordUser());
                 player.setDiscordlinked(false);
                 player.setDiscordTag("");
                 player.setDiscordUser(0);

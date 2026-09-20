@@ -28,79 +28,79 @@ public enum Title implements Comparator<Title> {
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Great_Donator) || player.getRights().isOrInherits(Right.MODERATOR);
 		}
-	}, "Have the option of choosing your own 16-character title. You must be a legendary donator or more to display this title."),
+	}, "Choose your own 16-character title. You must be Mystic or higher to display it."),
 
-	REGULAR_DONATOR("Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	REGULAR_DONATOR("Awakened", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Donator);
 		}
-	}, "This title is for Donators. You must be a Donator to purchase and display this title."),
+	}, "You must have the Awakened donor rank to display this title."),
 
-	SUPER_DONATOR("Super Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	SUPER_DONATOR("Runic", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Super_Donator);
 		}
-	}, "This title is for Donators. You must be a Super Donator to purchase and display this title."),
+	}, "You must have the Runic donor rank to display this title."),
 
 
-	EXTREME_DONOR("Great Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	EXTREME_DONOR("Mystic", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Great_Donator);
 		}
-	}, "This title is for a GREAT DONOR's. You must be a Great Donator to purchase and display this title."),
+	}, "You must have the Mystic donor rank to display this title."),
 
 
-	DIAMOND_CLUB("Extreme Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	DIAMOND_CLUB("Arcane", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Extreme_Donator);
 		}
-	}, "This title is for EXTREME DONOR's only. You must be a Extreme Donator to purchase and display this title."),
+	}, "You must have the Arcane donor rank to display this title."),
 
-	ONYX_CLUB("Major Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	ONYX_CLUB("Eldritch", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Major_Donator);
 		}
-	}, "This title is for MAJOR DONOR's only. You must be a Major Donator to purchase and display this title."),
+	}, "You must have the Eldritch donor rank to display this title."),
 
-	SUPREME_DONATOR("Supreme Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	SUPREME_DONATOR("Astral", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Supreme_Donator);
 		}
-	}, "This title is for SUPREME DONOR's only. You must be a Supreme Donator to purchase and display this title."),
+	}, "You must have the Astral donor rank to display this title."),
 
-	GILDED_DONATOR("Gilded Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	GILDED_DONATOR("Ethereal", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Gilded_Donator);
 		}
-	}, "This title is for GILDED DONOR's only. You must be a Gilded Donator to purchase and display this title."),
+	}, "You must have the Ethereal donor rank to display this title."),
 
-	PLATINUM_DONATOR("Platinum Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	PLATINUM_DONATOR("Celestial", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Platinum_Donator);
 		}
-	}, "This title is for PLATINUM DONOR's only. You must be a Platinum Donator to purchase and display this title."),
+	}, "You must have the Celestial donor rank to display this title."),
 
-	APEX_DONATOR("Apex Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	APEX_DONATOR("Divine", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Apex_Donator);
 		}
-	}, "This title is for APEX DONOR's only. You must be a Apex Donator to purchase and display this title."),
+	}, "You must have the Divine donor rank to display this title."),
 
-	ALMIGHTY_DONATOR("Almighty Donator", 0, TitleCurrency.NONE, new TitleRequirement() {
+	ALMIGHTY_DONATOR("Eternal", 0, TitleCurrency.NONE, new TitleRequirement() {
 		@Override
 		public boolean meetsStandard(Player player) {
 			return player.getRights().isOrInherits(Right.Almighty_Donator);
 		}
-	}, "This title is for ALMIGHTY DONOR's only. You must be a Almighty Donator to purchase and display this title."),
+	}, "You must have the Eternal donor rank to display this title."),
 
 
 	HELPER("Helper", 0, TitleCurrency.NONE, new TitleRequirement() {

@@ -25,7 +25,7 @@ public class DonorBoss3 {
                 player.setDonorBossKCy(0);
                 player.setDonorBossDatey(LocalDate.now());
                 if (player.amDonated >= 1000) {
-                    player.sendMessage("You can now kill the Supreme Donator+ donor boss!");
+                    player.sendMessage("You can now kill the Astral+ donor boss!");
                 }
             }
         }

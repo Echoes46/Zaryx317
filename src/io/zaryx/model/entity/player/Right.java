@@ -23,16 +23,16 @@ public enum Right implements Comparator<Right> {
 	STAFF_MANAGER(3, "4feb34", ADMINISTRATOR),
 	UNKNOWN(4, "F5FF0F"),
 
-	Donator(5, "1B1ABC"), // $20 - Purple
-	Super_Donator(7, "118120", Donator), // $50 - Green
-	Great_Donator(9, "6D0000", Super_Donator), // $100 - Red
-	Extreme_Donator(17, "005C6D", Great_Donator), // $250 - blue
-	Major_Donator(18, "4a4a4a", Extreme_Donator), // $500 - black
-	Supreme_Donator(32, "e38400", Major_Donator), // $1250 - orange
-	Gilded_Donator(8, "e3bd00", Supreme_Donator), // $2500 - Yellow
-	Platinum_Donator(33, "ffffff", Gilded_Donator), // $4000 - White
-	Apex_Donator(34, "fb00ff", Platinum_Donator), // $6500 - Transparent
-	Almighty_Donator(35, "2fff00", Apex_Donator), // $15000 - Lime Green
+	Donator(5, "1B1ABC", "Awakened"), // $20 - Purple
+	Super_Donator(7, "118120", "Runic", Donator), // $50 - Green
+	Great_Donator(9, "6D0000", "Mystic", Super_Donator), // $100 - Red
+	Extreme_Donator(17, "005C6D", "Arcane", Great_Donator), // $250 - blue
+	Major_Donator(18, "4a4a4a", "Eldritch", Extreme_Donator), // $500 - black
+	Supreme_Donator(32, "e38400", "Astral", Major_Donator), // $1250 - orange
+	Gilded_Donator(8, "e3bd00", "Ethereal", Supreme_Donator), // $2500 - Yellow
+	Platinum_Donator(33, "ffffff", "Celestial", Gilded_Donator), // $4000 - White
+	Apex_Donator(34, "fb00ff", "Divine", Platinum_Donator), // $6500 - Transparent
+	Almighty_Donator(35, "2fff00", "Eternal", Apex_Donator), // $15000 - Lime Green
 
 	GUIDE_GURU(36, "4287f5", HELPER), //Guide Guru
 
@@ -108,6 +108,7 @@ public enum Right implements Comparator<Right> {
 	 * The color associated with the right
 	 */
 	private final String color;
+	private final String displayName;
 
 	/**
 	 * Creates a new right with a value to differentiate it between the others
@@ -117,13 +118,18 @@ public enum Right implements Comparator<Right> {
 	 * @param inherited the right or rights inherited with this level of right
 	 */
 	Right(int right, String color, Right... inherited) {
+		this(right, color, null, inherited);
+	}
+
+	Right(int right, String color, String displayName, Right... inherited) {
 		this.right = right;
 		this.inherited = Arrays.asList(inherited);
 		this.color = color;
+		this.displayName = displayName;
 	}
 
 	public String getFormattedName() {
-		return Misc.capitalizeEveryWord(name().toLowerCase().replace("_", " "));
+		return displayName != null ? displayName : Misc.capitalizeEveryWord(name().toLowerCase().replace("_", " "));
 	}
 
 	public Mode getMode() {
@@ -255,7 +261,7 @@ public enum Right implements Comparator<Right> {
 
 	@Override
 	public String toString() {
-		return Misc.capitalizeJustFirst(name().replaceAll("_", " "));
+		return displayName != null ? displayName : Misc.capitalizeJustFirst(name().replaceAll("_", " "));
 	}
 
 	@Override

@@ -1,16 +1,16 @@
 package io.zaryx.model.entity.player;
 
-enum RankUpgrade {
-    KRILLIN(Right.Donator, 20),
-    GOTEN(Right.Super_Donator, 50),
-    GOHAN(Right.Great_Donator,100),
-    CELL(Right.Extreme_Donator, 250),
-    VEGETA(Right.Major_Donator, 500),
-    GOKU(Right.Supreme_Donator, 1250),
-    GOGETTA(Right.Gilded_Donator, 2500),
-    GOGETTA_SS(Right.Platinum_Donator, 4000),
-    GOGETTA_SS2(Right.Apex_Donator, 6500),
-    SS_BROLY(Right.Almighty_Donator, 15000);
+public enum RankUpgrade {
+    AWAKENED(Right.Donator, 20),
+    RUNIC(Right.Super_Donator, 50),
+    MYSTIC(Right.Great_Donator,100),
+    ARCANE(Right.Extreme_Donator, 250),
+    ELDRITCH(Right.Major_Donator, 500),
+    ASTRAL(Right.Supreme_Donator, 1250),
+    ETHEREAL(Right.Gilded_Donator, 2500),
+    CELESTIAL(Right.Platinum_Donator, 4000),
+    DIVINE(Right.Apex_Donator, 6500),
+    ETERNAL(Right.Almighty_Donator, 15000);
 
     /**
      * The rights that will be appended if upgraded
@@ -25,5 +25,15 @@ enum RankUpgrade {
     RankUpgrade(Right rights, int amount) {
         this.rights = rights;
         this.amount = amount;
+    }
+
+    public static RankUpgrade forAmount(int totalDonated) {
+        RankUpgrade earned = null;
+        for (RankUpgrade rank : values()) {
+            if (totalDonated >= rank.amount) {
+                earned = rank;
+            }
+        }
+        return earned;
     }
 }

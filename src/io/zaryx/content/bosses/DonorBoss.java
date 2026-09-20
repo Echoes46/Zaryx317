@@ -16,7 +16,7 @@ public class DonorBoss {
             if (player.getDonorBossKC() <= getDonorKC(player) && !Objects.equals(player.getDonorBossDate(), LocalDate.now())) {
                 player.setDonorBossKC(0);
                 player.setDonorBossDate(LocalDate.now());
-                player.sendMessage("You can now kill the Donator boss!");
+                player.sendMessage("You can now kill the Awakened+ donor boss!");
                 player.getTaskMaster().handleDailySkips();
             }
         }

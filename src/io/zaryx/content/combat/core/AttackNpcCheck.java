@@ -143,7 +143,7 @@ public class AttackNpcCheck {
                 break;
             case 10531:
                 if (c.amDonated <= 249) {
-                    c.sendMessage("@red@You need Extreme Donator or higher to kill this boss!");
+                    c.sendMessage("@red@You need Arcane or higher to kill this boss!");
                     return false;
                 }
                 if (c.getDonorBossKCx() >= DonorBoss2.getDonorKC(c)) {
@@ -153,7 +153,7 @@ public class AttackNpcCheck {
                 break;
             case 10532:
                 if (c.amDonated <= 749) {
-                    c.sendMessage("@red@You need Supreme Donator or higher to kill this boss!");
+                    c.sendMessage("@red@You need Astral or higher to kill this boss!");
                     return false;
                 }
                 if (c.getDonorBossKCy() >= DonorBoss3.getDonorKC(c)) {

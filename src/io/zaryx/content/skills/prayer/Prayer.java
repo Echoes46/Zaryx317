@@ -227,7 +227,7 @@ public class Prayer {
 			player.getItems().openUpBank();
 			return true;
 		} else {
-			player.sendMessage("@red@You must be a Emerald Donator to use this chest.");
+			player.sendMessage("@red@You must be Arcane or higher to use this chest.");
 			return false;
 		}
 		}

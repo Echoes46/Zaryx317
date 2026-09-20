@@ -138,7 +138,7 @@ public class DiceHandler {
 			return;
 		}
 		if (c.amDonated < 250) {
-			c.sendMessage("@red@You must be an Extreme Donator or higher to use the Dice!");
+			c.sendMessage("@red@You must be Arcane or higher to use the Dice!");
 			return;
 		}
 /*		if (!inDicingArea(c)) {
