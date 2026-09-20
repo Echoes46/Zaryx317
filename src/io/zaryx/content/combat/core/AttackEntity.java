@@ -1235,7 +1235,9 @@ public class AttackEntity {
                 getDistanceRequired(getCombatType(), attacker) + npc.getAttackDistanceModifier(attacker,
                         getCombatType());
 
-        if (npc.getNpcId() == 12214) {
+        // Leviathan's stationary 9x9 footprint needs extra reach for projectiles,
+        // but melee must still reach the edge of the boss normally.
+        if (npc.getNpcId() == 12214 && getCombatType() != CombatType.MELEE) {
             attackDistanceRequired = Math.max(attackDistanceRequired, 10);
         }
 
