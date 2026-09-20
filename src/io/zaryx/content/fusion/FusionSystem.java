@@ -129,7 +129,7 @@ public class FusionSystem {
 
         Arrays.stream(FusionMaterials.values()).forEach(val -> {
             if (val.getReward().getId() == fusionMaterials.getReward().getId()) {
-                if (player.getLevelForXP(player.playerXP[Skill.DEMON_HUNTER.getId()]) < val.getLevelRequired()) {
+                if (player.getLevelForXP(player.playerXP[Skill.FORTUNE.getId()]) < val.getLevelRequired()) {
                     player.sendMessage("You don't have the required Fortune level to fuse this item.");
                     return;
                 }

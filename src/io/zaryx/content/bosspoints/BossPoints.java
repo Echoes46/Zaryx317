@@ -86,7 +86,9 @@ public class BossPoints {
             }
             player.bossPoints += points;
             Pass.addExperience(player, 1);
-            player.getPA().addSkillXPMultiplied(50 * (points / 2), Skill.DEMON_HUNTER.getId(), true);
+            // Preserve the old rate for even values while allowing one-point bosses
+            // to award experience instead of rounding down to zero.
+            player.getPA().addSkillXPMultiplied(25 * points, Skill.DEMON_HUNTER.getId(), true);
             player.getQuestTab().updateInformationTab();
             player.getEventCalendar().progress(EventChallenge.GAIN_X_BOSS_POINTS, points);
             LeaderboardUtils.addCount(LeaderboardType.BOSS_POINTS, player, points);

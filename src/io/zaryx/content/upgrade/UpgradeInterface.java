@@ -4,6 +4,7 @@ import io.zaryx.content.achievement.AchievementType;
 import io.zaryx.content.achievement.Achievements;
 import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.skills.Skill;
+import io.zaryx.content.skills.CustomSkillBenefits;
 import io.zaryx.model.definitions.ItemDef;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
@@ -197,13 +198,23 @@ public class UpgradeInterface {
                                     player.getPA().addSkillXPMultiplied(val.getXp(), Skill.FORTUNE.getId(), true);
 
                                 } else {
-                                    boolean ReturnItem = (Math.random() * 100) <= getDonator();
-                                    if (ReturnItem && player.amDonated >= 100 && val.getRequired().getId() != 33189 && val.getRequired().getId() != 33190 && val.getRequired().getId() != 33191) {
-                                        player.sendMessage("Your donator rank saves your item!");
-                                        player.getItems().addItemUnderAnyCircumstance(val.getRequired().getId(), 1);
+                                    boolean protectedItem = val.getRequired().getId() != 33189
+                                            && val.getRequired().getId() != 33190
+                                            && val.getRequired().getId() != 33191;
+                                    boolean donatorSave = player.amDonated >= 100
+                                            && (Math.random() * 100) <= getDonator();
+                                    boolean fortuneSave = Misc.trueRand(100)
+                                            < CustomSkillBenefits.fortuneFailedUpgradeSaveChance(player);
+                                    if (protectedItem && (donatorSave || fortuneSave)) {
+                                        player.sendMessage(fortuneSave
+                                                ? "Your Fortune mastery saves your item!"
+                                                : "Your donator rank saves your item!");
+                                        player.getItems().addItemUnderAnyCircumstance(
+                                                val.getRequired().getId(), val.getRequired().getAmount());
                                     }
-                                    if (val.getRequired().getId() == 33189 || val.getRequired().getId() == 33190 || val.getRequired().getId() == 33191) {
-                                        player.getItems().addItemUnderAnyCircumstance(val.getRequired().getId(), 1);
+                                    if (!protectedItem) {
+                                        player.getItems().addItemUnderAnyCircumstance(
+                                                val.getRequired().getId(), val.getRequired().getAmount());
                                     }
                                     player.sendMessage("You failed to upgrade!");
                                 }
@@ -253,7 +264,7 @@ public class UpgradeInterface {
     }
 
     public double getBoost(double chance) {
-        double percentBoost = 0D;
+        double percentBoost = CustomSkillBenefits.fortuneUpgradeSuccessBonus(player);
 
         if (player.amDonated >= 25 && player.amDonated < 50) {
             percentBoost += 1;
@@ -309,7 +320,7 @@ public class UpgradeInterface {
 //        System.out.println("Multiplier: " + multiplier);
         chance += percentBoost;
 //        System.out.println("Chance: " + chance);
-        return chance;
+        return Math.min(100.0, chance);
     }
 
     private boolean getRestrictions(UpgradeMaterials data, boolean all) {

@@ -15,6 +15,7 @@ import io.zaryx.content.items.PvpWeapons;
 import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.seasons.Christmas;
 import io.zaryx.content.skills.Skill;
+import io.zaryx.content.skills.CustomSkillBenefits;
 import io.zaryx.content.skills.slayer.NewInterface;
 import io.zaryx.content.skills.slayer.Task;
 import io.zaryx.model.Bonus;
@@ -89,7 +90,10 @@ public class MeleeCombatFormula implements CombatFormula {
             accuracy = attack / (2.0 * (defence + 1));
         }
 
-        return accuracy;
+        if (attacker.isPlayer()) {
+            accuracy *= CustomSkillBenefits.demonHunterCombatMultiplier(attacker.asPlayer(), defender);
+        }
+        return Math.min(1.0, accuracy);
     }
 
     @Override
@@ -111,6 +115,10 @@ public class MeleeCombatFormula implements CombatFormula {
 
         maxHit = applyStrengthSpecials(attacker, defender, maxHit, specialAttackMultiplier, specialPassiveMultiplier);
         maxHit = applyExtras(maxHit, attacker, defender);
+        if (attacker.isPlayer()) {
+            maxHit = (int) Math.floor(maxHit
+                    * CustomSkillBenefits.demonHunterCombatMultiplier(attacker.asPlayer(), defender));
+        }
 
         return (int) Math.floor(maxHit);
     }

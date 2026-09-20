@@ -307,6 +307,10 @@ public class NPCDeath {
 
         int bossPoints = BossPoints.getPointsOnDeath(npc);
         BossPoints.addPoints(c, bossPoints, false);
+        if (npc.isDemon() && c.playerXP[Skill.DEMON_HUNTER.getId()] < Skill.MAX_EXP) {
+            int demonHunterXp = Math.max(25, NpcDef.forId(npcId).getCombatLevel() * 5);
+            c.getPA().addSkillXPMultiplied(demonHunterXp, Skill.DEMON_HUNTER.getId(), true);
+        }
 
         if (NpcDef.forId(npcId).getCombatLevel() >= 1) {
             c.getNpcDeathTracker().add(NpcDef.forId(npcId).getName(), NpcDef.forId(npcId).getCombatLevel(), bossPoints);

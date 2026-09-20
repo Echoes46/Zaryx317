@@ -3309,9 +3309,15 @@ public class PlayerAssistant {
                 break;
             case 22:
                 c.sendMessage("Congratulations! You've just advanced a Demon Hunter level.");
+                if (getLevelForXP(c.playerXP[skill]) == 99) {
+                    c.sendMessage("@red@Demon Hunter mastery: +12% damage and accuracy against demons.");
+                }
                 break;
             case 23:
                 c.sendMessage("Congratulations! You've just advanced a Fortune level.");
+                if (getLevelForXP(c.playerXP[skill]) == 99) {
+                    c.sendMessage("@red@Fortune mastery: level-99 fusions, extra upgrade luck, and item protection.");
+                }
                 break;
         }
         if (c.totalLevel >= 2000) {

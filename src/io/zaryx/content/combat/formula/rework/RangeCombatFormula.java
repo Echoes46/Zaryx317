@@ -11,6 +11,7 @@ import io.zaryx.content.commands.owner.SetAccuracyBonus;
 import io.zaryx.content.items.PvpWeapons;
 import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.skills.Skill;
+import io.zaryx.content.skills.CustomSkillBenefits;
 import io.zaryx.content.skills.slayer.NewInterface;
 import io.zaryx.model.Bonus;
 import io.zaryx.model.CombatType;
@@ -70,7 +71,10 @@ public class RangeCombatFormula implements CombatFormula {
             accuracy = attack / (2.0 * (defence + 1));
         }
 
-        return accuracy;
+        if (attacker.isPlayer()) {
+            accuracy *= CustomSkillBenefits.demonHunterCombatMultiplier(attacker.asPlayer(), defender);
+        }
+        return Math.min(1.0, accuracy);
     }
 
     private int getAttackRoll(Entity attacker, Entity defender, double specialAttackMultiplier) {
@@ -390,6 +394,10 @@ public class RangeCombatFormula implements CombatFormula {
             // Apply once here, including max-hit previews, rather than twice in HitDispatcher.
             base = (int) Math.floor(base * TwistedBowFamily.localDamageMultiplier(
                     attacker.asPlayer().getItems().getWeapon()));
+        }
+        if (attacker.isPlayer()) {
+            base = (int) Math.floor(base
+                    * CustomSkillBenefits.demonHunterCombatMultiplier(attacker.asPlayer(), defender));
         }
 
 

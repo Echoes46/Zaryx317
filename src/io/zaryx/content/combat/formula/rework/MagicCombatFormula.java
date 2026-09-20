@@ -12,6 +12,7 @@ import io.zaryx.content.commands.owner.SetDefenceBonus;
 import io.zaryx.content.items.PvpWeapons;
 import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.skills.Skill;
+import io.zaryx.content.skills.CustomSkillBenefits;
 import io.zaryx.content.skills.slayer.NewInterface;
 import io.zaryx.model.Bonus;
 import io.zaryx.model.CombatType;
@@ -72,7 +73,10 @@ public class MagicCombatFormula implements CombatFormula {
             accuracy = attack / (2.0 * (defence + 1));
         }
 
-        return accuracy;
+        if (attacker.isPlayer()) {
+            accuracy *= CustomSkillBenefits.demonHunterCombatMultiplier(attacker.asPlayer(), defender);
+        }
+        return Math.min(1.0, accuracy);
     }
 
     private int getAttackRoll(Entity attacker, Entity defender) {
@@ -579,6 +583,10 @@ public class MagicCombatFormula implements CombatFormula {
 
         if (attacker.isPlayer() && defender.isNPC()) {
             hit *= getNpcMultipliers(attacker.asPlayer(), defender.asNPC());
+            hit = Math.floor(hit);
+        }
+        if (attacker.isPlayer()) {
+            hit *= CustomSkillBenefits.demonHunterCombatMultiplier(attacker.asPlayer(), defender);
             hit = Math.floor(hit);
         }
 
