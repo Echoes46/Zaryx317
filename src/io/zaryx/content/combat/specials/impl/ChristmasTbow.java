@@ -33,6 +33,7 @@ public class ChristmasTbow extends Special {
                 if (target.isNPC()) {
                     List<NPC> possibleTargets = Arrays.stream(NPCHandler.npcs).filter(npc -> npc != null &&
                             !npc.isDead && npc.heightLevel == player.getPosition().getHeight()
+                            && player.sameInstance(npc)
                             && npc.distance(player.getPosition()) <= 12
                             && player.attacking.attackEntityCheck(npc, false) && !npc.isInvisible()
                             && PathChecker.raycast(player, npc, true)).collect(Collectors.toList());
@@ -43,7 +44,9 @@ public class ChristmasTbow extends Special {
                     }
                 } else if (target.isPlayer()) {
                     for (Player player1 : PlayerHandler.getPlayers()) {
-                        if (player1.getPosition().withinDistance(player.getPosition(), 5)) {
+                        if (player1 != player && player1.isRegistered() && !player1.isDead
+                                && player.sameInstance(player1)
+                                && player1.getPosition().withinDistance(player.getPosition(), 5)) {
                             hit(player, player1, damage);
                             RangeData.fireProjectilePlayer(player, player1, 50, 70, 676, 43, 31, 37, 10);
                         }

@@ -20,6 +20,7 @@ public class SerenGodbow extends Special {
     public void activate(Player player, Entity target, Damage damage) {
         player.usingBow = true;
         player.startAnimation(9170);
+        int projectile = RangeData.getRangeProjectileGFX(player);
         // Keep the combat roll: its accuracy, gear scaling and target reductions already apply.
 
         if (target.isNPC()) {
@@ -53,9 +54,9 @@ public class SerenGodbow extends Special {
 
 
         if (target.isPlayer()) {
-            RangeData.fireProjectilePlayer(player, (Player) target, 50, 70, 682, 43, 31, 37, 10);
+            RangeData.fireProjectilePlayer(player, (Player) target, 50, 70, projectile, 43, 31, 37, 10);
         } else if (target.isNPC()) {
-            RangeData.fireProjectileNpc(player, (NPC) target, 50, 70, 682, 43, 31, 37, 10);
+            RangeData.fireProjectileNpc(player, (NPC) target, 50, 70, projectile, 43, 31, 37, 10);
         }
     }
 

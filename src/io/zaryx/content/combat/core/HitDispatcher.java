@@ -977,7 +977,10 @@ public abstract class HitDispatcher {
                 if (multiHitEntities.size() > 0) {
                     Entity randEnty = multiHitEntities.get(Misc.trueRand(multiHitEntities.size()));
                     if (defender.isNPC()) {
-                        RangeData.fireProjectileNpc(attacker, (NPC) randEnty, 50, 70, 682, 43, 31, 37, 10);
+                        int projectile = RangeData.getRangeProjectileGFX(attacker);
+                        if (projectile >= 0) {
+                            RangeData.fireProjectileNpc(attacker, (NPC) randEnty, 50, 70, projectile, 43, 31, 37, 10);
+                        }
                         getHitEntity(attacker, randEnty).playerHitEntity(combatType, special, true);
                     }
                 }

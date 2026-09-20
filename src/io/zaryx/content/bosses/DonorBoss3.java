@@ -65,7 +65,7 @@ public class DonorBoss3 {
                 if (container.getTotalExecutions() == 72) {
                     container.stop();
                 } else if (container.getTotalExecutions() >= 2) {
-                    PlayerHandler.getPlayers().stream().filter(plr -> plr.getPosition().equals(position)).forEach(plr ->
+                    PlayerHandler.getPlayers().stream().filter(plr -> plr.sameInstance(npc) && plr.getPosition().equals(position)).forEach(plr ->
                             plr.appendDamage(6 + Misc.random(10), Hitmark.DAWNBRINGER));
                 }
             }

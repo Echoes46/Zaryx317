@@ -207,7 +207,7 @@ if (damage.getAmount() > 0) {
 
             case 7544: //Tekton
                 attacker.setTektonDamageCounter(attacker.getTektonDamageCounter() + damage.getAmount());
-                Tekton.tektonSpecial(attacker);
+                Tekton.tektonSpecial(attacker, npc);
                 break;
 
             case Hespori.NPC_ID:

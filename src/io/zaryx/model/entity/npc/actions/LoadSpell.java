@@ -1797,7 +1797,7 @@ public class LoadSpell {
                     npc.setAttackType(CombatType.MELEE);
                 } else if (Objects.equals(tektonAttack, "SPECIAL")) {
                     npc.setAttackType(CombatType.SPECIAL);
-                    Tekton.tektonSpecial(player);
+                    Tekton.tektonSpecial(player, npc);
                     tektonAttack = "MELEE";
                     npc.hitDelayTimer = 4;
                     npc.attackTimer = 8;

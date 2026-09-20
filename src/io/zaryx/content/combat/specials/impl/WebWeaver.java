@@ -1,18 +1,16 @@
 package io.zaryx.content.combat.specials.impl;
 
+import io.zaryx.Server;
 import io.zaryx.content.combat.Damage;
 import io.zaryx.content.combat.Hitmark;
 import io.zaryx.content.combat.specials.Special;
 import io.zaryx.content.skills.Skill;
 import io.zaryx.model.CombatType;
+import io.zaryx.model.cycleevent.DelayEvent;
 import io.zaryx.model.entity.Entity;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerAssistant;
 import io.zaryx.util.Misc;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import static io.zaryx.content.WeaponGames.WGModes.max;
 
@@ -26,21 +24,21 @@ public class WebWeaver extends Special {
         player.startAnimation(9964);
         player.gfx0(2354);
 
-        // Create a ScheduledExecutorService with a single thread
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-
-        // Schedule a task to apply damage to the target after 2 seconds
-        executor.schedule(() -> {
-            if (target.isPlayer()) {
-                target.asPlayer().gfx0(2355);
-            } else if (target.isNPC()) {
-                target.asNPC().gfx0(2355);
+        // Run delayed combat visuals on the game event loop. Creating a JVM thread
+        // for every special attack can exhaust the server during group combat.
+        Server.getEventHandler().submit(new DelayEvent(2) {
+            @Override
+            public void onExecute() {
+                if (target == null || !target.isRegistered() || !player.sameInstance(target)) {
+                    return;
+                }
+                if (target.isPlayer()) {
+                    target.asPlayer().gfx0(2355);
+                } else if (target.isNPC()) {
+                    target.asNPC().gfx0(2355);
+                }
             }
-            // Apply damage here
-        }, 1000, TimeUnit.MILLISECONDS);
-
-        // Shutdown the executor to release resources after the task completes
-        executor.shutdown();
+        });
 
         if (damage.getAmount() == 0) {
             int second = Misc.random(0, max);
