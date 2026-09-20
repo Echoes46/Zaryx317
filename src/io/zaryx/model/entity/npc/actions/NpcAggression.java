@@ -52,6 +52,9 @@ public class NpcAggression {
                 if (player.heightLevel != npc.heightLevel) {
                     continue;
                 }
+                if (npc.getNpcId() == Npcs.LEVIATHAN && !Boundary.isIn(player, Boundary.LEVIATHAN)) {
+                    continue;
+                }
                 if (Boundary.isIn(player, Boundary.RESOURCE_AREA_BOUNDARY)) {
                     continue;
                 }
@@ -157,6 +160,10 @@ public class NpcAggression {
         ArrayList<Integer> players = new ArrayList<>();
         for (int j = 0; j < PlayerHandler.players.length; j++) {
             if (PlayerHandler.players[j] != null) {
+                if (npc.getNpcId() == Npcs.LEVIATHAN
+                        && !Boundary.isIn(PlayerHandler.players[j], Boundary.LEVIATHAN)) {
+                    continue;
+                }
                 // Great Olm
                 if (npc.getNpcId() == 7554 && !PlayerHandler.players[j].getPosition().inOlmRoom()) {
                     continue;

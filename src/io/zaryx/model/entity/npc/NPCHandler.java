@@ -1913,6 +1913,10 @@ public class NPCHandler {
             npc.resetAttack();
             return;
         }
+        if (npc != null && npc.getNpcId() == Npcs.LEVIATHAN && !Boundary.isIn(c, Boundary.LEVIATHAN)) {
+            npc.resetAttack();
+            return;
+        }
 
         NpcDef def = NpcDef.forId(npc.getNpcId());
 

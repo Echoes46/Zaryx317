@@ -72,6 +72,10 @@ public class AttackNpcCheck {
         }
 
         int npcId = npc.getNpcId();
+        if (npcId == Npcs.LEVIATHAN && !Boundary.isIn(c, Boundary.LEVIATHAN)) {
+            sendCheckMessage(c, sendMessages, "Climb the stairs before attacking the Leviathan.");
+            return false;
+        }
         boolean hasTricksterEquipped = c.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33216);
 
 // Now check against each NPC ID individually and whether the player has Trickster equipped

@@ -179,7 +179,8 @@ public class TheLeviathan {
                 CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
                     @Override
                     public void execute(CycleEventContainer innerContainer) {
-                        if (currentPosition.equals(targetPlayer.getPosition())) {
+                        if (Boundary.isIn(targetPlayer, Boundary.LEVIATHAN)
+                                && currentPosition.equals(targetPlayer.getPosition())) {
                             targetPlayer.appendDamage(npc, Misc.random(10, 30), Hitmark.HIT); // Apply damage
                         }
                         innerContainer.stop();

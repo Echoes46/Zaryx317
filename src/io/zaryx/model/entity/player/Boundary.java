@@ -67,7 +67,9 @@ public class Boundary {
 	public static final Boundary Ferox5 = new Boundary(3118, 3616, 3123, 3639);
 	public static final Boundary Ferox6 = new Boundary(3153, 3626, 3156, 3646);
     public static final Boundary BLAST_FURNACE = new Boundary(1920, 4928, 1983, 4991);
-	public static final Boundary LEVIATHAN = new Boundary(2070, 6364, 2091, 6382);
+	// The entrance stairs place players at x=2071. Tiles west of this are the
+	// safe approach and must not be part of the encounter.
+	public static final Boundary LEVIATHAN = new Boundary(2071, 6364, 2091, 6382);
 	public static final Boundary LEVIATHANCLOSE = new Boundary(2077, 6368, 2085, 6376);
 
 	/**
