@@ -45,6 +45,7 @@ import io.zaryx.content.skills.herblore.PotionDecanting;
 import io.zaryx.content.skills.prayer.Bone;
 import io.zaryx.content.skills.prayer.Prayer;
 import io.zaryx.content.skills.slayer.SlayerUnlock;
+import io.zaryx.content.skills.slayer.SlayerItemRules;
 import io.zaryx.content.skills.smithing.CannonballSmelting;
 import io.zaryx.content.skills.smithing.DoubleCannonballSmelting;
 import io.zaryx.content.trails.MasterClue;
@@ -1790,24 +1791,10 @@ public class UseItem {
                 c.sendMessage("You have succesfully created the Dragonbone necklace.");
             }
         }
-        if ((itemUsed == 4155 && useWith == 8901) || (itemUsed == 4551 && useWith == 8901)) {
-            if (c.playerLevel[12] < 55) {
-                c.sendMessage("You must have a crafting level of at least 55 to create the slayer helmet.");
-                return;
-            }
-            if (!c.getSlayer().getUnlocks().contains(SlayerUnlock.MALEVOLENT_MASQUERADE)) {
-                c.sendMessage("You must learn how to create a slayer helmet before you can make one.");
-                return;
-            }
-            if (c.getItems().playerHasItem(4551) && c.getItems().playerHasItem(4166) && c.getItems().playerHasItem(4168) && c.getItems().playerHasItem(4164) && c.getItems().playerHasItem(8901) && c.getItems().playerHasItem(4155)) {
-                c.getItems().deleteItem2(4551, 1);
-                c.getItems().deleteItem2(4166, 1);
-                c.getItems().deleteItem2(4168, 1);
-                c.getItems().deleteItem2(4164, 1);
-                c.getItems().deleteItem2(8901, 1);
-                c.getItems().deleteItem2(4155, 1);
-                c.getItems().addItemUnderAnyCircumstance(11864, 1);
-            }
+        if ((SlayerItemRules.isUnnotedBlackMask(itemUsed) && (useWith == 4155 || useWith == 4551))
+                || (SlayerItemRules.isUnnotedBlackMask(useWith) && (itemUsed == 4155 || itemUsed == 4551))) {
+            c.getPA().assembleSlayerHelmet();
+            return;
         }
         if (PotionDecanting.get().isPotion(gameItemUsed) && PotionDecanting.get().isPotion(gameItemUsedWith)) {
             if (PotionDecanting.get().matches(gameItemUsed, gameItemUsedWith)) {

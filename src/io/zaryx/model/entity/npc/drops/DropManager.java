@@ -815,9 +815,10 @@ public class DropManager {
                 Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey1, player.getIndex());
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
-                if (Misc.random(0, 100) > 75)
+                if (Misc.random(0, 100) > 75) {
                     addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey1);
-                player.sendMessage("@red@ Your blessing provides an extra key.");
+                    player.sendMessage("@red@Your blessing provides an extra key.");
+                }
             }
         }
 
@@ -854,9 +855,10 @@ public class DropManager {
                 Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey2, player.getIndex());
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
-                if (Misc.random(0, 100) > 75)
+                if (Misc.random(0, 100) > 75) {
                     addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey2);
-                player.sendMessage("@red@ Your blessing provides an extra key.");
+                    player.sendMessage("@red@Your blessing provides an extra key.");
+                }
             }
         }
 
@@ -892,9 +894,10 @@ public class DropManager {
                 Server.itemHandler.createGroundItem(player, specialItemId, location.getX(), location.getY(), location.getZ(), Slayerkey3, player.getIndex());
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
-                if (Misc.random(0, 100) > 75)
+                if (Misc.random(0, 100) > 75) {
                     addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey3);
-                player.sendMessage("@red@ Your blessing provides an extra key.");
+                    player.sendMessage("@red@Your blessing provides an extra key.");
+                }
             }
         }
 
@@ -931,9 +934,10 @@ public class DropManager {
 
             }
             if (player.getItems().hasItemOnOrInventory(22943)) {
-                if (Misc.random(0, 100) > 75)
+                if (Misc.random(0, 100) > 75) {
                     addKeyToInventoryOrCleptoBank(player, specialItemId, Slayerkey4);
-                player.sendMessage("@red@ Your blessing provides an extra key.");
+                    player.sendMessage("@red@Your blessing provides an extra key.");
+                }
             }
         }
 

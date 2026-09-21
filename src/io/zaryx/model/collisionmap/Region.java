@@ -201,6 +201,15 @@ public class Region {
         clips[height][x - regionAbsX][y - regionAbsY] = 0;
     }
 
+    void clearBlockedFloor(int x, int y, int height) {
+        height %= 4;
+        int localX = x - (id >> 8) * 64;
+        int localY = y - (id & 255) * 64;
+        if (clips[height] != null) {
+            clips[height][localX][localY] &= ~0x200000;
+        }
+    }
+
     public int getClip(int x, int y, int height) {
         height = height % 4;
         int regionAbsX = (id >> 8) * 64;
@@ -507,6 +516,13 @@ public class Region {
                 RegionProvider.getGlobal().add(new Region(RegionProvider.getGlobal(), regionIds[i], false));
             }
             Arrays.stream(data).forEach(Region::loadMap);
+            // The Catacombs landscape incorrectly flags the Fire Giant room as blocked floor.
+            // Preserve wall and object clipping while allowing movement across the room.
+            for (int x = 1627; x <= 1640; x++) {
+                for (int y = 10051; y <= 10069; y++) {
+                    RegionProvider.getGlobal().get(x, y).clearBlockedFloor(x, y, 0);
+                }
+            }
             Arrays.asList(EXISTANT_OBJECTS).forEach(object -> RegionProvider.getGlobal().get(object.getX(), object.getY()).addWorldObject(object));
             log.info("Loaded " + customMapFiles + " custom maps.");
             log.info("Error loading map files: " + errors.toString());

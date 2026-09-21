@@ -24071,8 +24071,8 @@
   description: Some strange liquid given to you by Zavistic Rarve.
   shopValue: 1
 - id: 4837
-  name: Necromancy book
-  description: A book of necromantic spells.
+  name: Konar's Scripture
+  description: Doubles Slayer points when carried or equipped. Does not stack with other 2x boosts.
   shopValue: 1
 - id: 4838
   name: Cup of tea

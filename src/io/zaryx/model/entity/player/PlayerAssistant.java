@@ -38,6 +38,7 @@ import io.zaryx.content.skills.crafting.Enchantment;
 import io.zaryx.content.skills.fletching.Fletching;
 import io.zaryx.content.skills.mining.Mineral;
 import io.zaryx.content.skills.slayer.SlayerUnlock;
+import io.zaryx.content.skills.slayer.SlayerItemRules;
 import io.zaryx.content.skills.slayer.Task;
 import io.zaryx.content.skills.smithing.Smelting;
 import io.zaryx.content.skills.smithing.Smelting.Bars;
@@ -381,19 +382,21 @@ public class PlayerAssistant {
             c.sendMessage("@blu@You need a crafting level of 55 to assemble a slayer helmet.");
             return;
         }
-        if (c.getItems().playerHasItem(4166) && c.getItems().playerHasItem(4168) && c.getItems().playerHasItem(4164)
-                && c.getItems().playerHasItem(4551) && c.getItems().playerHasItem(8901)) {
+        int blackMask = SlayerItemRules.firstBlackMask(c.getItems()::playerHasItem);
+        if (c.getItems().playerHasItem(4155) && c.getItems().playerHasItem(4166)
+                && c.getItems().playerHasItem(4168) && c.getItems().playerHasItem(4164)
+                && c.getItems().playerHasItem(4551) && blackMask != -1) {
             c.sendMessage("@blu@You assemble the pieces and create a full slayer helmet!");
+            c.getItems().deleteItem(4155, 1);
             c.getItems().deleteItem(4166, 1);
             c.getItems().deleteItem(4164, 1);
             c.getItems().deleteItem(4168, 1);
             c.getItems().deleteItem(4551, 1);
-            c.getItems().deleteItem(8901, 1);
+            c.getItems().deleteItem(blackMask, 1);
             c.getItems().addItem(11864, 1);
         } else {
-            c.sendMessage(
-                    "You need a @blu@Facemask@bla@, @blu@Nose peg@bla@, @blu@Spiny helmet@bla@ and @blu@Earmuffs");
-            c.sendMessage("@bla@in order to assemble a slayer helmet.");
+            c.sendMessage("You need an enchanted gem, black mask, facemask, nose peg,");
+            c.sendMessage("spiny helmet and earmuffs to assemble a Slayer helmet.");
         }
     }
 
