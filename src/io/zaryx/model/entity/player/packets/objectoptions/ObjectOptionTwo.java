@@ -123,6 +123,7 @@ public class ObjectOptionTwo {
 				break;
 
 			case 7053:
+			case 33639:
 				if (c.amDonated < 250) {
 					c.sendMessage("You need 250 or greater total donated.");
 					return;
@@ -173,6 +174,7 @@ public class ObjectOptionTwo {
 				);
 				GameItem reward = Misc.getRandomItem(rewards);
 				c.getItems().addItem(reward.getId(), Misc.random(1,3), true);
+				c.getThieving().recordSuccessfulStallSteal();
 				c.infernoLeaveTimer = System.currentTimeMillis();
 				int petRate = c.skillingPetRateScroll ? (int) (2500 * .75) : 2500;
 				if (Misc.random(petRate) == 20 && c.getItems().getItemCount(20663, false) == 0 && c.petSummonId != 20663) {

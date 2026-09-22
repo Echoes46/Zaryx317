@@ -2955,6 +2955,7 @@ public class ObjectOptionOne {
 				);
 				GameItem reward = Misc.getRandomItem(rewards);
 				c.getItems().addItem(reward.getId(), Misc.random(1, 4), true);
+				c.getThieving().recordSuccessfulStallSteal();
 				c.infernoLeaveTimer = System.currentTimeMillis();
 				int petRate = c.skillingPetRateScroll ? (int) (2500 * .75) : 2500;
 				if (Misc.random(petRate) == 20 && c.getItems().getItemCount(20663, false) == 0 && c.petSummonId != 20663) {

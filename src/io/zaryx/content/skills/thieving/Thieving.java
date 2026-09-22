@@ -90,13 +90,6 @@ public class Thieving {
 			player.getInterfaceEvent().execute();
 			return;
 		}
-		for (TaskMasterKills taskMasterKills : player.getTaskMaster().taskMasterKillsList) {
-			if (taskMasterKills.getDesc().equalsIgnoreCase("Steal from @whi@stalls")) {
-				taskMasterKills.incrementAmountKilled(1);
-				player.getTaskMaster().trackActivity(player, taskMasterKills);
-			}
-		}
-		player.getEventCalendar().progress(EventChallenge.THIEVE_X_STALLS);
 		switch (stall) {
 		case Food:
 			foeArtefact(player);
@@ -161,8 +154,20 @@ public class Thieving {
 
 		player.getPA().addSkillXPFromAction((BoostScrolls.checkHarvestBoost(player) ? ((stall.experience * (1 + (getRoguesPieces() * 0.12)))* 1.12) : (stall.experience * (1 + (getRoguesPieces() * 0.12)))), Skill.THIEVING.getId(), true);
 		player.sendMessage("You steal a " + definition.getName() + " from the stall.");
-		Achievements.increase(player, AchievementType.THIEV, 1);
+		recordSuccessfulStallSteal();
 		lastInteraction = System.currentTimeMillis();
+	}
+
+	/** Records every reward-producing stall interaction in each progression system. */
+	public void recordSuccessfulStallSteal() {
+		for (TaskMasterKills taskMasterKills : player.getTaskMaster().taskMasterKillsList) {
+			if (taskMasterKills.getDesc().equalsIgnoreCase("Steal from @whi@stalls")) {
+				taskMasterKills.incrementAmountKilled(1);
+				player.getTaskMaster().trackActivity(player, taskMasterKills);
+			}
+		}
+		player.getEventCalendar().progress(EventChallenge.THIEVE_X_STALLS);
+		Achievements.increase(player, AchievementType.THIEV, 1);
 	}
 
 	private static void foeArtefact(Player player) {

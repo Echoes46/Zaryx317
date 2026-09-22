@@ -299,7 +299,7 @@ public class NPCDeath {
             PerkFinderBoss.addPerkFinderKills(c);
         }*/
 
-        Location3D location = new Location3D(dropX, dropY, dropHeight);
+        Location3D location = adjustBossDropPosition(npcId, dropX, dropY, dropHeight);
         int amountOfDrops = 1;
         if (isDoubleDrops()) {
             amountOfDrops++;
@@ -319,6 +319,15 @@ public class NPCDeath {
             amountOfDrops = (int) (amountOfDrops * 0.25);
         }
         Server.getDropManager().create(c, npc, location, amountOfDrops, npcId);
+    }
+
+    static Location3D adjustBossDropPosition(int npcId, int x, int y, int height) {
+        if (npcId == Npcs.LEVIATHAN) {
+            // Its spawn coordinate is the south-west tile of a blocked 9x9 footprint.
+            // Place loot one tile west, just outside the model and inside the arena.
+            return new Location3D(x - 1, y, height);
+        }
+        return new Location3D(x, y, height);
     }
 
     public static void announce(Player player, GameItem item, int npcId) {

@@ -201,11 +201,10 @@ public class WoodcuttingEvent extends Event<Player> {
 
 			Server.getGlobalObjects().add(new GlobalObject(tree.equals(Tree.REDWOOD) ? stumpId : tree.getStumpId(), x, y, attachment.heightLevel, face, 10, tree.getRespawnTime(), objectId));
 
-			if (attachment.getItems().addItem(tree.getWood(), 1)) recordTaskLog();
+			if (attachment.getItems().addItem(tree.getWood(), 1)) recordSuccessfulChop();
 			attachment.sendSpamMessage("You get some logs.");
 			attachment.getEventCalendar().progress(EventChallenge.CUT_DOWN_X_MAGIC_LOGS);
 			attachment.getPA().addSkillXPFromAction((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
-			Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 			attachment.getPA().sendSound(2734);
 			handleRewards();
 
@@ -217,10 +216,9 @@ public class WoodcuttingEvent extends Event<Player> {
 				chops = 0;
 				int random = Misc.random(4);
 				attachment.getPA().addSkillXPFromAction((int) osrsExperience, Skill.WOODCUTTING.getId(), true);
-				Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 				if ((attachment.getItems().isWearingItem(25066)) || (attachment.getItems().isWearingItem(13241) || attachment.getItems().playerHasItem(13241)) || attachment.getItems().playerHasItem(25066) && random == 2) {
-                    recordTaskLog();
-                    Firemaking.lightFire(attachment, tree.getWood(), "infernal_axe");
+					recordSuccessfulChop();
+					Firemaking.lightFire(attachment, tree.getWood(), "infernal_axe");
 					return;
 				}
 				handleDiary(tree);
@@ -236,18 +234,23 @@ public class WoodcuttingEvent extends Event<Player> {
 			if (attachment.playerEquipment[Player.playerWeapon] == 25110 || attachment.playerEquipmentCosmetic[Player.playerWeapon] == 25110) {
 				attachment.getItems().addItemToBankOrDrop(tree.getWood(), SkillcapePerks.WOODCUTTING.isWearing(attachment) ||
 						SkillcapePerks.isWearingMaxCape(attachment) && attachment.getWoodcuttingEffect() ? 2 : 1);
-                recordTaskLog();
+				recordSuccessfulChop();
 						attachment.getPA().addSkillXPFromAction((int)(osrsExperience), Player.playerWoodcutting, true);
 			} else {
 				if (osrsExperience > 0) {
 					attachment.getPA().addSkillXPFromAction((int)(osrsExperience), Player.playerWoodcutting, true);
 				}
 				if (attachment.getItems().addItem(tree.getWood(), SkillcapePerks.WOODCUTTING.isWearing(attachment) ||
-						SkillcapePerks.isWearingMaxCape(attachment) && attachment.getWoodcuttingEffect() ? 2: 1)) recordTaskLog();
+						SkillcapePerks.isWearingMaxCape(attachment) && attachment.getWoodcuttingEffect() ? 2: 1)) recordSuccessfulChop();
 			}
 		}
 		attachment.startAnimation(hatchet.getAnimation());
 		attachment.getPA().sendSound(472,0,10,0);
+	}
+
+	void recordSuccessfulChop() {
+		recordTaskLog();
+		Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 	}
 
 	private void recordTaskLog() {
