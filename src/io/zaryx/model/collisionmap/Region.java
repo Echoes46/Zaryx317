@@ -201,15 +201,6 @@ public class Region {
         clips[height][x - regionAbsX][y - regionAbsY] = 0;
     }
 
-    void clearBlockedFloor(int x, int y, int height) {
-        height %= 4;
-        int localX = x - (id >> 8) * 64;
-        int localY = y - (id & 255) * 64;
-        if (clips[height] != null) {
-            clips[height][localX][localY] &= ~0x200000;
-        }
-    }
-
     public int getClip(int x, int y, int height) {
         height = height % 4;
         int regionAbsX = (id >> 8) * 64;
@@ -516,13 +507,6 @@ public class Region {
                 RegionProvider.getGlobal().add(new Region(RegionProvider.getGlobal(), regionIds[i], false));
             }
             Arrays.stream(data).forEach(Region::loadMap);
-            // The Catacombs landscape incorrectly flags the Fire Giant room as blocked floor.
-            // Preserve wall and object clipping while allowing movement across the room.
-            for (int x = 1627; x <= 1640; x++) {
-                for (int y = 10051; y <= 10069; y++) {
-                    RegionProvider.getGlobal().get(x, y).clearBlockedFloor(x, y, 0);
-                }
-            }
             Arrays.asList(EXISTANT_OBJECTS).forEach(object -> RegionProvider.getGlobal().get(object.getX(), object.getY()).addWorldObject(object));
             log.info("Loaded " + customMapFiles + " custom maps.");
             log.info("Error loading map files: " + errors.toString());
@@ -656,6 +640,11 @@ public class Region {
             {3234,5749},
             {3235,5749}};
 
+    /** Plane-one bridge tiles replace plane zero; clipping below their visible surface is discarded. */
+    static int collisionPlane(int sourcePlane, int planeOneFlags) {
+        return (planeOneFlags & 2) != 0 ? sourcePlane - 1 : sourcePlane;
+    }
+
     private static void loadMaps(int regionId, ByteStream str1, ByteStream str2) {
         int absX = (regionId >> 8) * 64;
         int absY = (regionId & 255) * 64;
@@ -696,11 +685,7 @@ public class Region {
             for (int i2 = 0; i2 < 64; i2++) {
                 for (int i3 = 0; i3 < 64; i3++) {
                     if ((someArray[i][i2][i3] & 1) == 1) {
-                        int height = i;
-
-                        if ((someArray[1][i2][i3] & 2) == 2 && height > 0) {
-                            height--;
-                        }
+                        int height = collisionPlane(i, someArray[1][i2][i3]);
 
                         if (height >= 0 && height <= 7) {
                             int x = absX + i2;
@@ -742,9 +727,7 @@ public class Region {
                         continue;
                     }
 
-                    if ((someArray[1][localX][localY] & 2) == 2 && height > 0) {
-                        height--;
-                    }
+                    height = collisionPlane(height, someArray[1][localX][localY]);
 
                     if (height >= 0 && height <= 7) {
                         int x = absX + localX;
