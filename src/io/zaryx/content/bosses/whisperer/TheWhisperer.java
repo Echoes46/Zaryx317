@@ -4,419 +4,338 @@ import io.zaryx.Server;
 import io.zaryx.content.bosses.hydra.CombatProjectile;
 import io.zaryx.content.combat.Damage;
 import io.zaryx.content.combat.Hitmark;
-import io.zaryx.model.*;
+import io.zaryx.model.CombatType;
+import io.zaryx.model.StillGraphic;
 import io.zaryx.model.cycleevent.CycleEvent;
 import io.zaryx.model.cycleevent.CycleEventContainer;
 import io.zaryx.model.cycleevent.CycleEventHandler;
-import io.zaryx.model.definitions.NpcStats;
 import io.zaryx.model.entity.npc.NPC;
 import io.zaryx.model.entity.npc.NPCHandler;
 import io.zaryx.model.entity.npc.NPCSpawning;
 import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
-import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.entity.player.Position;
 import io.zaryx.util.Misc;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
-public class TheWhisperer {
+/** The post-quest Whisperer. All timers and summons belong to the individual NPC fight. */
+public final class TheWhisperer {
 
-    private static final int WHISPERER_NPC_ID = 12345; // replace with actual ID
-    private static final int COLUMN_NPC_ID = 12210;
-    private static final int COLUMN_HP = 250;
-    private static final int HALF_HEALTH = 500; // replace with actual half health value
-    private static final int TENTACLE_NPC_ID = 12208; // NPC ID for the tentacle
-    private static final int WAVE_GFX_ID = 1904;
-    private static final int SCREECH_GFX_ID = 2446;
+    private static final int[] SPECIAL_HEALTH_PERCENT = {80, 55, 30};
+    private static final int PILLAR_ID = 12210;
+    private static final int LOST_SOUL_ID = 12211; // Visible in the server's single-realm arena.
     private static final CombatProjectile RANGED_PROJECTILE = new CombatProjectile(2445, 50, 25, 0, 100, 0, 50);
     private static final CombatProjectile MAGIC_PROJECTILE = new CombatProjectile(2444, 50, 25, 0, 100, 0, 50);
+    private static final Map<NPC, Fight> FIGHTS = Collections.synchronizedMap(new WeakHashMap<>());
 
-    private static List<NPC> columns = new ArrayList<>();
-    private static List<NPC> tentacles = new ArrayList<>();
-    private static boolean columnsSpawned = false;
-    private static boolean waveAttackActive = false;
-    private static boolean wavePhaseCompleted = false;
-    private static boolean enragePhaseActive = false;
-
-    private static int specialAttackCounter = 0;
-    private static HashMap<Player, Integer> damageCount = new HashMap<>();
-
-    public static void handleAttacks(NPC npc) {
-        if (waveAttackActive || enragePhaseActive) {
-            return; // Do not perform other attacks during the wave or enrage phase
-        }
-
-        if (npc.getHealth().getCurrentHealth() <= HALF_HEALTH && !columnsSpawned && !wavePhaseCompleted) {
-            teleportAndSpawnColumns(npc);
-        } else if (!waveAttackActive && wavePhaseCompleted) {
-            handleBasicAttacks(npc);
-        }
+    private TheWhisperer() {
     }
 
-    private static void handleBasicAttacks(NPC npc) {
-        if (waveAttackActive) {
+    private enum Special { SEEDS, SCREECH, SOUL_SIPHON }
+
+    private static final class Fight {
+        private int specialsCompleted;
+        private boolean specialActive;
+        private boolean enraged;
+        private int enrageAttacks;
+        private final Special[] rotation = Misc.random(1) == 0
+                ? new Special[]{Special.SEEDS, Special.SCREECH, Special.SOUL_SIPHON}
+                : new Special[]{Special.SCREECH, Special.SOUL_SIPHON, Special.SEEDS};
+        private final List<NPC> summons = new ArrayList<>();
+    }
+
+    /** Called instead of the generic NPC attack, once per attack cycle. */
+    public static void handleAttack(NPC npc, Player target) {
+        Fight fight = FIGHTS.computeIfAbsent(npc, unused -> new Fight());
+        if (fight.specialActive || !canFight(npc, target)) {
+            npc.attackTimer = 2;
             return;
         }
 
-        for (Player target : getTargets()) {
-            // Determine attack pattern based on specialAttackCounter
-            if (specialAttackCounter == 0) {
-                // Initial phase: All projectiles are of the same type
-                for (int i = 0; i < 3; i++) {
-                    CombatType combatType = (Misc.random(1) == 0 ? CombatType.MAGE : CombatType.RANGE);
-                    sendProjectile(combatType == CombatType.MAGE ? MAGIC_PROJECTILE : RANGED_PROJECTILE, target, npc);
-                    applyDamage(target, combatType, npc);
-                }
-            } else if (specialAttackCounter == 1) {
-                // After first special attack: Two of one type, one of the other
-                for (int i = 0; i < 3; i++) {
-                    CombatType combatType = (i < 2 ? CombatType.MAGE : CombatType.RANGE);
-                    sendProjectile(combatType == CombatType.MAGE ? MAGIC_PROJECTILE : RANGED_PROJECTILE, target, npc);
-                    applyDamage(target, combatType, npc);
-                }
-            } else {
-                // Alternating attacks
-                for (int i = 0; i < 3; i++) {
-                    CombatType combatType = (i % 2 == 0 ? CombatType.RANGE : CombatType.MAGE);
-                    sendProjectile(combatType == CombatType.MAGE ? MAGIC_PROJECTILE : RANGED_PROJECTILE, target, npc);
-                    applyDamage(target, combatType, npc);
-                }
+        npc.oldIndex = target.getIndex();
+        target.underAttackByNpc = npc.getIndex();
+        target.singleCombatDelay2 = System.currentTimeMillis();
+
+        if (!fight.enraged && shouldStartSpecial(npc.getHealth().getCurrentHealth(),
+                npc.getHealth().getMaximumHealth(), fight.specialsCompleted)) {
+            npc.attackTimer = 10;
+            startSpecial(npc, target, fight);
+            return;
+        }
+
+        npc.attackTimer = fight.enraged ? 4 : 10;
+        npc.startAnimation(NPCHandler.getAttackEmote(npc));
+        if (fight.enraged) {
+            // The final phase opens with ranged and changes style every two attacks.
+            CombatType style = (fight.enrageAttacks / 2) % 2 == 0 ? CombatType.RANGE : CombatType.MAGE;
+            fight.enrageAttacks++;
+            fireShot(npc, target, style, 0, 3);
+            summonTentacles(npc, target);
+        } else {
+            boolean magicFirst = Misc.random(1) == 0;
+            for (int shot = 0; shot < 3; shot++) {
+                CombatType style = volleyStyle(fight.specialsCompleted, magicFirst, shot);
+                fireShot(npc, target, style, shot, 4);
             }
-
-            // Tentacle Attack
-            if (Misc.isLucky(85)) {
-                handleTentacleAttack(target);
-            }
-        }
-
-        if (npc.getHealth().getCurrentHealth() <= 0 && !enragePhaseActive) {
-            startEnragePhase(npc);
+            summonTentacles(npc, target);
         }
     }
 
-    private static void applyDamage(Player target, CombatType combatType, NPC npc) {
-        int delay = 5; // Typical OSRS delay for hitsplat appearance
-        int damage = Misc.random(1, 5);
-
-        if (combatType == CombatType.RANGE && !target.protectingRange()) {
-            target.getDamageQueue().add(new Damage(target, damage, delay, target.playerEquipment, Hitmark.HIT, combatType));
-        } else if (combatType == CombatType.MAGE) {
-            if (target.protectingMagic()) {
-                target.getDamageQueue().add(new Damage(target, 0, delay, target.playerEquipment, Hitmark.MISS, combatType));
-            } else {
-                target.getDamageQueue().add(new Damage(target, damage, delay, target.playerEquipment, Hitmark.HIT, combatType));
-            }
-        }
+    static boolean shouldStartSpecial(int health, int maximum, int specialsCompleted) {
+        return maximum > 0 && specialsCompleted < SPECIAL_HEALTH_PERCENT.length
+                && health > 0 && health * 100L <= maximum * (long) SPECIAL_HEALTH_PERCENT[specialsCompleted];
     }
 
-    private static void handleTentacleAttack(Player player) {
-        int playerX = player.getPosition().getX();
-        int playerY = player.getPosition().getY();
-
-        int[][] cornerOffsets = {
-                {-4, -4}, {4, -4}, {-4, 4}, {4, 4}
-        };
-
-        for (int[] offset : cornerOffsets) {
-            int offsetX = offset[0];
-            int offsetY = offset[1];
-
-            int tentacleX = playerX + offsetX;
-            int tentacleY = playerY + offsetY;
-
-            // Spawn tentacle NPC
-            NPC tentacle = NPCSpawning.spawnNpc(TENTACLE_NPC_ID, tentacleX, tentacleY, 0, 0, 0);
-            tentacle.startAnimation(new Animation(10266)); // Example animation ID, replace with actual stomping animation ID
-            tentacles.add(tentacle);
-            handleSplashAttack();
-            CycleEventHandler.getSingleton().addEvent(tentacle, new CycleEvent() {
-                @Override
-                public void execute(CycleEventContainer container) {
-                    if (tentacle.isDead()) {
-                        NPCHandler.despawn(tentacle.getNpcId(), 0);
-                        tentacle.needRespawn = false;
-                        container.stop();
-                        return;
-                    }
-
-                    tentacle.setDead(true);
-                    sendSplashGFX(player, tentacleX, tentacleY);
-                    NPCHandler.despawn(tentacle.getNpcId(), 0);
-                    tentacle.needRespawn = false;
-                    container.stop();
-                }
-            }, 3); // Delay to allow the smash animation to play
-        }
+    static CombatType volleyStyle(int specialsCompleted, boolean magicFirst, int shot) {
+        boolean magic = specialsCompleted == 0 || specialsCompleted == 3
+                ? (specialsCompleted == 0 || shot != 1)
+                : shot < 2;
+        return magic == magicFirst ? CombatType.MAGE : CombatType.RANGE;
     }
 
-    private static void despawnTentacles() {
-        for (NPC tentacle : tentacles) {
-            NPCHandler.despawn(tentacle.getNpcId(), 0);
-        }
-        tentacles.clear();
-    }
-
-    private static void sendSplashGFX(Player player, int gfxX, int gfxY) {
-        int delay = 0; // Adjust delay as necessary
-        int gfxId = 2450; // Example GFX ID for the splash, replace with actual ID
-        sendGFXWithDelay(player, gfxX, gfxY, gfxId, delay);
-    }
-
-    private static void sendProjectile(CombatProjectile projectile, Player player, NPC npc) {
-        int size = (int) Math.ceil((double) npc.getSize() / 2.0);
-
-        int centerX = npc.getX() + size;
-        int centerY = npc.getY() + size;
-        int offsetX = (centerY - player.getY()) * -1;
-        int offsetY = (centerX - player.getX()) * -1;
-        player.getPA().createPlayersProjectile(centerX, centerY, offsetX, offsetY, projectile.getAngle(), projectile.getSpeed(), projectile.getGfx(), projectile.getStartHeight(), projectile.getEndHeight(), -player.getIndex() - 1, 65, projectile.getDelay());
-    }
-
-    public static void handleSplashAttack() {
-        for (Player player : getTargets()) {
-            int playerX = player.getPosition().getX();
-            int playerY = player.getPosition().getY();
-
-            int[][] diagonalOffsets = {
-                    {-4, -4}, {4, -4}, {-4, 4}, {4, 4}
-            };
-            for (int[] offset : diagonalOffsets) {
-                int offsetX = offset[0];
-                int offsetY = offset[1];
-
-                int tentacleX = playerX + offsetX;
-                int tentacleY = playerY + offsetY;
-
-                int diffX = playerX - tentacleX;
-                int diffY = playerY - tentacleY;
-                int steps = Math.max(Math.abs(diffX), Math.abs(diffY)) + 1;
-
-                for (int step = 0; step <= steps; step++) {
-                    int delay = step;
-                    int currentGfxId = 2447 + step;
-
-                    int gfxX = tentacleX + (diffX * step / steps);
-                    int gfxY = tentacleY + (diffY * step / steps);
-
-                    sendGFXWithDelay(player, gfxX, gfxY, currentGfxId, delay);
-                }
-            }
-        }
-    }
-
-    private static void sendWaveGfxWithDelay(Player player, int spawnX, int spawnY, int gfxId, int delay) {
-        CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
-            @Override
-            public void execute(CycleEventContainer container) {
-                Server.playerHandler.sendStillGfx(new StillGraphic(gfxId, new Position(spawnX, spawnY, 0)), player.getPosition());
-                container.stop();
-            }
-        }, delay);
-    }
-
-    private static void sendGFXWithDelay(Player player, int spawnX, int spawnY, int gfxId, int delay) {
-        CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
-            @Override
-            public void execute(CycleEventContainer container) {
-                Server.playerHandler.sendStillGfx(new StillGraphic(gfxId, new Position(spawnX, spawnY, 0)), player.getPosition());
-                if (spawnX == player.getPosition().getX() && spawnY == player.getPosition().getY()) {
-                    player.appendDamage(Misc.random(5, 15), Hitmark.HIT);
-                    player.startGraphic(new Graphic(2450));
-                }
-                container.stop();
-            }
-        }, delay);
-    }
-
-    private static void teleportAndSpawnColumns(NPC npc) {
-        npc.teleport(new Position(2656, 6354)); // Adjusted to the southern end of the cathedral
-        startWaveAttack(npc);
-    }
-
-    private static void spawnColumns(NPC npc) {
-        int[][] columnPositions = {
-                {2667, 6364}, {2665, 6363}, {2662, 6364}, {2660, 6364},
-                {2658, 6363}, {2657, 6364}, {2656, 6363}, {2654, 6364},
-                {2653, 6363}, {2652, 6364}, {2650, 6363}, {2648, 6363}
-        };
-
-        for (int[] pos : columnPositions) {
-            NpcStats columnStats = NPCSpawning.getStats(COLUMN_HP, 0, 0);
-            NPC column = NPCSpawning.spawnNpc(COLUMN_NPC_ID, pos[0], pos[1], 0, 0, 0, columnStats);
-            columns.add(column);
-        }
-        columnsSpawned = true;
-    }
-
-    private static void startWaveAttack(NPC npc) {
-        waveAttackActive = true;
-        npc.teleport(new Position(2656, 6354)); // Southern end of the cathedral
-        spawnColumns(npc);
-
+    private static void fireShot(NPC npc, Player target, CombatType style, int shot, int hitDelay) {
         CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
-            int screechCount = 0;
+            @Override
+            public void execute(CycleEventContainer container) {
+                container.stop();
+                if (!canFight(npc, target)) return;
+                sendProjectile(npc, target, style == CombatType.MAGE ? MAGIC_PROJECTILE : RANGED_PROJECTILE);
+                CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
+                    @Override
+                    public void execute(CycleEventContainer impact) {
+                        impact.stop();
+                        if (!canFight(npc, target)) return;
+                        boolean protectedByPrayer = style == CombatType.MAGE
+                                ? target.protectingMagic() : target.protectingRange();
+                        int damage = protectedByPrayer ? 0 : Misc.random(1, style == CombatType.MAGE ? 12 : 14);
+                        target.getDamageQueue().add(new Damage(target, damage, 0, target.playerEquipment,
+                                damage == 0 ? Hitmark.MISS : Hitmark.HIT, style));
+                    }
+                }, hitDelay);
+            }
+        }, shot + 1);
+    }
+
+    private static void sendProjectile(NPC npc, Player target, CombatProjectile projectile) {
+        int centerX = npc.getX() + npc.getSize() / 2;
+        int centerY = npc.getY() + npc.getSize() / 2;
+        target.getPA().createPlayersProjectile(centerX, centerY, target.getY() - centerY,
+                target.getX() - centerX, projectile.getAngle(), projectile.getSpeed(), projectile.getGfx(),
+                projectile.getStartHeight(), projectile.getEndHeight(), -target.getIndex() - 1, 65, projectile.getDelay());
+    }
+
+    private static void summonTentacles(NPC npc, Player target) {
+        int x = target.getX();
+        int y = target.getY();
+        int[][] offsets = {{-4, -4}, {4, -4}, {-4, 4}, {4, 4}};
+        for (int[] offset : offsets) {
+            showGraphic(target, x + offset[0], y + offset[1], 2447);
+        }
+        // The converging tentacles punish remaining on the marked tile, not movement away.
+        CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) {
+                container.stop();
+                if (!canFight(npc, target)) return;
+                showGraphic(target, x, y, 2450);
+                if (target.getX() == x && target.getY() == y) target.appendDamage(20, Hitmark.HIT);
+            }
+        }, 4);
+    }
+
+    private static void startSpecial(NPC npc, Player target, Fight fight) {
+        fight.specialActive = true;
+        Special special = fight.rotation[fight.specialsCompleted];
+        switch (special) {
+            case SEEDS:
+                startSeeds(npc, target, fight);
+                break;
+            case SCREECH:
+                startScreech(npc, target, fight);
+                break;
+            case SOUL_SIPHON:
+                startSoulSiphon(npc, target, fight);
+                break;
+        }
+    }
+
+    private static void startSeeds(NPC npc, Player target, Fight fight) {
+        target.sendMessage("The Whisperer scatters corrupted seeds! Step on the three glowing tiles.");
+        int x = npc.getX();
+        int y = npc.getY();
+        int direction = Misc.random(1) == 0 ? -1 : 1;
+        int[][] seeds = {{x + direction * 5, y}, {x, y + 5}, {x - direction * 5, y + 5}};
+        boolean[] collected = new boolean[seeds.length];
+        CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
+            int ticks;
 
             @Override
             public void execute(CycleEventContainer container) {
-                if (screechCount >= 3) {
+                if (!canFight(npc, target)) {
+                    finishSpecial(npc, fight);
                     container.stop();
-                    waveAttackActive = false;
-                    columnsSpawned = false;
-                    wavePhaseCompleted = true;
-                    npc.teleport(new Position(2657, 6367)); // Return to the original position
-                    handleBasicAttacks(npc);
-                    despawnColumns();
                     return;
                 }
-
-                for (Player player : getTargets()) {
-                    sendWaveGfxWithDelay(player, player.getPosition().getX(), player.getPosition().getY(), SCREECH_GFX_ID, 0);
-                }
-
-                checkAndDamageColumns();
-
-                screechCount++;
-                sendScreechGFX(npc);
-            }
-        }, 10); // Delay between each screech
-    }
-
-    private static void checkAndDamageColumns() {
-        Iterator<NPC> iterator = columns.iterator();
-        while (iterator.hasNext()) {
-            NPC column = iterator.next();
-            for (Player player : getTargets()) {
-                if (player.distanceToPoint(column.getX(), column.getY()) <= 1) {
-                    column.appendDamage(Misc.random(50, 100), Hitmark.HIT); // Damage to destroy column
-                    displayColumnHealth(column);
-                    if (column.getHealth().getCurrentHealth() <= 0) {
-                        iterator.remove();
-                        NPCHandler.despawn(column.getNpcId(), 0);
+                boolean complete = true;
+                for (int i = 0; i < seeds.length; i++) {
+                    if (!collected[i] && target.getX() == seeds[i][0] && target.getY() == seeds[i][1]) {
+                        collected[i] = true;
                     }
-                    break;
+                    if (!collected[i]) {
+                        complete = false;
+                        if (ticks % 3 == 0) showGraphic(target, seeds[i][0], seeds[i][1], 2447);
+                    }
+                }
+                if (complete || ++ticks >= 18) {
+                    if (!complete) target.appendDamage(75, Hitmark.HIT);
+                    finishSpecial(npc, fight);
+                    container.stop();
                 }
             }
-        }
+        }, 1);
     }
 
-    private static void sendScreechGFX(NPC npc) {
-        for (Player player : getTargets()) {
-            int startX = npc.getX();
-            int startY = npc.getY();
-
-            int endY = startY + 15; // Adjust as necessary to match the distance traveled by the screech
-
-            // Triangular pattern
-            for (int y = startY; y <= endY; y++) {
-                int offsetX = (y - startY) / 3; // Adjust for the triangular pattern
-                for (int x = startX - offsetX; x <= startX + offsetX; x++) {
-                    sendWaveGfxWithDelay(player, x, y, SCREECH_GFX_ID, y - startY);
-                }
+    private static void startScreech(NPC npc, Player target, Fight fight) {
+        Position returnPosition = new Position(npc.getX(), npc.getY(), npc.getHeight());
+        npc.teleport(new Position(2656, 6354, npc.getHeight()));
+        target.sendMessage("The Whisperer prepares three screeches! Shelter behind a floating column.");
+        int[] xs = {2651, 2656, 2661};
+        int[] hp = {20, 40, 60};
+        for (int i = 0; i < xs.length; i++) {
+            NPC column = NPCSpawning.spawnNpc(PILLAR_ID, xs[i], 6363, npc.getHeight(), 0, 0,
+                    NPCSpawning.getStats(hp[i], 0, 0));
+            if (column != null) {
+                column.needRespawn = false;
+                fight.summons.add(column);
             }
         }
-    }
-
-    private static void displayColumnHealth(NPC column) {
-        // Display the column's health above it
-        int currentHealth = column.getHealth().getCurrentHealth();
-        int maxHealth = column.getHealth().getMaximumHealth();
-        String healthStatus = currentHealth + "/" + maxHealth;
-        column.forceChat(healthStatus);
-    }
-
-    private static void despawnColumns() {
-        for (NPC column : columns) {
-            NPCHandler.despawn(column.getNpcId(), 0);
-        }
-        columns.clear();
-    }
-
-    private static void startEnragePhase(NPC npc) {
-        enragePhaseActive = true;
-        npc.getHealth().increase(140);
-        npc.getHealth().reset(); // Restores any drained stats
-
         CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
-            int attackCounter = 0;
-            boolean isMagicAttack = false;
+            int pulses;
 
             @Override
             public void execute(CycleEventContainer container) {
-                if (npc.getHealth().getCurrentHealth() <= 0) {
+                if (!canFight(npc, target)) {
+                    npc.teleport(returnPosition);
+                    finishSpecial(npc, fight);
                     container.stop();
-                    enragePhaseActive = false;
                     return;
                 }
-
-                for (Player target : getTargets()) {
-                    if (attackCounter % 2 == 0) {
-                        isMagicAttack = !isMagicAttack;
+                NPC shelteredColumn = null;
+                for (NPC column : fight.summons) {
+                    if (!column.isDead() && !column.isUnregister()
+                            && Math.abs(target.getX() - column.getX()) <= 1 && target.getY() >= column.getY() + 1) {
+                        shelteredColumn = column;
+                        break;
                     }
-
-                    CombatProjectile projectile = isMagicAttack ? MAGIC_PROJECTILE : RANGED_PROJECTILE;
-                    sendProjectile(projectile, target, npc);
-
-                    int delay = 3; // Faster attack speed during enrage phase
-                    int damage = Misc.random(1, 8); // Increased damage range
-
-                    if (isMagicAttack && target.protectingMagic()) {
-                        target.getDamageQueue().add(new Damage(target, 0, delay, target.playerEquipment, Hitmark.MISS, CombatType.MAGE));
-                    } else if (!isMagicAttack && target.protectingRange()) {
-                        target.getDamageQueue().add(new Damage(target, 0, delay, target.playerEquipment, Hitmark.MISS, CombatType.RANGE));
-                    } else {
-                        target.getDamageQueue().add(new Damage(target, damage, delay, target.playerEquipment, Hitmark.HIT, isMagicAttack ? CombatType.MAGE : CombatType.RANGE));
-                    }
-
-                    // Tentacle Attack
-                    handleTentacleAttack(target);
                 }
-
-                attackCounter++;
+                // Each screech weakens every pillar and destroys the one used for cover.
+                for (NPC column : fight.summons) {
+                    if (column.isUnregister()) continue;
+                    column.getHealth().setCurrentHealth(column.getHealth().getCurrentHealth() - 20);
+                    if (column == shelteredColumn || column.getHealth().getCurrentHealth() <= 0) column.unregister();
+                }
+                showGraphic(target, target.getX(), target.getY(), 2446);
+                if (shelteredColumn == null) target.appendDamage(45, Hitmark.HIT);
+                if (++pulses == 3) {
+                    npc.teleport(returnPosition);
+                    finishSpecial(npc, fight);
+                    container.stop();
+                }
             }
-        }, 4); // Increased attack frequency
+        }, 5);
     }
 
-    private static List<Player> getTargets() {
-        ArrayList<Player> list = new ArrayList<>();
-
-        for (Player player : PlayerHandler.getPlayers()) {
-            if (player != null && (Boundary.isIn(player, Boundary.WHISPERER_BOUNDARY))) {
-                if (!player.isDead() && player.getHealth().getCurrentHealth() > 0) {
-                    list.add(player);
+    private static void startSoulSiphon(NPC npc, Player target, Fight fight) {
+        target.sendMessage("The Whisperer siphons lost souls! Defeat every soul in any one group.");
+        int x = npc.getX();
+        int y = npc.getY();
+        int[][] offsets = {{-5, -1}, {-5, 0}, {-5, 1}, {5, -1}, {5, 0}, {5, 1},
+                {-1, -5}, {0, -5}, {1, -5}, {-1, 5}, {0, 5}, {1, 5}};
+        List<List<NPC>> groups = new ArrayList<>();
+        int[] groupSizes = {2, 3, 3, 4};
+        int nextOffset = 0;
+        for (int group = 0; group < groupSizes.length; group++) {
+            List<NPC> souls = new ArrayList<>();
+            for (int member = 0; member < groupSizes[group]; member++) {
+                int[] offset = offsets[nextOffset++];
+                NPC soul = NPCSpawning.spawnNpc(LOST_SOUL_ID, x + offset[0], y + offset[1],
+                        npc.getHeight(), 0, 0, NPCSpawning.getStats(5, 0, 0));
+                if (soul != null) {
+                    soul.needRespawn = false;
+                    soul.underAttack = false;
+                    fight.summons.add(soul);
+                    souls.add(soul);
                 }
             }
+            groups.add(souls);
         }
+        CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) {
+                container.stop();
+                if (canFight(npc, target)) {
+                    boolean stopped = false;
+                    for (int i = 0; i < groups.size(); i++) {
+                        List<NPC> group = groups.get(i);
+                        if (group.size() == groupSizes[i] && group.stream().allMatch(NPC::isDead)) {
+                            stopped = true;
+                            break;
+                        }
+                    }
+                    if (!stopped) {
+                        target.appendDamage(50, Hitmark.HIT);
+                        npc.getHealth().increase(100);
+                    }
+                }
+                finishSpecial(npc, fight);
+            }
+        }, 17);
+    }
 
-        return list;
+    private static void finishSpecial(NPC npc, Fight fight) {
+        for (NPC summon : fight.summons) summon.unregister();
+        fight.summons.clear();
+        fight.specialsCompleted++;
+        fight.specialActive = false;
+        npc.attackTimer = 5;
+    }
+
+    private static boolean canFight(NPC npc, Player target) {
+        return npc != null && !npc.isDead() && target != null && !target.isDead()
+                && target.getHealth().getCurrentHealth() > 0 && npc.getInstance() == target.getInstance()
+                && npc.getHeight() == target.getHeight() && Boundary.isIn(target, Boundary.WHISPERER_BOUNDARY);
+    }
+
+    private static void showGraphic(Player target, int x, int y, int graphic) {
+        Server.playerHandler.sendStillGfx(new StillGraphic(graphic, new Position(x, y, target.getHeight())), target.getPosition());
+    }
+
+    /** Intercepts the first lethal hit for the documented 140 HP enrage phase. */
+    public static boolean tryStartEnrage(NPC npc) {
+        Fight fight = FIGHTS.computeIfAbsent(npc, unused -> new Fight());
+        if (fight.enraged) return false;
+        for (NPC summon : fight.summons) summon.unregister();
+        fight.summons.clear();
+        fight.specialActive = false;
+        fight.enraged = true;
+        npc.getHealth().setCurrentHealth(140);
+        npc.setDead(false);
+        npc.applyDead = false;
+        npc.actionTimer = 0;
+        npc.attackTimer = 4;
+        npc.forceChat("The shadows consume you!");
+        return true;
     }
 
     public static void handleDeath(NPC npc) {
-        HashMap<String, Integer> map = new HashMap<>();
-        damageCount.forEach((p, i) -> {
-            if (map.containsKey(p.getUUID())) {
-                map.put(p.getUUID(), map.get(p.getUUID()) + 1);
-            } else {
-                map.put(p.getUUID(), 1);
-            }
-        });
-
-        map.values().removeIf(integer -> integer > 1);
-        reset();
-    }
-
-    private static void reset() {
-        columns.clear();
-        tentacles.clear();
-        columnsSpawned = false;
-        waveAttackActive = false;
-        wavePhaseCompleted = false;
-        enragePhaseActive = false;
-        specialAttackCounter = 0;
-        damageCount.clear();
+        Fight fight = FIGHTS.remove(npc);
+        if (fight == null) return;
+        for (NPC summon : fight.summons) summon.unregister();
+        fight.summons.clear();
     }
 }
-

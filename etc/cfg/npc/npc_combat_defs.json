@@ -107166,8 +107166,8 @@
   },
   {
     "id": 12205,
-    "attackSpeed": 4,
-    "attackStyle": "SPECIAL",
+    "attackSpeed": 10,
+    "attackStyle": "MAGE",
     "aggressive": true,
     "isPoisonous": false,
     "isImmuneToPoison": false,

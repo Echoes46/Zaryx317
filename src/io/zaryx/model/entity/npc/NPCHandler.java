@@ -2054,6 +2054,10 @@ public class NPCHandler {
                 }
 
                 if (c.respawnTimer <= 0) {
+                    if (npc.getNpcId() == 12205) {
+                        io.zaryx.content.bosses.whisperer.TheWhisperer.handleAttack(npc, c);
+                        return;
+                    }
                     Optional<AlchemicalHydra> hydraInstance = getHydraInstance(npc);
                     if (hydraInstance.isPresent()) {
                         hydraInstance.get().doAttack();

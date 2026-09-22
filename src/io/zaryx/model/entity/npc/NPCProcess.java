@@ -489,6 +489,9 @@ public class NPCProcess {
 
     public void processDeath() {
         if (npc.isDead()) {
+            if (npc.getNpcId() == 12205 && io.zaryx.content.bosses.whisperer.TheWhisperer.tryStartEnrage(npc)) {
+                return;
+            }
             Player playerOwner = PlayerHandler.players[npc.spawnedBy];
             npc.getRegionProvider().removeNpcClipping(npc);
 
@@ -654,8 +657,9 @@ public class NPCProcess {
 //                    AfkBoss.handleRewards();
                     } else if (npc.getNpcId() == 5169) {
                     Durial321.handleDeath(npc);
-//                } else if (npc.getNpcId() == 12205) {
-//                    TheWhisperer.handleDeath(npc);
+                    } else if (npc.getNpcId() == 12205) {
+                    io.zaryx.content.bosses.whisperer.TheWhisperer.handleDeath(npc);
+                    NPCDeath.dropItems(npc);
 //                    } else if (npc.getNpcId() == 13201) {
 //                        ForestGuardian.handleDeath(npc);
                     } else if (npc.getNpcId() == 2317 && npc.spawnedBy == 0) {

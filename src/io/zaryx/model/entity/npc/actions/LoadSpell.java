@@ -9,7 +9,6 @@ import io.zaryx.content.bosses.dukesucellus.DukeSucellus;
 import io.zaryx.content.bosses.fluffie.Fluffie;
 import io.zaryx.content.bosses.hespori.Hespori;
 import io.zaryx.content.bosses.vardorvis.Vardorvis;
-import io.zaryx.content.bosses.whisperer.TheWhisperer;
 import io.zaryx.content.bosses.wildypursuit.FragmentOfSeren;
 import io.zaryx.content.bosses.wildypursuit.TheUnbearable;
 import io.zaryx.content.commands.helper.vboss;
@@ -1338,9 +1337,6 @@ public class LoadSpell {
                 break;
             case 12191:
                 DukeSucellus.handleDukeAttacks(npc);
-                break;
-            case 12205:
-                TheWhisperer.handleAttacks(npc);
                 break;
             case 239:
                 int random = Misc.random(100);

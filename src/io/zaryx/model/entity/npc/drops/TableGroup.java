@@ -81,10 +81,12 @@ public class TableGroup extends ArrayList<Table> {
                             player.getCollectionLog().handleDrop(player, 10, item.getId(), item.getAmount());
                         }
 
-                        // Rare drop announcements
+                        // Count each rolled item at most once, even if it matches several announcement rules.
+                        boolean announced = false;
                         for (int i1 = 0; i1 < Perks.values().length; i1++) {
                             if (item.getId() == Perks.values()[i1].itemID) {
                                 NPCDeath.announce(player, item, npcId);
+                                announced = true;
                                 isRareDrop = false;
                                 break;
                             }
@@ -92,14 +94,13 @@ public class TableGroup extends ArrayList<Table> {
 
                         // Always announce certain items
                         String itemNameLowerCase = ItemDef.forId(item.getId()).getName().toLowerCase();
-                        if (itemNameLowerCase.contains("archer ring") || itemNameLowerCase.contains("vasa minirio")
-                                || itemNameLowerCase.contains("hydra") || itemNameLowerCase.contains("skeletal visage") ||
-                                item.getId() == 26358 || item.getId() == 26360 || item.getId() == 26362 || item.getId() == 26364) {
+                        if (!announced && isAlwaysAnnouncedDrop(item.getId(), itemNameLowerCase)) {
                             NPCDeath.announce(player, item, npcId);
+                            announced = true;
                         }
 
                         items.add(item);
-                        if (isRareDrop) {
+                        if (isRareDrop && !announced) {
                             // Custom announcement logic
                             String name = itemNameLowerCase;
 
@@ -162,7 +163,7 @@ public class TableGroup extends ArrayList<Table> {
                                     && !name.contains("divine super combat potion(4)") && !name.contains("lava dragon bones")
                                     && !name.contains("saradomin brew(4)") && !name.contains("bloodier key") && !name.contains("mystery box")
                                     && !name.contains("10,000 nomad point certificate") && !name.contains("amulet of the damned")
-                                    && item.getId() < 23490 && item.getId() > 23491 || item.getId() < 23083 && item.getId() > 23084) {
+                                    && !isExcludedRareDropId(item.getId())) {
                                 NPCDeath.announce(player, item, npcId);
                             }
                         }
@@ -171,6 +172,17 @@ public class TableGroup extends ArrayList<Table> {
             }
         }
         return items;
+    }
+
+    static boolean isAlwaysAnnouncedDrop(int itemId, String name) {
+        return name.contains("archers ring") || name.contains("vasa minirio")
+                || (name.contains("hydra") && !name.contains("hydra bone"))
+                || name.contains("skeletal visage")
+                || itemId == 26358 || itemId == 26360 || itemId == 26362 || itemId == 26364;
+    }
+
+    static boolean isExcludedRareDropId(int itemId) {
+        return itemId == 23490 || itemId == 23491 || itemId == 23083 || itemId == 23084;
     }
 
     /** The caller supplies 1.0 plus the player's displayed drop-rate bonus. */

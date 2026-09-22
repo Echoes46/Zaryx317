@@ -57302,8 +57302,18 @@
   },
   "12205": {
     "name": "The Whisperer",
-    "combatLevel": 12204,
+    "combatLevel": 791,
     "size": 4
+  },
+  "12210": {
+    "name": "Floating Column",
+    "combatLevel": 0,
+    "size": 1
+  },
+  "12211": {
+    "name": "Lost Soul",
+    "combatLevel": 1,
+    "size": 1
   },
   "12155": {
     "name": "Baron",
