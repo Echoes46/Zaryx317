@@ -88,36 +88,33 @@ public class LootableInterface {
         private List<GameItem> rare;
 
         LootableView(Lootable lootable) {
-            this.common = new ArrayList<>();
-            this.rare = new ArrayList<>();
-
-            List<GameItem> addingCommon = lootable.getLoot().get(LootRarity.COMMON);
-            List<GameItem> addingUncommon = lootable.getLoot().get(LootRarity.UNCOMMON);
-            List<GameItem> addingRare = lootable.getLoot().get(LootRarity.RARE);
-            List<GameItem> addingVery_rare = lootable.getLoot().get(LootRarity.VERY_RARE);
-
-            if (addingCommon != null)
-                common.addAll(lootable.getLoot().get(LootRarity.COMMON));
-            if (addingUncommon != null)
-                common.addAll(lootable.getLoot().get(LootRarity.UNCOMMON));
-            if (addingVery_rare != null)
-                rare.addAll(lootable.getLoot().get(LootRarity.VERY_RARE));
-            if (addingRare != null)
-                rare.addAll(lootable.getLoot().get(LootRarity.RARE));
-
-            common = common.stream().filter(Misc.distinctByKey(GameItem::getId)).collect(Collectors.toList());
-            rare = rare.stream().filter(Misc.distinctByKey(GameItem::getId)).collect(Collectors.toList());
-
-            common = common.stream().filter(gameItem -> gameItem.getId() != 11681).collect(Collectors.toList());
-            rare = rare.stream().filter(gameItem -> gameItem.getId() != 11681).collect(Collectors.toList());
-
-            common = Collections.unmodifiableList(common);
-            rare = Collections.unmodifiableList(rare);
+            this.common = collectItemsForDisplay(lootable, false);
+            this.rare = collectItemsForDisplay(lootable, true);
         }
 
         public int getButtonId() {
             return VIEW_TABLE_BUTTON_START_ID + (ordinal() * 5);
         }
+    }
+
+    static List<GameItem> collectItemsForDisplay(Lootable lootable, boolean rareSection) {
+        List<GameItem> displayed = new ArrayList<>();
+
+        lootable.getLoot().forEach((rarity, items) -> {
+            if (items == null) {
+                return;
+            }
+
+            boolean commonRarity = rarity == LootRarity.COMMON || rarity == LootRarity.UNCOMMON;
+            if (commonRarity != rareSection) {
+                displayed.addAll(items);
+            }
+        });
+
+        List<GameItem> distinctItems = displayed.stream()
+                .filter(Misc.distinctByKey(GameItem::getId))
+                .collect(Collectors.toList());
+        return Collections.unmodifiableList(distinctItems);
     }
 
     public static void openInterface(Player player) {
