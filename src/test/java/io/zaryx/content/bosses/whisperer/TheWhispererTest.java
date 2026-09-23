@@ -11,21 +11,25 @@ class TheWhispererTest {
 
     @Test
     void specialsOnlyQueueAtTheThreeHealthThresholds() {
-        assertFalse(TheWhisperer.shouldStartSpecial(700, 700, 0, 3));
-        assertFalse(TheWhisperer.shouldStartSpecial(561, 700, 0, 3));
-        assertTrue(TheWhisperer.shouldStartSpecial(560, 700, 0, 3));
-        assertFalse(TheWhisperer.shouldStartSpecial(386, 700, 1, 3));
-        assertTrue(TheWhisperer.shouldStartSpecial(385, 700, 1, 3));
-        assertFalse(TheWhisperer.shouldStartSpecial(211, 700, 2, 3));
-        assertTrue(TheWhisperer.shouldStartSpecial(210, 700, 2, 3));
-        assertFalse(TheWhisperer.shouldStartSpecial(1, 700, 3, 3));
+        assertFalse(TheWhisperer.shouldStartSpecial(900, 900, 0));
+        assertFalse(TheWhisperer.shouldStartSpecial(721, 900, 0));
+        assertTrue(TheWhisperer.shouldStartSpecial(720, 900, 0));
+        assertFalse(TheWhisperer.shouldStartSpecial(496, 900, 1));
+        assertTrue(TheWhisperer.shouldStartSpecial(495, 900, 1));
+        assertFalse(TheWhisperer.shouldStartSpecial(271, 900, 2));
+        assertTrue(TheWhisperer.shouldStartSpecial(270, 900, 2));
+        assertFalse(TheWhisperer.shouldStartSpecial(1, 900, 3));
     }
 
     @Test
-    void specialsCannotRunBackToBackAfterBurstDamage() {
-        assertFalse(TheWhisperer.shouldStartSpecial(200, 700, 1, 0));
-        assertFalse(TheWhisperer.shouldStartSpecial(200, 700, 1, 2));
-        assertTrue(TheWhisperer.shouldStartSpecial(200, 700, 1, 3));
+    void incomingDamageStopsAtEachSpecialThreshold() {
+        assertEquals(75, TheWhisperer.capIncomingDamage(900, 900, 0, false, 500));
+        assertEquals(5, TheWhisperer.capIncomingDamage(725, 900, 0, false, 500));
+        assertEquals(0, TheWhisperer.capIncomingDamage(720, 900, 0, false, 50));
+        assertEquals(75, TheWhisperer.capIncomingDamage(720, 900, 1, false, 500));
+        assertEquals(5, TheWhisperer.capIncomingDamage(500, 900, 1, false, 500));
+        assertEquals(0, TheWhisperer.capIncomingDamage(495, 900, 1, false, 50));
+        assertEquals(75, TheWhisperer.capIncomingDamage(140, 900, 3, true, 500));
     }
 
     @Test

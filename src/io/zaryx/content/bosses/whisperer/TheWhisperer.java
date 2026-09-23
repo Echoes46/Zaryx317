@@ -27,7 +27,7 @@ import java.util.WeakHashMap;
 public final class TheWhisperer {
 
     private static final int[] SPECIAL_HEALTH_PERCENT = {80, 55, 30};
-    private static final int MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS = 3;
+    private static final int MAX_INCOMING_HIT = 75;
     private static final int PILLAR_ID = 12210;
     private static final int LOST_SOUL_ID = 12211; // Visible in the server's single-realm arena.
     private static final CombatProjectile RANGED_PROJECTILE = new CombatProjectile(2445, 50, 25, 0, 100, 0, 50);
@@ -41,10 +41,10 @@ public final class TheWhisperer {
 
     private static final class Fight {
         private int specialsCompleted;
-        private int regularAttacksSinceSpecial = MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS;
         private boolean specialActive;
         private boolean enraged;
         private int enrageAttacks;
+        private int tentacleAttacks;
         private final Special[] rotation = Misc.random(1) == 0
                 ? new Special[]{Special.SEEDS, Special.SCREECH, Special.SOUL_SIPHON}
                 : new Special[]{Special.SCREECH, Special.SOUL_SIPHON, Special.SEEDS};
@@ -64,8 +64,7 @@ public final class TheWhisperer {
         target.singleCombatDelay2 = System.currentTimeMillis();
 
         if (!fight.enraged && shouldStartSpecial(npc.getHealth().getCurrentHealth(),
-                npc.getHealth().getMaximumHealth(), fight.specialsCompleted,
-                fight.regularAttacksSinceSpecial)) {
+                npc.getHealth().getMaximumHealth(), fight.specialsCompleted)) {
             npc.attackTimer = 10;
             startSpecial(npc, target, fight);
             return;
@@ -78,24 +77,19 @@ public final class TheWhisperer {
             CombatType style = (fight.enrageAttacks / 2) % 2 == 0 ? CombatType.RANGE : CombatType.MAGE;
             fight.enrageAttacks++;
             fireShot(npc, target, style, 0, 3);
-            summonTentacles(npc, target);
+            summonEnrageTentacle(npc, target, fight.enrageAttacks);
         } else {
             boolean magicFirst = Misc.random(1) == 0;
             for (int shot = 0; shot < 3; shot++) {
                 CombatType style = volleyStyle(fight.specialsCompleted, magicFirst, shot);
                 fireShot(npc, target, style, shot, 4);
             }
-            summonTentacles(npc, target);
-            if (fight.regularAttacksSinceSpecial < MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS) {
-                fight.regularAttacksSinceSpecial++;
-            }
+            summonTentacles(npc, target, fight);
         }
     }
 
-    static boolean shouldStartSpecial(int health, int maximum, int specialsCompleted,
-                                      int regularAttacksSinceSpecial) {
+    static boolean shouldStartSpecial(int health, int maximum, int specialsCompleted) {
         return maximum > 0 && specialsCompleted < SPECIAL_HEALTH_PERCENT.length
-                && regularAttacksSinceSpecial >= MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS
                 && health > 0 && health * 100L <= maximum * (long) SPECIAL_HEALTH_PERCENT[specialsCompleted];
     }
 
@@ -137,14 +131,34 @@ public final class TheWhisperer {
                 projectile.getStartHeight(), projectile.getEndHeight(), -target.getIndex() - 1, 65, projectile.getDelay());
     }
 
-    private static void summonTentacles(NPC npc, Player target) {
+    private static void summonTentacles(NPC npc, Player target, Fight fight) {
         int x = target.getX();
         int y = target.getY();
-        int[][] offsets = {{-4, -4}, {4, -4}, {-4, 4}, {4, 4}};
+        boolean plusFormation = fight.specialsCompleted >= 2 && fight.tentacleAttacks++ % 2 == 1;
+        int[][] offsets = plusFormation
+                ? new int[][]{{-4, 0}, {4, 0}, {0, -4}, {0, 4}}
+                : new int[][]{{-4, -4}, {4, -4}, {-4, 4}, {4, 4}};
         for (int[] offset : offsets) {
             showGraphic(target, x + offset[0], y + offset[1], 2447);
         }
         // The converging tentacles punish remaining on the marked tile, not movement away.
+        CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) {
+                container.stop();
+                if (!canFight(npc, target)) return;
+                showGraphic(target, x, y, 2450);
+                if (target.getX() == x && target.getY() == y) target.appendDamage(20, Hitmark.HIT);
+            }
+        }, 4);
+    }
+
+    private static void summonEnrageTentacle(NPC npc, Player target, int attack) {
+        int x = target.getX();
+        int y = target.getY();
+        int[][] offsets = {{-4, -4}, {4, -4}, {4, 4}, {-4, 4}, {-4, 0}, {0, 4}, {4, 0}, {0, -4}};
+        int[] offset = offsets[Math.floorMod(attack - 1, offsets.length)];
+        showGraphic(target, x + offset[0], y + offset[1], 2447);
         CycleEventHandler.getSingleton().addEvent(npc, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
@@ -309,9 +323,36 @@ public final class TheWhisperer {
         for (NPC summon : fight.summons) summon.unregister();
         fight.summons.clear();
         fight.specialsCompleted++;
-        fight.regularAttacksSinceSpecial = 0;
         fight.specialActive = false;
         npc.attackTimer = 5;
+    }
+
+    /**
+     * Keeps burst damage from skipping a scripted health phase. Each threshold becomes a
+     * temporary floor until its special finishes; the fight can then continue toward the next
+     * threshold. The per-hit cap also prevents custom weapons from deleting the enrage phase.
+     */
+    public static int modifyIncomingDamage(NPC npc, int damage) {
+        if (npc == null || npc.getNpcId() != 12205 || damage <= 0) return damage;
+        Fight fight = FIGHTS.computeIfAbsent(npc, unused -> new Fight());
+        return capIncomingDamage(npc.getHealth().getCurrentHealth(), npc.getHealth().getMaximumHealth(),
+                fight.specialsCompleted, fight.enraged, damage);
+    }
+
+    static int capIncomingDamage(int currentHealth, int maximumHealth, int specialsCompleted,
+                                 boolean enraged, int damage) {
+        if (damage <= 0) return damage;
+        int cappedDamage = Math.min(damage, MAX_INCOMING_HIT);
+        if (enraged || specialsCompleted >= SPECIAL_HEALTH_PERCENT.length) return cappedDamage;
+        return Math.min(cappedDamage, Math.max(0,
+                currentHealth - thresholdHealth(maximumHealth, specialsCompleted)));
+    }
+
+    static int thresholdHealth(int maximumHealth, int specialsCompleted) {
+        if (maximumHealth <= 0 || specialsCompleted < 0 || specialsCompleted >= SPECIAL_HEALTH_PERCENT.length) {
+            return 0;
+        }
+        return maximumHealth * SPECIAL_HEALTH_PERCENT[specialsCompleted] / 100;
     }
 
     private static boolean canFight(NPC npc, Player target) {

@@ -1048,18 +1048,13 @@ public class ItemAssistant {
 	 * Special attack text.
 	 **/
 	public void updateSpecialBar() {
-		String percent = Double.toString(player.specAmount);
-		if (percent.contains(".")) {
-			percent = percent.replace(".", "");
-		}
-		if (percent.startsWith("0") && !percent.equals("00")) {
-			percent = percent.replace("0", "");
-		}
-		if (percent.startsWith("0") && percent.equals("00")) {
-			percent = percent.replace("00", "0");
-		}
-		player.getPA().sendSpecialAttack(Integer.valueOf(percent), player.usingSpecial ? 1 : 0);
+		String percent = Integer.toString(specialEnergyPercent(player.specAmount));
+		player.getPA().sendSpecialAttack(Integer.parseInt(percent), player.usingSpecial ? 1 : 0);
 		player.getPA().sendFrame126(player.usingSpecial ? "@yel@Special Attack (" + percent + "%)" : "@bla@Special Attack (" + percent + "%)", player.specBarId);
+	}
+
+	static int specialEnergyPercent(double amount) {
+		return (int) Math.max(0, Math.min(100, Math.round(amount * 10.0)));
 	}
 
 	public boolean canEquip(int wearID) {

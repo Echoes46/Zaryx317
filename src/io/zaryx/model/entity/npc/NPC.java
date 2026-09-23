@@ -251,6 +251,9 @@ public class NPC extends Entity {
 	}
 
 	public int modifyDamage(Player player, int damage) {
+		if (getNpcId() == 12205) {
+			return io.zaryx.content.bosses.whisperer.TheWhisperer.modifyIncomingDamage(this, damage);
+		}
 		return damage;
 	}
 
