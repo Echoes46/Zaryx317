@@ -571,9 +571,12 @@ public abstract class HitDispatcher {
 
             maximumDamage = (int) Math.min(Integer.MAX_VALUE, maximumDamage * (1.0 + io.zaryx.model.entity.npc.pets.CompanionBenefits.damageBonus(attacker, defender)));
             beforeDamageCalculated(combatType);
-            damage = attacker.rubyBoltSpecial ? getRubyBoltDamage(attacker, defender) : Misc.random(maximumDamage);
+            boolean guaranteedDemonBowHit = special instanceof DemonXBow && maximumDamage > 0;
+            damage = attacker.rubyBoltSpecial ? getRubyBoltDamage(attacker, defender)
+                    : guaranteedDemonBowHit ? Misc.random(1, maximumDamage) : Misc.random(maximumDamage);
             double roll = rand.nextDouble();
-            boolean isAccurate = isMaxHitDummy || attacker.rubyBoltSpecial || maximumAccuracy >= roll;
+            boolean isAccurate = isMaxHitDummy || attacker.rubyBoltSpecial || guaranteedDemonBowHit
+                    || maximumAccuracy >= roll;
 
             if (defender.isNPC()) {
                 if (defender.asNPC().getNpcId() == Npcs.MAX_DUMMY)

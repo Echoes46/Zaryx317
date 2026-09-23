@@ -35,6 +35,8 @@ public class RespawnTime {
         }
 
         switch (id) {
+            case 12205: // The Whisperer (30 ticks / 18 seconds)
+                return 30;
             case Npcs.SARACHNIS:
             case 11278:
             case 8888:

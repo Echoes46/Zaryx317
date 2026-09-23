@@ -171,6 +171,30 @@ class WeaponProgressionTest {
         assertTrue(demon.getRequiredCost() < seren.getRequiredCost());
     }
 
+    @Test void demonBowSpecialDoesNotMissDamageableTargets() {
+        Random previous = HitDispatcher.rand;
+        try {
+            HitDispatcher.rand = new Random() {
+                @Override public double nextDouble() { return 0.999999; }
+            };
+            for (int id : new int[]{33207, 20484}) {
+                Player p = equipped(id, 100, 99);
+                p.weaponUsedOnAttack = id;
+                NPC target = npc();
+                target.getCombatDefinition().setLevel(NpcCombatSkill.DEFENCE, 10_000);
+                new HitDispatcher(p, target) {
+                    public void addCombatXP(CombatType type, int amount) { }
+                    public void beforeDamageCalculated(CombatType type) { }
+                    public void afterDamageCalculated(CombatType type, boolean hit) { }
+                }.playerHitEntity(CombatType.RANGE, Specials.forWeaponId(id));
+                assertTrue(p.getDamageQueue().getQueue().peek().getAmount() > 0,
+                        "Demon X special missed with bow " + id);
+            }
+        } finally {
+            HitDispatcher.rand = previous;
+        }
+    }
+
     @Test void vestaAndStatiusSpecialsBoostRatherThanReduceDamage() {
         for (int id : new int[]{22613, 22622}) for (int bonus : new int[]{0, 100, 400}) {
             Player p = equipped(id, bonus, 99);

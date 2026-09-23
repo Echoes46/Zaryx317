@@ -27,6 +27,7 @@ import java.util.WeakHashMap;
 public final class TheWhisperer {
 
     private static final int[] SPECIAL_HEALTH_PERCENT = {80, 55, 30};
+    private static final int MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS = 3;
     private static final int PILLAR_ID = 12210;
     private static final int LOST_SOUL_ID = 12211; // Visible in the server's single-realm arena.
     private static final CombatProjectile RANGED_PROJECTILE = new CombatProjectile(2445, 50, 25, 0, 100, 0, 50);
@@ -40,6 +41,7 @@ public final class TheWhisperer {
 
     private static final class Fight {
         private int specialsCompleted;
+        private int regularAttacksSinceSpecial = MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS;
         private boolean specialActive;
         private boolean enraged;
         private int enrageAttacks;
@@ -62,7 +64,8 @@ public final class TheWhisperer {
         target.singleCombatDelay2 = System.currentTimeMillis();
 
         if (!fight.enraged && shouldStartSpecial(npc.getHealth().getCurrentHealth(),
-                npc.getHealth().getMaximumHealth(), fight.specialsCompleted)) {
+                npc.getHealth().getMaximumHealth(), fight.specialsCompleted,
+                fight.regularAttacksSinceSpecial)) {
             npc.attackTimer = 10;
             startSpecial(npc, target, fight);
             return;
@@ -83,11 +86,16 @@ public final class TheWhisperer {
                 fireShot(npc, target, style, shot, 4);
             }
             summonTentacles(npc, target);
+            if (fight.regularAttacksSinceSpecial < MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS) {
+                fight.regularAttacksSinceSpecial++;
+            }
         }
     }
 
-    static boolean shouldStartSpecial(int health, int maximum, int specialsCompleted) {
+    static boolean shouldStartSpecial(int health, int maximum, int specialsCompleted,
+                                      int regularAttacksSinceSpecial) {
         return maximum > 0 && specialsCompleted < SPECIAL_HEALTH_PERCENT.length
+                && regularAttacksSinceSpecial >= MIN_REGULAR_ATTACKS_BETWEEN_SPECIALS
                 && health > 0 && health * 100L <= maximum * (long) SPECIAL_HEALTH_PERCENT[specialsCompleted];
     }
 
@@ -301,6 +309,7 @@ public final class TheWhisperer {
         for (NPC summon : fight.summons) summon.unregister();
         fight.summons.clear();
         fight.specialsCompleted++;
+        fight.regularAttacksSinceSpecial = 0;
         fight.specialActive = false;
         npc.attackTimer = 5;
     }
@@ -317,6 +326,10 @@ public final class TheWhisperer {
 
     /** Intercepts the first lethal hit for the documented 140 HP enrage phase. */
     public static boolean tryStartEnrage(NPC npc) {
+        // A defeated Whisperer remains dead while the generic NPC respawn timer runs. Without
+        // this guard, removing its completed fight state causes the corpse to start a second
+        // enrage phase on the following tick and prevents the scheduled respawn.
+        if (!canBeginEnrage(npc.applyDead, npc.needRespawn)) return false;
         Fight fight = FIGHTS.computeIfAbsent(npc, unused -> new Fight());
         if (fight.enraged) return false;
         for (NPC summon : fight.summons) summon.unregister();
@@ -330,6 +343,10 @@ public final class TheWhisperer {
         npc.attackTimer = 4;
         npc.forceChat("The shadows consume you!");
         return true;
+    }
+
+    static boolean canBeginEnrage(boolean deathProcessed, boolean respawnPending) {
+        return !deathProcessed && !respawnPending;
     }
 
     public static void handleDeath(NPC npc) {

@@ -11,14 +11,28 @@ class TheWhispererTest {
 
     @Test
     void specialsOnlyQueueAtTheThreeHealthThresholds() {
-        assertFalse(TheWhisperer.shouldStartSpecial(700, 700, 0));
-        assertFalse(TheWhisperer.shouldStartSpecial(561, 700, 0));
-        assertTrue(TheWhisperer.shouldStartSpecial(560, 700, 0));
-        assertFalse(TheWhisperer.shouldStartSpecial(386, 700, 1));
-        assertTrue(TheWhisperer.shouldStartSpecial(385, 700, 1));
-        assertFalse(TheWhisperer.shouldStartSpecial(211, 700, 2));
-        assertTrue(TheWhisperer.shouldStartSpecial(210, 700, 2));
-        assertFalse(TheWhisperer.shouldStartSpecial(1, 700, 3));
+        assertFalse(TheWhisperer.shouldStartSpecial(700, 700, 0, 3));
+        assertFalse(TheWhisperer.shouldStartSpecial(561, 700, 0, 3));
+        assertTrue(TheWhisperer.shouldStartSpecial(560, 700, 0, 3));
+        assertFalse(TheWhisperer.shouldStartSpecial(386, 700, 1, 3));
+        assertTrue(TheWhisperer.shouldStartSpecial(385, 700, 1, 3));
+        assertFalse(TheWhisperer.shouldStartSpecial(211, 700, 2, 3));
+        assertTrue(TheWhisperer.shouldStartSpecial(210, 700, 2, 3));
+        assertFalse(TheWhisperer.shouldStartSpecial(1, 700, 3, 3));
+    }
+
+    @Test
+    void specialsCannotRunBackToBackAfterBurstDamage() {
+        assertFalse(TheWhisperer.shouldStartSpecial(200, 700, 1, 0));
+        assertFalse(TheWhisperer.shouldStartSpecial(200, 700, 1, 2));
+        assertTrue(TheWhisperer.shouldStartSpecial(200, 700, 1, 3));
+    }
+
+    @Test
+    void completedDeathCannotRestartTheEnragePhaseWhileWaitingToRespawn() {
+        assertTrue(TheWhisperer.canBeginEnrage(false, false));
+        assertFalse(TheWhisperer.canBeginEnrage(true, false));
+        assertFalse(TheWhisperer.canBeginEnrage(false, true));
     }
 
     @Test
