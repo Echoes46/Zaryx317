@@ -96,6 +96,18 @@ class WeaponProgressionTest {
         assertTrue(checked >= 900, "Inventory coverage unexpectedly dropped: " + checked);
     }
 
+    @Test void everyRegisteredSpecialWeaponHasACombatTabSpecialBar() {
+        for (Specials registered : Specials.values()) {
+            for (int weapon : registered.getSpecial().getWeapon()) {
+                WeaponInterface weaponInterface = WeaponData.forItemId(weapon).getWeaponInterface();
+                assertTrue(weaponInterface.getSpecialBarInterfaceId() >= 0,
+                        "Missing special bar for weapon " + weapon + " (" + registered + ")");
+                assertTrue(weaponInterface.getSpecialBarAmountInterfaceId() >= 0,
+                        "Missing special amount bar for weapon " + weapon + " (" + registered + ")");
+            }
+        }
+    }
+
     @Test void scalingSpecialsPreserveCalculatedHitsAndMisses() {
         for (int id : new int[]{33058, 33207, 20484, 33005, 25979, 27287, 33204}) {
             Player p = equipped(id, 100, 99);

@@ -85,6 +85,7 @@ public class SpecialAttackHandler implements PacketType {
             case 29038:
             case 48023:
             case 29113:
+            case 12322: // Minimap special-attack orb
                 session = (DuelSession) Server.getMultiplayerSessionListener().getMultiplayerSession(player,
                         MultiplayerSessionType.DUEL);
                 if (session != null) {
@@ -92,6 +93,11 @@ public class SpecialAttackHandler implements PacketType {
                         player.sendMessage("You are not permitted to activate special attacks during a duel.");
                         return;
                     }
+                }
+                if (Specials.forWeaponId(player.playerEquipment[Player.playerWeapon]) == null) {
+                    player.usingSpecial = false;
+                    player.getItems().updateSpecialBar();
+                    return;
                 }
                 if (player.getItems().isWearingItem(1377, Player.playerWeapon)) {
                     Special dbaxe = Specials.DRAGON_BATTLEAXE.getSpecial();
