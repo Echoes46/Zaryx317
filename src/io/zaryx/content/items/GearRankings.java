@@ -43,6 +43,7 @@ public final class GearRankings {
             int id = item.getKey(); ItemStats data = item.getValue();
             // ItemAssistant restricts the perfect ring to server owners.
             if (id <= 0 || id == 773 || data == null || !Boolean.TRUE.equals(data.getEquipable())) continue;
+            if (!TopGearModels.available(id)) continue;
             ItemEquipmentStats equipment = data.getEquipment();
             if (!slot.includes(equipment.getEquipmentSlot())) continue;
             ItemDef def = definitions.get(id);

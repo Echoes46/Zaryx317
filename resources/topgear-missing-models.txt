@@ -1,0 +1,339 @@
+# Topgear exclusions from the 2026-09-24 Zaryx client/cache equipment audit.
+# Format: item ID # name; audit reasons. Remove an entry only after its definition
+# and inventory/male/female worn assets have been restored and verified.
+# Jewelry need not have a worn mesh. This list affects rankings only.
+466 # Pickaxe handle; missing femaleModel0=65535; no male model
+773 # 'perfect' ring; missing femaleModel0=65535; no male model
+1410 # Iban's staff; missing femaleModel0=65535; no male model
+1635 # Gold ring; missing femaleModel0=65535; no male model
+1637 # Sapphire ring; missing femaleModel0=65535; no male model
+1639 # Emerald ring; missing femaleModel0=65535; no male model
+1641 # Ruby ring; missing femaleModel0=65535; no male model
+1643 # Diamond ring; missing femaleModel0=65535; no male model
+1645 # Dragonstone ring; missing femaleModel0=65535; no male model
+2513 # Dragon chainbody; missing femaleModel0=65535; no male model
+2550 # Ring of recoil; missing femaleModel0=65535; no male model
+2552 # Ring of dueling(8); missing femaleModel0=65535; no male model
+2554 # Ring of dueling(7); missing femaleModel0=65535; no male model
+2556 # Ring of dueling(6); missing femaleModel0=65535; no male model
+2558 # Ring of dueling(5); missing femaleModel0=65535; no male model
+2560 # Ring of dueling(4); missing femaleModel0=65535; no male model
+2562 # Ring of dueling(3); missing femaleModel0=65535; no male model
+2564 # Ring of dueling(2); missing femaleModel0=65535; no male model
+2566 # Ring of dueling(1); missing femaleModel0=65535; no male model
+2568 # Ring of forging; missing femaleModel0=65535; no male model
+2570 # Ring of life; missing femaleModel0=65535; no male model
+2572 # Ring of wealth; missing femaleModel0=65535; no male model
+4024 # Ninja monkey greegree; missing femaleModel0=65535; no male model
+4025 # Ninja monkey greegree; missing femaleModel0=65535; no male model
+4026 # Gorilla greegree; missing femaleModel0=65535; no male model
+4027 # Bearded gorilla greegree; missing femaleModel0=65535; no male model
+4028 # Ancient gorilla greegree; missing femaleModel0=65535; no male model
+4029 # Zombie monkey greegree; missing femaleModel0=65535; no male model
+4030 # Zombie monkey greegree; missing femaleModel0=65535; no male model
+4031 # Karamjan monkey greegree; missing femaleModel0=65535; no male model
+4202 # Ring of charos; missing femaleModel0=65535; no male model
+4284 # Bedsheet; missing femaleModel0=65535; no male model
+4285 # Bedsheet; missing femaleModel0=65535; no male model
+4657 # Ring of visibility; missing femaleModel0=65535; no male model
+5064 # Exquisite boots; missing femaleModel0=65535; no male model
+5067 # Exquisite clothes; missing femaleModel0=65535; no male model
+6465 # Ring of charos(a); missing femaleModel0=65535; no male model
+6575 # Onyx ring; missing femaleModel0=65535; no male model
+6583 # Ring of stone; missing femaleModel0=65535; no male model
+6731 # Seers ring; missing femaleModel0=65535; no male model
+6733 # Archers ring; missing femaleModel0=65535; no male model
+6735 # Warrior ring; missing femaleModel0=65535; no male model
+6737 # Berserker ring; missing femaleModel0=65535; no male model
+7927 # Easter ring; missing femaleModel0=65535; no male model
+7957 # White apron; missing femaleModel0=65535; no male model
+9104 # Lunar ring; missing femaleModel0=65535; no male model
+10595 # Clockwork suit; missing femaleModel0=65535; no male model
+10596 # Clockwork suit; missing femaleModel0=65535; no male model
+10724 # Skeleton boots; missing definition; missing femaleModel0=65535; no male model
+10725 # Skeleton gloves; missing definition; missing femaleModel0=65535; no male model
+10726 # Skeleton leggings; missing definition; missing femaleModel0=65535; no male model
+10727 # Skeleton shirt; missing definition; missing femaleModel0=65535; no male model
+10728 # Skeleton mask; missing definition; missing femaleModel0=65535; no male model
+10888 # Barrelchest anchor; missing femaleModel0=65535; no male model
+11014 # Beacon ring; missing femaleModel0=65535; no male model
+11770 # Seers ring (i); missing femaleModel0=65535; no male model
+11771 # Archers ring (i); missing femaleModel0=65535; no male model
+11772 # Warrior ring (i); missing femaleModel0=65535; no male model
+11773 # Berserker ring (i); missing femaleModel0=65535; no male model
+11866 # Slayer ring (8); missing femaleModel0=65535; no male model
+11867 # Slayer ring (7); missing femaleModel0=65535; no male model
+11868 # Slayer ring (6); missing femaleModel0=65535; no male model
+11869 # Slayer ring (5); missing femaleModel0=65535; no male model
+11870 # Slayer ring (4); missing femaleModel0=65535; no male model
+11871 # Slayer ring (3); missing femaleModel0=65535; no male model
+11872 # Slayer ring (2); missing femaleModel0=65535; no male model
+11873 # Slayer ring (1); missing femaleModel0=65535; no male model
+11980 # Ring of wealth (5); missing femaleModel0=65535; no male model
+11982 # Ring of wealth (4); missing femaleModel0=65535; no male model
+11984 # Ring of wealth (3); missing femaleModel0=65535; no male model
+11986 # Ring of wealth (2); missing femaleModel0=65535; no male model
+11988 # Ring of wealth (1); missing femaleModel0=65535; no male model
+12601 # Ring of the gods; missing femaleModel0=65535; no male model
+12603 # Tyrannical ring; missing femaleModel0=65535; no male model
+12605 # Treasonous ring; missing femaleModel0=65535; no male model
+12691 # Tyrannical ring (i); missing femaleModel0=65535; no male model
+12692 # Treasonous ring (i); missing femaleModel0=65535; no male model
+12785 # Ring of wealth (i); missing femaleModel0=65535; no male model
+13125 # Explorer's ring 1; missing femaleModel0=65535; no male model
+13126 # Explorer's ring 2; missing femaleModel0=65535; no male model
+13127 # Explorer's ring 3; missing femaleModel0=65535; no male model
+13128 # Explorer's ring 4; missing femaleModel0=65535; no male model
+13183 # Empty blaster; missing femaleModel0=65535; no male model
+13184 # Incomplete blaster; missing femaleModel0=65535; no male model
+13185 # Easter blaster; missing femaleModel0=65535; no male model
+13202 # Ring of the gods (i); missing femaleModel0=65535; no male model
+19525 # Kruk monkey greegree; missing femaleModel0=65535; no male model
+19538 # Zenyte ring; missing femaleModel0=65535; no male model
+19550 # Ring of suffering; missing femaleModel0=65535; no male model
+19710 # Ring of suffering (i); missing femaleModel0=65535; no male model
+20005 # Ring of nature; missing femaleModel0=65535; no male model
+20017 # Ring of coins; missing femaleModel0=65535; no male model
+20445 # Fire cape (broken); missing femaleModel0=65535; no male model
+20447 # Fire max cape (broken); missing femaleModel0=65535; no male model
+20449 # Bronze defender (broken); missing femaleModel0=65535; no male model
+20451 # Iron defender (broken); missing femaleModel0=65535; no male model
+20453 # Steel defender (broken); missing femaleModel0=65535; no male model
+20455 # Black defender (broken); missing femaleModel0=65535; no male model
+20457 # Mithril defender (broken); missing femaleModel0=65535; no male model
+20459 # Adamant defender (broken); missing femaleModel0=65535; no male model
+20461 # Rune defender (broken); missing femaleModel0=65535; no male model
+20463 # Dragon defender (broken); missing femaleModel0=65535; no male model
+20465 # Void knight top (broken); missing femaleModel0=65535; no male model
+20467 # Elite void top (broken); missing femaleModel0=65535; no male model
+20469 # Void knight robe (broken); missing femaleModel0=65535; no male model
+20471 # Elite void robe (broken); missing femaleModel0=65535; no male model
+20473 # Void knight mace (broken); missing femaleModel0=65535; no male model
+20475 # Void knight gloves (broken); missing femaleModel0=65535; no male model
+20477 # Void mage helm (broken); missing femaleModel0=65535; no male model
+20479 # Void ranger helm (broken); missing femaleModel0=65535; no male model
+20481 # Void melee helm (broken); missing femaleModel0=65535; no male model
+20485 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20487 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20489 # Decorative helm (broken); missing femaleModel0=65535; no male model
+20491 # Decorative shield (broken); missing femaleModel0=65535; no male model
+20493 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20495 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20497 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20499 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20501 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20503 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20505 # Decorative armour (broken); missing femaleModel0=65535; no male model
+20507 # Fighter hat (broken); missing femaleModel0=65535; no male model
+20509 # Ranger hat (broken); missing femaleModel0=65535; no male model
+20511 # Healer hat (broken); missing femaleModel0=65535; no male model
+20513 # Fighter torso (broken); missing femaleModel0=65535; no male model
+20515 # Penance skirt (broken); missing femaleModel0=65535; no male model
+20537 # Saradomin halo (broken); missing femaleModel0=65535; no male model
+20539 # Zamorak halo (broken); missing femaleModel0=65535; no male model
+20541 # Guthix halo (broken); missing femaleModel0=65535; no male model
+20655 # Ring of suffering (r); missing femaleModel0=65535; no male model
+20657 # Ring of suffering (ri); missing femaleModel0=65535; no male model
+20786 # Ring of wealth (i5); missing femaleModel0=65535; no male model
+20787 # Ring of wealth (i4); missing femaleModel0=65535; no male model
+20788 # Ring of wealth (i3); missing femaleModel0=65535; no male model
+20789 # Ring of wealth (i2); missing femaleModel0=65535; no male model
+20790 # Ring of wealth (i1); missing femaleModel0=65535; no male model
+21081 # Opal ring; missing femaleModel0=65535; no male model
+21084 # Jade ring; missing femaleModel0=65535; no male model
+21087 # Topaz ring; missing femaleModel0=65535; no male model
+21126 # Ring of pursuit; missing femaleModel0=65535; no male model
+21129 # Ring of returning(5); missing femaleModel0=65535; no male model
+21132 # Ring of returning(4); missing femaleModel0=65535; no male model
+21134 # Ring of returning(3); missing femaleModel0=65535; no male model
+21136 # Ring of returning(2); missing femaleModel0=65535; no male model
+21138 # Ring of returning(1); missing femaleModel0=65535; no male model
+21140 # Efaritay's aid; missing femaleModel0=65535; no male model
+21268 # Slayer ring (eternal); missing femaleModel0=65535; no male model
+21287 # Infernal cape (broken); missing femaleModel0=65535; no male model
+21289 # Infernal max cape (broken); missing femaleModel0=65535; no male model
+21739 # Granite ring; missing femaleModel0=65535; no male model
+21752 # Granite ring (i); missing femaleModel0=65535; no male model
+21865 # Fine mesh net; missing femaleModel0=65535; no male model
+21914 # Ava's assembler (broken); missing femaleModel0=65535; no male model
+21916 # Assembler max cape (broken); missing femaleModel0=65535; no male model
+22441 # Avernic defender (broken); missing femaleModel0=65535; no male model
+22975 # Brimstone ring; missing femaleModel0=65535; no male model
+23185 # Ring of 3rd age; missing femaleModel0=65535; no male model
+23943 # Elven signet; missing femaleModel0=65535; no male model
+24147 # Armadyl halo (broken); missing femaleModel0=65535; no male model
+24149 # Bandos halo (broken); missing femaleModel0=65535; no male model
+24151 # Seren halo (broken); missing femaleModel0=65535; no male model
+24153 # Ancient halo (broken); missing femaleModel0=65535; no male model
+24155 # Brassica halo (broken); missing femaleModel0=65535; no male model
+24236 # Imbued saradomin cape (broken); missing femaleModel0=65535; no male model
+24238 # Imbued saradomin max cape (broken); missing femaleModel0=65535; no male model
+24240 # Imbued guthix cape (broken); missing femaleModel0=65535; no male model
+24242 # Imbued guthix max cape (broken); missing femaleModel0=65535; no male model
+24244 # Imbued zamorak cape (broken); missing femaleModel0=65535; no male model
+24246 # Imbued zamorak max cape (broken); missing femaleModel0=65535; no male model
+24265 # V's shield; missing femaleModel0=65535; no male model
+24531 # Runner hat (broken); missing femaleModel0=65535; no male model
+24731 # Hallowed Ring; missing femaleModel0=65535; no male model
+25692 # Warped Scripture; missing femaleModel0=65535; no male model
+25975 # Lightbearer; missing femaleModel0=65535; no male model
+26237 # Zaryte bow; missing femaleModel0=65535; no male model
+26314 # Snowman ring; missing femaleModel0=65535; no male model
+26939 # Crate ring; missing femaleModel0=65535; no male model
+28307 # Ultor ring; missing femaleModel0=65535; no male model
+28310 # Venator Ring; missing femaleModel0=65535; no male model
+28313 # Magus Ring; missing femaleModel0=65535; no male model
+28316 # Bellator Ring; missing femaleModel0=65535; no male model
+29433 # Book of egg; missing definition; missing femaleModel0=65535; no male model
+29437 # Egg priest robe; missing definition; missing femaleModel0=65535; no male model
+29439 # Egg priest robe top; missing definition; missing femaleModel0=65535; no male model
+29441 # Egg priest necklace; missing definition; missing femaleModel0=65535; no male model
+29443 # Egg priest mitre; missing definition; missing femaleModel0=65535; no male model
+29489 # Rainbow cape; missing femaleModel0=65535; no male model
+29507 # rainbow crown shirt; missing definition; missing femaleModel0=65535; no male model
+29594 # Purging Staff; missing definition; missing femaleModel0=65535; no male model
+29599 # Corrupted Dark bow; missing definition; missing femaleModel0=65535; no male model
+29796 # Noxious halberd; missing definition; missing femaleModel0=65535; no male model
+33057 # Completionist hood; missing definition; missing femaleModel0=65535; no male model
+33178 # AK47; missing definition; missing femaleModel0=65535; no male model
+33179 # AK47; missing definition; missing femaleModel0=65535; no male model
+33180 # AK47; missing definition; missing femaleModel0=65535; no male model
+33181 # AK47; missing definition; missing femaleModel0=65535; no male model
+33182 # Black AR; missing definition; missing femaleModel0=65535; no male model
+33185 # $$ Necklace; missing definition; missing femaleModel0=65535; no male model
+33192 # Lightning Mask; missing definition; missing femaleModel0=65535; no male model
+33193 # Lightning Chest; missing definition; missing femaleModel0=65535; no male model
+33194 # Lightning Bottoms; missing definition; missing femaleModel0=65535; no male model
+33245 # Centurians party hat; missing definition; missing femaleModel0=65535; no male model
+33271 # Ruthless bow; missing definition; missing femaleModel0=65535; no male model
+33272 # Rutheless staff; missing definition; missing femaleModel0=65535; no male model
+33273 # Rutheless sword; missing definition; missing femaleModel0=65535; no male model
+33274 # Rutheless helm; missing definition; missing femaleModel0=65535; no male model
+33275 # Rutheless body; missing definition; missing femaleModel0=65535; no male model
+33276 # Rutheless legs; missing definition; missing femaleModel0=65535; no male model
+33277 # Rutheless boots; missing definition; missing femaleModel0=65535; no male model
+33278 # Rutheless gloves; missing definition; missing femaleModel0=65535; no male model
+33279 # Heaven wings; missing definition; missing femaleModel0=65535; no male model
+33280 # Heaven scythe; missing definition; missing femaleModel0=65535; no male model
+33281 # Heaven helm; missing definition; missing femaleModel0=65535; no male model
+33282 # Heaven body; missing definition; missing femaleModel0=65535; no male model
+33283 # Heaven legs; missing definition; missing femaleModel0=65535; no male model
+33284 # Heaven boots; missing definition; missing femaleModel0=65535; no male model
+33285 # Angelic gloves; missing definition; missing femaleModel0=65535; no male model
+33286 # Angelic helm; missing definition; missing femaleModel0=65535; no male model
+33287 # Angelic body; missing definition; missing femaleModel0=65535; no male model
+33288 # Angelic legs; missing definition; missing femaleModel0=65535; no male model
+33289 # Angelic boots; missing definition; missing femaleModel0=65535; no male model
+33291 # Ice boots; missing definition; missing femaleModel0=65535; no male model
+33292 # Ice helm; missing definition; missing femaleModel0=65535; no male model
+33293 # Ice body; missing definition; missing femaleModel0=65535; no male model
+33294 # Ice legs; missing definition; missing femaleModel0=65535; no male model
+33295 # Ice gloves; missing definition; missing femaleModel0=65535; no male model
+33296 # Artorias helm; missing definition; missing femaleModel0=65535; no male model
+33297 # Artorias body; missing definition; missing femaleModel0=65535; no male model
+33298 # Artorias legs; missing definition; missing femaleModel0=65535; no male model
+33299 # Artorias boots; missing definition; missing femaleModel0=65535; no male model
+33300 # Artorias gloves; missing definition; missing femaleModel0=65535; no male model
+33301 # Artorias wings; missing definition; missing femaleModel0=65535; no male model
+33302 # Daedric helm; missing definition; missing femaleModel0=65535; no male model
+33303 # Daedric body; missing definition; missing femaleModel0=65535; no male model
+33304 # Daedric legs; missing definition; missing femaleModel0=65535; no male model
+33305 # elite knight helm; missing definition; missing femaleModel0=65535; no male model
+33306 # elite knight body; missing definition; missing femaleModel0=65535; no male model
+33307 # elite knight legs; missing definition; missing femaleModel0=65535; no male model
+33308 # Reverie helm; missing definition; missing femaleModel0=65535; no male model
+33309 # Reverie body; missing definition; missing femaleModel0=65535; no male model
+33310 # Reverie legs; missing definition; missing femaleModel0=65535; no male model
+33311 # Plague helm; missing definition; missing femaleModel0=65535; no male model
+33312 # Plague body; missing definition; missing femaleModel0=65535; no male model
+33313 # Plague legs; missing definition; missing femaleModel0=65535; no male model
+33314 # Wolf helm; missing definition; missing femaleModel0=65535; no male model
+33315 # Wolf body; missing definition; missing femaleModel0=65535; no male model
+33316 # Wolf legs; missing definition; missing femaleModel0=65535; no male model
+33317 # Wolf gloves; missing definition; missing femaleModel0=65535; no male model
+33318 # Wolf staff; missing definition; missing femaleModel0=65535; no male model
+33319 # Phoenix helm; missing definition; missing femaleModel0=65535; no male model
+33320 # Phoenix body; missing definition; missing femaleModel0=65535; no male model
+33321 # Phoenix legs; missing definition; missing femaleModel0=65535; no male model
+33322 # Phoenix boots; missing definition; missing femaleModel0=65535; no male model
+33323 # Phoenix gloves; missing definition; missing femaleModel0=65535; no male model
+33324 # Starlight helm; missing definition; missing femaleModel0=65535; no male model
+33325 # Starlight body; missing definition; missing femaleModel0=65535; no male model
+33326 # Starlight legs; missing definition; missing femaleModel0=65535; no male model
+33327 # Starlight boots; missing definition; missing femaleModel0=65535; no male model
+33328 # Starlight gloves; missing definition; missing femaleModel0=65535; no male model
+33329 # Starlight sword; missing definition; missing femaleModel0=65535; no male model
+33330 # Paradise helm; missing definition; missing femaleModel0=65535; no male model
+33331 # Paradise body; missing definition; missing femaleModel0=65535; no male model
+33332 # Paradise legs; missing definition; missing femaleModel0=65535; no male model
+33334 # Paradise gloves; missing femaleModel0=65535; no male model
+33335 # Paradise sword; missing femaleModel0=65535; no male model
+33336 # Shadow helm; missing definition; missing femaleModel0=65535; no male model
+33337 # Shadow body; missing definition; missing femaleModel0=65535; no male model
+33338 # Shadow legs; missing definition; missing femaleModel0=65535; no male model
+33339 # Shadow boots; missing definition; missing femaleModel0=65535; no male model
+33340 # Shadow gloves; missing definition; missing femaleModel0=65535; no male model
+33341 # Shadow wings; missing definition; missing femaleModel0=65535; no male model
+33342 # shadow scythe; missing definition; missing femaleModel0=65535; no male model
+33348 # Warlord helm; missing definition; missing femaleModel0=65535; no male model
+33349 # Warlord body; missing definition; missing femaleModel0=65535; no male model
+33350 # Warlord legs; missing definition; missing femaleModel0=65535; no male model
+33351 # Warlord boots; missing definition; missing femaleModel0=65535; no male model
+33352 # Warlord gloves; missing definition; missing femaleModel0=65535; no male model
+33383 # Magic cape; missing definition; missing femaleModel0=65535; no male model
+33384 # Ranged cape; missing definition; missing femaleModel0=65535; no male model
+33385 # Melee cape; missing definition; missing femaleModel0=65535; no male model
+33387 # Alecs staff; missing definition; missing femaleModel0=65535; no male model
+33392 # Freedom ring; missing InventoryModel=60891; missing maleModel0=60891; missing femaleModel0=60891
+33393 # Freedom Boots; missing InventoryModel=60970; missing maleModel0=60893; missing femaleModel0=60894
+33394 # Freedom Gloves; missing InventoryModel=60969; missing maleModel0=60896; missing femaleModel0=60897
+33397 # Ankou mask; missing InventoryModel=60905; missing maleModel0=60900; missing femaleModel0=60900
+33398 # Ankou top; missing InventoryModel=60906; missing maleModel0=60901; missing maleModel1=60910; missing femaleModel0=60901; missing femaleModel1=60910
+33399 # Ankou leggings; missing InventoryModel=60907; missing maleModel0=60902; missing femaleModel0=60902
+33400 # Ankou socks; missing InventoryModel=60908; missing maleModel0=60903; missing femaleModel0=60903
+33401 # Ankou gloves; missing InventoryModel=60909; missing maleModel0=60904; missing femaleModel0=60904
+33402 # Hallowed gloves; missing InventoryModel=60913; missing maleModel0=60911; missing femaleModel0=60911
+33403 # Hallowed Boots; missing InventoryModel=60912; missing maleModel0=60912; missing femaleModel0=60912
+33404 # Send Nudes; missing InventoryModel=60915; missing maleModel0=60914; missing femaleModel0=60914
+33406 # Heredit Ring; missing InventoryModel=60917; missing maleModel0=60917; missing femaleModel0=60917
+33407 # Heredit Amulet; missing InventoryModel=60919; missing maleModel0=60920; missing femaleModel0=60920
+33408 # Heredit Boots; missing InventoryModel=60918; missing maleModel0=60918; missing femaleModel0=60918
+33409 # Heredit Gloves; missing InventoryModel=60921
+33410 # Heredit Cape; missing InventoryModel=60924
+33412 # Orange Party Hat; missing InventoryModel=60926
+33414 # Element Top; missing InventoryModel=60930; missing maleModel0=60931; missing femaleModel0=60931
+33415 # Element Bottoms; missing InventoryModel=60932; missing maleModel0=60933; missing femaleModel0=60933
+33416 # Element Boots; missing InventoryModel=60934; missing maleModel0=60934; missing femaleModel0=60934
+33417 # Gifted Sulpher Blades; missing InventoryModel=60935; missing maleModel0=60936; missing femaleModel0=60936
+33418 # Heredit Ring (or); missing InventoryModel=60937; missing maleModel0=60937; missing femaleModel0=60937
+33419 # Heredit Amulet (or); missing InventoryModel=60939; missing maleModel0=60940; missing femaleModel0=60940
+33420 # Heredit Boots (or); missing InventoryModel=60938; missing maleModel0=60938; missing femaleModel0=60938
+33421 # Heredit Gloves (or); missing InventoryModel=60941; missing maleModel0=60942; missing femaleModel0=60942
+33422 # Heredit Cape (or); missing InventoryModel=60944; missing maleModel0=60945; missing femaleModel0=60945
+33424 # Nova Hat; missing InventoryModel=60946; missing maleModel0=60947; missing femaleModel0=60947
+33425 # Nova Body; missing InventoryModel=60948; missing maleModel0=60949; missing femaleModel0=60949
+33426 # Nova Legs; missing InventoryModel=60950; missing maleModel0=60951; missing femaleModel0=60951
+33427 # Nova Boots; missing InventoryModel=60952; missing maleModel0=60952; missing femaleModel0=60952
+33430 # Wraith Sword; missing InventoryModel=60956; missing maleModel0=60957; missing femaleModel0=60957
+33431 # Wraith Scythe; missing InventoryModel=60958; missing maleModel0=60964; missing femaleModel0=60964
+33432 # Wraith Spear; missing InventoryModel=60959; missing maleModel0=60960; missing femaleModel0=60960
+33433 # Wraith Staff; missing InventoryModel=60961; missing maleModel0=60962; missing femaleModel0=60962
+33434 # Wraith Bow; missing InventoryModel=60967; missing maleModel0=60963; missing femaleModel0=60963
+33435 # Wraith Crossbow; missing InventoryModel=60965; missing maleModel0=60966; missing femaleModel0=60966
+33438 # Wraith Mask (B); missing InventoryModel=60974; missing maleModel0=60975; missing femaleModel0=60975
+33439 # Wraith Body (B); missing InventoryModel=60976; missing maleModel0=60977; missing femaleModel0=60977
+33440 # Wraith Chaps (B); missing InventoryModel=60978; missing maleModel0=60979; missing femaleModel0=60979
+33442 # 100% Thrills; missing InventoryModel=60980; missing maleModel0=60981; missing femaleModel0=60981
+33443 # Wraith Shield; missing InventoryModel=60982; missing maleModel0=60983; missing femaleModel0=60983
+33444 # Wraith Book; missing InventoryModel=60984; missing maleModel0=60985; missing femaleModel0=60985
+33445 # Wraith Defender; missing InventoryModel=60986; missing maleModel0=60987; missing femaleModel0=60987
+33446 # Ale of the scotty; missing InventoryModel=60988; missing maleModel0=60989; missing femaleModel0=60990
+33449 # Goblin Cape; missing InventoryModel=60997; missing maleModel0=60998; missing femaleModel0=60998
+33450 # Goblin Boots; missing InventoryModel=60999; missing maleModel0=61000; missing femaleModel0=61000
+33451 # Goblin Gloves; missing InventoryModel=60995; missing maleModel0=60996; missing femaleModel0=60996
+33452 # Goblin Ring; missing InventoryModel=60994; missing maleModel0=60994; missing femaleModel0=60994
+33453 # Goblin Amulet; missing InventoryModel=60992; missing maleModel0=60993; missing femaleModel0=60993
+35555 # test helm; missing InventoryModel=65320; missing maleModel0=65319; missing femaleModel0=65319
+35556 # test body; missing InventoryModel=65322; missing maleModel0=65321; missing femaleModel0=65321
+35557 # test legs; missing InventoryModel=65324; missing maleModel0=65323; missing femaleModel0=65323
+35558 # test wep; missing InventoryModel=65329; missing maleModel0=65328; missing femaleModel0=65328

@@ -7,6 +7,15 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GearRankingsTest {
+    @Test void missingClientAssetsCannotDisplaceUsableEquipment() {
+        for (int id : new int[]{33438, 33296, 33292, 33311}) {
+            item(id, "Unavailable helm " + id, ItemEquipmentStats.builder().slot(0).str(9999).build());
+        }
+        item(10828, "Helm of neitiznot", ItemEquipmentStats.builder().slot(0).str(3).build());
+        List<GearRankings.Entry> ranked = top(GearRankings.Style.MELEE, GearRankings.Slot.HELMETS);
+        assertEquals(1, ranked.size());
+        assertEquals(10828, ranked.get(0).id);
+    }
     private final Map<Integer, ItemStats> stats = new HashMap<>();
     private final Map<Integer, ItemDef> definitions = new HashMap<>();
     void item(int id, String name, ItemEquipmentStats equipment) {
