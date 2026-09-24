@@ -117,6 +117,7 @@ public class ClickingButtons implements PacketType {
         }
 
         if (io.zaryx.content.items.EquipmentGuide.click(c, realButtonId)) return;
+        if (io.zaryx.content.items.TopEquipment.click(c, realButtonId)) return;
         if (c.getTaskMaster().handleButton(realButtonId)) return;
         if (c.companionJournal.click(c, realButtonId)) return;
         if (CosmeticDeals.checkCosmeticPurchase(c, realButtonId)) {
