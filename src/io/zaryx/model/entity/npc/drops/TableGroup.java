@@ -39,9 +39,22 @@ public class TableGroup extends ArrayList<Table> {
                 if (nightmare.getRareRollPlayers().isEmpty()) {
                     int players = nightmare.getInstance() == null ? 0 : nightmare.getInstance().getPlayers().size();
                     System.err.println("No players on nightmare roll table, but " + players + " in instance.");
-                } else if (!nightmare.getRareRollPlayers().contains(player) && (policy == TablePolicy.RARE || policy == TablePolicy.VERY_RARE || policy == TablePolicy.EXTREMELY_RARE)) {
+                } else if (!nightmare.getRareRollPlayers().contains(player) && (policy == TablePolicy.RARE || policy == TablePolicy.VERY_RARE || policy == TablePolicy.EXTREMELY_RARE || policy == TablePolicy.NOMAD)) {
                     continue;
                 }
+            }
+
+            if (policy == TablePolicy.NOMAD) {
+                // One currency roll per kill, even when ordinary loot has extra rolls.
+                if (repeats > 0 && Misc.preciseRandom(Range.between(0.0, 100.0))
+                        <= Math.min(100.0, 100.0 * effectiveMultiplier(policy, modifier) / table.getAccessibility())) {
+                    Drop drop = table.fetchRandom();
+                    if (drop == null) continue;
+                    int amount = drop.getMinimumAmount() + Misc.random(drop.getMaximumAmount() - drop.getMinimumAmount());
+                    if (player != null && player.doubleDropRate > 0) amount *= 2;
+                    items.add(new GameItem(drop.getItemId(), Math.min(amount, nomadQuantityCap(drop.getItemId()))));
+                }
+                continue;
             }
 
             if (policy.equals(TablePolicy.CONSTANT)) {
@@ -60,6 +73,7 @@ public class TableGroup extends ArrayList<Table> {
 
                     if (roll <= chance) {
                         Drop drop = table.fetchRandom();
+                        if (drop == null) continue;
                         int minimumAmount = drop.getMinimumAmount();
                         int finalAmount = minimumAmount + Misc.random(drop.getMaximumAmount() - minimumAmount);
 
@@ -174,6 +188,17 @@ public class TableGroup extends ArrayList<Table> {
         return items;
     }
 
+    static int nomadQuantityCap(int itemId) {
+        switch (itemId) {
+            case 691: case 692: case 693: case 696: case 33428: case 33429:
+                return 25;
+            case 33237:
+                return 2;
+            default:
+                throw new IllegalArgumentException("Not a Nomad currency item: " + itemId);
+        }
+    }
+
     static boolean isAlwaysAnnouncedDrop(int itemId, String name) {
         return name.contains("archers ring") || name.contains("vasa minirio")
                 || (name.contains("hydra") && !name.contains("hydra bone"))
@@ -205,6 +230,7 @@ public class TableGroup extends ArrayList<Table> {
                 return 1.0 + bonus * 1.25;
             case EXTREMELY_RARE:
                 return 1.0 + bonus * 1.5;
+            case NOMAD:
             case RARE:
                 return 1.0 + bonus;
             case CONSTANT:
@@ -223,7 +249,7 @@ public class TableGroup extends ArrayList<Table> {
         }
         double tableChance = Math.min(1.0,
                 effectiveMultiplier(table.getPolicy(), modifier) / table.getAccessibility());
-        double denominator = table.size() / tableChance;
+        double denominator = table.getSelectionSize() / tableChance;
         return Math.max(1, (int) Math.ceil(denominator));
     }
 

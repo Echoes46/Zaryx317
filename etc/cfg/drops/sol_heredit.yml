@@ -3,18 +3,13 @@ npc_id: 12821
 constant:
   accessibility: 0
   items:
-    - item: 693 #50k nomad
-      minimum: 20
-      maximum: 20
     - item: 13346 #Umb
       minimum: 4
       maximum: 4
 common:
   accessibility: 250
+  selection_size: 8 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 8
-      maximum: 16
     - item: 6678 #Mini umb
       minimum: 20
       maximum: 40
@@ -38,10 +33,8 @@ common:
       maximum: 1
 uncommon:
   accessibility: 500
+  selection_size: 9 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 16
-      maximum: 32
     - item: 6678 #Mini umb
       minimum: 35
       maximum: 70
@@ -68,6 +61,7 @@ uncommon:
       maximum: 1
 rare:
   accessibility: 750
+  selection_size: 12 # Preserve odds after moving Nomad rewards.
   items:
     - item: 7774 #10 credits
       minimum: 1
@@ -96,9 +90,6 @@ rare:
     - item: 27232 #Masori
       minimum: 1
       maximum: 1
-    - item: 696 #250k nomad
-      minimum: 100
-      maximum: 250
     - item: 12588 #dono
       minimum: 5
       maximum: 15
@@ -126,3 +117,14 @@ very_rare:
     - item: 33411 #Heredit
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

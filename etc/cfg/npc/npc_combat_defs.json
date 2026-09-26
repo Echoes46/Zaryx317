@@ -79,7 +79,7 @@
     "levels": {
       "MAGIC": 80,
       "ATTACK": 280,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 350,
       "STRENGTH": 350,
       "HITPOINTS": 1200
@@ -96,7 +96,7 @@
       "SLASH_BONUS": 90,
       "STAB_BONUS": 90,
       "RANGE_BONUS": 90,
-      "MAGIC_BONUS": 298,
+      "MAGIC_BONUS": 389,
       "CRUSH_BONUS": 90
     }
   },
@@ -113,7 +113,7 @@
     "levels": {
       "MAGIC": 80,
       "ATTACK": 280,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 350,
       "STRENGTH": 350,
       "HITPOINTS": 900
@@ -130,7 +130,7 @@
       "SLASH_BONUS": 90,
       "STAB_BONUS": 90,
       "RANGE_BONUS": 90,
-      "MAGIC_BONUS": 298,
+      "MAGIC_BONUS": 389,
       "CRUSH_BONUS": 90
     }
   },
@@ -4193,7 +4193,7 @@
     "levels": {
       "MAGIC": 240,
       "ATTACK": 240,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 1,
       "STRENGTH": 240,
       "HITPOINTS": 650
@@ -4210,7 +4210,7 @@
       "SLASH_BONUS": 90,
       "STAB_BONUS": 70,
       "RANGE_BONUS": 70,
-      "MAGIC_BONUS": 80,
+      "MAGIC_BONUS": 116,
       "CRUSH_BONUS": 90
     }
   },
@@ -5927,7 +5927,7 @@
     "levels": {
       "MAGIC": 350,
       "ATTACK": 320,
-      "DEFENCE": 310,
+      "DEFENCE": 388,
       "RANGE": 150,
       "STRENGTH": 320,
       "HITPOINTS": 2000
@@ -5944,7 +5944,7 @@
       "SLASH_BONUS": 200,
       "STAB_BONUS": 25,
       "RANGE_BONUS": 230,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 100
     }
   },
@@ -8783,7 +8783,7 @@
     "levels": {
       "MAGIC": 120,
       "ATTACK": 1,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 125
@@ -8800,7 +8800,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 99999,
-      "MAGIC_BONUS": -63,
+      "MAGIC_BONUS": -62,
       "CRUSH_BONUS": 0
     }
   },
@@ -8851,7 +8851,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 230,
-      "DEFENCE": 360,
+      "DEFENCE": 450,
       "RANGE": 310,
       "STRENGTH": 220,
       "HITPOINTS": 240
@@ -8868,7 +8868,7 @@
       "SLASH_BONUS": 4,
       "STAB_BONUS": 11,
       "RANGE_BONUS": 900,
-      "MAGIC_BONUS": 800,
+      "MAGIC_BONUS": 1016,
       "CRUSH_BONUS": 9
     }
   },
@@ -11333,7 +11333,7 @@
     "levels": {
       "MAGIC": 90,
       "ATTACK": 170,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 1,
       "STRENGTH": 145,
       "HITPOINTS": 134
@@ -11350,7 +11350,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -15685,7 +15685,7 @@
     "levels": {
       "MAGIC": 100,
       "ATTACK": 83,
-      "DEFENCE": 82,
+      "DEFENCE": 103,
       "RANGE": 100,
       "STRENGTH": 90,
       "HITPOINTS": 95
@@ -15702,7 +15702,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -16739,7 +16739,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 400
@@ -16756,7 +16756,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 10
     }
   },
@@ -16773,7 +16773,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 400
@@ -16790,7 +16790,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 10
     }
   },
@@ -27822,7 +27822,7 @@
     "levels": {
       "MAGIC": 300,
       "ATTACK": 1,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 300,
       "STRENGTH": 1,
       "HITPOINTS": 500
@@ -27839,7 +27839,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 30,
-      "MAGIC_BONUS": -55,
+      "MAGIC_BONUS": -52,
       "CRUSH_BONUS": 0
     }
   },
@@ -27856,7 +27856,7 @@
     "levels": {
       "MAGIC": 300,
       "ATTACK": 1,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 300,
       "STRENGTH": 1,
       "HITPOINTS": 500
@@ -27873,7 +27873,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 30,
-      "MAGIC_BONUS": -55,
+      "MAGIC_BONUS": -52,
       "CRUSH_BONUS": 0
     }
   },
@@ -27890,7 +27890,7 @@
     "levels": {
       "MAGIC": 300,
       "ATTACK": 1,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 300,
       "STRENGTH": 1,
       "HITPOINTS": 500
@@ -27907,7 +27907,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 30,
-      "MAGIC_BONUS": -55,
+      "MAGIC_BONUS": -52,
       "CRUSH_BONUS": 0
     }
   },
@@ -28196,7 +28196,7 @@
     "levels": {
       "MAGIC": 270,
       "ATTACK": 270,
-      "DEFENCE": 270,
+      "DEFENCE": 338,
       "RANGE": 270,
       "STRENGTH": 270,
       "HITPOINTS": 250
@@ -28213,7 +28213,7 @@
       "SLASH_BONUS": 70,
       "STAB_BONUS": 70,
       "RANGE_BONUS": 70,
-      "MAGIC_BONUS": 70,
+      "MAGIC_BONUS": 104,
       "CRUSH_BONUS": 70
     }
   },
@@ -31120,7 +31120,7 @@
     "levels": {
       "MAGIC": 300,
       "ATTACK": 280,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 250,
       "STRENGTH": 196,
       "HITPOINTS": 350
@@ -31137,7 +31137,7 @@
       "SLASH_BONUS": 100,
       "STAB_BONUS": 100,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 100
     }
   },
@@ -31460,7 +31460,7 @@
     "levels": {
       "MAGIC": 80,
       "ATTACK": 280,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 350,
       "STRENGTH": 350,
       "HITPOINTS": 350
@@ -31477,7 +31477,7 @@
       "SLASH_BONUS": 90,
       "STAB_BONUS": 90,
       "RANGE_BONUS": 90,
-      "MAGIC_BONUS": 298,
+      "MAGIC_BONUS": 389,
       "CRUSH_BONUS": 90
     }
   },
@@ -32344,7 +32344,7 @@
     "levels": {
       "MAGIC": 255,
       "ATTACK": 255,
-      "DEFENCE": 128,
+      "DEFENCE": 160,
       "RANGE": 255,
       "STRENGTH": 255,
       "HITPOINTS": 255
@@ -32361,7 +32361,7 @@
       "SLASH_BONUS": 10,
       "STAB_BONUS": 10,
       "RANGE_BONUS": 550,
-      "MAGIC_BONUS": 255,
+      "MAGIC_BONUS": 335,
       "CRUSH_BONUS": 10
     }
   },
@@ -32378,7 +32378,7 @@
     "levels": {
       "MAGIC": 255,
       "ATTACK": 255,
-      "DEFENCE": 255,
+      "DEFENCE": 319,
       "RANGE": 0,
       "STRENGTH": 255,
       "HITPOINTS": 255
@@ -32395,7 +32395,7 @@
       "SLASH_BONUS": 255,
       "STAB_BONUS": 255,
       "RANGE_BONUS": 10,
-      "MAGIC_BONUS": 255,
+      "MAGIC_BONUS": 335,
       "CRUSH_BONUS": 255
     }
   },
@@ -32412,7 +32412,7 @@
     "levels": {
       "MAGIC": 0,
       "ATTACK": 255,
-      "DEFENCE": 255,
+      "DEFENCE": 319,
       "RANGE": 255,
       "STRENGTH": 255,
       "HITPOINTS": 255
@@ -32429,7 +32429,7 @@
       "SLASH_BONUS": 255,
       "STAB_BONUS": 255,
       "RANGE_BONUS": 255,
-      "MAGIC_BONUS": 10,
+      "MAGIC_BONUS": 29,
       "CRUSH_BONUS": 255
     }
   },
@@ -41762,7 +41762,7 @@
     "levels": {
       "MAGIC": 480,
       "ATTACK": 640,
-      "DEFENCE": 480,
+      "DEFENCE": 600,
       "RANGE": 960,
       "STRENGTH": 960,
       "HITPOINTS": 250
@@ -41779,7 +41779,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -41830,7 +41830,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 340,
-      "DEFENCE": 270,
+      "DEFENCE": 338,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 350
@@ -41847,7 +41847,7 @@
       "SLASH_BONUS": 80,
       "STAB_BONUS": 80,
       "RANGE_BONUS": 80,
-      "MAGIC_BONUS": 130,
+      "MAGIC_BONUS": 179,
       "CRUSH_BONUS": 80
     }
   },
@@ -42374,7 +42374,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 300,
-      "DEFENCE": 260,
+      "DEFENCE": 325,
       "RANGE": 380,
       "STRENGTH": 200,
       "HITPOINTS": 350
@@ -42391,7 +42391,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 180,
       "RANGE_BONUS": 200,
-      "MAGIC_BONUS": 200,
+      "MAGIC_BONUS": 266,
       "CRUSH_BONUS": 180
     }
   },
@@ -45298,7 +45298,7 @@
     "levels": {
       "MAGIC": 26,
       "ATTACK": 1,
-      "DEFENCE": 14,
+      "DEFENCE": 18,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 32
@@ -45315,7 +45315,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -45468,7 +45468,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 1,
-      "DEFENCE": 34,
+      "DEFENCE": 43,
       "RANGE": 36,
       "STRENGTH": 1,
       "HITPOINTS": 58
@@ -45485,7 +45485,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -55566,7 +55566,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 255
@@ -55583,7 +55583,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 10
     }
   },
@@ -55600,7 +55600,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 255
@@ -55617,7 +55617,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 10
     }
   },
@@ -62570,7 +62570,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 173,
-      "DEFENCE": 173,
+      "DEFENCE": 217,
       "RANGE": 1,
       "STRENGTH": 172,
       "HITPOINTS": 60
@@ -62587,7 +62587,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -70492,7 +70492,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 200,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 1,
       "STRENGTH": 200,
       "HITPOINTS": 200
@@ -70509,7 +70509,7 @@
       "SLASH_BONUS": 80,
       "STAB_BONUS": 60,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 80,
+      "MAGIC_BONUS": 116,
       "CRUSH_BONUS": 100
     }
   },
@@ -71070,7 +71070,7 @@
     "levels": {
       "MAGIC": 220,
       "ATTACK": 220,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 220,
       "STRENGTH": 220,
       "HITPOINTS": 600
@@ -71087,7 +71087,7 @@
       "SLASH_BONUS": 100,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 25
     }
   },
@@ -71104,7 +71104,7 @@
     "levels": {
       "MAGIC": 220,
       "ATTACK": 220,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 220,
       "STRENGTH": 220,
       "HITPOINTS": 600
@@ -71121,7 +71121,7 @@
       "SLASH_BONUS": 100,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 25
     }
   },
@@ -71138,7 +71138,7 @@
     "levels": {
       "MAGIC": 220,
       "ATTACK": 220,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 220,
       "STRENGTH": 220,
       "HITPOINTS": 600
@@ -71155,7 +71155,7 @@
       "SLASH_BONUS": 100,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 25
     }
   },
@@ -71546,7 +71546,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71563,7 +71563,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -71580,7 +71580,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71597,7 +71597,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -71614,7 +71614,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71631,7 +71631,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -71648,7 +71648,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71665,7 +71665,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -71682,7 +71682,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71699,7 +71699,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -71716,7 +71716,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71733,7 +71733,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -71784,7 +71784,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 180,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 1,
       "STRENGTH": 136,
       "HITPOINTS": 400
@@ -71801,7 +71801,7 @@
       "SLASH_BONUS": 60,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 50
     }
   },
@@ -74062,7 +74062,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 115,
-      "DEFENCE": 110,
+      "DEFENCE": 138,
       "RANGE": 1,
       "STRENGTH": 120,
       "HITPOINTS": 160
@@ -74079,7 +74079,7 @@
       "SLASH_BONUS": 110,
       "STAB_BONUS": 105,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 125,
+      "MAGIC_BONUS": 173,
       "CRUSH_BONUS": 130
     }
   },
@@ -74334,7 +74334,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 186,
-      "DEFENCE": 81,
+      "DEFENCE": 102,
       "RANGE": 120,
       "STRENGTH": 186,
       "HITPOINTS": 1225
@@ -74351,7 +74351,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 50,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 50
     }
   },
@@ -74742,7 +74742,7 @@
     "levels": {
       "RANGE": 350,
       "HITPOINTS": 255,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "STRENGTH": 350,
       "ATTACK": 280,
       "MAGIC": 80
@@ -74758,7 +74758,7 @@
     "defensiveBonuses": {
       "STAB_BONUS": 300,
       "SLASH_BONUS": 300,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 300,
       "RANGE_BONUS": 50
     }
@@ -75456,7 +75456,7 @@
     "levels": {
       "MAGIC": 90,
       "ATTACK": 170,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 1,
       "STRENGTH": 145,
       "HITPOINTS": 134
@@ -75473,7 +75473,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -78822,7 +78822,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 300,
-      "DEFENCE": 260,
+      "DEFENCE": 325,
       "RANGE": 380,
       "STRENGTH": 200,
       "HITPOINTS": 255
@@ -78839,7 +78839,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 180,
       "RANGE_BONUS": 200,
-      "MAGIC_BONUS": 200,
+      "MAGIC_BONUS": 266,
       "CRUSH_BONUS": 180
     }
   },
@@ -78856,7 +78856,7 @@
     "levels": {
       "MAGIC": 300,
       "ATTACK": 280,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 250,
       "STRENGTH": 196,
       "HITPOINTS": 255
@@ -78873,7 +78873,7 @@
       "SLASH_BONUS": 100,
       "STAB_BONUS": 100,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 100
     }
   },
@@ -78890,7 +78890,7 @@
     "levels": {
       "MAGIC": 80,
       "ATTACK": 280,
-      "DEFENCE": 250,
+      "DEFENCE": 313,
       "RANGE": 350,
       "STRENGTH": 350,
       "HITPOINTS": 255
@@ -78907,7 +78907,7 @@
       "SLASH_BONUS": 90,
       "STAB_BONUS": 90,
       "RANGE_BONUS": 90,
-      "MAGIC_BONUS": 298,
+      "MAGIC_BONUS": 389,
       "CRUSH_BONUS": 90
     }
   },
@@ -78924,7 +78924,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 340,
-      "DEFENCE": 270,
+      "DEFENCE": 338,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 255
@@ -78941,7 +78941,7 @@
       "SLASH_BONUS": 80,
       "STAB_BONUS": 80,
       "RANGE_BONUS": 80,
-      "MAGIC_BONUS": 130,
+      "MAGIC_BONUS": 179,
       "CRUSH_BONUS": 80
     }
   },
@@ -78958,7 +78958,7 @@
     "levels": {
       "MAGIC": 255,
       "ATTACK": 255,
-      "DEFENCE": 128,
+      "DEFENCE": 160,
       "RANGE": 255,
       "STRENGTH": 255,
       "HITPOINTS": 255
@@ -78975,7 +78975,7 @@
       "SLASH_BONUS": 10,
       "STAB_BONUS": 10,
       "RANGE_BONUS": 550,
-      "MAGIC_BONUS": 255,
+      "MAGIC_BONUS": 335,
       "CRUSH_BONUS": 10
     }
   },
@@ -78992,7 +78992,7 @@
     "levels": {
       "MAGIC": 255,
       "ATTACK": 255,
-      "DEFENCE": 255,
+      "DEFENCE": 319,
       "RANGE": 0,
       "STRENGTH": 255,
       "HITPOINTS": 255
@@ -79009,7 +79009,7 @@
       "SLASH_BONUS": 255,
       "STAB_BONUS": 255,
       "RANGE_BONUS": 10,
-      "MAGIC_BONUS": 255,
+      "MAGIC_BONUS": 335,
       "CRUSH_BONUS": 255
     }
   },
@@ -79026,7 +79026,7 @@
     "levels": {
       "MAGIC": 0,
       "ATTACK": 255,
-      "DEFENCE": 255,
+      "DEFENCE": 319,
       "RANGE": 255,
       "STRENGTH": 255,
       "HITPOINTS": 255
@@ -79043,7 +79043,7 @@
       "SLASH_BONUS": 255,
       "STAB_BONUS": 255,
       "RANGE_BONUS": 255,
-      "MAGIC_BONUS": 10,
+      "MAGIC_BONUS": 29,
       "CRUSH_BONUS": 255
     }
   },
@@ -79060,7 +79060,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 200,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 1,
       "STRENGTH": 200,
       "HITPOINTS": 200
@@ -79077,7 +79077,7 @@
       "SLASH_BONUS": 80,
       "STAB_BONUS": 60,
       "RANGE_BONUS": 60,
-      "MAGIC_BONUS": 80,
+      "MAGIC_BONUS": 116,
       "CRUSH_BONUS": 100
     }
   },
@@ -79094,7 +79094,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 255
@@ -79111,7 +79111,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 10
     }
   },
@@ -79128,7 +79128,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 300,
+      "DEFENCE": 375,
       "RANGE": 1,
       "STRENGTH": 300,
       "HITPOINTS": 255
@@ -79145,7 +79145,7 @@
       "SLASH_BONUS": 50,
       "STAB_BONUS": 50,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 100,
+      "MAGIC_BONUS": 141,
       "CRUSH_BONUS": 10
     }
   },
@@ -79196,7 +79196,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 350,
-      "DEFENCE": 440,
+      "DEFENCE": 550,
       "RANGE": 1,
       "STRENGTH": 370,
       "HITPOINTS": 255
@@ -79213,7 +79213,7 @@
       "SLASH_BONUS": 104,
       "STAB_BONUS": 135,
       "RANGE_BONUS": 230,
-      "MAGIC_BONUS": 900,
+      "MAGIC_BONUS": 1141,
       "CRUSH_BONUS": 175
     }
   },
@@ -79230,7 +79230,7 @@
     "levels": {
       "MAGIC": 270,
       "ATTACK": 270,
-      "DEFENCE": 270,
+      "DEFENCE": 338,
       "RANGE": 270,
       "STRENGTH": 270,
       "HITPOINTS": 500
@@ -79247,7 +79247,7 @@
       "SLASH_BONUS": 70,
       "STAB_BONUS": 70,
       "RANGE_BONUS": 70,
-      "MAGIC_BONUS": 70,
+      "MAGIC_BONUS": 104,
       "CRUSH_BONUS": 70
     }
   },
@@ -79264,7 +79264,7 @@
     "levels": {
       "MAGIC": 480,
       "ATTACK": 640,
-      "DEFENCE": 480,
+      "DEFENCE": 600,
       "RANGE": 960,
       "STRENGTH": 960,
       "HITPOINTS": 250
@@ -79281,7 +79281,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -80012,7 +80012,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 350,
-      "DEFENCE": 440,
+      "DEFENCE": 550,
       "RANGE": 1,
       "STRENGTH": 370,
       "HITPOINTS": 475
@@ -80029,7 +80029,7 @@
       "SLASH_BONUS": 104,
       "STAB_BONUS": 135,
       "RANGE_BONUS": 230,
-      "MAGIC_BONUS": 900,
+      "MAGIC_BONUS": 1141,
       "CRUSH_BONUS": 175
     }
   },
@@ -80046,7 +80046,7 @@
     "levels": {
       "MAGIC": 300,
       "ATTACK": 430,
-      "DEFENCE": 395,
+      "DEFENCE": 494,
       "RANGE": 1,
       "STRENGTH": 430,
       "HITPOINTS": 475
@@ -80063,7 +80063,7 @@
       "SLASH_BONUS": 200,
       "STAB_BONUS": 201,
       "RANGE_BONUS": 270,
-      "MAGIC_BONUS": 250,
+      "MAGIC_BONUS": 329,
       "CRUSH_BONUS": -10
     }
   },
@@ -80182,7 +80182,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 250,
-      "DEFENCE": 180,
+      "DEFENCE": 225,
       "RANGE": 1,
       "STRENGTH": 150,
       "HITPOINTS": 500
@@ -80199,7 +80199,7 @@
       "SLASH_BONUS": 284,
       "STAB_BONUS": 246,
       "RANGE_BONUS": 284,
-      "MAGIC_BONUS": 44,
+      "MAGIC_BONUS": 71,
       "CRUSH_BONUS": 284
     }
   },
@@ -80216,7 +80216,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 160,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 180,
       "STRENGTH": 90,
       "HITPOINTS": 500
@@ -80233,7 +80233,7 @@
       "SLASH_BONUS": 5,
       "STAB_BONUS": 5,
       "RANGE_BONUS": 250,
-      "MAGIC_BONUS": 250,
+      "MAGIC_BONUS": 329,
       "CRUSH_BONUS": 30
     }
   },
@@ -80250,7 +80250,7 @@
     "levels": {
       "MAGIC": 200,
       "ATTACK": 1,
-      "DEFENCE": 220,
+      "DEFENCE": 275,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 500
@@ -80267,7 +80267,7 @@
       "SLASH_BONUS": 260,
       "STAB_BONUS": 260,
       "RANGE_BONUS": 80,
-      "MAGIC_BONUS": 280,
+      "MAGIC_BONUS": 366,
       "CRUSH_BONUS": 250
     }
   },
@@ -80760,7 +80760,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -80777,7 +80777,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -80794,7 +80794,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -80811,7 +80811,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -87084,7 +87084,7 @@
     "levels": {
       "MAGIC": 280,
       "ATTACK": 240,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 1,
       "STRENGTH": 250,
       "HITPOINTS": 450
@@ -87101,7 +87101,7 @@
       "SLASH_BONUS": 80,
       "STAB_BONUS": 80,
       "RANGE_BONUS": 130,
-      "MAGIC_BONUS": 130,
+      "MAGIC_BONUS": 179,
       "CRUSH_BONUS": 80
     }
   },
@@ -88070,7 +88070,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 90,
-      "DEFENCE": 60,
+      "DEFENCE": 75,
       "RANGE": 120,
       "STRENGTH": 100,
       "HITPOINTS": 120
@@ -88087,7 +88087,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": 35,
       "RANGE_BONUS": 20,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 45
     }
   },
@@ -89804,7 +89804,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -89821,7 +89821,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -89838,7 +89838,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -89855,7 +89855,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -91300,7 +91300,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 350,
-      "DEFENCE": 260,
+      "DEFENCE": 325,
       "RANGE": 400,
       "STRENGTH": 600,
       "HITPOINTS": 1200
@@ -91317,7 +91317,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 350,
+      "MAGIC_BONUS": 454,
       "CRUSH_BONUS": 0
     }
   },
@@ -91538,7 +91538,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -91555,7 +91555,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -91572,7 +91572,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -91589,7 +91589,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -92149,7 +92149,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -92166,7 +92166,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -92251,7 +92251,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -92268,7 +92268,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -92285,7 +92285,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -92302,7 +92302,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -93135,7 +93135,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -93152,7 +93152,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -93169,7 +93169,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -93186,7 +93186,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -93271,7 +93271,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -93288,7 +93288,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -93305,7 +93305,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -93322,7 +93322,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -93339,7 +93339,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -93356,7 +93356,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -93373,7 +93373,7 @@
     "levels": {
       "MAGIC": 140,
       "ATTACK": 200,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 140,
       "STRENGTH": 140,
       "HITPOINTS": 450
@@ -93390,7 +93390,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -94495,7 +94495,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 560,
-      "DEFENCE": 214,
+      "DEFENCE": 268,
       "RANGE": 308,
       "STRENGTH": 308,
       "HITPOINTS": 750
@@ -94512,7 +94512,7 @@
       "SLASH_BONUS": 108,
       "STAB_BONUS": 26,
       "RANGE_BONUS": 26,
-      "MAGIC_BONUS": 240,
+      "MAGIC_BONUS": 316,
       "CRUSH_BONUS": 108
     }
   },
@@ -94563,7 +94563,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 560,
-      "DEFENCE": 214,
+      "DEFENCE": 268,
       "RANGE": 308,
       "STRENGTH": 308,
       "HITPOINTS": 750
@@ -94580,7 +94580,7 @@
       "SLASH_BONUS": 108,
       "STAB_BONUS": 26,
       "RANGE_BONUS": 26,
-      "MAGIC_BONUS": 240,
+      "MAGIC_BONUS": 316,
       "CRUSH_BONUS": 108
     }
   },
@@ -94767,7 +94767,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 560,
-      "DEFENCE": 214,
+      "DEFENCE": 268,
       "RANGE": 308,
       "STRENGTH": 308,
       "HITPOINTS": 750
@@ -94784,7 +94784,7 @@
       "SLASH_BONUS": 108,
       "STAB_BONUS": 26,
       "RANGE_BONUS": 26,
-      "MAGIC_BONUS": 240,
+      "MAGIC_BONUS": 316,
       "CRUSH_BONUS": 108
     }
   },
@@ -94801,7 +94801,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 560,
-      "DEFENCE": 214,
+      "DEFENCE": 268,
       "RANGE": 308,
       "STRENGTH": 308,
       "HITPOINTS": 750
@@ -94818,7 +94818,7 @@
       "SLASH_BONUS": 108,
       "STAB_BONUS": 26,
       "RANGE_BONUS": 26,
-      "MAGIC_BONUS": 240,
+      "MAGIC_BONUS": 316,
       "CRUSH_BONUS": 108
     }
   },
@@ -94835,7 +94835,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 560,
-      "DEFENCE": 214,
+      "DEFENCE": 268,
       "RANGE": 308,
       "STRENGTH": 308,
       "HITPOINTS": 750
@@ -94852,7 +94852,7 @@
       "SLASH_BONUS": 108,
       "STAB_BONUS": 26,
       "RANGE_BONUS": 26,
-      "MAGIC_BONUS": 240,
+      "MAGIC_BONUS": 316,
       "CRUSH_BONUS": 108
     }
   },
@@ -94869,7 +94869,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 560,
-      "DEFENCE": 214,
+      "DEFENCE": 268,
       "RANGE": 308,
       "STRENGTH": 308,
       "HITPOINTS": 750
@@ -94886,7 +94886,7 @@
       "SLASH_BONUS": 108,
       "STAB_BONUS": 26,
       "RANGE_BONUS": 26,
-      "MAGIC_BONUS": 240,
+      "MAGIC_BONUS": 316,
       "CRUSH_BONUS": 108
     }
   },
@@ -95991,7 +95991,7 @@
     "levels": {
       "MAGIC": 160,
       "ATTACK": 632,
-      "DEFENCE": 1,
+      "DEFENCE": 2,
       "RANGE": 246,
       "STRENGTH": 268,
       "HITPOINTS": 20000
@@ -96008,7 +96008,7 @@
       "SLASH_BONUS": 1,
       "STAB_BONUS": 1,
       "RANGE_BONUS": 1,
-      "MAGIC_BONUS": 1,
+      "MAGIC_BONUS": 18,
       "CRUSH_BONUS": 1
     }
   },
@@ -96501,7 +96501,7 @@
     "levels": {
       "MAGIC": 90,
       "ATTACK": 130,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 1,
       "STRENGTH": 100,
       "HITPOINTS": 115
@@ -96518,7 +96518,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -99425,7 +99425,7 @@
     "levels": {
       "MAGIC": 130,
       "ATTACK": 120,
-      "DEFENCE": 140,
+      "DEFENCE": 175,
       "RANGE": 120,
       "STRENGTH": 120,
       "HITPOINTS": 150
@@ -99442,7 +99442,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": -10,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 30
     }
   },
@@ -99595,7 +99595,7 @@
     "levels": {
       "MAGIC": 126,
       "ATTACK": 1,
-      "DEFENCE": 120,
+      "DEFENCE": 150,
       "RANGE": 150,
       "STRENGTH": 1,
       "HITPOINTS": 300
@@ -99612,7 +99612,7 @@
       "SLASH_BONUS": 20,
       "STAB_BONUS": 60,
       "RANGE_BONUS": 80,
-      "MAGIC_BONUS": 80,
+      "MAGIC_BONUS": 116,
       "CRUSH_BONUS": 60
     }
   },
@@ -100003,7 +100003,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100020,7 +100020,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100037,7 +100037,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100054,7 +100054,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100071,7 +100071,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100088,7 +100088,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100105,7 +100105,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100122,7 +100122,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100139,7 +100139,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100156,7 +100156,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100173,7 +100173,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100190,7 +100190,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100207,7 +100207,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100224,7 +100224,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100241,7 +100241,7 @@
     "levels": {
       "MAGIC": 260,
       "ATTACK": 100,
-      "DEFENCE": 100,
+      "DEFENCE": 125,
       "RANGE": 260,
       "STRENGTH": 100,
       "HITPOINTS": 1100
@@ -100258,7 +100258,7 @@
       "SLASH_BONUS": 150,
       "STAB_BONUS": 75,
       "RANGE_BONUS": 45,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 150
     }
   },
@@ -100751,7 +100751,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 200,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 300,
       "STRENGTH": 240,
       "HITPOINTS": 4000
@@ -100768,7 +100768,7 @@
       "SLASH_BONUS": 40,
       "STAB_BONUS": 60,
       "RANGE_BONUS": 300,
-      "MAGIC_BONUS": 150,
+      "MAGIC_BONUS": 204,
       "CRUSH_BONUS": 10
     }
   },
@@ -102995,7 +102995,7 @@
     "levels": {
       "MAGIC": 240,
       "ATTACK": 240,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 240,
       "STRENGTH": 240,
       "HITPOINTS": 600
@@ -103012,7 +103012,7 @@
       "SLASH_BONUS": 20,
       "STAB_BONUS": 20,
       "RANGE_BONUS": 20,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 20
     }
   },
@@ -103029,7 +103029,7 @@
     "levels": {
       "MAGIC": 240,
       "ATTACK": 240,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 240,
       "STRENGTH": 240,
       "HITPOINTS": 600
@@ -103046,7 +103046,7 @@
       "SLASH_BONUS": 20,
       "STAB_BONUS": 20,
       "RANGE_BONUS": 20,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 20
     }
   },
@@ -103063,7 +103063,7 @@
     "levels": {
       "MAGIC": 240,
       "ATTACK": 240,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 240,
       "STRENGTH": 240,
       "HITPOINTS": 600
@@ -103080,7 +103080,7 @@
       "SLASH_BONUS": 20,
       "STAB_BONUS": 20,
       "RANGE_BONUS": 20,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 20
     }
   },
@@ -103097,7 +103097,7 @@
     "levels": {
       "MAGIC": 240,
       "ATTACK": 240,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 240,
       "STRENGTH": 240,
       "HITPOINTS": 600
@@ -103114,7 +103114,7 @@
       "SLASH_BONUS": 20,
       "STAB_BONUS": 20,
       "RANGE_BONUS": 20,
-      "MAGIC_BONUS": 20,
+      "MAGIC_BONUS": 41,
       "CRUSH_BONUS": 20
     }
   },
@@ -105001,7 +105001,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105018,7 +105018,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105035,7 +105035,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105052,7 +105052,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105069,7 +105069,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105086,7 +105086,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105103,7 +105103,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105120,7 +105120,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105137,7 +105137,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105154,7 +105154,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105171,7 +105171,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105188,7 +105188,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105205,7 +105205,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105222,7 +105222,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105239,7 +105239,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105256,7 +105256,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105273,7 +105273,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 3200
@@ -105290,7 +105290,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105307,7 +105307,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105324,7 +105324,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105341,7 +105341,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105358,7 +105358,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105375,7 +105375,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105392,7 +105392,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105409,7 +105409,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105426,7 +105426,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105443,7 +105443,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105460,7 +105460,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105477,7 +105477,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105494,7 +105494,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105511,7 +105511,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105528,7 +105528,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105545,7 +105545,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105562,7 +105562,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -105579,7 +105579,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 150,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 150,
       "STRENGTH": 150,
       "HITPOINTS": 2400
@@ -105596,7 +105596,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 120,
       "RANGE_BONUS": 600,
-      "MAGIC_BONUS": 600,
+      "MAGIC_BONUS": 766,
       "CRUSH_BONUS": 40
     }
   },
@@ -106191,7 +106191,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 470,
-      "DEFENCE": 490,
+      "DEFENCE": 613,
       "RANGE": 1,
       "STRENGTH": 490,
       "HITPOINTS": 475
@@ -106208,7 +106208,7 @@
       "SLASH_BONUS": 260,
       "STAB_BONUS": 260,
       "RANGE_BONUS": 100,
-      "MAGIC_BONUS": 850,
+      "MAGIC_BONUS": 1079,
       "CRUSH_BONUS": 260
     }
   },
@@ -106225,7 +106225,7 @@
     "levels": {
       "MAGIC": 30,
       "ATTACK": 1,
-      "DEFENCE": 60,
+      "DEFENCE": 75,
       "RANGE": 30,
       "STRENGTH": 490,
       "HITPOINTS": 70
@@ -106242,7 +106242,7 @@
       "SLASH_BONUS": 0,
       "STAB_BONUS": 0,
       "RANGE_BONUS": 0,
-      "MAGIC_BONUS": 0,
+      "MAGIC_BONUS": 16,
       "CRUSH_BONUS": 0
     }
   },
@@ -106293,7 +106293,7 @@
     "levels": {
       "MAGIC": 230,
       "ATTACK": 315,
-      "DEFENCE": 260,
+      "DEFENCE": 325,
       "RANGE": 350,
       "STRENGTH": 200,
       "HITPOINTS": 7800
@@ -106310,7 +106310,7 @@
       "SLASH_BONUS": 140,
       "STAB_BONUS": 40,
       "RANGE_BONUS": 190,
-      "MAGIC_BONUS": 300,
+      "MAGIC_BONUS": 391,
       "CRUSH_BONUS": 60
     }
   },
@@ -106497,7 +106497,7 @@
     "levels": {
       "MAGIC": 190,
       "ATTACK": 242,
-      "DEFENCE": 102,
+      "DEFENCE": 128,
       "RANGE": 235,
       "STRENGTH": 288,
       "HITPOINTS": 12000000
@@ -106514,7 +106514,7 @@
       "SLASH_BONUS": 220,
       "STAB_BONUS": 220,
       "RANGE_BONUS": 480,
-      "MAGIC_BONUS": 10,
+      "MAGIC_BONUS": 29,
       "CRUSH_BONUS": 320
     }
   },
@@ -106667,7 +106667,7 @@
     "levels": {
       "MAGIC": 255,
       "ATTACK": 255,
-      "DEFENCE": 128,
+      "DEFENCE": 160,
       "RANGE": 0,
       "STRENGTH": 255,
       "HITPOINTS": 2500
@@ -106684,7 +106684,7 @@
       "SLASH_BONUS": 500,
       "STAB_BONUS": 500,
       "RANGE_BONUS": 1,
-      "MAGIC_BONUS": 500,
+      "MAGIC_BONUS": 641,
       "CRUSH_BONUS": 500
     }
   },
@@ -106735,7 +106735,7 @@
     "levels": {
       "MAGIC": 490,
       "ATTACK": 470,
-      "DEFENCE": 50,
+      "DEFENCE": 63,
       "RANGE": 150,
       "STRENGTH": 490,
       "HITPOINTS": 1500
@@ -106752,7 +106752,7 @@
       "SLASH_BONUS": 260,
       "STAB_BONUS": 260,
       "RANGE_BONUS": 850,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 260
     }
   },
@@ -106769,7 +106769,7 @@
     "levels": {
       "MAGIC": 150,
       "ATTACK": 300,
-      "DEFENCE": 150,
+      "DEFENCE": 188,
       "RANGE": 250,
       "STRENGTH": 300,
       "HITPOINTS": 1000
@@ -106786,7 +106786,7 @@
       "SLASH_BONUS": 180,
       "STAB_BONUS": 180,
       "RANGE_BONUS": 400,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 180
     }
   },
@@ -106803,7 +106803,7 @@
     "levels": {
       "MAGIC": 490,
       "ATTACK": 470,
-      "DEFENCE": 85,
+      "DEFENCE": 107,
       "RANGE": 150,
       "STRENGTH": 490,
       "HITPOINTS": 1200
@@ -106820,7 +106820,7 @@
       "SLASH_BONUS": 260,
       "STAB_BONUS": 260,
       "RANGE_BONUS": 850,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 260
     }
   },
@@ -106837,7 +106837,7 @@
     "levels": {
       "MAGIC": 10,
       "ATTACK": 160,
-      "DEFENCE": 10,
+      "DEFENCE": 13,
       "RANGE": 0,
       "STRENGTH": 320,
       "HITPOINTS": 1500
@@ -106871,7 +106871,7 @@
     "levels": {
       "MAGIC": 10,
       "ATTACK": 160,
-      "DEFENCE": 10,
+      "DEFENCE": 13,
       "RANGE": 0,
       "STRENGTH": 320,
       "HITPOINTS": 1500
@@ -106905,7 +106905,7 @@
     "levels": {
       "MAGIC": 160,
       "ATTACK": 632,
-      "DEFENCE": 1,
+      "DEFENCE": 2,
       "RANGE": 246,
       "STRENGTH": 268,
       "HITPOINTS": 20000
@@ -106922,7 +106922,7 @@
       "SLASH_BONUS": 1,
       "STAB_BONUS": 1,
       "RANGE_BONUS": 1,
-      "MAGIC_BONUS": 1,
+      "MAGIC_BONUS": 18,
       "CRUSH_BONUS": 1
     }
   },
@@ -106939,7 +106939,7 @@
     "levels": {
       "MAGIC": 25,
       "ATTACK": 25,
-      "DEFENCE": 25,
+      "DEFENCE": 32,
       "RANGE": 25,
       "STRENGTH": 25,
       "HITPOINTS": 25000
@@ -106956,7 +106956,7 @@
       "SLASH_BONUS": 1,
       "STAB_BONUS": 1,
       "RANGE_BONUS": 1,
-      "MAGIC_BONUS": 1,
+      "MAGIC_BONUS": 18,
       "CRUSH_BONUS": 1
     }
   },
@@ -106973,7 +106973,7 @@
     "levels": {
       "MAGIC": 25,
       "ATTACK": 25,
-      "DEFENCE": 25,
+      "DEFENCE": 32,
       "RANGE": 25,
       "STRENGTH": 25,
       "HITPOINTS": 25000
@@ -106990,7 +106990,7 @@
       "SLASH_BONUS": 1,
       "STAB_BONUS": 1,
       "RANGE_BONUS": 1,
-      "MAGIC_BONUS": 1,
+      "MAGIC_BONUS": 18,
       "CRUSH_BONUS": 1
     }
   },
@@ -107007,7 +107007,7 @@
     "levels": {
       "MAGIC": 240,
       "ATTACK": 1,
-      "DEFENCE": 240,
+      "DEFENCE": 300,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 2400
@@ -107024,7 +107024,7 @@
       "SLASH_BONUS": 666,
       "STAB_BONUS": 666,
       "RANGE_BONUS": 666,
-      "MAGIC_BONUS": 50,
+      "MAGIC_BONUS": 79,
       "CRUSH_BONUS": 666
     }
   },
@@ -107109,7 +107109,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 200,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 6500
@@ -107143,7 +107143,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 200,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 350
@@ -107177,7 +107177,7 @@
     "levels": {
       "MAGIC": 1,
       "ATTACK": 200,
-      "DEFENCE": 200,
+      "DEFENCE": 250,
       "RANGE": 1,
       "STRENGTH": 1,
       "HITPOINTS": 7500
@@ -107194,7 +107194,7 @@
       "SLASH_BONUS": 99999,
       "STAB_BONUS": 99999,
       "RANGE_BONUS": 999999,
-      "MAGIC_BONUS": 90,
+      "MAGIC_BONUS": 129,
       "CRUSH_BONUS": 99999
     }
   }

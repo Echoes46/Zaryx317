@@ -1,20 +1,12 @@
 ---
 npc_id: 7221
-constant:
-  accessibility: 0
-  items:
-    - item: 696
-      minimum: 5
-      maximum: 10
 common:
   accessibility: 10
+  selection_size: 5 # Preserve odds after moving Nomad rewards.
   items:
     - item: 2403
       minimum: 1
       maximum: 1
-    - item: 696
-      minimum: 20
-      maximum: 20
     - item: 13346
       minimum: 10
       maximum: 10
@@ -26,13 +18,11 @@ common:
       maximum: 1
 uncommon:
   accessibility: 50
+  selection_size: 5 # Preserve odds after moving Nomad rewards.
   items:
     - item: 2396
       minimum: 1
       maximum: 1
-    - item: 696
-      minimum: 40
-      maximum: 40
     - item: 13346
       minimum: 20
       maximum: 20
@@ -44,6 +34,7 @@ uncommon:
       maximum: 1
 rare:
   accessibility: 150
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
     - item: 19887
       minimum: 15
@@ -54,9 +45,6 @@ rare:
     - item: 786
       minimum: 1
       maximum: 1
-    - item: 696
-      minimum: 200
-      maximum: 200
     - item: 7774
       minimum: 1
       maximum: 1
@@ -111,3 +99,11 @@ extremely_rare:
     - item: 33191
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

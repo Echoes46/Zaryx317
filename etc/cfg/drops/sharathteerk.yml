@@ -3,18 +3,13 @@ npc_id: 12617
 constant:
   accessibility: 0
   items:
-    - item: 693 #50k Nomad
-      minimum: 25
-      maximum: 50
     - item: 26879 #Wraith Essence
       minimum: 1
       maximum: 1
 common:
   accessibility: 167
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 7
-      maximum: 14
     - item: 6678 #Mini umb
       minimum: 5
       maximum: 10
@@ -44,10 +39,8 @@ common:
       maximum: 3
 uncommon:
   accessibility: 375
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 12
-      maximum: 24
     - item: 13346 #Umb
       minimum: 6
       maximum: 14
@@ -99,10 +92,8 @@ rare:
 
 very_rare:
   accessibility: 984
+  selection_size: 4 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 500
-      maximum: 1000
     - item: 12588 #Dono Box
       minimum: 15
       maximum: 30
@@ -119,3 +110,14 @@ extremely_rare:
     - item: 33430 #Wraith Sword
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

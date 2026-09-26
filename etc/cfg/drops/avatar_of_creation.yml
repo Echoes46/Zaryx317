@@ -128,6 +128,7 @@ rare:
       maximum: 1
 very_rare:
   accessibility: 1200
+  selection_size: 13 # Preserve odds after moving Nomad rewards.
   items:
     - item: 2396
       minimum: 1
@@ -156,9 +157,6 @@ very_rare:
     - item: 22325
       minimum: 1
       maximum: 1
-    - item: 696
-      minimum: 20
-      maximum: 40
     - item: 11481
       minimum: 1
       maximum: 1
@@ -168,3 +166,11 @@ very_rare:
     - item: 25348
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

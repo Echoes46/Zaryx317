@@ -1,18 +1,9 @@
 ---
 npc_id: 12205
-constant:
-  accessibility: 0
-  items:
-    - item: 696 #250k Nomad
-      minimum: 25
-      maximum: 50
-
 common:
   accessibility: 100
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 250
-      maximum: 250
     - item: 25736 #holy scythe
       minimum: 1
       maximum: 1
@@ -43,10 +34,8 @@ common:
 
 uncommon:
   accessibility: 200
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 500
-      maximum: 500
     - item: 28254 #Sanguine
       minimum: 1
       maximum: 1
@@ -75,16 +64,17 @@ uncommon:
       minimum: 1
       maximum: 1
 
-rare:
-  accessibility: 450
-  items:
-    - item: 696 #250k Nomad
-      minimum: 1000
-      maximum: 1000
-
 very_rare:
   accessibility: 600
   items:
     - item: 28246 #Wisp
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

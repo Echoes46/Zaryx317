@@ -1,12 +1,5 @@
 ---
 npc_id: 12191
-constant:
-  accessibility: 0
-  items:
-    - item: 33237  #1 nomad
-      minimum: 500
-      maximum: 2500
-
 common:
   accessibility: 250
   items:
@@ -88,3 +81,11 @@ very_rare:
     - item: 33143  #virtus
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 33237
+      minimum: 1
+      maximum: 2

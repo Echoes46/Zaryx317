@@ -1,17 +1,9 @@
 ---
 npc_id: 5169
-constant:
-  accessibility: 0
-  items:
-    - item: 696  #1.25m Nomad
-      minimum: 5
-      maximum: 5
 common:
   accessibility: 150
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696  #2.5m Nomad
-      minimum: 1
-      maximum: 10
     - item: 11666  #Elite void token
       minimum: 1
       maximum: 1
@@ -41,10 +33,8 @@ common:
       maximum: 1
 uncommon:
   accessibility: 250
+  selection_size: 15 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696  #5m Nomad
-      minimum: 1
-      maximum: 20
     - item: 27226  #Masori mask
       minimum: 1
       maximum: 1
@@ -116,10 +106,8 @@ rare:
       maximum: 5
 very_rare:
   accessibility: 650
+  selection_size: 9 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696  #10m Nomad
-      minimum: 40
-      maximum: 40
     - item: 3128  #Dural phat
       minimum: 1
       maximum: 1
@@ -144,3 +132,11 @@ very_rare:
     - item: 20786  #Row (i5)
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

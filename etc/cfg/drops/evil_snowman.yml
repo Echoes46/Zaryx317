@@ -2,6 +2,7 @@
 npc_id: 2317
 common:
   accessibility: 1
+  selection_size: 11 # Preserve odds after moving Nomad rewards.
   items:
     - item: 12887 #Santa mask
       minimum: 1
@@ -24,12 +25,6 @@ common:
     - item: 6570 #Firecape
       minimum: 1
       maximum: 1
-    - item: 693 #50k Nomad
-      minimum: 1
-      maximum: 1
-    - item: 696 #250k Nomad
-      minimum: 1
-      maximum: 1
     - item: 33251 #100 Credits
       minimum: 1
       maximum: 1
@@ -38,6 +33,7 @@ common:
       maximum: 10
 uncommon:
   accessibility: 2
+  selection_size: 11 # Preserve odds after moving Nomad rewards.
   items:
     - item: 6828 #Smb
       minimum: 2
@@ -69,11 +65,9 @@ uncommon:
     - item: 21295 #Infernal cape
       minimum: 1
       maximum: 1
-    - item: 696 #500k Nomad
-      minimum: 2
-      maximum: 2
 rare:
   accessibility: 15
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
     - item: 13346 #Umb
       minimum: 1
@@ -93,11 +87,9 @@ rare:
     - item: 1050 #Santa
       minimum: 1
       maximum: 1
-    - item: 696 #1m Nomad
-      minimum: 4
-      maximum: 4
 very_rare:
   accessibility: 25
+  selection_size: 16 # Preserve odds after moving Nomad rewards.
   items:
     - item: 26649 #Skis
       minimum: 1
@@ -135,9 +127,6 @@ very_rare:
     - item: 27580 #Nutcracker staff
       minimum: 1
       maximum: 1
-    - item: 696 #10m Nomad
-      minimum: 40
-      maximum: 40
     - item: 12161 #Chistmas Mbox
       minimum: 1
       maximum: 1
@@ -147,3 +136,14 @@ very_rare:
     - item: 2400 #Silverlight key
       minimum: 1
       maximum: 4
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

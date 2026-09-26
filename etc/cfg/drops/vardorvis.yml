@@ -1,18 +1,9 @@
 ---
 npc_id: 12223
-constant:
-  accessibility: 0
-  items:
-    - item: 696 #250k Nomad
-      minimum: 25
-      maximum: 50
-
 common:
   accessibility: 344
+  selection_size: 9 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 250
-      maximum: 250
     - item: 25736 #holy scythe
       minimum: 1
       maximum: 1
@@ -40,10 +31,8 @@ common:
 
 uncommon:
   accessibility: 768
+  selection_size: 11 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 500
-      maximum: 500
     - item: 20786 #ROW i(5)
       minimum: 1
       maximum: 1
@@ -77,10 +66,8 @@ uncommon:
 
 rare:
   accessibility: 2231
+  selection_size: 4 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 1000
-      maximum: 1000
     - item: 33343 #ember
       minimum: 1
       maximum: 1
@@ -93,10 +80,8 @@ rare:
 
 very_rare:
   accessibility: 3432
+  selection_size: 5 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 33428 #1m nomad
-      minimum: 500
-      maximum: 500
     - item: 6758 #Pet scroll
       minimum: 1
       maximum: 1
@@ -109,3 +94,14 @@ very_rare:
     - item: 28248 #Butch
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25
+    - item: 33428
+      minimum: 1
+      maximum: 25

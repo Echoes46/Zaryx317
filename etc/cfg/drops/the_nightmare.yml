@@ -8,6 +8,7 @@ constant:
     maximum: 1
 common:
   accessibility: 1
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
   - name: "nature rune"
     minimum: 23
@@ -36,9 +37,6 @@ common:
   - name: "mithril ore noted"
     minimum: 30
     maximum: 120
-  - item: 696
-    minimum: 1
-    maximum: 4
 uncommon:
   accessibility: 1
   items:
@@ -126,3 +124,11 @@ very_rare:
   - name: "jar of dreams"
     minimum: 1
     maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

@@ -151,7 +151,8 @@ public class DropManager {
                 if (policy != TablePolicy.CONSTANT && accessibility <= 0) {
                     throw new IllegalStateException(policy + " accessibility must be positive: " + file);
                 }
-                Table table = new Table(policy, accessibility);
+                int selectionSize = dropTable.path("selection_size").asInt(0);
+                Table table = new Table(policy, accessibility, selectionSize);
                 TreeNode tableItems = dropTable.get("items");
                 if (tableItems == null || tableItems.size() == 0) {
                     throw new IllegalStateException(policy + " table has no items: " + file);
@@ -168,9 +169,16 @@ public class DropManager {
 
                     int minimumAmount = item.get("minimum").intValue();
                     int maximumAmount = item.get("maximum").intValue();
+                    if (policy == TablePolicy.NOMAD && (accessibility < 100 || minimumAmount != 1
+                            || maximumAmount != TableGroup.nomadQuantityCap(id))) {
+                        throw new IllegalStateException("Invalid rare Nomad reward: " + file);
+                    }
                     table.add(new Drop(npcIds, id, minimumAmount, maximumAmount));
                 }
 
+                if (selectionSize < 0 || (selectionSize > 0 && selectionSize < table.size())) {
+                    throw new IllegalStateException("Invalid selection_size: " + file);
+                }
                 group.add(table);
             }
             groups.put(npcIds, group);
@@ -581,7 +589,11 @@ public class DropManager {
         if (player.getItems().hasItemOnOrInventory(10557)) {
             ticketRandom = 70;
         }
-        if (Misc.random(ticketRandom) == 1) {
+        // Balanced bosses already roll their certificates in the dedicated Nomad table.
+        boolean hasNomadTable = groupFor(npcId)
+                .map(group -> group.stream().anyMatch(table -> table.getPolicy() == TablePolicy.NOMAD))
+                .orElse(false);
+        if (!hasNomadTable && Misc.random(ticketRandom) == 1) {
             specialItemId = 692;
             int extraKey = 0;
             if (player.hasFollower &&
@@ -1265,7 +1277,7 @@ public class DropManager {
             return group.map(g -> {
                 List<GameItem> items = new ArrayList<>();
                 for (TablePolicy policy : TablePolicy.POLICIES) {
-                    if (policy == TablePolicy.RARE || policy == TablePolicy.VERY_RARE || policy == TablePolicy.EXTREMELY_RARE) {
+                    if (policy == TablePolicy.RARE || policy == TablePolicy.VERY_RARE || policy == TablePolicy.EXTREMELY_RARE || policy == TablePolicy.NOMAD) {
                         Optional<Table> table = g.stream().filter(t -> t.getPolicy() == policy).findFirst();
                         if (table.isPresent()) {
                             for (Drop d : table.get()) {
@@ -1310,7 +1322,7 @@ public class DropManager {
         group.ifPresent(g -> {
             List<GameItem> items = new ArrayList<>();
             for (TablePolicy policy : TablePolicy.POLICIES) {
-                if (policy == TablePolicy.RARE || policy == TablePolicy.VERY_RARE || policy == TablePolicy.EXTREMELY_RARE) {
+                if (policy == TablePolicy.RARE || policy == TablePolicy.VERY_RARE || policy == TablePolicy.EXTREMELY_RARE || policy == TablePolicy.NOMAD) {
                     Optional<Table> table = g.stream().filter(t -> t.getPolicy() == policy).findFirst();
                     if (table.isPresent()) {
                         for(Drop d : table.get()) {
@@ -1523,7 +1535,8 @@ public class DropManager {
         drops = drops.stream().distinct().collect(Collectors.toList());
 
         for (Drop drop : drops) {
-            boolean space = writeItem(player, drop.getItemId(), drop.getMinimumAmount(), drop.getMaximumAmount(), policy.name().toLowerCase().replaceAll("_", " "), dropChance);
+            String rarity = policy == TablePolicy.NOMAD ? "rare" : policy.name().toLowerCase().replaceAll("_", " ");
+            boolean space = writeItem(player, drop.getItemId(), drop.getMinimumAmount(), drop.getMaximumAmount(), rarity, dropChance);
             if (!space) return false;
         }
 

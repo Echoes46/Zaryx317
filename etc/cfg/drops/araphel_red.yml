@@ -1,18 +1,10 @@
 ---
 npc_id:
   - 8172
-constant:
-  accessibility: 0
-  items:
-    - item: 692 #25k nomad
-      minimum: 1
-      maximum: 1
 common:
   accessibility: 3
+  selection_size: 9 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 693 #50k nomad
-      minimum: 1
-      maximum: 5
     - item: 21880 #wrath runes
       minimum: 125
       maximum: 250
@@ -39,10 +31,8 @@ common:
       maximum: 10
 uncommon:
   accessibility: 50
+  selection_size: 9 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 1
-      maximum: 4
     - item: 21880 #wrath runes
       minimum: 250
       maximum: 500
@@ -69,10 +59,8 @@ uncommon:
       maximum: 50
 rare:
   accessibility: 200
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 1
-      maximum: 10
     - item: 23351 #cape of skulls
       minimum: 1
       maximum: 1
@@ -109,3 +97,17 @@ very_rare:
     - item: 10533 #guardian pet
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 692
+      minimum: 1
+      maximum: 25
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

@@ -1,18 +1,9 @@
 ---
 npc_id: 13668
-constant:
-  accessibility: 0
-  items:
-    - item: 696 #250k Nomad
-      minimum: 25
-      maximum: 50
-
 common:
   accessibility: 344
+  selection_size: 13 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 250
-      maximum: 250
     - item: 25736 #holy scythe
       minimum: 1
       maximum: 1
@@ -52,10 +43,8 @@ common:
 
 uncommon:
   accessibility: 768
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 500
-      maximum: 500
     - item: 28254 #Sanguine
       minimum: 1
       maximum: 1
@@ -86,10 +75,8 @@ uncommon:
 
 rare:
   accessibility: 900
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k Nomad
-      minimum: 1000
-      maximum: 1000
     - item: 33311 #Plague
       minimum: 1
       maximum: 1
@@ -120,10 +107,8 @@ rare:
 
 very_rare:
   accessibility: 1500
+  selection_size: 6 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 33428 #1m nomad
-      minimum: 500
-      maximum: 500
     - item: 29790 #nox point
       minimum: 1
       maximum: 1
@@ -149,3 +134,14 @@ extremely_rare:
     - item: 29838 #Rax pet
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25
+    - item: 33428
+      minimum: 1
+      maximum: 25

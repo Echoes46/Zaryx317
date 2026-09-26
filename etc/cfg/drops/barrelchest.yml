@@ -9,6 +9,7 @@ constant:
 
 common:
   accessibility: 1
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
     - name: "runite bar"
       minimum: 1
@@ -22,9 +23,6 @@ common:
     - name: "uncut dragonstone noted"
       minimum: 1
       maximum: 1
-    - item: 691
-      minimum: 1
-      maximum: 5
     - name: "coal noted"
       minimum: 50
       maximum: 50
@@ -82,3 +80,11 @@ very_rare:
     - item: 26759
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 691
+      minimum: 1
+      maximum: 25

@@ -12,7 +12,7 @@ import java.util.Set;
  * </p>
  */
 public enum TablePolicy {
-	CONSTANT, COMMON, UNCOMMON, RARE, VERY_RARE, EXTREMELY_RARE;
+	CONSTANT, COMMON, UNCOMMON, RARE, VERY_RARE, EXTREMELY_RARE, NOMAD;
 
 	/**
 	 * A {@link Set} of elements from the {@link TablePolicy} enumeration.

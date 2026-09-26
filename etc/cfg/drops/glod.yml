@@ -3,27 +3,13 @@ npc_id: 6297
 constant:
   accessibility: 0
   items:
-    - item: 696 #250k nomad
-      minimum: 4
-      maximum: 4
     - item: 20608 #bloody key
       minimum: 1
       maximum: 1
 common:
   accessibility: 50
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 691 #10k nomad
-      minimum: 1
-      maximum: 200
-    - item: 692 #25k nomad
-      minimum: 1
-      maximum: 80
-    - item: 693 #50k nomad
-      minimum: 1
-      maximum: 40
-    - item: 696 #250k nomad
-      minimum: 1
-      maximum: 8
     - item: 22883 #iasor
       minimum: 1
       maximum: 1
@@ -123,3 +109,20 @@ very_rare:
     - item: 25736 #holy scythe
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25
+    - item: 691
+      minimum: 1
+      maximum: 25
+    - item: 692
+      minimum: 1
+      maximum: 25
+    - item: 693
+      minimum: 1
+      maximum: 25

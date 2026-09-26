@@ -11,6 +11,7 @@ constant:
     maximum: 1
 common:
   accessibility: 1
+  selection_size: 12 # Preserve odds after moving Nomad rewards.
   items:
   - name: "rune longsword"
     minimum: 2
@@ -42,9 +43,6 @@ common:
   - name: "magic logs noted"
     minimum: 50
     maximum: 50
-  - item: 691
-    minimum: 4
-    maximum: 10
   - name: "manta ray noted"
     minimum: 25
     maximum: 55
@@ -162,3 +160,11 @@ very_rare:
   - item: 2425  #Vorkath Head
     minimum: 1
     maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 691
+      minimum: 1
+      maximum: 25

@@ -25,9 +25,9 @@ class LeviathanDropsTest {
   JsonNode levi=mapper.readTree(new File("etc/cfg/drops/leviathan.yml"));
   JsonNode duke=mapper.readTree(new File("etc/cfg/drops/duke.yml"));
   assertEquals(12214,levi.get("npc_id").asInt());
-  assertEquals(duke.get("constant"),levi.get("constant"));
+  assertEquals(duke.get("nomad"),levi.get("nomad"));
   Set<Integer> ids=new HashSet<>();
-  for(String tier:Arrays.asList("constant","common","uncommon","rare","very_rare")) {
+  for(String tier:Arrays.asList("nomad","common","uncommon","rare","very_rare")) {
    assertEquals(duke.get(tier).get("accessibility"),levi.get(tier).get("accessibility"));
    for(JsonNode item:levi.get(tier).get("items")) {
     assertTrue(ids.add(item.get("item").asInt()),"Duplicate loot entry");

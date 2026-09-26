@@ -56,10 +56,8 @@ common:
       maximum: 1
 uncommon:
   accessibility: 217
+  selection_size: 13 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 8
-      maximum: 100
     - item: 19887 #mini dono
       minimum: 25
       maximum: 75
@@ -165,3 +163,11 @@ extremely_rare:
     - item: 33205 #demon x staff
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

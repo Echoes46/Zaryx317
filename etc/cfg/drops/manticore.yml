@@ -6,15 +6,10 @@ constant:
     - item: 537 #Noted Dragon bone
       minimum: 1
       maximum: 1
-    - item: 691 #1 Nomad
-      minimum: 1
-      maximum: 1
 common:
   accessibility: 1
+  selection_size: 5 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 691 #10k nomad
-      minimum: 1
-      maximum: 10
     - item: 6679 #Mini mystery
       minimum: 1
       maximum: 25
@@ -29,10 +24,8 @@ common:
       maximum: 5
 uncommon:
   accessibility: 1
+  selection_size: 4 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 692 #25k nomad
-      minimum: 1
-      maximum: 10
     - item: 6199 #Mystery Box
       minimum: 1
       maximum: 15
@@ -44,10 +37,8 @@ uncommon:
       maximum: 5
 rare:
   accessibility: 75
+  selection_size: 10 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 693 #50k nomad
-      minimum: 1
-      maximum: 10
     - item: 6678 #Mini umb
       minimum: 1
       maximum: 25
@@ -77,10 +68,8 @@ rare:
       maximum: 1
 very_rare:
   accessibility: 988
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 1
-      maximum: 10
     - item: 19887 #mini dono
       minimum: 1
       maximum: 25
@@ -99,3 +88,20 @@ very_rare:
     - item: 33347 #Ember
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 691
+      minimum: 1
+      maximum: 25
+    - item: 692
+      minimum: 1
+      maximum: 25
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

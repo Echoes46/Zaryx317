@@ -8,6 +8,7 @@ constant:
       maximum: 1
 common:
   accessibility: 1
+  selection_size: 12 # Preserve odds after moving Nomad rewards.
   items:
     - item: 995 #gp
       minimum: 300000
@@ -36,9 +37,6 @@ common:
     - item: 23933
       minimum: 5
       maximum: 8
-    - item: 696
-      minimum: 3
-      maximum: 5
     - item: 24365
       minimum: 1
       maximum: 1
@@ -241,3 +239,11 @@ very_rare:
     - item: 28939 #sun legs
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 696
+      minimum: 1
+      maximum: 25

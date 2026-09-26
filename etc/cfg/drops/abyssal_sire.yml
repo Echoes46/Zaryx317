@@ -8,10 +8,8 @@ constant:
     maximum: 1
 common:
   accessibility: 1
+  selection_size: 5 # Preserve odds after moving Nomad rewards.
   items:
-  - item: 691
-    minimum: 1
-    maximum: 5
   - name: "cosmic rune"
     minimum: 400
     maximum: 400
@@ -120,3 +118,11 @@ extremely_rare:
     - item: 28321  #eye of the duke
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 691
+      minimum: 1
+      maximum: 25

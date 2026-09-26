@@ -1,18 +1,9 @@
 ---
 npc_id: 10956
-constant:
-  accessibility: 0
-  items:
-    - item: 33428 #1m Nomad
-      minimum: 1
-      maximum: 2
-
 common:
   accessibility: 153
+  selection_size: 9 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 7
-      maximum: 14
     - item: 6678 #Mini umb
       minimum: 25
       maximum: 50
@@ -40,10 +31,8 @@ common:
 
 uncommon:
   accessibility: 278
+  selection_size: 6 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 12
-      maximum: 24
     - item: 13346 #Umb
       minimum: 6
       maximum: 14
@@ -90,10 +79,8 @@ rare:
 
 very_rare:
   accessibility: 1476
+  selection_size: 4 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696 #250k nomad
-      minimum: 500
-      maximum: 1000
     - item: 12588 #Dono Box
       minimum: 15
       maximum: 30
@@ -125,3 +112,14 @@ extremely_rare:
     - item: 27412 #Gloves
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 33428
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

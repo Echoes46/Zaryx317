@@ -1,13 +1,8 @@
 ---
 npc_id: 12572
-constant:
-  accessibility: 0
-  items:
-  - item: 33429 #1m Nomad
-    minimum: 1
-    maximum: 1
 common:
   accessibility: 3
+  selection_size: 27 # Preserve odds after moving Nomad rewards.
   items:
   - item: 989 # c key
     minimum: 100
@@ -87,20 +82,11 @@ common:
   - item: 33364 #forsaken
     minimum: 3
     maximum: 3
-  - item: 33429 #nomad
-    minimum: 10
-    maximum: 10
 
-uncommon:
-  accessibility: 150
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
   items:
-    - item: 33429 #nomad
-      minimum: 20
-      maximum: 20
-
-rare:
-  accessibility: 250
-  items:
-    - item: 33429 #nomad
-      minimum: 50
-      maximum: 50
+    - item: 33429
+      minimum: 1
+      maximum: 25

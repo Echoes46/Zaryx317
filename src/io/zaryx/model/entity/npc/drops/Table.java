@@ -16,6 +16,7 @@ public class Table extends ArrayList<Drop> {
 	 * The chance of access for the table
 	 */
 	private final int accessibility;
+	private final int selectionSize;
 
 	/**
 	 * Creates a new table
@@ -24,8 +25,13 @@ public class Table extends ArrayList<Drop> {
 	 * @param accessibility the probability that the table will be access
 	 */
 	public Table(TablePolicy policy, int accessibility) {
+		this(policy, accessibility, 0);
+	}
+
+	public Table(TablePolicy policy, int accessibility, int selectionSize) {
 		this.policy = policy;
 		this.accessibility = accessibility;
+		this.selectionSize = selectionSize;
 	}
 
 	/**
@@ -34,7 +40,13 @@ public class Table extends ArrayList<Drop> {
 	 * @return a random drop
 	 */
 	public Drop fetchRandom() {
-		return get(Misc.random(size() - 1));
+		int slot = Misc.random(getSelectionSize() - 1);
+		return slot < size() ? get(slot) : null;
+	}
+
+	/** Vacated currency slots remain empty so other items keep their original odds. */
+	public int getSelectionSize() {
+		return selectionSize == 0 ? size() : selectionSize;
 	}
 
 	/**

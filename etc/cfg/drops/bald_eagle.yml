@@ -11,6 +11,7 @@ constant:
       maximum: 1
 common:
   accessibility: 15
+  selection_size: 12 # Preserve odds after moving Nomad rewards.
   items:
     - item: 23933
       minimum: 10
@@ -30,9 +31,6 @@ common:
     - item: 24364
       minimum: 1
       maximum: 1
-    - item: 691
-      minimum: 10
-      maximum: 20
     - item: 25478
       minimum: 1
       maximum: 1
@@ -50,6 +48,7 @@ common:
       maximum: 1
 uncommon:
   accessibility: 30
+  selection_size: 22 # Preserve odds after moving Nomad rewards.
   items:
     - item: 23933
       minimum: 25
@@ -69,9 +68,6 @@ uncommon:
     - item: 24365
       minimum: 1
       maximum: 1
-    - item: 692
-      minimum: 10
-      maximum: 20
     - item: 6769 #$5
       minimum: 1
       maximum: 1
@@ -119,6 +115,7 @@ uncommon:
       maximum: 2
 rare:
   accessibility: 120
+  selection_size: 8 # Preserve odds after moving Nomad rewards.
   items:
     - item: 24366
       minimum: 1
@@ -126,9 +123,6 @@ rare:
     - item: 13346
       minimum: 2
       maximum: 2
-    - item: 693
-      minimum: 10
-      maximum: 20
     - item: 2403 #$10
       minimum: 1
       maximum: 1
@@ -146,6 +140,7 @@ rare:
       maximum: 1
 extremely_rare:
   accessibility: 200
+  selection_size: 8 # Preserve odds after moving Nomad rewards.
   items:
     - item: 33392
       minimum: 1
@@ -162,12 +157,26 @@ extremely_rare:
     - item: 22093
       minimum: 8
       maximum: 8
-    - item: 696
-      minimum: 10
-      maximum: 20
     - item: 25918
       minimum: 1
       maximum: 1
     - item: 33115
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 691
+      minimum: 1
+      maximum: 25
+    - item: 692
+      minimum: 1
+      maximum: 25
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

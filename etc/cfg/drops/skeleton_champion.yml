@@ -1,11 +1,5 @@
 ---
 npc_id: 3358   #Mage
-constant:
-  accessibility: 0
-  items:
-    - item: 693 #50k Nomad Certs
-      minimum: 1
-      maximum: 1
 common:
   accessibility: 250
   items:
@@ -32,10 +26,8 @@ common:
       maximum: 1
 uncommon:
   accessibility: 500
+  selection_size: 7 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 692 #25k nomad
-      minimum: 1
-      maximum: 1
     - item: 2528 #exp lamp
       minimum: 10
       maximum: 10
@@ -56,10 +48,8 @@ uncommon:
       maximum: 1
 rare:
   accessibility: 1000
+  selection_size: 8 # Preserve odds after moving Nomad rewards.
   items:
-    - item: 696  #2.5m Nomad
-      minimum: 1
-      maximum: 10
     - item: 11666  #Elite void token
       minimum: 1
       maximum: 1
@@ -99,3 +89,17 @@ extremely_rare:
     - item: 21804 #Ancient Crystal
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 693
+      minimum: 1
+      maximum: 25
+    - item: 692
+      minimum: 1
+      maximum: 25
+    - item: 696
+      minimum: 1
+      maximum: 25

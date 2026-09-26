@@ -17,6 +17,7 @@ constant:
     maximum: 100
 common:
   accessibility: 1
+  selection_size: 25 # Preserve odds after moving Nomad rewards.
   items:
   - name: "rune pickaxe"
     minimum: 1
@@ -71,9 +72,6 @@ common:
     maximum: 6
   - name: "runite bar noted"
     minimum: 3
-    maximum: 5
-  - item: 691
-    minimum: 1
     maximum: 5
   - name: "chaos rune"
     minimum: 100
@@ -147,3 +145,11 @@ extremely_rare:
     - item: 33188
       minimum: 1
       maximum: 1
+
+# Independent rare currency roll; at most one reward per kill.
+nomad:
+  accessibility: 100
+  items:
+    - item: 691
+      minimum: 1
+      maximum: 25
