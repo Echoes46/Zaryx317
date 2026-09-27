@@ -736,6 +736,8 @@ public class PlayerSave {
                             p.tempNomadCoffer = Long.parseLong(token2);
                         } else if (token.equals("tpPlat")) {
                             p.tempPlatCoffer = Long.parseLong(token2);
+                        } else if (token.equals("tpCoins")) {
+                            p.tempCoinCoffer = Long.parseLong(token2);
                         } else if (token.equals("donW")) {
                             p.setWeeklyDonated(Long.parseLong(token2));
                         }  else if (token.equals("dailydmg")) {
@@ -1354,19 +1356,7 @@ public class PlayerSave {
                             break;
                         case 69:
                             if (token.equals("trading-post")) {
-                                    int id = Integer.parseInt(token3[0]);
-                                    int amt = Integer.parseInt(token3[1]);
-                                    int pricePerItem = Integer.parseInt(token3[2]);
-                                    boolean nomad = Boolean.parseBoolean(token3[3]);
-                                    int totalSold = Integer.parseInt(token3[4]);
-                                    long timestamp = Long.parseLong(token3[5]);
-
-                                    p.tempTradeOffers.add(new TradePostOffer(p.getDisplayName(),
-                                            new GameItem(id, amt),
-                                            pricePerItem,
-                                            timestamp,
-                                            nomad,
-                                            totalSold));
+                                p.tempTradeOffers.add(TradePostOffer.fromSaveFields(p.getDisplayName(), token3));
                             }
                             break;
 
@@ -2292,6 +2282,10 @@ public class PlayerSave {
             long coinCoffer = tradePost == null ? p.tempPlatCoffer : tradePost.getCoinCoffer();
             characterfile.write(Long.toString(coinCoffer), 0, Long.toString(coinCoffer).length());
             characterfile.newLine();
+            characterfile.write("tpCoins = ");
+            long actualCoinCoffer = tradePost == null ? p.tempCoinCoffer : tradePost.getActualCoinCoffer();
+            characterfile.write(Long.toString(actualCoinCoffer));
+            characterfile.newLine();
             characterfile.write("donW = ", 0, 6);
             characterfile.write(Long.toString(p.getWeeklyDonated()), 0, Long.toString(p.getWeeklyDonated()).length());
             characterfile.newLine();
@@ -3212,23 +3206,7 @@ public class PlayerSave {
             for (int i = 0; i < tradingPostOffers.size(); i++) {
                 characterfile.write("trading-post = "); // Write the offer identifier
                 TradePostOffer offer = tradingPostOffers.get(i);
-                int id = offer.getItem().getId();
-                int amt = offer.getItem().getAmount();
-                int pricePerItem = offer.getPricePerItem();
-                boolean nomad = offer.isNomad();
-                long timestamp = offer.getTimestamp();
-                int totalSold = offer.getTotalSold();
-                characterfile.write(Integer.toString(id)); // Write item ID
-                characterfile.write("\t"); // Write a tab character as separator
-                characterfile.write(Integer.toString(amt)); // Write item amount
-                characterfile.write("\t"); // Write a tab character as separator
-                characterfile.write(Integer.toString(pricePerItem)); // Write price per item
-                characterfile.write("\t"); // Write a tab character as separator
-                characterfile.write(nomad ? "true" : "false"); // Write whether it's a nomad offer
-                characterfile.write("\t"); // Write a tab character as separator
-                characterfile.write(Integer.toString(totalSold)); // Write total amount sold
-                characterfile.write("\t"); // Write a tab character as separator
-                characterfile.write(Long.toString(timestamp)); // Write total amount sold
+                characterfile.write(offer.toSaveString());
                 characterfile.newLine(); // Move to the next line for the next offer
             }
             characterfile.newLine(); // Add an extra newline for separation

@@ -92,9 +92,7 @@ public class POSManager {
 
 
         actualCoinCoffer = player.tempCoinCoffer;
-         player.tempCoinCoffer = 0;
-
-        actualCoinCoffer = 0;
+        player.tempCoinCoffer = 0;
 
         player.tempNomadCoffer = 0;
         player.tempPlatCoffer = 0;
@@ -462,7 +460,7 @@ public class POSManager {
                                 sellerName,
                                 new GameItem(offer.getItem().getId(), offer.getTotalSold() + finalAmount),
                                 System.currentTimeMillis(),
-                                offer.isNomad(),
+                                offer.getCurrencyId(),
                                 offer.getPricePerItem()
                         ));
 
@@ -721,11 +719,7 @@ public class POSManager {
     }
 
     private String getCurrencyName(TradePostHistory history) {
-        if (history.isNomad()) {
-            return "Points";
-        }
-
-        return "Plat";
+        return getCurrencyName(history.getCurrencyId());
     }
 
     private String getCurrencyName(int currencyId) {

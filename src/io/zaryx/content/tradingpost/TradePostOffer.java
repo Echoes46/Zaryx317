@@ -82,4 +82,23 @@ public class TradePostOffer {
     public boolean usesInventoryCurrency() {
         return currencyId != UPGRADE_POINTS;
     }
+
+    public String toSaveString() {
+        return item.getId() + "\t" + item.getAmount() + "\t" + pricePerItem + "\t"
+                + currencyId + "\t" + totalSold + "\t" + timestamp;
+    }
+
+    public static TradePostOffer fromSaveFields(String username, String[] fields) {
+        if (fields.length != 6) throw new IllegalArgumentException("Invalid trading-post offer");
+        int currency;
+        // Historical false entries were platinum. Their original GP/plat intent cannot be recovered.
+        if ("true".equalsIgnoreCase(fields[3])) currency = UPGRADE_POINTS;
+        else if ("false".equalsIgnoreCase(fields[3])) currency = PLAT;
+        else currency = Integer.parseInt(fields[3]);
+        if (currency != COINS && currency != PLAT && currency != UPGRADE_POINTS) {
+            throw new IllegalArgumentException("Invalid trading-post currency: " + fields[3]);
+        }
+        return new TradePostOffer(username, new GameItem(Integer.parseInt(fields[0]), Integer.parseInt(fields[1])),
+                Integer.parseInt(fields[2]), Long.parseLong(fields[5]), currency, Integer.parseInt(fields[4]));
+    }
 }

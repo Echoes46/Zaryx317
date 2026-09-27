@@ -78349,8 +78349,8 @@
   description: A Special Jewel used to access the Chaotic Boss.
   untradeable: true
 - id: 28416
-  name: Shadow Crusade Key
-  description: To be used on the Shadow Crusade Chest.
+  name: Slayer Key (tier 1)
+  description: A tier 1 Slayer key.
   stackable: true
 - id: 28417
   name: Slayer Key (tier 2)
