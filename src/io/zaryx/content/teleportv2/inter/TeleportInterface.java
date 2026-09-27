@@ -360,7 +360,6 @@ public class TeleportInterface {
 
 
     public static void sendDrops(Player player, int npcId) {
-        for(int i=0;i<203;i++)player.getPA().itemOnInterface(-1,0,31018,i);
         List<GameItem> drops=new ArrayList<>();
         if(npcId==8374)drops.addAll(TheatreOfBloodChest.getAllDrops());
         else if(npcId==7519)drops.addAll(RaidsChestRare.getAllRaidsDrops());
@@ -374,15 +373,21 @@ public class TeleportInterface {
             List<GameItem> table=Server.getDropManager().getAllNPCdrops(npcId);
             if(table!=null)drops.addAll(table);
         }
-        Map<Integer,GameItem> unique=new LinkedHashMap<>();
-        for(GameItem item:drops)unique.putIfAbsent(item.getId(),item);
-        int index=0;for(GameItem item:unique.values()) {
-            if(index==203)break;
+        int index=0;for(GameItem item:uniqueDrops(drops)) {
             player.getPA().itemOnInterface(item.getId(),item.getAmount(),31018,index++);
         }
+        int previousCount=player.getAttributes().getInt("teleport_drop_count",203);
+        for(int i=index;i<previousCount;i++)player.getPA().itemOnInterface(-1,0,31018,i);
+        player.getAttributes().setInt("teleport_drop_count",index);
         player.getPA().sendString(61817,index==0 ? "No configured drops for this selection." : "");
         player.getPA().setScrollableMaxHeight(31017,Math.max(114,((index+6)/7)*37+6));
         player.getPA().resetScrollBar(31017);
+    }
+
+    static List<GameItem> uniqueDrops(List<GameItem> drops) {
+        Map<Integer,GameItem> unique=new LinkedHashMap<>();
+        for(GameItem item:drops)unique.putIfAbsent(item.getId(),item);
+        return new ArrayList<>(unique.values());
     }
 
     public static Teleport[] destinations(int tab) {
