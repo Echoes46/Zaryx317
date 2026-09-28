@@ -25,6 +25,19 @@ public class Drop {
 	 * The maximum amount of the item you can receive
 	 */
 	private final int maximumAmount;
+	private int nomadDenominator;
+	private TablePolicy nomadRarity = TablePolicy.RARE;
+
+	public void setNomadRate(int denominator, TablePolicy rarity) {
+		Preconditions.checkArgument(denominator > 0);
+		Preconditions.checkArgument(rarity == TablePolicy.UNCOMMON || rarity == TablePolicy.RARE
+				|| rarity == TablePolicy.VERY_RARE);
+		nomadDenominator = denominator;
+		nomadRarity = rarity;
+	}
+
+	public int getNomadDenominator() { return nomadDenominator; }
+	public TablePolicy getNomadRarity() { return nomadRarity; }
 
 	/**
 	 * A new {@link Drop} that exists within a particular {@link Table}

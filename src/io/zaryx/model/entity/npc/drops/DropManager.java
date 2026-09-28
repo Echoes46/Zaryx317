@@ -173,11 +173,20 @@ public class DropManager {
                             || maximumAmount != TableGroup.nomadQuantityCap(id))) {
                         throw new IllegalStateException("Invalid rare Nomad reward: " + file);
                     }
-                    table.add(new Drop(npcIds, id, minimumAmount, maximumAmount));
+                    Drop drop = new Drop(npcIds, id, minimumAmount, maximumAmount);
+                    if (policy == TablePolicy.NOMAD && item.has("chance")) {
+                        drop.setNomadRate(item.get("chance").asInt(),
+                                TablePolicy.valueOf(item.get("rarity").asText().toUpperCase(Locale.ROOT)));
+                    }
+                    table.add(drop);
                 }
 
                 if (selectionSize < 0 || (selectionSize > 0 && selectionSize < table.size())) {
                     throw new IllegalStateException("Invalid selection_size: " + file);
+                }
+                if (policy == TablePolicy.NOMAD) {
+                    double totalChance = table.stream().mapToDouble(drop -> TableGroup.nomadChance(table, drop, 2.0)).sum();
+                    if (totalChance > 1.0) throw new IllegalStateException("Nomad chances exceed 100%: " + file);
                 }
                 group.add(table);
             }
@@ -1281,6 +1290,7 @@ public class DropManager {
                         Optional<Table> table = g.stream().filter(t -> t.getPolicy() == policy).findFirst();
                         if (table.isPresent()) {
                             for (Drop d : table.get()) {
+                                if (policy == TablePolicy.NOMAD && d.getNomadRarity() == TablePolicy.UNCOMMON) continue;
                                 items.add(new GameItem(d.getItemId(), d.getMaximumAmount()));
                             }
                         }
@@ -1326,6 +1336,7 @@ public class DropManager {
                     Optional<Table> table = g.stream().filter(t -> t.getPolicy() == policy).findFirst();
                     if (table.isPresent()) {
                         for(Drop d : table.get()) {
+                            if (policy == TablePolicy.NOMAD && d.getNomadRarity() == TablePolicy.UNCOMMON) continue;
                             items.add(new GameItem(d.getItemId(), d.getMaximumAmount()));
                         }
                     }
@@ -1484,6 +1495,13 @@ public class DropManager {
             for (TablePolicy policy : TablePolicy.POLICIES) {
                 Optional<Table> table = g.stream().filter(t -> t.getPolicy() == policy).findFirst();
                 if (table.isPresent()) {
+                    if (policy == TablePolicy.NOMAD) {
+                        for (Drop drop : table.get()) {
+                            if (!updateAmounts(player, drop.getNomadRarity(), Collections.singletonList(drop),
+                                    TableGroup.nomadDropDenominator(table.get(), drop, modifier))) break;
+                        }
+                        continue;
+                    }
                     // A table first rolls for access and then selects one entry. Include both
                     // steps so this is the same per-item chance used by the live loot roll.
                     int finalChance = TableGroup.individualDropDenominator(table.get(), modifier);

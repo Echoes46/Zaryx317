@@ -6,17 +6,17 @@ import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.skills.Skill;
 import io.zaryx.content.skills.CustomSkillBenefits;
 import io.zaryx.model.definitions.ItemDef;
+import io.zaryx.model.cycleevent.CycleEvent;
+import io.zaryx.model.cycleevent.CycleEventContainer;
+import io.zaryx.model.cycleevent.CycleEventHandler;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
 import io.zaryx.model.entity.player.Right;
 import io.zaryx.model.items.GameItem;
-import io.zaryx.model.items.ImmutableItem;
 import io.zaryx.util.Misc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class UpgradeInterface {
 
@@ -126,32 +126,32 @@ public class UpgradeInterface {
                 }
 
                 if (getRestrictions(val, all)) {
-                    boolean fusionistSave = player.getPerkSytem().gameItems.stream()
-                            .anyMatch(item -> item.getId() == 33072) && Misc.trueRand(100) < 10;
-
-                    if (fusionistSave) {
-                        player.sendMessage("@red@The Fusionist saves the materials and cost of your upgrade!");
-                    } else {
-                        player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount());
-                        player.foundryPoints -= val.getCost();
-                    }
-//                    if (player.getItems().isWearingItem(26314)) {
-//                        player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount() / 4);
-//                    }
-                    TimerTask task = new TimerTask() {
+                    CycleEvent task = new CycleEvent() {
                         int tick = 0;
 
                         @Override
-                        public void run() {
+                        public void execute(CycleEventContainer container) {
                             if (tick == 0) {
                                 player.sendMessage("You try to upgrade....");
                             } else if (tick == 2) {
+                                // Validate and settle together on the game thread. Cancellation before
+                                // this point must not consume an item or charge upgrade points.
+                                container.stop();
+                                if (player.isDisconnected() || !getRestrictions(val, all)) return;
+                                boolean fusionistSave = player.getPerkSytem().gameItems.stream()
+                                        .anyMatch(item -> item.getId() == 33072) && Misc.trueRand(100) < 10;
+                                if (fusionistSave) {
+                                    player.sendMessage("@red@The Fusionist saves the materials and cost of your upgrade!");
+                                } else {
+                                    player.getItems().deleteItem2(val.getRequired().getId(), val.getRequired().getAmount());
+                                    player.foundryPoints -= val.getCost();
+                                }
                                 int amount = (player.getItems().getInventoryCount(26886));
                                 int amount1 = (player.getItems().getInventoryCount(26885));
                                 int amount2 = (player.getItems().getInventoryCount(26884));
                                 int amount3 = (player.getItems().getInventoryCount(26883));
                                 int amount4 = (player.getItems().getInventoryCount(26882));
-                                double a = Misc.random(0, 99);
+                                double a = Math.random() * 100.0;
                                 double b = val.getSuccessRate();
                                 b = getBoost(val.getSuccessRate());
 
@@ -172,11 +172,11 @@ public class UpgradeInterface {
                                 }
 
 
-                                boolean success =  a <= b;
+                                boolean success = succeeds(b, a);
                                 if (success) {
                                     player.sendMessage("You successfully upgraded your item!");
                                     Achievements.increase(player, AchievementType.UPGRADE, 1);
-                                    player.getInventory().addToInventory(new ImmutableItem(val.getReward()));
+                                    player.getItems().addItemUnderAnyCircumstance(val.getReward().getId(), val.getReward().getAmount());
                                     if (val.isRare()) {
                                             String msg = "@blu@<img=18>[UPGRADE]<img=18>@red@ " + player.getDisplayName()
                                                     + " Has successfully achieved "
@@ -205,14 +205,14 @@ public class UpgradeInterface {
                                             && (Math.random() * 100) <= getDonator();
                                     boolean fortuneSave = Misc.trueRand(100)
                                             < CustomSkillBenefits.fortuneFailedUpgradeSaveChance(player);
-                                    if (protectedItem && (donatorSave || fortuneSave)) {
+                                    if (!fusionistSave && protectedItem && (donatorSave || fortuneSave)) {
                                         player.sendMessage(fortuneSave
                                                 ? "Your Fortune mastery saves your item!"
                                                 : "Your donator rank saves your item!");
                                         player.getItems().addItemUnderAnyCircumstance(
                                                 val.getRequired().getId(), val.getRequired().getAmount());
                                     }
-                                    if (!protectedItem) {
+                                    if (!fusionistSave && !protectedItem) {
                                         player.getItems().addItemUnderAnyCircumstance(
                                                 val.getRequired().getId(), val.getRequired().getAmount());
                                     }
@@ -220,18 +220,20 @@ public class UpgradeInterface {
                                 }
 
                                 player.sendMessage("@bla@[@red@UPGRADE@bla@]@blu@ Your remaining points : " + Misc.formatCoins(player.foundryPoints));
-                                cancel();
                             }
                             tick++;
                         }
 
                     };
 
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500, 500);
+                    CycleEventHandler.getSingleton().addEvent(player, task, 1);
                 }
             }
         });
+    }
+
+    static boolean succeeds(double chance, double roll) {
+        return roll < Math.max(0.0, Math.min(100.0, chance));
     }
 
     public int getDonator() {

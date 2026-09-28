@@ -9,7 +9,6 @@ import io.zaryx.content.leaderboards.LeaderboardType;
 import io.zaryx.content.leaderboards.LeaderboardUtils;
 import io.zaryx.content.prestige.PrestigePerks;
 import io.zaryx.content.skills.Skill;
-import io.zaryx.content.upgrade.UpgradeMaterials;
 import io.zaryx.model.Items;
 import io.zaryx.model.definitions.ItemDef;
 import io.zaryx.model.entity.player.Player;
@@ -68,27 +67,19 @@ public class FireOfExchange {
 
         ItemDef def = ItemDef.forId(c.currentExchangeItem);
 
-        long exchangePrice = (def.isNoted() ? (long) getBurnPrice(c, def.getUnNotedIdIfNoted(), true) * c.currentExchangeItemAmount
-                : (long) getBurnPrice(c, c.currentExchangeItem, true) * c.currentExchangeItemAmount);
-
-        boolean noted = def.isNoted();
-
-        if (exchangePrice == -1) {
-            for (UpgradeMaterials value : UpgradeMaterials.values()) {
-                if (value.getReward().getId() == c.currentExchangeItem) {
-                    exchangePrice = (value.getCost() / 5);
-                }
-            }
-        }
-        if (exchangePrice == -1) {
+        int unitPrice = getBurnPrice(c, def.getUnNotedIdIfNoted(), true);
+        if (unitPrice <= 0) {
             c.sendMessage("@red@You cannot dissolve @blu@" + ItemAssistant.getItemName(c.currentExchangeItem) + " for @red@ Points.");
             return;
         }
 
-        if (!c.getItems().playerHasItem(c.currentExchangeItem)) {
+        if (c.currentExchangeItemAmount <= 0
+                || c.getItems().getItemAmount(c.currentExchangeItem) < c.currentExchangeItemAmount) {
             c.sendMessage("You no longer have this item on you.");
             return;
         }
+
+        long exchangePrice = (long) unitPrice * c.currentExchangeItemAmount;
 
         if (c.getMode().isIronmanType() && canBurnWithBranch(c)) {
             exchangePrice *= 1.10;
@@ -99,10 +90,7 @@ public class FireOfExchange {
 
         if (c.getPerkSytem().gameItems.stream().anyMatch(item -> item.getId() == 33092) &&
                 Misc.random(0,100) > 97 &&
-                c.currentExchangeItem != 691 &&
-                c.currentExchangeItem != 692 &&
-                c.currentExchangeItem != 693 &&
-                c.currentExchangeItem != 696 &&
+                !FireOfExchangeBurnPrice.isNomadCertificate(c.currentExchangeItem) &&
                 c.currentExchangeItem != 2399 &&
                 c.currentExchangeItem != 21046 &&
                 c.currentExchangeItem != 8866 &&
@@ -111,10 +99,7 @@ public class FireOfExchange {
         }
 
         if (PrestigePerks.hasRelic(c, PrestigePerks.NOMAD_PLUS_15) &&
-                c.currentExchangeItem != 691 &&
-                c.currentExchangeItem != 692 &&
-                c.currentExchangeItem != 693 &&
-                c.currentExchangeItem != 696 &&
+                !FireOfExchangeBurnPrice.isNomadCertificate(c.currentExchangeItem) &&
                 c.currentExchangeItem != 2399 &&
                 c.currentExchangeItem != 21046 &&
                 c.currentExchangeItem != 8866 &&
@@ -123,6 +108,10 @@ public class FireOfExchange {
         }
 
         int itemAmount = c.currentExchangeItemAmount;
+        if (exchangePrice > Long.MAX_VALUE - c.foundryPoints) {
+            c.sendMessage("You don't have room for that many upgrade points.");
+            return;
+        }
         c.getItems().deleteItem2(c.currentExchangeItem, itemAmount);
         c.foundryPoints += exchangePrice;
         TOTAL_POINTS_EXCHANGED += exchangePrice;
@@ -155,10 +144,7 @@ public class FireOfExchange {
             c.getEventCalendar().progress(EventChallenge.GAIN_X_EXCHANGE_POINTS, (int) exchangePrice);
             LeaderboardUtils.addCount(LeaderboardType.MOST_DISSOLVED, c, (int) exchangePrice);
         }
-        if (c.currentExchangeItem != 691 &&
-                c.currentExchangeItem != 692 &&
-                c.currentExchangeItem != 693 &&
-                c.currentExchangeItem != 696 &&
+        if (!FireOfExchangeBurnPrice.isNomadCertificate(c.currentExchangeItem) &&
                 c.currentExchangeItem != 2399 &&
                 c.currentExchangeItem != 21046 &&
                 c.currentExchangeItem != 8866 &&

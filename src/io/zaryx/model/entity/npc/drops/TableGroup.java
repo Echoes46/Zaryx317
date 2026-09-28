@@ -46,9 +46,8 @@ public class TableGroup extends ArrayList<Table> {
 
             if (policy == TablePolicy.NOMAD) {
                 // One currency roll per kill, even when ordinary loot has extra rolls.
-                if (repeats > 0 && Misc.preciseRandom(Range.between(0.0, 100.0))
-                        <= Math.min(100.0, 100.0 * effectiveMultiplier(policy, modifier) / table.getAccessibility())) {
-                    Drop drop = table.fetchRandom();
+                if (repeats > 0) {
+                    Drop drop = selectNomadDrop(table, modifier, Misc.preciseRandom(Range.between(0.0, 1.0)));
                     if (drop == null) continue;
                     int amount = drop.getMinimumAmount() + Misc.random(drop.getMaximumAmount() - drop.getMinimumAmount());
                     if (player != null && player.doubleDropRate > 0) amount *= 2;
@@ -197,6 +196,29 @@ public class TableGroup extends ArrayList<Table> {
             default:
                 throw new IllegalArgumentException("Not a Nomad currency item: " + itemId);
         }
+    }
+
+    /** Disjoint probability intervals allow denomination-specific odds and at most one reward. */
+    static Drop selectNomadDrop(Table table, double modifier, double roll) {
+        double cumulative = 0.0;
+        for (Drop drop : table) {
+            cumulative += nomadChance(table, drop, modifier);
+            if (roll < cumulative) return drop;
+        }
+        return null;
+    }
+
+    static double nomadChance(Table table, Drop drop, double modifier) {
+        if (drop.getNomadDenominator() > 0) {
+            return Math.min(1.0, effectiveMultiplier(drop.getNomadRarity(), modifier) / drop.getNomadDenominator());
+        }
+        // Legacy entries, including loose points, retain their original per-item odds.
+        return Math.min(1.0, effectiveMultiplier(TablePolicy.NOMAD, modifier) / table.getAccessibility())
+                / table.getSelectionSize();
+    }
+
+    public static int nomadDropDenominator(Table table, Drop drop, double modifier) {
+        return Math.max(1, (int) Math.ceil(1.0 / nomadChance(table, drop, modifier)));
     }
 
     static boolean isAlwaysAnnouncedDrop(int itemId, String name) {

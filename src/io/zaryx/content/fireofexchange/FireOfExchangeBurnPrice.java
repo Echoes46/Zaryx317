@@ -146,10 +146,25 @@ public class FireOfExchangeBurnPrice {
         return getBurnPrice(null, itemId, false) != -1;
     }
 
+    public static boolean isNomadCertificate(int itemId) {
+        return itemId == 691 || itemId == 692 || itemId == 693 || itemId == 696
+                || itemId == 33428 || itemId == 33429;
+    }
+
     /**
      * Burning price.
      */
     public static int getBurnPrice(Player c, int itemId, boolean displayMessage) {
+        int price = getBaseBurnPrice(c, itemId, displayMessage);
+        for (UpgradeMaterials recipe : UpgradeMaterials.values()) {
+            if (recipe.getReward().getId() == itemId && price > 0) {
+                price = (int) Math.min(price, recipe.getCost() / 5);
+            }
+        }
+        return price;
+    }
+
+    private static int getBaseBurnPrice(Player c, int itemId, boolean displayMessage) {
         if (Arrays.stream(JarsToPoints.JARS).anyMatch(it -> itemId == it)) {
             return JarsToPoints.FOE_POINTS;
         }
@@ -765,6 +780,10 @@ public class FireOfExchangeBurnPrice {
                 return 50000;
             case 696://foe cert
                 return 250000;
+            case 33428:
+                return 1_000_000;
+            case 33429:
+                return 10_000_000;
             case 8866://uim key
                 return 100;
             case 8868://perm uim key

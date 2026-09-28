@@ -68,10 +68,12 @@ very_rare:
     minimum: 1
     maximum: 1
 
-# Independent rare currency roll; at most one reward per kill.
+# One currency reward per kill; certificate chance is per item, before bonuses.
 nomad:
   accessibility: 100
   items:
     - item: 691
+      chance: 20
+      rarity: uncommon
       minimum: 1
       maximum: 25

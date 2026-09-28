@@ -316,9 +316,14 @@ public class NPCDeath {
             c.getNpcDeathTracker().add(NpcDef.forId(npcId).getName(), NpcDef.forId(npcId).getCombatLevel(), bossPoints);
         }
         if (Boundary.isIn(c, DonoSlayerInstances.boundary)) {
-            amountOfDrops = (int) (amountOfDrops * 0.25);
+            amountOfDrops = donorSlayerDropRolls(amountOfDrops, Misc.random(3));
         }
         Server.getDropManager().create(c, npc, location, amountOfDrops, npcId);
+    }
+
+    /** Preserve the area's 25% loot rate without truncating every normal kill to zero rolls. */
+    static int donorSlayerDropRolls(int rolls, int quarterRoll) {
+        return rolls / 4 + (quarterRoll < rolls % 4 ? 1 : 0);
     }
 
     static Location3D adjustBossDropPosition(int npcId, int x, int y, int height) {
