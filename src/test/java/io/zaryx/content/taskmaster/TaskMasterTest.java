@@ -19,6 +19,35 @@ class TaskMasterTest {
     private TaskMasterKills task(int count,int progress,LocalDateTime deadline) {
         return new TaskMasterKills(count,progress,new GameItem[]{new GameItem(995,100)},TaskDifficulty.EASY,TaskType.COMBAT,false,deadline,"Rock crab");
     }
+    @Test void everyDailyKillCountsOnceAcrossRewardCallbacksAndAgainAfterRespawn() throws Exception {
+        player(p -> {
+            for (Tasks objective : Tasks.values()) {
+                if (!objective.daily) continue;
+                TaskMaster board = new TaskMaster(p);
+                TaskMasterKills daily = new TaskMasterKills(10, 0, new GameItem[0],
+                        TaskMaster.effectiveDifficulty(objective), TaskType.COMBAT, true,
+                        LocalDateTime.now().plusDays(1), objective.desc);
+                board.taskMasterKillsList.add(daily);
+                String name = objective.desc.equals("Barrows") ? "Dharok the Wretched" : objective.desc;
+                io.zaryx.model.definitions.NpcDef def = io.zaryx.model.definitions.NpcDef.builder().name(name).build();
+                io.zaryx.model.definitions.NpcStats stats = io.zaryx.model.definitions.NpcStats.builder().setName(name).setHitpoints(10).createNpcStats();
+                io.zaryx.model.entity.npc.NPC npc = new io.zaryx.model.entity.npc.NPC(1, 1, def, stats);
+                board.recordNpcKill(npc);
+                board.recordNpcKill(npc);
+                board.recordNpcKill(npc);
+                int expected = TaskMaster.matchesNpc(objective.desc, name) ? 1 : 0;
+                assertEquals(expected, daily.getAmountKilled(), objective.name());
+                board.recordNpcKill(new io.zaryx.model.entity.npc.NPC(1, 1, def, stats));
+                assertEquals(expected * 2, daily.getAmountKilled(), objective.name());
+                TaskMaster teammate = new TaskMaster(p);
+                TaskMasterKills other = new TaskMasterKills(10, 0, new GameItem[0], TaskDifficulty.HARD,
+                        TaskType.COMBAT, true, LocalDateTime.now().plusDays(1), objective.desc);
+                teammate.taskMasterKillsList.add(other);
+                teammate.recordNpcKill(npc);
+                assertEquals(expected, other.getAmountKilled(), "Teammate: " + objective.name());
+            }
+        });
+    }
     @Test void cyclesRotateSeparatelyAndCompletedRewardsSurviveExpiry() throws Exception {
         player(p -> {
             LocalDateTime now=LocalDateTime.now(); TaskMaster board=p.getTaskMaster(); board.refresh(now);

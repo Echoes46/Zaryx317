@@ -29,3 +29,12 @@ Warped keys currently roll from the global NPC loot handler when the player has 
 - Five targeted tests passed: repeated offer save/reload for all three currencies, legacy compatibility and invalid currencies, GP coffer restoration above the integer limit, sale history currencies, and the existing snapshot ordering test.
 - Server JAR rebuilt; client Java compilation passed.
 - Local source/config changes only. No deployment, live gameplay test, player-save migration, or warped-door behavior change was performed.
+
+
+## Warped-door follow-up (2026-09-28)
+
+Implemented both gates in `WarpedKeyDoors`. Entry consumes one key; leaving is free. The south gate crosses between (3169,4101,0) and (3169,4104,0). The north gate crosses between (3169,4129,0) and (3169,4125,0). Its exterior row at y=4128 contains blocking object 17514, so ClickObject routes to the clear approach at y=4129 instead of waiting for an unreachable tile next to the door. Pending movement ignores repeated clicks, and refused movement does not consume a key.
+
+Daily-task audit found duplicate credit between shared boss rewards and NPCProcess for Nex, Sarachnis and Kalphite Queen, plus an additional duplicate loop in Kalphite Queen. These and Seldaeh now use the common NPC-based counter, which credits each NPC once per player and allows new respawn instances to count. Daily objectives use this counter except Nightmare, Chambers, Theatre of Blood and Inferno, whose separate completion hooks remain excluded from ordinary NPC credit.
+
+Validation: TaskMasterTest covers all daily objectives, repeated reward callbacks, respawns and independent participant credit. WarpedKeyDoorsTest covers entry and exit at both gates, one-key charging, keyless exits, missing keys, repeated clicks and refused movement. Targeted tests and server JAR build passed. Live gameplay was not exercised.

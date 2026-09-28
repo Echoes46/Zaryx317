@@ -750,7 +750,7 @@ public class NPCProcess {
                         }
 
                         if (target != null) {
-                            target.getTaskMaster().recordNpcKill(npc.getName());
+                            target.getTaskMaster().recordNpcKill(npc);
                         }
                     }
 

@@ -3,6 +3,7 @@ package io.zaryx.content.taskmaster;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import io.zaryx.model.entity.player.Player;
+import io.zaryx.model.entity.npc.NPC;
 import io.zaryx.model.entity.player.mode.ModeType;
 import io.zaryx.model.items.GameItem;
 import io.zaryx.model.definitions.ItemDef;
@@ -181,7 +182,12 @@ public class TaskMaster {
         if(task.equals("dagannoth")) return Arrays.asList("dagannoth rex","dagannoth prime","dagannoth supreme").contains(npc);
         return !npc.isEmpty() && task.equals(npc);
     }
-    public void recordNpcKill(String npcName) {
+    // Respawns create a new NPC. Weak keys avoid retaining despawned NPCs for the login session.
+    private final Set<NPC> creditedKills = Collections.newSetFromMap(new WeakHashMap<>());
+
+    public void recordNpcKill(NPC npc) {
+        if (npc == null || !creditedKills.add(npc)) return;
+        String npcName = npc.getName();
         for(TaskMasterKills t:taskMasterKillsList) if(t.getTaskType()==TaskType.COMBAT && !t.complete()
                 && !t.getClaimedReward() && !t.expired(LocalDateTime.now()) && matchesNpc(t.getDesc(),npcName)) {
             t.incrementAmountKilled(1); trackActivity(player,t);

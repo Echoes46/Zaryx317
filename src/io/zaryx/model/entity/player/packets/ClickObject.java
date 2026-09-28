@@ -112,7 +112,25 @@ public class ClickObject implements PacketType {
         if (object != null) {
             Position size = object.getObjectSize();
             Server.getLogging().write(new ClickObjectLog(player, object, option));
-            if (object.getId() == 26762 && object.getX() == 3231 && object.getY() == 3951) {
+            if (option == 1 && object.getId() == 32660 && object.getX() == 3168
+                    && object.getHeight() == 0 && (object.getY() == 4102 || object.getY() == 4126)) {
+                // The north gate has blocked scenery immediately outside its footprint.
+                int approachY = object.getY() == 4102
+                        ? (player.getY() <= 4102 ? 4101 : 4104)
+                        : (player.getY() >= 4126 ? 4129 : 4125);
+                Position approach = new Position(3169, approachY, 0);
+                if (player.getPosition().equals(approach)) {
+                    finishObjectClick(player, option, object);
+                } else {
+                    PathFinder.getPathFinder().findRoute(player, approach.getX(), approach.getY(), true, 1, 1);
+                    player.setTickable((container, plr) -> {
+                        if (plr.getPosition().equals(approach)) {
+                            container.stop();
+                            finishObjectClick(plr, option, object);
+                        }
+                    });
+                }
+            } else if (object.getId() == 26762 && object.getX() == 3231 && object.getY() == 3951) {
                 // The cavern sits against the cave wall. Route to its walkable side.
                 Position approach = new Position(object.getX(),
                         3950, object.getHeight());

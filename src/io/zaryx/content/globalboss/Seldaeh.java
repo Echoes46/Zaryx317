@@ -4,8 +4,6 @@ import io.zaryx.Server;
 import io.zaryx.content.battlepass.Pass;
 import io.zaryx.content.bosspoints.BossPoints;
 import io.zaryx.content.combat.death.NPCDeath;
-import io.zaryx.content.taskmaster.TaskMasterKills;
-import io.zaryx.content.taskmaster.Tasks;
 import io.zaryx.model.definitions.NpcDef;
 import io.zaryx.model.entity.npc.NPC;
 import io.zaryx.model.entity.npc.pets.PetHandler;
@@ -40,15 +38,7 @@ public class Seldaeh {
                 int bossPoints = BossPoints.getPointsOnDeath(npc);
                 BossPoints.addPoints(player, bossPoints, false);
 
-                for (TaskMasterKills killz : player.getTaskMaster().taskMasterKillsList) {
-                    for (Tasks value : Tasks.values()) {
-                        if (killz.getDesc().equalsIgnoreCase(value.desc) && killz.getAmountKilled() != killz.getAmountToKill() && killz.getDesc().contains(npc.getName())) {
-                            killz.incrementAmountKilled(1);
-                            player.getTaskMaster().trackActivity(player, killz);
-                            break;
-                        }
-                    }
-                }
+                player.getTaskMaster().recordNpcKill(npc);
 
                 if (NpcDef.forId(npc.getNpcId()).getCombatLevel() >= 1) {
                     player.getNpcDeathTracker().add(NpcDef.forId(npc.getNpcId()).getName(), NpcDef.forId(npc.getNpcId()).getCombatLevel(), bossPoints);

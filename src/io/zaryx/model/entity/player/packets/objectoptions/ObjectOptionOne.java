@@ -1398,14 +1398,8 @@ public class ObjectOptionOne {
 				c.getDH().sendStatement("@red@You need either a rare or common key.");
 				break;*/
 			case 32660:
-				if (!c.getItems().playerHasItem(3468, 1)) {
-					c.getDH().sendStatement("@red@You need a@bla@ Warped key to unlock this door.");
-					return;
-				} else {
-					c.getItems().deleteItem(3468, 1);
-					c.getPA().movePlayer(3169, 4104, 0);
-				}
-				break;
+                io.zaryx.content.WarpedKeyDoors.handle(c, obX, obY, object.getHeight());
+                break;
 			case 32508:
 				c.objectDistance = 13;
 /*				if (!(System.currentTimeMillis() - c.chestDelay > 2000)) {
