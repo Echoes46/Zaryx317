@@ -236,7 +236,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                     + " achievement '" + achievement.getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage("```" + player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            announceCompletion(achievement);
             Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         } else if (player.achievementPage == 1) {
@@ -270,7 +270,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                     + " achievement '" + achievement.getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            announceCompletion(achievement);
             Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         } else if (player.achievementPage == 2) {
@@ -304,7 +304,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                     + " achievement '" + achievement.getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            announceCompletion(achievement);
             Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         } else if (player.achievementPage == 3) {
@@ -337,7 +337,7 @@ public class AchievementHandler {
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                     + " achievement '" + achievement.getFormattedName() + "'.</col>");
             //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+            announceCompletion(achievement);
             Server.getLogging().write(new ClaimAchievementLog(player, achievement));
             return true;
         }
@@ -360,13 +360,19 @@ public class AchievementHandler {
                 c.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                         + " achievement '" + achievement.getFormattedName() + "'.</col>");
                 //Discord.getJDA().getTextChannelById(1241359589216354334L).sendMessage(player.getDisplayName() + " has just completed " + achievement.getFormattedName()).queue();
-                Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+                announceCompletion(achievement);
                 Server.getLogging().write(new ClaimAchievementLog(c, achievement));
             }
             AchieveV2.Update(player, player.achievementPage);
             return true;
         }
         return false;
+    }
+
+    private void announceCompletion(Achievement achievement) {
+        if (Achievements.isFinalTier(achievement)) {
+            Discord.writeAchievements(player.getDisplayName() + " has just completed " + achievement.getFormattedName());
+        }
     }
 
     public boolean isComplete(Achievement achievement) {

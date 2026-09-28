@@ -730,4 +730,36 @@ public class Achievements {
     public static int getMaximumAchievements() {
         return Achievement.ACHIEVEMENTS.size();
     }
+
+    /**
+     * Determines whether an achievement is the last configured step for its
+     * progression type. Standalone achievements are their own final step.
+     */
+    public static boolean isFinalTier(Achievement achievement) {
+        int achievementTier = progressionOrder(achievement.getTier());
+        for (Achievement candidate : Achievement.ACHIEVEMENTS) {
+            if (candidate.getType() == achievement.getType()
+                    && progressionOrder(candidate.getTier()) > achievementTier) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static int progressionOrder(AchievementTier tier) {
+        switch (tier) {
+            case STARTER:
+                return 0;
+            case TIER_1:
+                return 1;
+            case TIER_2:
+                return 2;
+            case TIER_3:
+                return 3;
+            case TIER_4:
+                return 4;
+            default:
+                throw new IllegalArgumentException("Unknown achievement tier: " + tier);
+        }
+    }
 }
