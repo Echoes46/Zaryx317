@@ -3,7 +3,7 @@ npc_id: 4987
 constant:
   accessibility: 0
   items:
-    - item: 33251 #dono coin
+    - item: 33251 #Zaryx Donation Coin
       minimum: 10
       maximum: 10
 common:

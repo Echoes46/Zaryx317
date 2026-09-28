@@ -34,7 +34,7 @@ common:
     - item: 25478
       minimum: 1
       maximum: 1
-    - item: 33251 #100 Credits
+    - item: 33251 #Zaryx Donation Coin
       minimum: 1
       maximum: 1
     - item: 6920

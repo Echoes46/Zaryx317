@@ -1000,6 +1000,9 @@ public class ItemOptionOne implements PacketType {
         }
 
         switch (itemId) {
+            case 33251:
+                io.zaryx.content.donation.DonationCoin.openConversion(c);
+                return;
             case 26500:
                 c.start(new DialogueBuilder(c).option("Which donor boss would you like to reset?", new DialogueOption("Queen Latsyrc (1 scroll)", plr -> {
                     if (plr.amDonated < 10) {

@@ -297,26 +297,7 @@ public class CommandManager {
         }
 
         if (commandName.equalsIgnoreCase("donocred")) {
-            c.start(new DialogueBuilder(c).option("Would you like to convert your donor credits to points?", new DialogueOption("Yes", p -> {
-                int amt = p.getItems().getInventoryCount(33251);
-                if (amt <= 0) {
-                    p.getPA().closeAllWindows();
-                    p.sendErrorMessage("You don't have any donor credits!");
-                    return;
-                }
-                p.getPA().closeAllWindows();
-                p.getPA().sendEnterAmount("How many would you like to convert?", (plr, amount) -> {
-                    int total_am = p.getItems().getInventoryCount(33251);
-
-                    if (amount > total_am) {
-                        amount = total_am;
-                    }
-
-                    plr.donatorPoints += amount;
-                    plr.getItems().deleteItem2(33251, amount);
-                });
-
-            }), new DialogueOption("No thank you.", p->p.getPA().closeAllWindows())));
+            io.zaryx.content.donation.DonationCoin.openConversion(c);
             return true;
         }
 

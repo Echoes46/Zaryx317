@@ -308,7 +308,7 @@ public class ShopAssistant {
 			return;
 		}
 		if (c.myShopId == 9 || c.myShopId == 112) {
-			c.sendMessage(itemName + ": currently costs " + getSpecialItemValue(removeId) + " Donator credits.");
+			c.sendMessage(itemName + ": currently costs " + getSpecialItemValue(removeId) + " Donator Points.");
 			return;
 		}
 		if (c.myShopId == 18) {
@@ -348,7 +348,7 @@ public class ShopAssistant {
 			return;
 		}
 		if (c.myShopId == 199) {
-			c.sendMessage(itemName + ": currently costs " + getSpecialItemValue(removeId) + " Donation Coins.");
+			c.sendMessage(itemName + ": currently costs " + getSpecialItemValue(removeId) + " Donator Points.");
 			return;
 		}
 		if (c.myShopId == 123) {
@@ -1463,8 +1463,6 @@ public class ShopAssistant {
 				c.sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ShopValue + " tokkul" + ShopAdd);
 			}  else if (c.myShopId == 195) {
 				c.sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + (getSpecialItemValue(removeId) + " AFK Points"));
-			}  else if (c.myShopId == 199) {
-				c.sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ((getSpecialItemValue(removeId) / 2)  + " Donation Coins"));
 			} else {
 				ShopValue *= 0.263;
 				ShopValue *= 0.263;
@@ -2496,38 +2494,6 @@ public class ShopAssistant {
 			logShop("bought", itemID, amount);
 			return;
 		}
-//		if (c.myShopId == 199) {
-//			if (c.getItems().freeSlots() < 1) {
-//				c.sendMessage("You need at least one free slot to buy this.");
-//				return;
-//			}
-//			int itemValue = getSpecialItemValue(itemID) * amount;
-//			if (c.getShayPoints() < itemValue) {
-//				c.sendMessage("You do not have enough Donator Credits to buy this from the shop.");
-//				return;
-//			}
-//			c.setShayPoints(c.getdona() - itemValue);
-//			c.getItems().addItem(itemID, amount);
-//			c.getItems().sendInventoryInterface(3823);
-//			logShop("bought", itemID, amount);
-//			return;
-//		}
-//		if (c.myShopId == 199) {
-//			if (c.getItems().freeSlots() < 1) {
-//				c.sendMessage("You need at least one free slot to buy this.");
-//				return;
-//			}
-//			int itemValue = getSpecialItemValue(itemID) * amount;
-//			if (c.getItems().getInventoryCount(33251) < itemValue) {
-//				c.sendMessage("You do not have enough Donation Coins to buy this from the shop.");
-//				return;
-//			}
-//			c.getItems().deleteItem2(33251, itemValue);
-//			c.getItems().addItem(itemID, amount);
-//			c.getItems().sendInventoryInterface(3823);
-//			logShop("bought", itemID, amount);
-//			return;
-//		}
 		if (c.myShopId == 82) {
 			if (c.getItems().freeSlots() < 1) {
 				c.sendMessage("You need at least one free slot to buy this.");

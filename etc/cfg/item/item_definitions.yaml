@@ -77613,8 +77613,8 @@
   untradeable: true
   undroppable: true
 - id: 33251
-  name: Kyros Donation Coin
-  description: Kyros Donation Coin.
+  name: Zaryx Donation Coin
+  description: Convert it into one Donator Point with ::donocred or the inventory Convert option.
   stackable: true
   untradeable: true
   undroppable: true

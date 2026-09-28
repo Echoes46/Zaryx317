@@ -47,7 +47,7 @@ public class Interface {
         player.getPA().sendString(start++, "@whi@" + player.getLevel(Skill.FORTUNE));
         player.getPA().sendString(start++, "Total Level: " + player.totalLevel);
         player.getPA().sendString(start++, "Donator: " + player.getDisplayNameFormatted());
-        player.getPA().sendString(start++, "D. Credits: " + player.donatorPoints);
+        player.getPA().sendString(start++, "Donator Points: " + player.donatorPoints);
         player.getPA().sendString(start++, "Total Donated: " + player.amDonated);
 
 
