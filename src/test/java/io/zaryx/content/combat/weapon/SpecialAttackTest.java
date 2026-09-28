@@ -67,9 +67,9 @@ class SpecialAttackTest {
         assertEquals(2.5,Specials.forWeaponId(28997).getRequiredCost());
         assertNull(Specials.forWeaponId(10148));
     }
-    @Test void infusionChargesOnceAndHealthSacrificeIgnoresDamageReducingBoots() {
+    @Test void infusionChargesOnceAndHealthSacrificeIgnoresDamageReducingAura() {
         Player p=player(28997,0);fullSet(p);p.specAmount=10;
-        p.playerEquipment[Player.playerFeet]=10558;
+		p.playerEquipmentCosmetic[Player.playerAura]=10558;
         p.getHealth().setMaximumHealth(100);p.getHealth().setCurrentHealth(99);
         assertTrue(new BloodInfusion().start(p));
         assertEquals(7.5,p.specAmount);assertEquals(75,p.getHealth().getCurrentHealth());

@@ -5319,11 +5319,7 @@ public class Player extends Entity {
             Degrade.degradeDefending(this);
         }
 
-        if (damage > 1 && playerEquipment[Player.playerFeet] == 10558 && !getPosition().inWild()) {
-            damage *= .85;
-        } else if (damage > 1 && playerEquipment[Player.playerHands] == 13372 && !getPosition().inWild()) {
-            damage *= .85;
-        }
+        damage = io.zaryx.content.combat.DamageReduction.apply(this, damage);
 
 
         if (damage < 0) {

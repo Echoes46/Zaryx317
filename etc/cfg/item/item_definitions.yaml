@@ -50717,7 +50717,7 @@
   shopValue: 1
 - id: 10558
   name: Defender Icon
-  description: Cosmetic supply.
+  description: Equip in the cosmetic aura slot to reduce incoming damage by 10% outside the Wilderness.
   shopValue: 1
 - id: 10559
   name: Healer Icon

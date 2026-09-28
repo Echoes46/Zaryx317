@@ -221,12 +221,6 @@ public class NPCHitPlayer {
             damage *= .75;
         }
 
-        if (damage > 1 && c.playerEquipment[Player.playerFeet] == 10558 && !c.getPosition().inWild()) {
-            damage *= .90D;
-        } else if (damage > 1 && c.playerEquipment[Player.playerHands] == 13372 && !c.getPosition().inWild()) {
-            damage *= .75D;
-        }
-
         if (npcAutoAttack.getCombatType() == CombatType.MELEE) {
             if (Server.getEventHandler().isRunning(c, "staff_of_the_dead")) {
                 Special special = Specials.STAFF_OF_THE_DEAD.getSpecial();

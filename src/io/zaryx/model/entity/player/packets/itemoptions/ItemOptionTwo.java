@@ -222,7 +222,7 @@ public class ItemOptionTwo implements PacketType {
         	player.sendMessage("@red@Collector Icon increases chances to give boxes / keys");
         	break;
         case 10558:
-        	player.sendMessage("@red@Defender Icon will reduce all incoming damage by 10%.");
+			player.sendMessage("@red@Equip this in your cosmetic aura slot to reduce incoming damage by 10% outside the Wilderness.");
         	break;
         case 10559:
         	player.sendMessage("@red@Healer Icon shares the same effects as guthans (cannot be stacked)");
