@@ -87,8 +87,8 @@ common:
 nomad:
   accessibility: 100
   items:
-    - item: 33429
-      chance: 500
+    - item: 33428
+      chance: 250
       rarity: very_rare
       minimum: 1
       maximum: 25

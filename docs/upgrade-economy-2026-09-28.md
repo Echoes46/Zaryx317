@@ -48,7 +48,6 @@ table. Each successful certificate drop averages 13 certificates before doubling
 | 50k | 1/60 | 10,833.33 |
 | 250k | 1/100 | 32,500 |
 | 1M | 1/250 | 52,000 |
-| 10M | 1/500 | 260,000 |
 
 Only include denominations actually present on a boss. Mixed-table expectations
 add together. Barrelchest has only 10k certificates, giving 6,500 points per normal
@@ -58,10 +57,10 @@ an exact expected stopping time for a fresh account. Donor Slayer area's 25% loo
 restriction multiplies those figures by four on ordinary kills. Other loot,
 collection rewards, modifiers, trading and existing dissolve bonuses are excluded.
 
-The 10M certificate sources remain bloodthirsty abomination, Jack-o-kraken and
-Minotaur. Those certificates were previously missing redemption values; repairing
-them makes their intended income usable. A single 10M drop gives 10M–250M points,
-so these sources have high variance. Endgame point-income averages assume many kills.
+The 10M certificate is no longer awarded. Bloodthirsty Abomination and Jack-o-Kraken
+use the 1M reward at 1/250, and Minotaur retains its existing 1M reward at 1/250.
+Previously acquired 10M certificates remain redeemable for 10M points each.
+Endgame point-income averages assume many kills.
 No measured live kills/hour or player wealth data was available, so this audit does
 not claim a particular number of hours to complete progression.
 
@@ -74,7 +73,7 @@ certainty. Existing collection-log rewards and non-certificate income are unchan
 
 ## Correctness fixes
 
-- 1M and 10M certificates now dissolve for their face value. They share the smaller
+- 1M certificates and legacy 10M certificates dissolve for their face value. They share the smaller
   certificates' exclusions from the Nomad Master multiplier, prestige dissolve bonus,
   and earned-dissolve achievement accounting. Existing Ironman/EliteCent boosts remain.
 - Dissolving validates the per-item value before multiplying by the stack, verifies

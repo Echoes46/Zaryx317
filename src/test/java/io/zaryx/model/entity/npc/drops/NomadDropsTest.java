@@ -52,8 +52,8 @@ class NomadDropsTest {
 
     @Test
     void mixedCertificateTableGivesEachDenominationItsOwnRateWithoutExtraSelectionPenalty() {
-        int[] ids = {691, 692, 693, 696, 33428, 33429};
-        int[] rates = {20, 40, 60, 100, 250, 500};
+        int[] ids = {691, 692, 693, 696, 33428};
+        int[] rates = {20, 40, 60, 100, 250};
         Table table = new Table(TablePolicy.NOMAD, 100);
         for (int i = 0; i < ids.length; i++) {
             Drop drop = new Drop(Collections.singletonList(1), ids[i], 1, 25);
@@ -82,7 +82,7 @@ class NomadDropsTest {
         try {
             Player player = new Player(null);
             player.doubleDropRate = 1;
-            for (int id : new int[]{691, 692, 693, 696, 33428, 33429, 33237}) {
+            for (int id : new int[]{691, 692, 693, 696, 33428, 33237}) {
                 int cap = id == 33237 ? 2 : 25;
                 TableGroup group = new TableGroup(Collections.singletonList(11278));
                 Table table = new Table(TablePolicy.NOMAD, 1);
@@ -120,7 +120,7 @@ class NomadDropsTest {
             files = paths.filter(p -> p.toString().endsWith(".yml")).collect(Collectors.toList());
         }
         int affected = 0;
-        Set<Integer> currencies = Set.of(691, 692, 693, 696, 33428, 33429, 33237);
+        Set<Integer> currencies = Set.of(691, 692, 693, 696, 33428, 33237);
         for (Path file : files) {
             JsonNode config = mapper.readTree(file.toFile());
             if (!config.has("nomad")) continue;
@@ -151,5 +151,21 @@ class NomadDropsTest {
             }
         }
         assertEquals(63, affected);
+    }
+
+    @Test
+    void tenMillionCertificateIsNotConfiguredAsANpcDrop() throws Exception {
+        try (java.util.stream.Stream<Path> paths = Files.walk(Path.of("etc/cfg/drops"))) {
+            for (Path file : paths.filter(path -> path.toString().endsWith(".yml")).collect(Collectors.toList())) {
+                JsonNode config = new ObjectMapper(new YAMLFactory()).readTree(file.toFile());
+                for (TablePolicy policy : TablePolicy.values()) {
+                    JsonNode table = config.get(policy.name().toLowerCase());
+                    if (table == null) continue;
+                    for (JsonNode item : table.get("items")) {
+                        assertNotEquals(33429, item.path("item").asInt(-1), file.toString());
+                    }
+                }
+            }
+        }
     }
 }

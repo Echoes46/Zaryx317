@@ -189,7 +189,7 @@ public class TableGroup extends ArrayList<Table> {
 
     static int nomadQuantityCap(int itemId) {
         switch (itemId) {
-            case 691: case 692: case 693: case 696: case 33428: case 33429:
+            case 691: case 692: case 693: case 696: case 33428:
                 return 25;
             case 33237:
                 return 2;
