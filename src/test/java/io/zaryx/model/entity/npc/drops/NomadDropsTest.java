@@ -150,7 +150,29 @@ class NomadDropsTest {
                 }
             }
         }
-        assertEquals(63, affected);
+        assertEquals(55, affected);
+    }
+
+    @Test
+    void removedBossesDoNotContainNomadCertificates() throws Exception {
+        Set<String> files = Set.of(
+                "dagannoth_supreme.yml", "corporeal_beast.yml", "cerberus.yml",
+                "the_nightmare.yml", "nex.yml", "experiment_no2.yml", "galvek.yml",
+                "queen_latsyrc.yml", "avatar_of_creation.yml", "avatar_of_destruction.yml"
+        );
+        Set<Integer> certificates = Set.of(691, 692, 693, 696, 33428, 33429);
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+
+        for (String file : files) {
+            JsonNode config = mapper.readTree(Path.of("etc/cfg/drops", file).toFile());
+            for (TablePolicy policy : TablePolicy.values()) {
+                JsonNode table = config.get(policy.name().toLowerCase());
+                if (table == null) continue;
+                for (JsonNode item : table.get("items")) {
+                    assertFalse(certificates.contains(item.path("item").asInt(-1)), file);
+                }
+            }
+        }
     }
 
     @Test

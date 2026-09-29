@@ -30,9 +30,6 @@ common:
     - item: 24364
       minimum: 1
       maximum: 1
-    - item: 691
-      minimum: 10
-      maximum: 20
     - item: 25478
       minimum: 1
       maximum: 1
@@ -69,9 +66,6 @@ uncommon:
     - item: 24365
       minimum: 1
       maximum: 1
-    - item: 692
-      minimum: 10
-      maximum: 20
     - item: 6769 #$5
       minimum: 1
       maximum: 1
@@ -126,9 +120,6 @@ rare:
     - item: 13346
       minimum: 2
       maximum: 2
-    - item: 693
-      minimum: 10
-      maximum: 20
     - item: 2403 #$10
       minimum: 1
       maximum: 1
@@ -150,9 +141,6 @@ extremely_rare:
     - item: 22093
       minimum: 8
       maximum: 8
-    - item: 696
-      minimum: 10
-      maximum: 20
     - item: 25918
       minimum: 1
       maximum: 1

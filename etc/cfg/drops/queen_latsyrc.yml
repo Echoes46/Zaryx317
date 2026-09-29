@@ -232,13 +232,3 @@ very_rare:
     - item: 22325
       minimum: 1
       maximum: 1
-
-# One currency reward per kill; certificate chance is per item, before bonuses.
-nomad:
-  accessibility: 100
-  items:
-    - item: 696
-      chance: 100
-      rarity: rare
-      minimum: 1
-      maximum: 25

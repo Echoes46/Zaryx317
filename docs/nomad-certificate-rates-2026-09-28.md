@@ -23,6 +23,10 @@ Jack-o-Kraken now award the 1M certificate at 1/250. Minotaur already had that 1
 reward, so its duplicate 10M entry was removed. Existing 10M certificates remain
 redeemable for their face value so previously acquired items retain their value.
 
+Certificate drops were removed completely from Dagannoth Supreme, Corporeal Beast,
+Cerberus, The Nightmare, Nex, Experiment No. 2, Galvek, Queen Latsyrc, Avatar of
+Creation, and Avatar of Destruction. Nex's separate loose-points reward remains.
+
 The usual rarity bonus applies: at +100% displayed drop bonus, uncommon chance is
 multiplied by 1.75, rare by 2, and very rare by 2.25. The viewer uses these same
 probabilities, rounding the displayed denominator up to a whole number.
