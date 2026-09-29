@@ -92,9 +92,3 @@ very_rare:
   - name: "dragon 2h sword"
     minimum: 1
     maximum: 1
-extremely_rare:
-  accessibility: 4000
-  items:
-  - item: 26219
-    minimum: 1
-    maximum: 1

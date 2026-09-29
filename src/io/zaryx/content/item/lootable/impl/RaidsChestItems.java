@@ -61,6 +61,7 @@ public class RaidsChestItems {
 
         items.put(LootRarity.RARE, Arrays.asList(
                 new GameItem(20997, 1),    //Twisted bow
+                new GameItem(26219, 1),    //Osmumten's fang
 
                 new GameItem(20851, 1),    //Olmlet pet
 

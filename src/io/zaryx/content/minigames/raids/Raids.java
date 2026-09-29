@@ -961,6 +961,7 @@ public class Raids {
                     new LootItem(21003, 1,1),   // elder maul
                     new LootItem(21043, 1, 1),  // kodai insignia
                     new LootItem(20997, 1, 1),  // twisted bow
+                    new LootItem(26219, 1, 1),  // osmumten's fang
                     new LootItem(25910, 1, 2)   // twisted horn
             );
 
