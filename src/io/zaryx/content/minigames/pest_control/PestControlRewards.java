@@ -1,5 +1,7 @@
 package io.zaryx.content.minigames.pest_control;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -266,14 +268,10 @@ public class PestControlRewards {
 				player.sendMessage("You do not have the pest control points to purchase this experience.");
 				return;
 			}
-			if (player.getItems().freeSlots() == 0) {
-				player.sendMessage("You need at least one free slot to purchase this item reward.");
-				return;
-			}
+			if (!RewardDelivery.give(player, item)) return;
 			player.pcPoints -= cost;
 			player.getQuestTab().updateInformationTab();
 			player.buyPestControlTimer = System.currentTimeMillis();
-			player.getItems().addItem(item.getId(), item.getAmount());
 			ItemDef itemDef = ItemDef.forId(item.getId());
 			String name = itemDef == null ? "a item" : itemDef.getName();
 			player.sendMessage("You have received a " + name + " in exchange for " + cost + " pc points.");
@@ -333,32 +331,27 @@ public class PestControlRewards {
 				player.sendMessage("You do not have the pest control points to purchase this experience.");
 				return;
 			}
-			if (player.getItems().freeSlots() < 5) {
-				player.sendMessage("You need at least 5 free slots to purchase this pack.");
-				return;
-			
+			int amount = 4 + Misc.random(1);
+			List<GameItem> list = new ArrayList<>(Arrays.asList(pack));
+			List<GameItem> receive = new ArrayList<>(amount);
+			while (amount-- > 0) {
+				GameItem item = list.remove(Misc.random(list.size() - 1)).copy();
+				item.setAmount(1 + Misc.random(item.getAmount()));
+				receive.add(item);
 			}
+
+			receive.add(new GameItem(Items.RESOURCE_BOXLARGE, 1));
+			if (!RewardDelivery.give(player, receive)) return;
 			if (pack == HERB_PACK) {
 				player.getDiaryManager().getWesternDiary().progress(WesternDiaryEntry.HERB_PACK);
 			}
 			if (pack == SEED_PACK) {
 				player.getDiaryManager().getWesternDiary().progress(WesternDiaryEntry.SEED_PACK);
 			}
-			player.getItems().addItem(Items.RESOURCE_BOXLARGE, 1);
 			player.pcPoints -= cost;
 			player.getQuestTab().updateInformationTab();
 			player.buyPestControlTimer = System.currentTimeMillis();
-			int amount = 4 + Misc.random(1);
-			List<GameItem> list = new ArrayList<>(Arrays.asList(pack));
-			List<GameItem> receive = new ArrayList<>(amount);
-			while (amount-- > 0) {
-				GameItem item = list.get(Misc.random(list.size() - 1));
-				item.setAmount(1 + Misc.random(item.getAmount()));
-				receive.add(item);
-				list.remove(item);
-			}
 
-			receive.forEach(item -> player.getItems().addItem(item.getId(), item.getAmount()));
 		}
 	}
 

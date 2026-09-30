@@ -155,7 +155,7 @@ public class UnbearableChest implements Lootable {
             c.startAnimation(ANIMATION);
             c.pkp += pkpbonus;
             GameItem reward = randomChestRewards(c,1000);
-            c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+            c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
             c.sendMessage("@blu@You also receive @red@" + pkpbonus + " @blu@pkp as a bonus for killing a wildy boss.");
         } else {
             c.sendMessage("@blu@The chest is locked, it won't budge!");

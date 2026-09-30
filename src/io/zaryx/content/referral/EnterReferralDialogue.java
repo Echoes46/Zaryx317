@@ -1,5 +1,7 @@
 package io.zaryx.content.referral;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import com.google.common.collect.Lists;
 import io.zaryx.Server;
 import io.zaryx.content.dialogue.DialogueBuilder;
@@ -62,8 +64,8 @@ public class EnterReferralDialogue extends DialogueBuilder {
         } else if (player.totalLevel < totalReq) {
             player.start(new DialogueBuilder(player).npc(13, "You need a total level of " + totalReq + " to claim a referral."));
         } else {
+            if (!RewardDelivery.give(player, rewards)) return;
             player.start(new DialogueBuilder(player).itemStatement(rewards.get(0).getId(), message, "Thanks for trying out the server, we hope you stay!"));
-            rewards.forEach(reward -> player.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount()));
             ReferralRegister.register(player, source, qualifier);
             player.usedReferral = true;
         }

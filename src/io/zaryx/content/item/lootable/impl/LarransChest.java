@@ -89,7 +89,7 @@ public class LarransChest implements Lootable {
                 PlayerHandler.executeGlobalMessage("@pur@" + c.getDisplayNameFormatted() + " received a drop: " +
                         "" + ItemDef.forId(reward.getId()).getName() + " x " + reward.getAmount() + " from Larran's chest.");
 			}
-			c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+			c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
 		} else {
 			c.sendMessage("The chest is locked, it won't budge!");
 		}

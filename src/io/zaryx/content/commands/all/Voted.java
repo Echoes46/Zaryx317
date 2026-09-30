@@ -81,9 +81,9 @@ public class Voted extends Command {
 				}
 
 				if (user.getDayStreak() == VoteUser.MAX_DAY_STREAK || oldStreakOverflow) { //They just hit a 5 day streak (after incrementing) so reward them!
-					player.getItems().addItemToBankOrDrop(22093, 1);
-					player.getItems().addItemToBankOrDrop(6199, 1);
-					player.sendMessage("@pur@One @gre@vote key @pur@has been added to your bank for a 5 vote streak!");
+					player.getItems().addItemUnderAnyCircumstance(22093, 1);
+					player.getItems().addItemUnderAnyCircumstance(6199, 1);
+					player.sendMessage("@pur@You earned a @gre@vote key @pur@for a 5 vote streak!");
 					player.sendMessage("@red@You just completed a 5 day voting streak!");
 					user.resetDayStreak();
 					if (oldStreakOverflow) {
@@ -159,10 +159,6 @@ public class Voted extends Command {
 
 	@Override
 	public void execute(Player c, String commandName, String input) {
-		if (c.getItems().freeSlots() < 1) {
-			c.sendMessage("You need at least one free slots to use this command.");
-			return;
-		}
 
 		if (c.hitDatabaseRateLimit(true))
 			return;

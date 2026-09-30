@@ -156,9 +156,8 @@ public class RandomEventInterface extends CycleEvent {
 				player.getPA().movePlayer(Configuration.EDGEVILLE_X, Configuration.EDGEVILLE_Y, 0);
 			}
 			if (item.getId() == correctItem.getId()) {
-				player.getItems().addItemToBankOrDrop(7478, 5000);
+				player.getItems().addItemUnderAnyCircumstance(7478, 5000);
 				player.sendMessage("@blu@Correct! well done.");	
-				player.sendMessage("@red@5k afk tokens have been added to your bank.");
 			}
 			active = false;
 			player.getPA().removeAllWindows();

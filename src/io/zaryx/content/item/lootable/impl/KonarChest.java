@@ -143,7 +143,7 @@ public class KonarChest implements Lootable {
             c.startAnimation(ANIMATION);
     GameItem reward = randomChestRewards(c, 1000);
 
-            c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+            c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
         } else {
             c.sendMessage("@blu@The chest is locked, it won't budge!");
             }

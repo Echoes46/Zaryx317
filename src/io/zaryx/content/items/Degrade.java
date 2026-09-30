@@ -1,5 +1,7 @@
 package io.zaryx.content.items;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Optional;
@@ -340,14 +342,10 @@ public class Degrade {
 			player.sendMessage("You do not have the coins to claim this item.");
 			return false;
 		}
-		if (player.getItems().freeSlots() < 1) {
-			player.sendMessage("You need at least one free slot to do this.");
-			return false;
-		}
+		if (!RewardDelivery.give(player, new io.zaryx.model.items.GameItem(degraded.getItemId(), 1))) return false;
 		player.getItems().deleteItem2(995, cost);
 		player.degradableItem[degraded.ordinal()] = 0;
 		player.claimDegradableItem[degraded.ordinal()] = false;
-		player.getItems().addItem(degraded.getItemId(), 1);
 		player.sendMessage("You have claimed the " + ItemAssistant.getItemName(item) + " for " + cost + " coins.");
 		return true;
 	}

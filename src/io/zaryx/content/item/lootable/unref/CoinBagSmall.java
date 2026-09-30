@@ -84,13 +84,13 @@ public class CoinBagSmall extends CycleEvent {
 
 		if (Misc.random(1000) == 0) {
 			int rewardAllGpAmount = (coins * amount);
-			player.getItems().addItem(995, rewardAllGpAmount);
+			player.getItems().addItemUnderAnyCircumstance(995, rewardAllGpAmount);
 			player.sendMessage("@red@You dig deeper and find a hidden pocket of " + Misc.formatCoins(rewardAllGpAmount) + " coins!");
 			player.getItems().deleteItem(10832, amount);
 		} else {
 			int rewardAllGpAmount = (coins * amount);
 			player.getItems().deleteItem(10832, amount);
-			player.getItems().addItem(995, rewardAllGpAmount);
+			player.getItems().addItemUnderAnyCircumstance(995, rewardAllGpAmount);
 			player.sendMessage("You receive " + Misc.formatCoins(rewardAllGpAmount) + " coins!");
 
 		
@@ -98,10 +98,6 @@ public class CoinBagSmall extends CycleEvent {
 	}
 	public void open() {
 		if (System.currentTimeMillis() - player.lastMysteryBox < 1200) {
-			return;
-		}
-		if (player.getItems().freeSlots() < 1) {
-			player.sendMessage("You need at least one free slots to open a Coin Bag.");
 			return;
 		}
 		if (!player.getItems().playerHasItem(MYSTERY_BOX)) {
@@ -132,12 +128,12 @@ public class CoinBagSmall extends CycleEvent {
 
 		if (Misc.random(1000) == 0) {
 			int rewardAmount = (coins);
-			player.getItems().addItem(995, rewardAmount);
+			player.getItems().addItemUnderAnyCircumstance(995, rewardAmount);
 			player.sendMessage("@red@You dig deeper and find a hidden pocket of coins!");
 			player.sendMessage("You receive " + Misc.formatCoins(rewardAmount) + " coins!");
 		} else {
 			int rewardAmount = (coins);
-			player.getItems().addItem(995, rewardAmount);
+			player.getItems().addItemUnderAnyCircumstance(995, rewardAmount);
 			player.sendMessage("You receive " + Misc.formatCoins(rewardAmount) + " coins!");
 		}
 		container.stop();

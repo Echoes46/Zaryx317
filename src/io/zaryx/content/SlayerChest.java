@@ -415,9 +415,7 @@ public class SlayerChest {
 			c.startAnimation(ANIMATION);
 			c.getItems().addItemUnderAnyCircumstance(11681, Misc.random(10, 35));
 			GameItem reward = Boundary.isIn(c, Boundary.DONATOR_ZONE) && c.getRights().isOrInherits(Right.Extreme_Donator) ? randomTier1ChestRewards(2) : randomTier1ChestRewards(9);
-			if (!c.getItems().addItem(reward.getId(), reward.getAmount())) {
-				Server.itemHandler.createGroundItem(c, reward.getId(), c.getX(), c.getY(), c.getHeight(), reward.getAmount());
-			}
+			c.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
 			c.sendMessage(" You receive a " + ItemAssistant.getItemName(reward.getId()) + " from the Slayer Chest!");
 			c.getPA().addSkillXP((18), Player.playerSlayer, true);
 		}
@@ -427,9 +425,7 @@ public class SlayerChest {
 			c.startAnimation(ANIMATION);
 			c.getItems().addItemUnderAnyCircumstance(11681, Misc.random(35, 50));
 			GameItem reward = Boundary.isIn(c, Boundary.DONATOR_ZONE) && c.getRights().isOrInherits(Right.Extreme_Donator) ? randomTier2ChestRewards(2) : randomTier2ChestRewards(9);
-			if (!c.getItems().addItem(reward.getId(), reward.getAmount())) {
-				Server.itemHandler.createGroundItem(c, reward.getId(), c.getX(), c.getY(), c.getHeight(), reward.getAmount());
-			}
+			c.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
 			c.sendMessage(" You receive a " + ItemAssistant.getItemName(reward.getId()) + " from the Slayer Chest!");
 			c.getPA().addSkillXP((25), Player.playerSlayer, true);
 		}
@@ -439,9 +435,7 @@ public class SlayerChest {
 			c.startAnimation(ANIMATION);
 			c.getItems().addItemUnderAnyCircumstance(11681, Misc.random(50, 70));
 			GameItem reward = Boundary.isIn(c, Boundary.DONATOR_ZONE) && c.getRights().isOrInherits(Right.Extreme_Donator) ? randomTier3ChestRewards(2) : randomTier3ChestRewards(9);
-			if (!c.getItems().addItem(reward.getId(), reward.getAmount())) {
-				Server.itemHandler.createGroundItem(c, reward.getId(), c.getX(), c.getY(), c.getHeight(), reward.getAmount());
-			}
+			c.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
 			c.sendMessage(" You receive a " + ItemAssistant.getItemName(reward.getId()) + " from the Slayer Chest!");
 			PlayerHandler.executeGlobalMessage("@red@" + c.getLoginName() + " @pur@has received @red@" + ItemAssistant.getItemName(reward.getId()) + " @pur@from the @red@Slayer chest!");
 			c.getPA().addSkillXP((33), Player.playerSlayer, true);
@@ -452,10 +446,7 @@ public class SlayerChest {
 			c.startAnimation(ANIMATION);
 			c.getItems().addItemUnderAnyCircumstance(995, Misc.random(1000000, 2500000));
 			GameItem reward = Boundary.isIn(c, Boundary.DONATOR_ZONE) && c.getRights().isOrInherits(Right.Apex_Donator) ? randomTier4ChestRewards(2) : randomTier4ChestRewards(9);
-			if (!c.getItems().addItem(reward.getId(), reward.getAmount())) {
-				Server.itemHandler.createGroundItem(c, reward.getId(), c.getX(), c.getY(), c.getHeight(), reward.getAmount());
-
-			}
+			c.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
 			c.sendMessage(" You receive a " + ItemAssistant.getItemName(reward.getId()) + " from the Slayer Chest!");
 			PlayerHandler.executeGlobalMessage("@red@" + c.getLoginName() + " @pur@has received @red@" + ItemAssistant.getItemName(reward.getId()) + " @pur@from the @red@Slayer chest!");
 			c.getPA().addSkillXP((60), Player.playerSlayer, true);

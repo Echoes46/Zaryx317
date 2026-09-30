@@ -1,5 +1,7 @@
 package io.zaryx.content.achievement_diary.impl;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -65,13 +67,13 @@ public final class FremennikAchievementDiary extends StatefulAchievementDiary<Fr
 		} else {
 			if (!hasClaimed(EntryDifficulty.EASY)) {
 				npcDialogue("Nice job, here have the tier 1 reward.");
-				addReward(REWARD);
+				if (!addReward(REWARD)) return;
 				claim(EntryDifficulty.EASY);
 				return;
 			} else {
 				if (getCount(REWARD) == 0 && !hasClaimed(EntryDifficulty.MEDIUM)) {
 					npcDialogue("Oh, you lost your reward? Don't worry, here you go.");
-					addReward(REWARD);
+					if (!addReward(REWARD)) return;
 					return;
 				}
 			}
@@ -83,7 +85,7 @@ public final class FremennikAchievementDiary extends StatefulAchievementDiary<Fr
 				if (getCount(REWARD + 1) == 0) {
 					if (!hasClaimed(EntryDifficulty.HARD)) {
 						npcDialogue("Oh, you lost your reward? Don't worry, here you go.");
-						addReward(REWARD + 1);
+						if (!addReward(REWARD + 1)) return;
 						return;
 					}
 				}
@@ -106,7 +108,7 @@ public final class FremennikAchievementDiary extends StatefulAchievementDiary<Fr
 				if (getCount(REWARD + 2) == 0) {
 					if (!hasClaimed(EntryDifficulty.ELITE)) {
 						npcDialogue("Oh, you lost your reward? Don't worry, here you go.");
-						addReward(REWARD + 2);
+						if (!addReward(REWARD + 2)) return;
 						return;
 					}
 				}
@@ -128,7 +130,7 @@ public final class FremennikAchievementDiary extends StatefulAchievementDiary<Fr
 			if (hasClaimed(EntryDifficulty.ELITE)) {
 				if (getCount(REWARD + 3) == 0) {
 					npcDialogue("Oh, you lost your reward? Don't worry, here you go.");
-					addReward(REWARD + 3);
+					if (!addReward(REWARD + 3)) return;
 					return;
 				}
 			} else {
@@ -150,12 +152,12 @@ public final class FremennikAchievementDiary extends StatefulAchievementDiary<Fr
 		player.getDH().sendNpcChat1(dialogue, player.npcType, "Diary Manager");
 		player.nextChat = -1;
 	}
-	public void addReward(int reward) {
-		player.getItems().addItem(reward, 1);
-		player.getDH().sendNpcChat1("Here you go, upgraded and ready to be used.", player.npcType, "Diary Manager");
+	public boolean addReward(int reward) {
+		return RewardDelivery.give(player, new io.zaryx.model.items.GameItem(reward, 1));
 	}
 	public void upgradeReward(int reward, int upgrade) {
 		player.getItems().replaceItem(player, reward, upgrade);
+        player.sendMessage("Your diary reward was delivered to your inventory.");
 		player.getDH().sendNpcChat1("Here you go, upgraded and ready.", player.npcType, "Diary Manager");
 	}
 	public int getCount(int id) {

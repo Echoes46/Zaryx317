@@ -58,7 +58,7 @@ public class RaidsChestPlus implements Lootable {
             } else if (reward.getId() == 20997) {
                 c.getCollectionLog().handleDrop(c, 7554, reward.getId(), reward.getAmount());
             }
-            c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+            c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
             c.sendMessage("@blu@You have received a rare item out of the storage unit.");
             NPCDeath.announceKc(c, reward, c.raidCount);
         } else {

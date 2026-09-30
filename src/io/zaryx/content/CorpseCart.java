@@ -1,5 +1,7 @@
 package io.zaryx.content;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.content.item.lootable.LootRarity;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.PlayerHandler;
@@ -83,7 +85,7 @@ public class CorpseCart {
         int random = Misc.random(100);
         List<GameItem> itemList = random < 55 ? items.get(LootRarity.COMMON) : random >= 55 && random <= 94 ? items.get(LootRarity.UNCOMMON) : items.get(LootRarity.RARE);
         GameItem item = Misc.getRandomItem(itemList);
-        c.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
+        if (!RewardDelivery.give(c, item)) return;
         c.sendMessage("@blu@You search the cart and find some "+ ItemAssistant.getItemName(item.getId()) + " @red@bones!");
         PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Corpse Cart!");
         Discord.writeAchievements("News: " + c.getLoginName()

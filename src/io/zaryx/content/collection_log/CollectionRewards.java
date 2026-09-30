@@ -1,5 +1,7 @@
 package io.zaryx.content.collection_log;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.Server;
 import io.zaryx.content.battlepass.Pass;
 import io.zaryx.content.item.lootable.impl.ArbograveChestItems;
@@ -294,11 +296,9 @@ public enum CollectionRewards {
                     if (drops != null &&
                             drops.size() == itemsObtained.size()
                             && !player.getClaimedLog().contains(player.getCollectionLogNPC())) {
+                        if (!RewardDelivery.give(player, CollectionRewards.getForNpcID(player.getCollectionLogNPC()))) return true;
                         player.getClaimedLog().add(player.getCollectionLogNPC());
 
-                        for (GameItem gameItem : CollectionRewards.getForNpcID(player.getCollectionLogNPC())) {
-                            player.getItems().addItemUnderAnyCircumstance(gameItem.getId(), gameItem.getAmount());
-                        }
                         player.sendMessage("@gre@Your rewards have now been claimed!");
 
                         for (CollectionRewards value : CollectionRewards.values()) {

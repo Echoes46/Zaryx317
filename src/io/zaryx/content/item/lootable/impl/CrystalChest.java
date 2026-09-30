@@ -194,7 +194,7 @@ public class CrystalChest implements Lootable {
 		if (c.getItems().playerHasItem(KEY_HALVE1, 1) && c.getItems().playerHasItem(KEY_HALVE2, 1)) {
 			c.getItems().deleteItem(KEY_HALVE1, 1);
 			c.getItems().deleteItem(KEY_HALVE2, 1);
-			c.getItems().addItem(KEY, 1);
+			c.getItems().addItemUnderAnyCircumstance(KEY, 1);
 		}
 	}
 
@@ -208,9 +208,9 @@ public class CrystalChest implements Lootable {
 		if (c.getItems().playerHasItem(KEY)) {
 			c.getItems().deleteItem(KEY, 1);
 			c.startAnimation(ANIMATION);
-			c.getItems().addItemToBankOrDrop(DRAGONSTONE, 1);
+			c.getItems().addItemUnderAnyCircumstance(DRAGONSTONE, 1);
 			GameItem reward = randomChestRewards(c);
-			c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+			c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
 			Achievements.increase(c, AchievementType.LOOT_CRYSTAL_CHEST, 1);
 		} else {
 			c.sendMessage("@blu@The chest is locked, it won't budge!");

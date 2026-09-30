@@ -1,14 +1,14 @@
 package io.zaryx.content;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.save.PlayerSaveEntry;
 import io.zaryx.model.items.GameItem;
-import io.zaryx.model.items.inventory.Inventory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -16,26 +16,25 @@ import java.util.stream.Collectors;
  */
 public class CollectionBox {
 
-    private final Inventory inventory = new Inventory(128);
+    private final java.util.List<GameItem> pending = new java.util.ArrayList<>();
 
     public void add(Player player, GameItem gameItem) {
-        Optional<GameItem> add = inventory.add(gameItem.copy());
-        player.sendMessage("You have items waiting to be collected, use ::collect.");
-        add.ifPresent(item -> player.sendMessage("Your collection box couldn't hold this item: {}", item.getFormattedString()));
+        pending.add(gameItem.copy());
+        player.sendMessage(gameItem.getFormattedString() + " is waiting in your collection box. Use ::collect after making space.");
     }
 
     public void collect(Player player) {
         if (player.isBusy()) {
-            player.sendMessage("Finish what you're doing before collection your items.");
+            player.sendMessage("Finish what you're doing before collecting your items.");
             return;
         }
 
         if (!Boundary.EDGEVILLE_PERIMETER.in(player)) {
-            player.sendMessage("You must in Edgeville to collect your items.");
+            player.sendMessage("You must be in Edgeville to collect your items.");
             return;
         }
 
-        List<GameItem> gameItems = inventory.buildList();
+        List<GameItem> gameItems = new java.util.ArrayList<>(pending);
 
         if (gameItems.isEmpty()) {
             player.sendMessage("Your collection box is empty.");
@@ -43,11 +42,10 @@ public class CollectionBox {
         }
 
         for (GameItem gameItem : gameItems) {
-            if (player.getItems().addItem(gameItem.getId(), gameItem.getAmount(), false)) {
+            if (RewardDelivery.give(player, gameItem)) {
                 player.sendMessage("Collected {}.", gameItem.getFormattedString());
-                inventory.remove(gameItem);
+                pending.remove(gameItem);
             } else {
-                player.sendMessage("You don't have enough inventory space.");
                 break;
             }
         }
@@ -62,6 +60,7 @@ public class CollectionBox {
 
         @Override
         public boolean decode(Player player, String key, String value) {
+            player.getCollectionBox().pending.clear();
             if (value == null || value.length() == 0)
                 return true;
             String[] data = value.split(";");
@@ -70,15 +69,14 @@ public class CollectionBox {
                 return new GameItem(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
             }).collect(Collectors.toList());
 
-            GameItem[] itemArray = new GameItem[items.size()]; // :)
-            items.toArray(itemArray);
-            player.getCollectionBox().inventory.set(itemArray);
+            player.getCollectionBox().pending.clear();
+            player.getCollectionBox().pending.addAll(items);
             return true;
         }
 
         @Override
         public String encode(Player player, String key) {
-            return player.getCollectionBox().inventory.buildList().stream().map(it -> it.getId() + ":" + it.getAmount()).collect(Collectors.joining(";"));
+            return player.getCollectionBox().pending.stream().map(it -> it.getId() + ":" + it.getAmount()).collect(Collectors.joining(";"));
         }
 
         @Override

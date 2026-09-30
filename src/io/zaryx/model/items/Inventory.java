@@ -123,6 +123,10 @@ public class Inventory {
     }
 
     public void addAnywhere(ImmutableItem item, boolean bank) {
+        if (bank) {
+            player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
+            return;
+        }
         String name = ItemDef.forId(item.getId()).getName();
         if (hasRoomInInventory(item)) {
             if (!addToInventory(item)) {

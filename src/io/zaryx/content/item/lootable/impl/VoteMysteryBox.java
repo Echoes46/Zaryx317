@@ -109,10 +109,6 @@ public class VoteMysteryBox implements Lootable {
 		if (System.currentTimeMillis() - player.lastMysteryBox < 600) {
 			return;
 		}
-		if (player.getItems().freeSlots() < 2) {
-			player.sendMessage("You need at least two free slots to open a hourly box.");
-			return;
-		}
 		if (!player.getItems().playerHasItem(VOTE_MYSTERY_BOX)) {
 			player.sendMessage("You need a hourly box to do this.");
 			return;
@@ -125,12 +121,12 @@ public class VoteMysteryBox implements Lootable {
 		GameItem itemDouble = Misc.getRandomItem(itemList);
 
 		if (Misc.random(10) == 0) {
-			player.getItems().addItem(item.getId(), item.getAmount());
-			player.getItems().addItem(itemDouble.getId(), itemDouble.getAmount());
+			player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
+			player.getItems().addItemUnderAnyCircumstance(itemDouble.getId(), itemDouble.getAmount());
 			player.sendMessage("You receive <col=255>" + item.getAmount() + " x " + ItemAssistant.getItemName(item.getId()) + "</col>.");
 			player.sendMessage("You receive <col=255>" + itemDouble.getAmount() + " x " + ItemAssistant.getItemName(itemDouble.getId()) + "</col>.");
 		} else {
-			player.getItems().addItem(item.getId(), item.getAmount());
+			player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
 			player.sendMessage("You receive <col=255>" + item.getAmount() + " x " + ItemAssistant.getItemName(item.getId()) + "</col>.");
 		}
 	}

@@ -1,5 +1,7 @@
 package io.zaryx.content.teamBounties;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.model.entity.player.Player;
@@ -72,9 +74,10 @@ public class BountySystem {
             int reward = bounty.getReward();
             int rewardAfterTax = reward - (reward * 15 / 100);
 
-            player.getItems().addItem(13307, rewardAfterTax);
-            player.getItems().addItem(13306, 1);
-            player.getItems().addItem(995, Misc.random(1_000_000, 10_000_000));
+            if (!RewardDelivery.give(player,
+                    new io.zaryx.model.items.GameItem(13307, rewardAfterTax),
+                    new io.zaryx.model.items.GameItem(13306, 1),
+                    new io.zaryx.model.items.GameItem(995, Misc.random(1_000_000, 10_000_000)))) return false;
 
             player.sendMessage("You have claimed the bounty on " + targetName + " and received " + rewardAfterTax + " blood money after tax.");
 

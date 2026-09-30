@@ -1,5 +1,7 @@
 package io.zaryx.content.commands.all;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +58,7 @@ public class Claim extends Command {
 	public static boolean giveDonationItem(Player plr, DonationItem item) {
 		int itemId = item.getItemId();
 		int itemQuantity = item.getItemAmount();
-		if (plr.getItems().hasRoomInInventory(itemId, itemQuantity)) {
-			plr.getItems().addItem(itemId, itemQuantity);
+		if (RewardDelivery.give(plr, new io.zaryx.model.items.GameItem(itemId, itemQuantity))) {
 			Server.getLogging().write(new DonatedLog(plr, item));
 			plr.getDonationRewards().increaseDonationAmount(item.getItemCost() * itemQuantity);
 			plr.sendMessage("You've received x" + item.getItemAmount() + " " + item.getItemName());
@@ -67,7 +68,6 @@ public class Claim extends Command {
 					}), new DialogueOption("No thank you, keep me out the loop.", p -> p.getPA().closeAllWindows())));
 			return true;
 		} else {
-			plr.sendMessage("Not enough room in inventory to claim " + item.getItemName() + ", make space and try again.");
 			return false;
 		}
 	}

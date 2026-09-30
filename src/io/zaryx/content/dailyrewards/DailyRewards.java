@@ -1,5 +1,7 @@
 package io.zaryx.content.dailyrewards;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import com.google.common.collect.Lists;
 import io.zaryx.Server;
 import io.zaryx.content.achievement.AchievementType;
@@ -125,13 +127,14 @@ public class DailyRewards {
                     if (developer) {
                         player.sendMessage("You are a developer and have no restriction on claiming rewards.");
                     }
-                    DailyRewardsRecords.add(player, streak);
                     ImmutableItem item = DailyRewardContainer.get().getRewards().get(streak);
+                    if (!RewardDelivery.give(player, new io.zaryx.model.items.GameItem(item.getId(),
+                            (player.amDonated >= 3000) ? Math.multiplyExact(item.getAmount(), 2) : item.getAmount()))) return;
+                    DailyRewardsRecords.add(player, streak);
 
                     Server.getLogging().write(new DailyRewardLog(player, streak, item));
                     player.sendMessage(COLOR + "You receive x" + Misc.formatCoins((player.amDonated >= 3000) ? item.getAmount() * 2L : item.getAmount()) + " " + ItemDef.forId(item.getId()).getName() + ", be sure to check back tomorrow!");
                     Achievements.increase(player, AchievementType.DAILY, 1);
-                    player.getItems().addItemUnderAnyCircumstance(item.getId(), (player.amDonated >= 3000) ? item.getAmount() * 2 : item.getAmount());
                     lastClaimed = LocalDateTime.now();
                     lastRewardIdentifier = DailyRewardContainer.get().getIdentifier();
                     streak++;

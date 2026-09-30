@@ -1,5 +1,7 @@
 package io.zaryx.content.achievement;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.content.achievement.inter.TasksInterface;
 import io.zaryx.content.bosses.hespori.Hespori;
 import io.zaryx.content.seasons.Halloween;
@@ -671,20 +673,17 @@ public class Achievements {
         }
     }
 
-    public static void addReward(Player player, Achievement achievement) {
-        if (achievement.equals(Achievement.ARA_MASTER)) {
-            GameItem[] rewards = {new GameItem(13302, 3),  new GameItem(4185, 15), new GameItem(6792, 15), new GameItem(13346, 1)};
-            for (GameItem reward : rewards) {
-                player.getItems().addItem(reward.getId(), reward.getAmount());
-                Pass.addExperience(player,4);
-            }
-        } else {
-            for (GameItem item : achievement.getRewards()) {
-                player.getInventory().addAnywhere(new ImmutableItem(item.getId(), item.getAmount()));
-            }
-        }
+    public static GameItem[] rewardItems(Achievement achievement) {
+        return achievement == Achievement.ARA_MASTER
+                ? new GameItem[]{new GameItem(13302, 3), new GameItem(4185, 15), new GameItem(6792, 15), new GameItem(13346, 1)}
+                : achievement.getRewards();
     }
 
+    public static boolean addReward(Player player, Achievement achievement) {
+        if (!RewardDelivery.give(player, rewardItems(achievement))) return false;
+        if (achievement == Achievement.ARA_MASTER) Pass.addExperience(player, 16);
+        return true;
+    }
 
     public static boolean hasInventorySpaceForReward(Player player, Achievement achievement) {
         return player.getItems().freeSlots() >= getRequiredInventorySlotsForReward(achievement);

@@ -1,5 +1,7 @@
 package io.zaryx.content.deals;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.Server;
 import io.zaryx.annotate.PostInit;
 import io.zaryx.content.dialogue.DialogueBuilder;
@@ -70,8 +72,8 @@ public class CosmeticDeals {
                     new DialogueOption("no (buy item)", p -> {
                         int cost = offer.cost;
                         if (player.getCosmeticCredits() >= cost) {
+                            if (!RewardDelivery.give(player, new io.zaryx.model.items.GameItem(offer.rewards.itemId, offer.rewards.itemAmount))) return;
                             player.setCosmeticCredits(player.getCosmeticCredits() - cost);
-                            player.getItems().addItem(offer.rewards.itemId, offer.rewards.itemAmount);
                             player.sendMessage("@red@You claimed " + ItemDef.forId(offer.rewards.itemId).getName() + " from cosmetic offers!");
                             CosmeticManager.onPurchase(player, offer.rewards.itemId, cost);
                         } else {
@@ -87,8 +89,8 @@ public class CosmeticDeals {
             CosmeticOffer offer = optionalOffer.get();
             int cost = offer.cost;
             if (player.getCosmeticCredits() >= cost) {
+                if (!RewardDelivery.give(player, new io.zaryx.model.items.GameItem(offer.rewards.itemId, offer.rewards.itemAmount))) return true;
                 player.setCosmeticCredits(player.getCosmeticCredits() - cost);
-                player.getItems().addItem(offer.rewards.itemId, offer.rewards.itemAmount);
                 player.sendMessage("@red@You claimed " + ItemDef.forId(offer.rewards.itemId).getName() + " from cosmetic offers!");
                 CosmeticManager.onPurchase(player, offer.rewards.itemId, cost);
                 updateOffers(player);

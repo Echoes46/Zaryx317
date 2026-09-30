@@ -43,9 +43,7 @@ public class LeaderboardUtils {
                 logger.debug("Giving {} rewards {}", player, entries);
                 player.addQueuedAction(plr -> {
                     for (GameItem item : entries) {
-                        if (!player.getInventory().addToBank(new ImmutableItem(item))) {
-                            player.getCollectionBox().add(player, item);
-                        }
+                        player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
                         player.sendMessage("<clan=6> You've received {} for placing in the leaderboards!", item.getFormattedString());
                         Server.getLogging().write(new LeaderboardRewardCollected(player, item));
                     }

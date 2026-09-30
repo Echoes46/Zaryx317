@@ -1406,11 +1406,6 @@ public class ObjectOptionOne {
 					c.getDH().sendStatement("Please wait before doing this again.");
 					return;
 				}*/
-
-				if (c.getItems().freeSlots() < 3) {
-					c.getDH().sendStatement("@red@You need at least 3 free slots for safety");
-					return;
-				}
 				if (c.getItems().playerHasItem(23776, 1)) {
 					new HunllefChest().roll(c);
 					c.chestDelay = System.currentTimeMillis();
@@ -1931,10 +1926,6 @@ public class ObjectOptionOne {
 			case 12768:
 				c.objectDistance = 3;
 				c.sendMessage("@blu@Use @red@::mbox @blu@to see possible rewards!");
-				if (c.getItems().freeSlots() < 3) {
-					c.getDH().sendStatement("@red@You need at least 3 free slot to open this.");
-					return;
-				}
 				if (c.getItems().playerHasItem(Hespori.KEY, 1)) {
 					new HesporiChest().roll(c);
 					c.getEventCalendar().progress(EventChallenge.OPEN_X_HESPORI_CHESTS);

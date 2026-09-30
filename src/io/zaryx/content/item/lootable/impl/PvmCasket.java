@@ -281,10 +281,6 @@ public class PvmCasket implements Lootable {
 		if (System.currentTimeMillis() - player.lastMysteryBox < 150 * 4) {
 			return;
 		}
-		if (player.getItems().freeSlots() < 2) {
-			player.sendMessage("You need at least two free slots to open a PvM Casket.");
-			return;
-		}
 		if (!player.getItems().playerHasItem(PVM_CASKET)) {
 			player.sendMessage("You need PvM Casket to do this.");
 			return;
@@ -305,16 +301,16 @@ public class PvmCasket implements Lootable {
 		GameItem itemDouble = Misc.getRandomItem(itemList);
 
 		if (Misc.random(10) == 0) {
-			player.getItems().addItem(995, coins + coinsDouble);
-			player.getItems().addItem(item.getId(), item.getAmount());
-			player.getItems().addItem(itemDouble.getId(), itemDouble.getAmount());
+			player.getItems().addItemUnderAnyCircumstance(995, coins + coinsDouble);
+			player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
+			player.getItems().addItemUnderAnyCircumstance(itemDouble.getId(), itemDouble.getAmount());
 			player.sendMessage("You receive <col=255>" + item.getAmount() + " x " + ItemAssistant.getItemName(item.getId()) + "</col>, and <col=255>"
 					+ Misc.insertCommas(Integer.toString(coins)) + "</col>GP.");
 			player.sendMessage("You receive <col=255>" + itemDouble.getAmount() + " x " + ItemAssistant.getItemName(itemDouble.getId()) + "</col>, and <col=255>"
 					+ Misc.insertCommas(Integer.toString(coins)) + "</col>GP.");
 		} else {
-			player.getItems().addItem(995, coins);
-			player.getItems().addItem(item.getId(), item.getAmount());
+			player.getItems().addItemUnderAnyCircumstance(995, coins);
+			player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());
 			player.sendMessage("You receive <col=255>" + item.getAmount() + " x " + ItemAssistant.getItemName(item.getId()) + "</col>, and <col=255>"
 					+ Misc.insertCommas(Integer.toString(coins)) + "</col>GP.");
 		}

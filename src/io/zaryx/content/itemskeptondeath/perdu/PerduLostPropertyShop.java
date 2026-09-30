@@ -1,5 +1,7 @@
 package io.zaryx.content.itemskeptondeath.perdu;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.dialogue.DialogueExpression;
 import io.zaryx.model.ContainerAction;
@@ -68,12 +70,13 @@ public class PerduLostPropertyShop {
                     return;
                 }
 
-                player.getItems().deleteItem(Items.COINS, cost);
+
         }
 
+        if (!RewardDelivery.give(player, gameItem)) return;
+        if (cost > 0) player.getItems().deleteItem(Items.COINS, cost);
         inventory.remove(gameItem);
         inventory.shift();
-        player.getItems().addItemUnderAnyCircumstance(gameItem.getId(), gameItem.getAmount());
         updateContainer(player);
 
         String description = (gameItem.getAmount() > 1 ? "x" + gameItem.getAmount() + " " : "") + gameItem.getDef().getName();

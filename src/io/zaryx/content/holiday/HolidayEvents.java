@@ -1,5 +1,7 @@
 package io.zaryx.content.holiday;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import com.google.gson.Gson;
 import io.zaryx.Configuration;
 import io.zaryx.Server;
@@ -279,12 +281,11 @@ public final class HolidayEvents {
         if(!near(p,npc)||npc.home)return;
         HolidayProgress s=progress(p,npc.holiday);if(s.stage!=4)return;
         boolean first=s.runs==0;
-        if(first&&p.getItems().freeSlots()<npc.holiday.rewards.length){say(p,"You need "+npc.holiday.rewards.length+" free inventory slots.","Your completed quest will wait until you have room.");return;}
+        if(first && !RewardDelivery.give(p, java.util.Arrays.stream(npc.holiday.rewards).mapToObj(id -> new io.zaryx.model.items.GameItem(id, 1)).toArray(io.zaryx.model.items.GameItem[]::new))) return;
         if(!s.complete())return;
-        if(first)for(int id:npc.holiday.rewards)p.getItems().addItem(id,1);
         save(p);
         if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).refreshSupplyTracker(p);
-        say(p,"Quest complete: "+npc.holiday.quest,"You earned 5 festival tokens.",first?"Your festive costume has been added to your inventory.":"Thank you for helping the festival again!","Speak to me to replay or browse the cosmetic rewards.");
+        say(p,"Quest complete: "+npc.holiday.quest,"You earned 5 festival tokens.",first?"Your festive costume has been delivered.":"Thank you for helping the festival again!","Speak to me to replay or browse the cosmetic rewards.");
     }
     private static void shop(Player p,HolidayNpc npc) {
         Holiday h=npc.holiday;
@@ -295,8 +296,8 @@ public final class HolidayEvents {
         for(int i=0;i<items.length;i++){final int slot=i;options.add(new DialogueOption(names[i]+" - "+costs[i]+" tokens",pl->{
             if(!near(pl,npc))return;HolidayProgress state=progress(pl,h);
             if(state.tokens<costs[slot]){say(pl,"You need "+costs[slot]+" festival tokens for that reward.");return;}
-            if(pl.getItems().freeSlots()<items[slot].length){say(pl,"Please make "+items[slot].length+" free inventory slots first.");return;}
-            state.tokens-=costs[slot];for(int id:items[slot])pl.getItems().addItem(id,1);save(pl);close(pl);
+            if(!RewardDelivery.give(pl, java.util.Arrays.stream(items[slot]).mapToObj(id -> new io.zaryx.model.items.GameItem(id, 1)).toArray(io.zaryx.model.items.GameItem[]::new))) return;
+            state.tokens-=costs[slot];save(pl);close(pl);
             pl.sendMessage("You receive "+names[slot]+". Remaining festival tokens: "+state.tokens);
         }));}
         options.add(new DialogueOption("Close",HolidayEvents::close));

@@ -102,13 +102,7 @@ public class TreasureTrails {
 
 	public void addRewards(RewardLevel rewardLevel) {
 		List<GameItem> rewards = generateRewardList(rewardLevel);
-		rewards.forEach(it -> {
-			if (player.getItems().playerHasItem(19730) || player.hasFollower && player.petSummonId == 19730) {
-				player.getItems().addItemToBankOrDrop(it.getId(), it.getAmount());
-			} else {
-				player.getItems().addItemUnderAnyCircumstance(it.getId(), it.getAmount());
-			}
-		});
+		rewards.forEach(it -> player.getItems().addItemUnderAnyCircumstance(it.getId(), it.getAmount()));
 		displayRewards(rewards);
 	}
 
@@ -135,10 +129,6 @@ public class TreasureTrails {
 	}
 
 	private static void openCasket(Player player, RewardLevel rewardLevel) {
-		if (player.getItems().freeSlots() < 3) {
-			player.sendMessage("You need at least 3 free slots to open this.");
-			return;
-		}
 
 		player.getItems().deleteItem(rewardLevel.getCasketId(), 1);
 		player.getTrails().addRewards(rewardLevel);
@@ -175,10 +165,10 @@ public class TreasureTrails {
 		c.getItems().deleteItem(rewardLevel.getClueScrollId(), 1);
 
 		if (rollMimicCasket(rewardLevel)) {
-			c.getItems().addItem(Items.MIMIC, 1);
+			c.getItems().addItemUnderAnyCircumstance(Items.MIMIC, 1);
 			c.sendMessage("You've received a Mimic casket!");
 		} else {
-			c.getItems().addItem(rewardLevel.getCasketId(), 1);
+			c.getItems().addItemUnderAnyCircumstance(rewardLevel.getCasketId(), 1);
 			c.sendMessage("You've received a " + rewardLevel.getFormattedName() + " clue scroll casket.");
 		}
 	}

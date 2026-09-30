@@ -1,5 +1,7 @@
 package io.zaryx.content.achievement;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -225,12 +227,7 @@ public class AchievementHandler {
                 }
             }
             Achievement achievement = achievements.get(index);
-            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
-                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
-                return true;
-            }
-
-            Achievements.addReward(player, achievement);
+            if (!Achievements.addReward(player, achievement)) return true;
             setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
@@ -259,12 +256,7 @@ public class AchievementHandler {
 
 
             Achievement achievement = achievements.get(index);
-            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
-                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
-                return true;
-            }
-
-            Achievements.addReward(player, achievement);
+            if (!Achievements.addReward(player, achievement)) return true;
             setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
@@ -293,12 +285,7 @@ public class AchievementHandler {
 
 
             Achievement achievement = achievements.get(index);
-            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
-                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
-                return true;
-            }
-
-            Achievements.addReward(player, achievement);
+            if (!Achievements.addReward(player, achievement)) return true;
             setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
@@ -326,12 +313,7 @@ public class AchievementHandler {
 
 
             Achievement achievement = achievements.get(index);
-            if (!Achievements.hasInventorySpaceForReward(player, achievement)) {
-                player.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting this reward."));
-                return true;
-            }
-
-            Achievements.addReward(player, achievement);
+            if (!Achievements.addReward(player, achievement)) return true;
             setClaimed(achievement.getTier().getId(), achievement.getId(), true);
             AchieveV2.Update(player, player.achievementPage);
             player.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
@@ -347,15 +329,14 @@ public class AchievementHandler {
     public boolean claimAll(int buttonID, Player c) {
         if (buttonID == 54765) {
             List<Achievement> achievements = Arrays.stream(Achievement.values()).filter(a -> !isClaimed(a.getTier().getId(), a.getId()) && isComplete(a.getTier().getId(), a.getId())).collect(Collectors.toList());
-            int requiredSlots = Achievements.getRequiredInventorySlotsForRewards(achievements);
-            if (!Achievements.hasInventorySpaceForRewards(c, achievements)) {
-                c.sendMessage(Misc.colorWrap(COLOR, "You need to clear out inventory space before collecting these rewards."));
-                c.sendMessage(Misc.colorWrap(COLOR, "You need at least " + requiredSlots + " free inventory slot" + (requiredSlots == 1 ? "" : "s") + "."));
-                return true;
+            java.util.List<io.zaryx.model.items.GameItem> rewards = new java.util.ArrayList<>();
+            for (Achievement achievement : achievements) {
+                rewards.addAll(Arrays.asList(Achievements.rewardItems(achievement)));
             }
+            if (!RewardDelivery.give(c, rewards.toArray(new io.zaryx.model.items.GameItem[0]))) return true;
 
             for (Achievement achievement : achievements) {
-                Achievements.addReward(c, achievement);
+                if (achievement == Achievement.ARA_MASTER) io.zaryx.content.battlepass.Pass.addExperience(c, 16);
                 setClaimed(achievement.getTier().getId(), achievement.getId(), true);
                 c.sendMessage("<col=" + COLOR + ">Claimed the " + achievement.getTier().getName().toLowerCase()
                         + " achievement '" + achievement.getFormattedName() + "'.</col>");

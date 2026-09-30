@@ -111,10 +111,6 @@ public class DailySkillBox extends CycleEvent {
 		if (player.lastMysteryBox > System.currentTimeMillis()) {
 			return;
 		}
-		if (player.getItems().freeSlots() < 2) {
-			player.sendMessage("You need at least two free slots to open a mystery box.");
-			return;
-		}
 		if (!player.getItems().playerHasItem(MYSTERY_BOX)) {
 			player.sendMessage("You need a Wintertodt crate to do this.");
 			return;

@@ -168,16 +168,14 @@ public class SerenChest implements Lootable {
             c.pkp += pkpbonus;
             if (c.getRights().isOrInherits(Right.YOUTUBER)) {
                 GameItem reward = randomChestRewards(c, 1000);
-                if (!c.getItems().addItem(reward.getId(), reward.getAmount())) {
-                    Server.itemHandler.createGroundItem(c, reward.getId(), c.getX(), c.getY(), c.heightLevel, reward.getAmount());
-                }
+                c.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
                 c.sendMessage("@blu@You also receive @red@" + pkpbonus + " @blu@pkp as a bonus for killing a wildy boss.");
             } else {
                 c.sendMessage("@blu@The chest is locked, it won't budge!");
             }
             if (!(c.getRights().isOrInherits(Right.YOUTUBER))) {
                 GameItem reward = randomChestRewards(c, 1000);
-                c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
                 c.sendMessage("@blu@You also receive @red@" + pkpbonus + " @blu@pkp as a bonus for killing a wildy boss.");
             } else {
                 c.sendMessage("@blu@The chest is locked, it won't budge!");

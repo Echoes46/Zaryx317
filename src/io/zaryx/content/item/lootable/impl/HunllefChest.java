@@ -134,11 +134,11 @@ public class HunllefChest implements Lootable {
                 GameItem commonreward2 = commonChestRewards();
                 GameItem commonreward3 = commonChestRewards();
 
-                c.getItems().addItem(commonreward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ?commonreward.getAmount() * 2 : commonreward.getAmount()));
-                c.getItems().addItem(commonreward2.getId(),(PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? commonreward2.getAmount() *2: commonreward2.getAmount()));
-                c.getItems().addItem(commonreward3.getId(),(PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? commonreward3.getAmount()*2: commonreward3.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(commonreward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ?commonreward.getAmount() * 2 : commonreward.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(commonreward2.getId(),(PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? commonreward2.getAmount() *2: commonreward2.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(commonreward3.getId(),(PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? commonreward3.getAmount()*2: commonreward3.getAmount()));
                 c.getItems().deleteItem(21046, 1);
-                c.getItems().addItem(23877, crystalshardbonus);
+                c.getItems().addItemUnderAnyCircumstance(23877, crystalshardbonus);
             } else if (!(c.getItems().playerHasItem(KEY))) {
                 c.sendMessage("@blu@The chest is locked, it won't budge!");
             }
@@ -153,13 +153,13 @@ public class HunllefChest implements Lootable {
             if (rarereward.getId() == 23757 && c.getItems().getItemCount(23757, false) == 0) {
                 c.getCollectionLog().handleDrop(c, 5, 23757, 1);
             }
-            c.getItems().addItem(rarereward.getId(),(PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? rarereward.getAmount()*2 :rarereward.getAmount()));
+            c.getItems().addItemUnderAnyCircumstance(rarereward.getId(),(PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? rarereward.getAmount()*2 :rarereward.getAmount()));
             if (c.getItems().playerHasItem(21046)) {
                 c.getEventCalendar().progress(EventChallenge.USE_X_CHEST_RATE_INCREASE_TABLETS, 1);
                 c.getItems().deleteItem(21046, 1);
                 c.sendMessage("@red@You sacrifice your @cya@tablet @red@for an increased drop rate." );
             }
-            c.getItems().addItem(23877, crystalshardbonus);
+            c.getItems().addItemUnderAnyCircumstance(23877, crystalshardbonus);
             NPCDeath.announce(c, rarereward, Npcs.CRYSTALLINE_HUNLLEF);
             //PlayerHandler.executeGlobalMessage("@red@[Hunllef] @pur@" + c.playerName + " has just received a rare item from Hunllef's chest.");
         } else if (!(c.getItems().playerHasItem(KEY))) {

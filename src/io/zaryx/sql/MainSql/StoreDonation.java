@@ -60,7 +60,7 @@ public class StoreDonation implements Runnable {
     private void handleDonation(int itemId, int quantity, double productPrice, String itemName) {
 
         player.queue(() -> {
-            player.getInventory().addOrDrop(new ImmutableItem(itemId, quantity));
+            player.getItems().addItemUnderAnyCircumstance(itemId, quantity);
             player.getDonationRewards().increaseDonationAmount((int) productPrice);
             player.sendMessage("You've received x" + quantity + " " + itemName);
             player.setStoreDonated((long) (player.getStoreDonated() + productPrice));
@@ -76,7 +76,7 @@ public class StoreDonation implements Runnable {
             totalAmount += (int) productPrice;
 
             player.start(new DialogueBuilder(player).statement("Thank you for donating!",
-                    "Your items are in your bank."));
+                    "Check chat for your item delivery location."));
 
             if (totalAmount >= 1000) {
                 dboss.spawnBoss();

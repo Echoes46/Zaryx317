@@ -1,5 +1,7 @@
 package io.zaryx.sql.refsystem;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -331,6 +333,10 @@ public class RefManager {
                 return;
             }
 
+        }
+
+        if (!RewardDelivery.give(player, referral.getRewards().toArray(new GameItem[0]))) return;
+        if (enforceClaimRules) {
             claimRefCode(player, referral);
             savePlayerClaims();
         }
@@ -338,7 +344,6 @@ public class RefManager {
         player.sendMessage("You have just claimed referral code: " + referral.getCode() + "!");
 
         for (GameItem reward : referral.getRewards()) {
-            player.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
             player.sendMessage("You have been given: " + reward.getDef().getName() + " from the referral code!");
         }
     }

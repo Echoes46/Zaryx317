@@ -207,17 +207,19 @@ public class ItemAssistant {
 	}
 
 	/**
-	 * Adds an item to the players inventory, bank, or drops it. It will do this under any circumstance so if it cannot be added to the inventory it will next try to send it to the
-	 * bank and if it cannot, it will drop it.
+	 * Delivers an automatic reward to inventory, then bank. If both are full, retains it
+	 * in the saved collection box for later claiming; never drops or truncates it.
 	 *
 	 * @param itemId the item
 	 * @param amount the amount of said item
 	 */
 	public void addItemUnderAnyCircumstance(int itemId, int amount) {
-		if (!addItem(itemId, amount) && itemId > 0) {
-			sendItemToAnyTabOrDrop(new BankItem(itemId, amount), player.getX(), player.getY());
-			player.sendMessage("@red@Your item was sent to the bank!");
-		}
+        if (itemId < 0 || amount <= 0) return;
+        GameItem reward = new GameItem(itemId, amount);
+        RewardDelivery.Destination destination = RewardDelivery.deliver(player, java.util.Collections.singletonList(reward));
+        if (destination == RewardDelivery.Destination.NO_SPACE) player.getCollectionBox().add(player, reward);
+        else player.sendMessage(reward.getFormattedString() + " was delivered to your "
+                + (destination == RewardDelivery.Destination.INVENTORY ? "inventory." : "bank."));
 	}
 
 	/**

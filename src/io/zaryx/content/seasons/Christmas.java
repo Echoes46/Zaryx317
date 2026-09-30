@@ -1,5 +1,7 @@
 package io.zaryx.content.seasons;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.Server;
 import io.zaryx.content.activityboss.Groot;
 import io.zaryx.content.combat.Hitmark;
@@ -357,8 +359,8 @@ public class Christmas {
                         reward = new GameItem(33209, 1);
                     }
 
+                    if (!RewardDelivery.give(player, reward)) return true;
                     player.christmasGifts.add(gift);
-                    player.getItems().addItemUnderAnyCircumstance(reward.getId(), reward.getAmount());
                     player.candyTimer = (System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24));
                     player.start(new DialogueBuilder(player).statement("Make sure to return every 24hours for another present!!"));
                 } else {

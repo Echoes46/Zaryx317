@@ -1,5 +1,7 @@
 package io.zaryx.content.vote_panel;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.Configuration;
 import io.zaryx.model.entity.player.ClientGameTimer;
 import io.zaryx.model.entity.player.Player;
@@ -178,13 +180,10 @@ public class VotePanelInterface {
                     return true;
                 }
 
-                if (player.getItems().freeSlots() > 0) {
+                if (RewardDelivery.give(player, new io.zaryx.model.items.GameItem(23933, 1))) {
                     user.setBluePoints(user.getBluePoints() - VOTE_CRYSTAL_COST);
                     openInterface(player, false);
                     VotePanelManager.saveToJSON();
-                    player.getItems().addItem(23933, 1);
-                } else {
-                    player.sendMessage("Please free up an inventory space before doing this.");
                 }
                 return true;
             case 94106: //10% Dr 1 hr
@@ -207,13 +206,10 @@ public class VotePanelInterface {
                     return true;
                 }
 
-                if (player.getItems().freeSlots() > 0) {
+                if (RewardDelivery.give(player, new io.zaryx.model.items.GameItem(13346, 1))) {
                     user.setRedPoints(user.getRedPoints() - ULTRA_MYSTERY_BOX_COST);
                     openInterface(player, false);
                     VotePanelManager.saveToJSON();
-                    player.getItems().addItem(13346, 1);
-                } else {
-                    player.sendMessage("Please free up an inventory space before doing this.");
                 }
                 return true;
         }
@@ -231,14 +227,11 @@ public class VotePanelInterface {
         }
         VoteUser user = VotePanelManager.getUser(player);
         if (user != null && user.getPrizeSlot() != -1) {
-            if (player.getItems().freeSlots() > 0) {
-                player.getItems().addItem(VotePanelManager.REWARD_IDS[user.getPrizeSlot()], 1);
+            if (RewardDelivery.give(player, new io.zaryx.model.items.GameItem(VotePanelManager.REWARD_IDS[user.getPrizeSlot()], 1))) {
                 user.setPrizeSlot(-1);
                 player.sendMessage("@gre@You've claimed your prize!");
                 openInterface(player, true);
                 VotePanelManager.saveToJSON();
-            } else {
-                player.sendMessage("Please free up an inventory space before doing this.");
             }
         } else {
             player.sendMessage("Last weeks top voters were...");

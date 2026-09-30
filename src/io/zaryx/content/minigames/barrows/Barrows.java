@@ -330,9 +330,7 @@ public class Barrows {
                 amount = amount + amount / 2;
             }
 
-            if (!player.getItems().addItem(itemId, amount)) {
-                Server.itemHandler.createGroundItem(player, itemId, player.getX(), player.getY(), player.heightLevel, amount);
-            }
+            player.getItems().addItemUnderAnyCircumstance(itemId, amount);
 
             /*
              * Collection Log

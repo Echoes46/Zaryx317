@@ -114,7 +114,7 @@ public class VoteChest implements Lootable {
     private static void votePet(Player c) {
         int petchance = Misc.random(1500);
         if (petchance >= 1499) {
-            c.getItems().addItem(21262, 1);
+            c.getItems().addItemUnderAnyCircumstance(21262, 1);
             c.getCollectionLog().handleDrop(c, 5, 21262, 1);
             PlayerHandler.executeGlobalMessage("@red@- "+ c.getDisplayName() +"@blu@ has just received the @red@Vote Genie Pet");
             c.sendMessage("@red@@cr10@You pet genie is waiting in your bank, waiting to serve you as his master.");
@@ -142,7 +142,7 @@ public class VoteChest implements Lootable {
             GameItem reward = randomChestRewards(c, 100);
 
             String name = ItemDef.forId(reward.getId()).getName();
-            c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+            c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
 //            PlayerHandler.executeGlobalMessage("@pur@["+ c.getDisplayName() +"]@blu@ has just opened the vote chest and received a " + name + "!");
             int random = 1 + Misc.random(5);
             c.votePoints+= random;

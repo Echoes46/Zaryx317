@@ -196,7 +196,6 @@ public class Pass {
         player.getItems().addItemUnderAnyCircumstance(Rewards.defaultRewards.get(player.tier - 1).getId(), Rewards.defaultRewards.get(player.tier - 1).getAmount());
         if (player.isMember())
             player.getItems().addItemUnderAnyCircumstance(Rewards.memberRewards.get(player.tier - 1).getId(), Rewards.memberRewards.get(player.tier - 1).getAmount());
-        player.sendMessage("Your rewards have been sent to your bank");
     }
 
     public static void grantMembership(Player player) {
@@ -213,7 +212,6 @@ public class Pass {
                 player.getItems().addItemUnderAnyCircumstance(Rewards.memberRewards.get(i).getId(), Rewards.memberRewards.get(i).getAmount());
             }
 
-            player.sendMessage("Your gold pass rewards have been sent to your bank");
         }
     }
 

@@ -1,12 +1,11 @@
 package io.zaryx.content.deathstorage;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.items.GameItem;
-import io.zaryx.model.items.ImmutableItem;
 import io.zaryx.util.Misc;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DeathInterface {
 
@@ -61,53 +60,27 @@ public class DeathInterface {
         drawInterface(false);
     }
 
-    private  boolean active = false;
-
     public void retrieveItems() {
-        if (active) {
+        if (player.DeathStorageLock) {
+            player.sendMessage("[DEATH] Pay the retrieval fee before collecting your items.");
             return;
         }
-        active = true;
-        TimerTask task = new TimerTask() {
-            int tick = 0;
-            @Override
-            public void run() {
-                if (tick == 1) {
-                    for (GameItem gameItem : player.getDeathStorage()) {
-                        if (player.getItems().hasRoomInInventory(gameItem.getId(), gameItem.getAmount())) {
-                            player.getInventory().addOrDrop(new ImmutableItem(gameItem.getId(), gameItem.getAmount()));
-                        } else {
-                            player.getInventory().addToBank(new ImmutableItem(gameItem.getId(), gameItem.getAmount()));
-                        }
-                    }
-                    player.sendMessage("[DEATH] All item's have been split between your bank & your inventory!");
-                    drawInterface(true);
-                } else if (tick == 2) {
-                    active = false;
-                    cancel();
-                    player.getDeathStorage().clear();
-                }
-                tick++;
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(task, 100, 100);
+        // The button runs on the game thread. Never clear storage before confirmed delivery.
+        if (player.getDeathStorage().isEmpty()) return;
+        if (!RewardDelivery.give(player, player.getDeathStorage())) return;
+        drawInterface(true);
+        player.getDeathStorage().clear();
     }
 
     public void retrieveSlotItem(int slot) {
+        if (slot < 0 || slot >= player.getDeathStorage().size()) return;
         if (player.getDeathStorage().get(slot) != null) {
             if (player.DeathStorageLock && player.getDeathStorage().get(slot).getId() != 995) {
                 player.sendMessage("[DEATH] You haven't paid for the usage of Death's Item Retrieval!");
                 return;
             }
             GameItem gameItem = player.getDeathStorage().get(slot);
-            if (player.getItems().hasRoomInInventory(gameItem.getId(), gameItem.getAmount())) {
-                player.getInventory().addOrDrop(new ImmutableItem(gameItem.getId(), gameItem.getAmount()));
-            } else {
-                player.getInventory().addToBank(new ImmutableItem(gameItem.getId(), gameItem.getAmount()));
-                player.sendMessage("[DEATH] Your inventory was full so the item was sent to your bank!");
-            }
+            if (!RewardDelivery.give(player, gameItem)) return;
             player.getDeathStorage().remove(gameItem);
             drawInterface(false);
         }

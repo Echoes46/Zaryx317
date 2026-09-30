@@ -46,7 +46,7 @@ public class AgilityPyramid {
                 if (c.getX() == 3356 || c.getX() == 3357) {
                     c.getAgilityHandler().lapFinished(c, 5, 154, 800);
                     c.sendMessage("You've completed the Agility Pyramid and received your reward!");
-                    c.getInventory().addOrDrop(new ImmutableItem(PYRAMID_REWARD, 1));
+                    c.getItems().addItemUnderAnyCircumstance(PYRAMID_REWARD, 1);
                     AgilityHandler.delayEmote(c, "CLIMB_UP", 3354, 2830, 0, 2);
                     c.getAgilityHandler().resetAgilityProgress();
                 } else {

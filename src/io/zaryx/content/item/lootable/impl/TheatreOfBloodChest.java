@@ -222,7 +222,7 @@ public class TheatreOfBloodChest implements Lootable {
         if (Hespori.activeKronosSeed) {
             player.sendMessage("@red@The @gre@Kronos seed@red@ doubled your chances!" );
         }
-        player.getItems().addItem(995, 500_000 + Misc.random(1_000_000));
+        player.getItems().addItemUnderAnyCircumstance(995, 500_000 + Misc.random(1_000_000));
         List<GameItem> rareItemList = items.get(LootRarity.RARE);
         for (GameItem reward : rewards) {
             if (rareItemList.stream().anyMatch(rareItem -> reward.getId() == rareItem.getId())) {

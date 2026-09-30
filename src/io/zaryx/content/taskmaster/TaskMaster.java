@@ -1,5 +1,7 @@
 package io.zaryx.content.taskmaster;
 
+import io.zaryx.model.items.RewardDelivery;
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import io.zaryx.model.entity.player.Player;
@@ -196,20 +198,19 @@ public class TaskMaster {
     /** Claim all rewards together or leave both progress and inventory unchanged. */
     public void finishTask(Player p, TaskMasterKills t) {
         if(!available() || !taskMasterKillsList.contains(t) || !t.complete() || t.getClaimedReward()) return;
-        int[] oldIds=p.playerItems.clone(), oldAmounts=p.playerItemsN.clone();
+        Runnable rollback = RewardDelivery.rollback(p);
+        RewardDelivery.Destination[] destination = {RewardDelivery.Destination.NO_SPACE};
         TaskClaim.Result result=TaskClaim.claim(t, () -> {
-            for(GameItem item:t.getItems()) if(!p.getItems().addItem(item.getId(),item.getAmount(),false)) return false;
-            return true;
-        }, () -> restoreInventory(oldIds,oldAmounts), () -> PlayerSave.saveGameInstant(p));
-        if(result==TaskClaim.Result.NO_SPACE) p.sendMessage("Make inventory space for all task rewards, then claim again.");
+            destination[0] = RewardDelivery.deliver(p, Arrays.asList(t.getItems()));
+            return destination[0] != RewardDelivery.Destination.NO_SPACE;
+        }, rollback, () -> PlayerSave.saveGameInstant(p));
+        if(result==TaskClaim.Result.NO_SPACE) RewardDelivery.notify(p, RewardDelivery.Destination.NO_SPACE);
         else if(result==TaskClaim.Result.SAVE_FAILED) p.sendMessage("Your reward could not be saved. Please try again.");
-        else if(result==TaskClaim.Result.CLAIMED) p.sendMessage("@gre@Task rewards claimed for " + clean(t.getDesc()) + ".");
+        else if(result==TaskClaim.Result.CLAIMED) {
+            RewardDelivery.notify(p, destination[0]);
+            p.sendMessage("@gre@Task rewards claimed for " + clean(t.getDesc()) + ".");
+        }
         updateTracker();
-    }
-    private void restoreInventory(int[] ids,int[] amounts) {
-        System.arraycopy(ids,0,player.playerItems,0,ids.length);
-        System.arraycopy(amounts,0,player.playerItemsN,0,amounts.length);
-        player.getItems().resetItems(3214);
     }
     public boolean resetWithScroll() {
         if(!available() || taskMasterKillsList.stream().anyMatch(t->t.complete()&&!t.getClaimedReward())) {

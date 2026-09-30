@@ -49,12 +49,12 @@ public class HesporiChest implements Lootable {
         if (random < rareChance) {
             if (c.getItems().playerHasItem(KEY)) {
                 c.getItems().deleteItem(KEY, 1);
-                c.getItems().addItem(995, 500_000 + Misc.random(1_000_000));
+                c.getItems().addItemUnderAnyCircumstance(995, 500_000 + Misc.random(1_000_000));
                 c.startAnimation(ANIMATION);
                 GameItem reward = randomChestRewardsCommon();
                 GameItem reward2 = randomChestRewardsCommon();
-                c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
-                c.getItems().addItem(reward2.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward2.getAmount() * 2 : reward2.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(reward2.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward2.getAmount() * 2 : reward2.getAmount()));
                 c.sendMessage("@blu@You received common items out of the chest.");
 
             } else {
@@ -63,10 +63,10 @@ public class HesporiChest implements Lootable {
         } else if (random >= rareChance) {
             if (c.getItems().playerHasItem(KEY)) {
                 c.getItems().deleteItem(KEY, 1);
-                c.getItems().addItem(995, 500_000 + Misc.random(1_000_000));
+                c.getItems().addItemUnderAnyCircumstance(995, 500_000 + Misc.random(1_000_000));
                 c.startAnimation(ANIMATION);
                 GameItem reward = randomChestRewardsRare();
-                c.getItems().addItem(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
+                c.getItems().addItemUnderAnyCircumstance(reward.getId(), (PrestigePerks.hasRelic(c, PrestigePerks.DOUBLE_PC_POINTS) && Misc.isLucky(10) ? reward.getAmount() * 2 : reward.getAmount()));
                 c.getCollectionLog().handleDrop(c, 8583, reward.getId(), 1);
                 if (reward.getId() != Items.TOME_OF_FIRE_EMPTY) {
                     ItemDef def = ItemDef.forId(reward.getId());
