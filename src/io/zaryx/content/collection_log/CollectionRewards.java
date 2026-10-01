@@ -241,95 +241,42 @@ public enum CollectionRewards {
 
     public static boolean handleButton(Player player, int ID) {
         if (ID == 23236) {
-            if (player.getCollectionLog().getCollections().containsKey(player.getCollectionLogNPC() + "")) {
-                ArrayList<GameItem> itemsObtained = player.getCollectionLog().getCollections().get(player.getCollectionLogNPC() + "");
-                if (itemsObtained != null) {
-                    List<GameItem> drops = Server.getDropManager().getNPCdrops(player.getCollectionLogNPC());
-                    if (player.getCollectionLogNPC() == 7554) {
-                        drops = RaidsChestRare.getRareDrops();
-                    } else if (player.getCollectionLogNPC() >= 1 && player.getCollectionLogNPC() <= 4) {
-                        drops.clear();
-                        drops = TreasureTrailsRewardItem.toGameItems(TreasureTrailsRewards.getRewardsForType(player.getCollectionLogNPC()));
-                    } else if (player.getCollectionLogNPC() == 5) {
-                        drops.clear();
-                        drops = PetHandler.getPetIds(true);
-                    } else if (player.getCollectionLogNPC() == 6) {
-                        drops.clear();
-                        for (UpgradeMaterials value : UpgradeMaterials.values()) {
-                            if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.WEAPON)) {
-                                drops.add(value.getReward());
-                            }
-                        }
-                    } else if (player.getCollectionLogNPC() == 7) {
-                        drops.clear();
-                        for (UpgradeMaterials value : UpgradeMaterials.values()) {
-                            if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.ARMOUR)) {
-                                drops.add(value.getReward());
-                            }
-                        }
-                    } else if (player.getCollectionLogNPC() == 8) {
-                        drops.clear();
-                        for (UpgradeMaterials value : UpgradeMaterials.values()) {
-                            if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.ACCESSORY)) {
-                                drops.add(value.getReward());
-                            }
-                        }
-                    } else if (player.getCollectionLogNPC() == 9) {
-                        drops.clear();
-                        for (UpgradeMaterials value : UpgradeMaterials.values()) {
-                            if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.MISC)) {
-                                drops.add(value.getReward());
-                            }
-                        }
-                    } else if (player.getCollectionLogNPC() == 10) {
-                        drops.clear();
-                        for (AoeWeapons value : AoeWeapons.values()) {
-                            drops.add(new GameItem(value.ID));
-                        }
-                    } else if (player.getCollectionLogNPC() == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-                        drops = TheatreOfBloodChest.getRareDrops();
-                    } else if (player.getCollectionLogNPC() == 1101) {
-                        drops = ArbograveChestItems.getRareDrops();
-                    } else if (player.getCollectionLogNPC() == 8583) {
-                        drops = HesporiChestItems.getRareDrops();
-                    }
-                    if (drops != null &&
-                            drops.size() == itemsObtained.size()
-                            && !player.getClaimedLog().contains(player.getCollectionLogNPC())) {
-                        if (!RewardDelivery.give(player, CollectionRewards.getForNpcID(player.getCollectionLogNPC()))) return true;
-                        player.getClaimedLog().add(player.getCollectionLogNPC());
+            if (player.getViewingCollectionLog() != null && player.getViewingCollectionLog() != player.getCollectionLog()) {
+                player.sendMessage("@red@You can only claim rewards from your own collection log.");
+                return true;
+            }
+            boolean complete = player.getCollectionLog().isComplete(player.getCollectionLogNPC());
+            if (complete && !player.getClaimedLog().contains(player.getCollectionLogNPC())) {
+                if (!RewardDelivery.give(player, CollectionRewards.getForNpcID(player.getCollectionLogNPC()))) return true;
+                player.getClaimedLog().add(player.getCollectionLogNPC());
 
-                        player.sendMessage("@gre@Your rewards have now been claimed!");
+                player.sendMessage("@gre@Your rewards have now been claimed!");
 
-                        for (CollectionRewards value : CollectionRewards.values()) {
-                            if (value.NpcID == player.getCollectionLogNPC()) {
-                                Discord.writeAchievements("{} has just completed {}", player.getDisplayName(), value.name().toLowerCase());
-                                break;
-                            }
-                        }
-
-                        int[] bossIds = {6342, 2265, 2266, 2267, 239, 965, 2215, 3129, 3162, 2205, 319, 494, 5862, 5890, 7145, 6766, 8028, 2042, 8621, 9425, 8713, 7888, 8195, 7416, 11278, 5126, 8096};
-                        int[] wildyIds = {6611, 6503, 6615, 6610, 2054, 6619, 6618, 8172, 8164};
-                        int[] raidIds = {7554, 8360, 1101};
-                        int[] other = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-                        if (Arrays.stream(bossIds).anyMatch(i -> i == player.getCollectionLogNPC())) {
-                            Pass.addExperience(player, 3);
-                        } else if (Arrays.stream(wildyIds).anyMatch(i -> i == player.getCollectionLogNPC())) {
-                            Pass.addExperience(player, 3);
-                        } else if (Arrays.stream(raidIds).anyMatch(i -> i == player.getCollectionLogNPC())) {
-                            Pass.addExperience(player, 4);
-                        } else if (Arrays.stream(other).anyMatch(i -> i == player.getCollectionLogNPC())) {
-                            Pass.addExperience(player, 4);
-                        }
-
-                    } else if (drops != null && drops.size() == itemsObtained.size()
-                            && player.getClaimedLog().contains(player.getCollectionLogNPC())) {
-                        player.sendMessage("@red@You've already claimed the reward from this log!");
-                    } else if (drops != null &&
-                            drops.size() != itemsObtained.size()) {
-                        player.sendMessage("@red@You have not completed the log yet!");
+                for (CollectionRewards value : CollectionRewards.values()) {
+                    if (value.NpcID == player.getCollectionLogNPC()) {
+                        Discord.writeAchievements("{} has just completed {}", player.getDisplayName(), value.name().toLowerCase());
+                        break;
                     }
                 }
+
+                int[] bossIds = {6342, 2265, 2266, 2267, 239, 965, 2215, 3129, 3162, 2205, 319, 494, 5862, 5890, 7145, 6766, 8028, 2042, 8621, 9425, 8713, 7888, 8195, 7416, 11278, 5126, 8096};
+                int[] wildyIds = {6611, 6503, 6615, 6610, 2054, 6619, 6618, 8172, 8164};
+                int[] raidIds = {7554, 8360, 1101};
+                int[] other = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+                if (Arrays.stream(bossIds).anyMatch(i -> i == player.getCollectionLogNPC())) {
+                    Pass.addExperience(player, 3);
+                } else if (Arrays.stream(wildyIds).anyMatch(i -> i == player.getCollectionLogNPC())) {
+                    Pass.addExperience(player, 3);
+                } else if (Arrays.stream(raidIds).anyMatch(i -> i == player.getCollectionLogNPC())) {
+                    Pass.addExperience(player, 4);
+                } else if (Arrays.stream(other).anyMatch(i -> i == player.getCollectionLogNPC())) {
+                    Pass.addExperience(player, 4);
+                }
+
+            } else if (player.getClaimedLog().contains(player.getCollectionLogNPC())) {
+                player.sendMessage("@red@You've already claimed the reward from this log!");
+            } else {
+                player.sendMessage("@red@You have not completed the log yet!");
             }
             return true;
         }

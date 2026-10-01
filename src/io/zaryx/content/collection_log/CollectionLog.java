@@ -86,6 +86,90 @@ public class CollectionLog {
 		return collections;
 	}
 
+	/** Current requirements, shared by the item grid, completed names and reward claims. */
+	public List<GameItem> getRequiredItems(int npcId) {
+		List<GameItem> drops;
+		if (npcId == 7554) drops = RaidsChestRare.getRareDrops();
+		else if (npcId >= 1 && npcId <= 4)
+			drops = TreasureTrailsRewardItem.toGameItems(TreasureTrailsRewards.getRewardsForType(npcId));
+		else if (npcId == PETS_ID) drops = PetHandler.getPetIds(true);
+		else if (npcId >= 6 && npcId <= 9) {
+			drops = new ArrayList<>();
+			UpgradeMaterials.UpgradeType[] types = {UpgradeMaterials.UpgradeType.WEAPON,
+					UpgradeMaterials.UpgradeType.ARMOUR, UpgradeMaterials.UpgradeType.ACCESSORY,
+					UpgradeMaterials.UpgradeType.MISC};
+			for (UpgradeMaterials value : UpgradeMaterials.values()) {
+				if (value.isRare() && value.getType() == types[npcId - 6]) drops.add(value.getReward());
+			}
+		} else if (npcId == 10) {
+			drops = new ArrayList<>();
+			for (AoeWeapons value : AoeWeapons.values()) drops.add(new GameItem(value.ID));
+		} else if (npcId == Npcs.THE_MAIDEN_OF_SUGADINTI) drops = TheatreOfBloodChest.getRareDrops();
+		else if (npcId == 1101) drops = ArbograveChestItems.getRareDrops();
+		else if (npcId == 8583) drops = HesporiChestItems.getRareDrops();
+		else drops = Server.getDropManager().getNPCdrops(npcId);
+		return uniqueRequirements(drops);
+	}
+
+	static List<GameItem> uniqueRequirements(Collection<GameItem> drops) {
+		Map<Integer, GameItem> unique = new LinkedHashMap<>();
+		if (drops != null) for (GameItem item : drops) {
+			if (item != null && item.getId() >= 0) unique.putIfAbsent(item.getId(), item.copy());
+		}
+		return new ArrayList<>(unique.values());
+	}
+
+	static int obtainedCount(Collection<GameItem> required, Collection<GameItem> obtained) {
+		Set<Integer> unlocked = new HashSet<>();
+		if (obtained != null) for (GameItem item : obtained) {
+			if (item != null && item.getAmount() > 0) unlocked.add(item.getId());
+		}
+		int count = 0;
+		for (GameItem item : uniqueRequirements(required)) if (unlocked.contains(item.getId())) count++;
+		return count;
+	}
+
+	static boolean isComplete(Collection<GameItem> required, Collection<GameItem> obtained) {
+		List<GameItem> unique = uniqueRequirements(required);
+		return !unique.isEmpty() && obtainedCount(unique, obtained) == unique.size();
+	}
+
+	public boolean isComplete(int npcId) {
+		return isComplete(getRequiredItems(npcId), getUnlocked(npcId));
+	}
+
+	static String completionName(String name, boolean complete) {
+		return (complete ? "@gre@" : "") + name;
+	}
+
+	private String getLogName(int npcId) {
+		if (npcId >= 1 && npcId <= 4) return RewardLevel.VALUES.get(npcId).getFormattedName() + " clue scroll";
+		switch (npcId) {
+			case PETS_ID: return "Pets";
+			case 6: return "Weapon Upgrades";
+			case 7: return "Armor Upgrades";
+			case 8: return "Accessory Upgrades";
+			case 9: return "Misc Upgrades";
+			case 10: return "Aoe Weapons";
+			case Npcs.THE_MAIDEN_OF_SUGADINTI: return "Theatre of Blood";
+			case 1101: return "Arbograve Swamp";
+			case Npcs.DUSK_9: return "Grotesque Guardians";
+			case 1230: return "Perkfinder Minigame";
+			case 8583: return "Hespori";
+			default: return Misc.optimizeText(NpcDef.forId(npcId).getName());
+		}
+	}
+
+	private void refreshName(Player player, int npcId, boolean complete) {
+		String name = completionName(getLogName(npcId), complete);
+		if (collectionNPCS != null && player.collectionLogTab != null) {
+			List<Integer> npcs = collectionNPCS.get(player.collectionLogTab);
+			int index = npcs == null ? -1 : npcs.indexOf(npcId);
+			if (index >= 0) player.getPA().sendFrame126(name, 23123 + index * 2);
+		}
+		if (player.getCollectionLogNPC() == npcId) player.getPA().sendFrame126(name, 23118);
+	}
+
 	/**
 	 * Initializes the default npcs to be collecting for
 	 */
@@ -196,147 +280,9 @@ public class CollectionLog {
 			player.getPA().sendConfig(player.previousSelectedTab == 0 ? 519 : 570 + player.previousSelectedTab, 0);
 			player.previousSelectedTab = type.ordinal();
 			player.getPA().sendConfig(type.ordinal() == 0 ? 519 : 570 + type.ordinal(), 1);
-			for(int i = 0; i < npcs.size(); i++) {
-				boolean found = false;
-				if (getCollections().containsKey(npcs.get(i) + "")) {
-					ArrayList<GameItem> itemsObtained = getCollections().get(npcs.get(i) + "");
-					if (itemsObtained != null) {
-						List<GameItem> drops = Server.getDropManager().getNPCdrops(npcs.get(i));
-/*						if (npcs.get(i) == 8028) {
-							drops = Vorkath.getVeryRareDrops();
-						}*/
-						if (npcs.get(i) == 7554) {
-							drops = RaidsChestRare.getRareDrops();
-						} else if (npcs.get(i) >= 1 && npcs.get(i) <= 4) {
-							drops = TreasureTrailsRewardItem.toGameItems(TreasureTrailsRewards.getRewardsForType(npcs.get(i)));
-						} else if (npcs.get(i) == PETS_ID) {
-							drops = PetHandler.getPetIds(true);
-						} else if (npcs.get(i) == 6) {
-							for (UpgradeMaterials value : UpgradeMaterials.values()) {
-								if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.WEAPON)) {
-									drops.add(value.getReward());
-								}
-							}
-						} else if (npcs.get(i) == 7) {
-							for (UpgradeMaterials value : UpgradeMaterials.values()) {
-								if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.ARMOUR)) {
-									drops.add(value.getReward());
-								}
-							}
-						} else if (npcs.get(i) == 8) {
-							for (UpgradeMaterials value : UpgradeMaterials.values()) {
-								if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.ACCESSORY)) {
-									drops.add(value.getReward());
-								}
-							}
-						} else if (npcs.get(i) == 9) {
-							for (UpgradeMaterials value : UpgradeMaterials.values()) {
-								if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.MISC)) {
-									drops.add(value.getReward());
-								}
-							}
-						} else if (npcs.get(i) == 10) {
-							for (AoeWeapons value : AoeWeapons.values()) {
-								drops.add(new GameItem(value.ID, 1));
-							}
-						} else if (npcs.get(i) == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-							drops = TheatreOfBloodChest.getRareDrops();
-
-						} else if (npcs.get(i) == 1101) {
-							drops = ArbograveChestItems.getRareDrops();
-							
-						} else if (npcs.get(i) == 8583) {
-							drops = HesporiChestItems.getRareDrops();
-						}
-
-						if (drops != null && drops.size() == itemsObtained.size()) {
-							found = true;
-							boolean hasName = false;
-
-							String name = "";
-
-							if (npcs.get(i) == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-								name = "Theatre of Blood";
-								hasName = true;
-							} else if (npcs.get(i) == 1101) {
-								name = "Arbograve Swamp";
-								hasName = true;
-							} else if (npcs.get(i) == Npcs.DUSK_9) {
-								name = "Grotesque Guardians";
-								hasName = true;
-							} else if (npcs.get(i) == PETS_ID) {
-								name = "Pets";
-								hasName = true;
-							} else if (npcs.get(i) == 6) {
-								name = "Weapon Upgrades";
-								hasName = true;
-							} else if (npcs.get(i) == 7) {
-								name = "Armor Upgrades";
-								hasName = true;
-							} else if (npcs.get(i) == 8) {
-								name = "Accessory Upgrades";
-								hasName = true;
-							} else if (npcs.get(i) == 9) {
-								name = "Misc Upgrades";
-								hasName = true;
-							} else if (npcs.get(i) == 10) {
-								name = "Aoe Weapons";
-								hasName = true;
-							} else if (npcs.get(i) == 1230) {
-								name = "Perkfinder Minigame";
-								hasName = true;
-							} else if (npcs.get(i) == 8583) {
-								name = "Hespori";
-								hasName = true;
-							}
-
-							if (!hasName) {
-								if (type == CollectionTabType.OTHER && i <= 5) {
-									name = Misc.optimizeText(RewardLevel.VALUES.get(npcs.get(i)).name().toLowerCase());
-								} else {
-									name = Misc.optimizeText(NpcDef.forId(npcs.get(i)).getName());
-								}
-							}
-
-/*							if (!player.getCollogrewards().containsValue(i)) {
-								player.getCollogrewards().put(type, i);
-								player.setCollectionPoints(player.getCollectionPoints() + getPoints(type,i));
-								player.sendMessage("You have completed a log and earned " + getPoints(type,i) + "collog points.");
-							}*/
-							player.getPA().sendFrame126("@gre@" + name, 23123 + (i * 2));
-						}
-					}
-				}
-				if (!found) {
-					if (npcs.get(i) == PETS_ID) {
-						player.getPA().sendFrame126("Pets", 23123 + (i * 2));
-					} else if (npcs.get(i) == 6) {
-						player.getPA().sendFrame126("Weapon Upgrades", 23123 + (i * 2));
-					} else if (npcs.get(i) == 7) {
-						player.getPA().sendFrame126("Armor Upgrades", 23123 + (i * 2));
-					} else if (npcs.get(i) == 8) {
-						player.getPA().sendFrame126("Accessory Upgrades", 23123 + (i * 2));
-					} else if (npcs.get(i) == 9) {
-						player.getPA().sendFrame126("Misc Upgrades", 23123 + (i * 2));
-					} else if (npcs.get(i) == 10) {
-						player.getPA().sendFrame126("Aoe Weapons", 23123 + (i * 2));
-					} else {
-						String name = type == CollectionTabType.OTHER ? RewardLevel.VALUES.get(npcs.get(i)).getFormattedName() + " clue scroll"
-								: Misc.optimizeText(NpcDef.forId(npcs.get(i)).getName());
-						if (npcs.get(i) == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-							name = "Theatre of Blood";
-						} else if (npcs.get(i) == 1101) {
-							name = "Arbograve Swamp";
-						} else if (npcs.get(i) == Npcs.DUSK_9) {
-							name = "Grotesque Guardians";
-						} else if (npcs.get(i) == 1230) {
-							name = "Perkfinder Minigame";
-						} else if (npcs.get(i) == 8583) {
-							name = "Hespori";
-						}
-						player.getPA().sendFrame126(name, 23123 + (i * 2));
-					}
-				}
+			for (int i = 0; i < npcs.size(); i++) {
+				int npcId = npcs.get(i);
+				player.getPA().sendFrame126(completionName(getLogName(npcId), isComplete(npcId)), 23123 + i * 2);
 			}
 			selectCell(player, 0, type);
 		} else {
@@ -356,7 +302,7 @@ public class CollectionLog {
 
 		ArrayList<Integer> npcs = collectionNPCS.get(type);
 		if (npcs != null) {
-			if (index >= npcs.size()) {
+			if (index < 0 || index >= npcs.size()) {
 				return;
 			}
 
@@ -365,7 +311,7 @@ public class CollectionLog {
 			player.getPA().sendConfig(520 + index , 1);
 			player.getPA().resetScrollBar(23121);
 
-			if (npcs.get(index) == PETS_ID) {
+			if (npcs.get(index) == PETS_ID && this == player.getCollectionLog()) {
 				List<GameItem> pets = PetHandler.getPetIds(false);
 				for(GameItem petItem : pets) {
 					if (player.getItems().getItemCount(petItem.getId(), false) > 0 || (player.hasFollower && player.petSummonId == petItem.getId())) {
@@ -397,48 +343,11 @@ public class CollectionLog {
 
 		player.setCollectionLogNPC(npcId);
 
-		String npcName = NpcDef.forId(npcId).getName();
-		if (npcId >= 1 && npcId <= 4) {
-			npcName = Misc.optimizeText(RewardLevel.VALUES.get(npcId).name().toLowerCase());
-		}
-		if (npcId == PETS_ID) {
-			npcName = "Pets";
-		}
-		if (npcId == 6) {
-			npcName = "Weapon Upgrades";
-		}
-		if (npcId == 7) {
-			npcName = "Armor Upgrades";
-		}
-		if (npcId == 8) {
-			npcName = "Accessory Upgrades";
-		}
-		if (npcId == 9) {
-			npcName = "Misc Upgrades";
-		}
-		if (npcId == 10) {
-			npcName = "Aoe Weapons";
-		}
-		if (npcId == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-			npcName = "Theatre of Blood";
-		}
-		if (npcId == 1101) {
-			npcName = "Arbograve Swamp";
-		}
-		if (npcId == Npcs.DUSK_9) {
-			npcName = "Grotesque Guardians";
-		}
-		if (npcId == 1230) {
-			npcName = "Perkfinder Minigame";
-		}
-
-		if (npcId == 8583) {
-			npcName = "Hespori";
-		}
+		String npcName = getLogName(npcId);
 
 		player.getPA().sendFrame126(getSaveName() + "'s Collection Log", 23112);
 		player.getPA().sendFrame126(Misc.optimizeText(npcName) /*+ "@gre@("+getPoints(npcId)+" Credits)"*/, 23118);
-		player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + player.getNpcDeathTracker().getKc(npcName), 23120);
+		player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + player.getNpcDeathTracker().getKc(npcId >= 1 && npcId <= 4 ? RewardLevel.VALUES.get(npcId).getFormattedName() : npcName), 23120);
 
 		//Clear items
 		for(int i = 0; i < 198; i++) {
@@ -455,92 +364,19 @@ public class CollectionLog {
 
 		ArrayList<GameItem> items = getCollections().get(npcId + "");
 
-		Server.getDropManager().getDrops(player, npcId);
-/*		if (npcId == 8028) {
-			player.dropItems = Vorkath.getVeryRareDrops();
-		}*/
-		if (npcId == 7554) {
-			player.dropItems = RaidsChestRare.getRareDrops();
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + player.raidCount, 23120);
-		}
-		if (npcId >= 1 && npcId <= 4) {
-			player.dropItems = TreasureTrailsRewardItem.toGameItems(TreasureTrailsRewards.getRewardsForType(npcId));
-		}
-		if (npcId == PETS_ID) {
-			player.dropItems = PetHandler.getPetIds(true);
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + items.size(), 23120);
-		}
-		if (npcId == 6) {
-			if (!player.dropItems.isEmpty()) {
-				player.dropItems.clear();
-			}
-			for (UpgradeMaterials value : UpgradeMaterials.values()) {
-				if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.WEAPON)) {
-					player.dropItems.add(value.getReward());
-				}
-			}
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + items.size(), 23120);
-		}
-		if (npcId == 7) {
-			if (!player.dropItems.isEmpty()) {
-				player.dropItems.clear();
-			}
-			for (UpgradeMaterials value : UpgradeMaterials.values()) {
-				if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.ARMOUR)) {
-					player.dropItems.add(value.getReward());
-				}
-			}
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + items.size(), 23120);
-		}
-		if (npcId == 8) {
-			if (!player.dropItems.isEmpty()) {
-				player.dropItems.clear();
-			}
-			for (UpgradeMaterials value : UpgradeMaterials.values()) {
-				if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.ACCESSORY)) {
-					player.dropItems.add(value.getReward());
-				}
-			}
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + items.size(), 23120);
-		}
-		if (npcId == 9) {
-			if (!player.dropItems.isEmpty()) {
-				player.dropItems.clear();
-			}
-			for (UpgradeMaterials value : UpgradeMaterials.values()) {
-				if (value.isRare() && value.getType().equals(UpgradeMaterials.UpgradeType.MISC)) {
-					player.dropItems.add(value.getReward());
-				}
-			}
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + items.size(), 23120);
-		}
-
-		if (npcId == 10) {
-			if (!player.dropItems.isEmpty()) {
-				player.dropItems.clear();
-			}
-			for (AoeWeapons value : AoeWeapons.values()) {
-				player.dropItems.add(new GameItem(value.ID,1));
-			}
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + items.size(), 23120);
-		}
-		if (npcId == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-			player.dropItems = TheatreOfBloodChest.getRareDrops();
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + player.tobCompletions, 23120);
-		}
-		if (npcId == 1101) {
-			player.dropItems = ArbograveChestItems.getRareDrops();
-			player.getPA().sendFrame126(Misc.optimizeText(npcName) + ": @whi@" + player.arboCompletions, 23120);
-		}
-		if (npcId == 8583) {
-			player.dropItems = HesporiChestItems.getRareDrops();
-		}
+		player.dropItems = getRequiredItems(npcId);
+		if (npcId == 7554) player.getPA().sendFrame126(npcName + ": @whi@" + player.raidCount, 23120);
+		if (npcId >= PETS_ID && npcId <= 10)
+			player.getPA().sendFrame126(npcName + ": @whi@" + obtainedCount(player.dropItems, items), 23120);
+		if (npcId == Npcs.THE_MAIDEN_OF_SUGADINTI)
+			player.getPA().sendFrame126(npcName + ": @whi@" + player.tobCompletions, 23120);
+		if (npcId == 1101) player.getPA().sendFrame126(npcName + ": @whi@" + player.arboCompletions, 23120);
 
 		int foundCount = 0;
 		for(int i = 0; i < player.dropItems.size(); i++) {
 			boolean found = false;
 			for(int j = 0; j < items.size(); j++) {
-				if (items.get(j).getId() == player.dropItems.get(i).getId()) {
+				if (items.get(j).getId() == player.dropItems.get(i).getId() && items.get(j).getAmount() > 0) {
 					player.getPA().itemOnInterface(items.get(j).getId(),items.get(j).getAmount(),23231,i);
 					foundCount++;
 					found = true;
@@ -551,7 +387,9 @@ public class CollectionLog {
 				player.getPA().itemOnInterface(player.dropItems.get(i).getId(),0,23231,i);
 			}
 		}
-		player.getPA().sendFrame126("Obtained: " + (foundCount == player.dropItems.size() ? "@gre@" : "@red@") + foundCount + "/" + player.dropItems.size(), 23119);
+		boolean complete = isComplete(player.dropItems, items);
+		refreshName(player, npcId, complete);
+		player.getPA().sendFrame126("Obtained: " + (complete ? "@gre@" : "@red@") + foundCount + "/" + player.dropItems.size(), 23119);
 		player.getPA().showInterface(INTERFACE_ID);
 	}
 
@@ -601,49 +439,13 @@ public class CollectionLog {
 			dropId = PetHandler.getPetForParentId(PetHandler.forItem(dropId)).getItemId();
 		}
 
-		String npcName = NpcDef.forId(npcId).getName();
-		if (npcId >= 1 && npcId <= 4) {
-			npcName = Misc.optimizeText(RewardLevel.VALUES.get(npcId).name().toLowerCase());
-		}
-		if (npcId == PETS_ID) {
-			npcName = "Pets";
-		}
-		if (npcId == 6) {
-			npcName = "Weapon Upgrades";
-		}
-		if (npcId == 7) {
-			npcName = "Armor Upgrades";
-		}
-		if (npcId == 8) {
-			npcName = "Accessory Upgrades";
-		}
-		if (npcId == 9) {
-			npcName = "Misc Upgrades";
-		}
-		if (npcId == 10) {
-			npcName = "Aoe Weapons";
-		}
-		if (npcId == Npcs.THE_MAIDEN_OF_SUGADINTI) {
-			npcName = "Theatre of Blood";
-		}
-		if (npcId == 1101) {
-			npcName = "Arbograve Swamp";
-		}
-		if (npcId == Npcs.DUSK_9) {
-			npcName = "Grotesque Guardians";
-		}
-		if (npcId == 1230) {
-			npcName = "Perkfinder Minigame";
-		}
-
-		if (npcId == 8583) {
-			npcName = "Hespori";
-		}
+		String npcName = getLogName(npcId);
 
 		if (!isCollectionNPC(npcId)) {
 			return;
 		}
 
+		boolean wasComplete = isComplete(npcId);
 		ArrayList<GameItem> currentItems = getCollections().get("" + npcId);
 		if (currentItems == null) {
 			currentItems = new ArrayList<>();
@@ -673,14 +475,13 @@ public class CollectionLog {
 						Achievements.increase(player, AchievementType.COLLECTOR, 1);
 					}
 				}
-				List<GameItem> drops = Server.getDropManager().getNPCdrops(npcId);
-				if (currentItems.size() == drops.size()) {
-					player.sendMessage("@gre@You have completed a collection log!");
-				}
 
 			}
 		}
 		getCollections().put("" + npcId, currentItems);
+		boolean complete = isComplete(npcId);
+		if (message && !wasComplete && complete) player.sendMessage("@gre@You have completed the " + npcName + " collection log!");
+		if (player.getViewingCollectionLog() == this) refreshName(player, npcId, complete);
 		//As soon as it gets a drop it saves Kraken has been getting the most complaints
 		saveToJSON();
 	}
@@ -691,6 +492,7 @@ public class CollectionLog {
 	 * @return
 	 */
 	public boolean isCollectionNPC(int npcId) {
+		if (collectionNPCS == null) return false;
 		for (Map.Entry<CollectionTabType, ArrayList<Integer>> entry : collectionNPCS.entrySet()) {
 			for(int i = 0; i < entry.getValue().size(); i++) {
 				if (entry.getValue().get(i) == npcId) {
