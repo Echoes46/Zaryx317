@@ -143,13 +143,6 @@ public class QuestTab {
         player.getPA().sendFrame126("@or1@ - @whi@Players online: @gre@" + ((int) (PlayerHandler.getPlayerCount() * 3)), lines.get(index++));
 //        }
 
-        if (Halloween.isHalloween() && Halloween.BoostActive) {
-            player.getPA().sendFrame126("@whi@ - @red@Cauldron: @gre@" + Halloween.getActiveBoost(), lines.get(index++));
-        }
-        if (Halloween.isHalloween() && !Halloween.BoostActive) {
-            player.getPA().sendFrame126("@or1@- @red@Cauldron Candies Left:" + (Halloween.pulseBoost > 5_000_000 ? "1" : (Misc.formatCoins(5_000_000 - Halloween.pulseBoost))), lines.get(index++));
-        }
-
         if (Christmas.isChristmas()) {
             player.getPA().sendFrame126("@or1@- @red@Xmas: @gre@" + Halloween.getActiveBoost(), lines.get(index++));
             player.getPA().sendFrame126("@or1@- Snowman Spawns in: @gre@" + ChristmasBoss.KillCount, lines.get(index++));
