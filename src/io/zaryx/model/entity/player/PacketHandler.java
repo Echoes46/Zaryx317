@@ -37,7 +37,9 @@ public class PacketHandler {
 		Server.getLogging().write(new ReceivedPacketLog(c, packetType, "data type: " + packetType + ", data length: " + packetSize));
 
 		try {
-			p.processPacket(c, packetType, packetSize);
+			if (io.zaryx.content.bosspoints.BossPointActivity.isGameplayInput(packetType))
+                c.bossPointActivity.recordInput(System.nanoTime());
+            p.processPacket(c, packetType, packetSize);
 		} catch (Exception e) {
 			invalidPacket(c, "exception during processing", packetType, packetSize, false, e);
 			e.printStackTrace();

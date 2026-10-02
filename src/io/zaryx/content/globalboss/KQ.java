@@ -37,7 +37,7 @@ public class KQ {
                 Server.getDropManager().create(player, npc, new Location3D(player.getX(), player.getY(), player.getHeight()), amountOfDrops, npc.getNpcId());
 
                 int bossPoints = BossPoints.getPointsOnDeath(npc);
-                BossPoints.addPoints(player, bossPoints, false);
+                bossPoints = BossPoints.addPoints(player, bossPoints, false);
 
                 if (NpcDef.forId(npc.getNpcId()).getCombatLevel() >= 1) {
                     player.getNpcDeathTracker().add(NpcDef.forId(npc.getNpcId()).getName(), NpcDef.forId(npc.getNpcId()).getCombatLevel(), bossPoints);

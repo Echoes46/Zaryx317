@@ -41,7 +41,7 @@ public class NEX {
                 Achievements.increase(player, AchievementType.SLAY_NEX, 1);
 
                 int bossPoints = BossPoints.getPointsOnDeath(npc);
-                BossPoints.addPoints(player, bossPoints, false);
+                bossPoints = BossPoints.addPoints(player, bossPoints, false);
 
                 if (NpcDef.forId(npc.getNpcId()).getCombatLevel() >= 1) {
                     player.getNpcDeathTracker().add(NpcDef.forId(npc.getNpcId()).getName(), NpcDef.forId(npc.getNpcId()).getCombatLevel(), bossPoints);

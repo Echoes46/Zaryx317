@@ -883,6 +883,7 @@ public class Player extends Entity {
     // Points
     public int pkp;
     public int bossPoints;
+    public final io.zaryx.content.bosspoints.BossPointActivity bossPointActivity = new io.zaryx.content.bosspoints.BossPointActivity();
     public boolean bossPointsRefund;
     public int achievementPoints;
     public int raidPoints;

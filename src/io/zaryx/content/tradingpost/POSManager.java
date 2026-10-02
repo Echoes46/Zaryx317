@@ -352,6 +352,10 @@ public class POSManager {
         }
 
         TradePostOffer offer = viewOffers.get(index);
+        if (!offer.getItem().getDef().isTradable()) {
+            player.sendMessage("This item is now untradable. The seller can cancel the offer to reclaim it.");
+            return;
+        }
         String sellerName = offer.getUsername();
         Player seller = PlayerHandler.getPlayerByDisplayName(sellerName);
         if (OwnerEconomyLock.denyTransfer(player, seller)) return;
@@ -388,6 +392,7 @@ public class POSManager {
                         + offer.getItem().getDef().getName() + " for a price of: " + formatPrice(price) + " " + getCurrencyName(offer) + "?",
                 new DialogueOption("Yes", p -> {
                     if (OwnerEconomyLock.denyTransfer(p, seller)) return;
+                    if (!offer.getItem().getDef().isTradable()) return;
                     p.getPA().closeAllWindows();
 
                     if (!seller.isOnline()) {
@@ -537,6 +542,7 @@ public class POSManager {
         for (int index = 0; index < Math.min(viewOffers.size(), 50); index++) {
             if (viewOffers.get(index) != null) {
                 TradePostOffer offer = viewOffers.get(index);
+
 
                 result.add(offer.getItem());
 

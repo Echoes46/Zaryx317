@@ -3291,11 +3291,13 @@
   description: A stone plaque with carved letters in it.
   shopValue: 1
 - id: 607
+  untradeable: true
   name: $250 scroll
   description: $250 scroll
   stackable: true
   shopValue: 1
 - id: 608
+  untradeable: true
   name: $500 scroll
   description: $500 scroll
   stackable: true
@@ -4004,6 +4006,7 @@
   noted: true
   stackable: true
 - id: 761
+  untradeable: true
   name: $100 scroll
   description: $100 scroll.
   stackable: true
@@ -4111,6 +4114,7 @@
   description: Perhaps I should read it and see what Glough is up to!
   shopValue: 2
 - id: 786
+  untradeable: true
   name: $50 scroll
   description: $50 scroll
   shopValue: 2
@@ -4800,6 +4804,7 @@
   noted: true
   stackable: true
 - id: 956
+  untradeable: true
   name: $1 Donator
   description: $1 scroll.
   shopValue: 1
@@ -12721,6 +12726,7 @@
   description: A dangerous magical liquid.
   shopValue: 120
 - id: 2396
+  untradeable: true
   name: $25 scroll
   description: $25 scroll
   stackable: true
@@ -12750,6 +12756,7 @@
   description: The magical sword 'Silverlight'.
   shopValue: 50
 - id: 2403
+  untradeable: true
   name: $10 scroll
   description: $10 scroll
   stackable: true
@@ -32939,6 +32946,7 @@
   description: A little more smelly than usual.
   shopValue: 1
 - id: 6769
+  untradeable: true
   name: $5 scroll
   description: $5 scroll
   stackable: true

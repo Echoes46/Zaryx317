@@ -79,8 +79,13 @@ public class BossPoints {
         addPoints(player, p, true);
     }
 
-    public static void addPoints(Player player, int points, boolean message) {
+    public static int addPoints(Player player, int points, boolean message) {
         if (points > 0) {
+            if (!player.bossPointActivity.isActive(System.nanoTime())) {
+                if (player.bossPointActivity.warnOnce()) player.sendMessage("Boss points paused while inactive. Use a gameplay action to resume earning points.");
+                return 0;
+            }
+            if (player.bossPointActivity.resume()) player.sendMessage("Boss point earnings resumed.");
             if (Hespori.activeBuchuSeed) {
                 points *= 2;
             }
@@ -96,6 +101,7 @@ public class BossPoints {
                 player.sendMessage("Gained <col=FF0000>" + points + "</col> boss points.");
             }
         }
+        return Math.max(0, points);
     }
 
     /**

@@ -84,7 +84,7 @@ public class CorporealBeast {
 				Server.getDropManager().create(player, npc, new Location3D(player.getX(), player.getY(), player.getHeight()), amountOfDrops, Npcs.CORPOREAL_BEAST);
 				Achievements.increase(player, AchievementType.SLAY_CORP, 1);
 				int bossPoints = BossPoints.getPointsOnDeath(npc);
-				BossPoints.addPoints(player, bossPoints, false);
+				bossPoints = BossPoints.addPoints(player, bossPoints, false);
 				player.getNpcDeathTracker().add(npc.getDefinition().getName(), npc.getDefinition().getCombatLevel(), bossPoints);
 
 				PetHandler.rollOnNpcDeath(player, npc);

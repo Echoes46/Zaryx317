@@ -36,7 +36,7 @@ public class Sarachnis {
                 }
                 Server.getDropManager().create(player, npc, new Location3D(player.getX(), player.getY(), player.getHeight()), amountOfDrops, npc.getNpcId());
                 int bossPoints = BossPoints.getPointsOnDeath(npc);
-                BossPoints.addPoints(player, bossPoints, false);
+                bossPoints = BossPoints.addPoints(player, bossPoints, false);
 
                 player.getTaskMaster().recordNpcKill(npc);
 
