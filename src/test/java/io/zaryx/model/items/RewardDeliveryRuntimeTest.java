@@ -3,6 +3,9 @@ package io.zaryx.model.items;
 import io.zaryx.Server;
 import io.zaryx.ServerConfiguration;
 import io.zaryx.content.CollectionBox;
+import io.zaryx.content.item.lootable.MysteryBoxLootable;
+import io.zaryx.content.item.lootable.ItemLootable;
+import io.zaryx.content.item.lootable.LootRarity;
 import io.zaryx.model.definitions.ItemDef;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.mode.Mode;
@@ -96,6 +99,90 @@ class RewardDeliveryRuntimeTest {
         fullInventory();
         assertEquals(RewardDelivery.Destination.NO_SPACE, RewardDelivery.deliver(player, List.of(new GameItem(995, 1))));
         assertEquals(0, player.getBank().getItemCount());
+    }
+
+    @Test void collectionWorksOutsideEdgevilleAndFallsBackToBank() {
+        player.absX = 3100;
+        player.absY = 3950;
+        player.heightLevel = 4;
+        CollectionBox.CollectionBoxSave save = new CollectionBox.CollectionBoxSave();
+        player.getCollectionBox().add(player, new GameItem(995, 20));
+        player.getCollectionBox().collect(player);
+        assertEquals(20, player.getItems().getItemAmount(995));
+        assertEquals("", save.encode(player, "collection_box"));
+        fullInventory();
+        player.getCollectionBox().add(player, new GameItem(995, 30));
+        player.getCollectionBox().collect(player);
+        assertEquals(30, player.getBank().getBankTab(0).getItemAmount(new BankItem(996)));
+        assertEquals("", save.encode(player, "collection_box"));
+        fullBank();
+        player.getCollectionBox().add(player, new GameItem(100, 1));
+        player.getCollectionBox().collect(player);
+        assertEquals("100:1", save.encode(player, "collection_box"));
+    }
+
+    @Test void mysteryBoxSpinChecksBothContainersAndRetainsOverflow() {
+        verifyBoxDelivery(false, false);
+    }
+
+    @Test void mysteryBoxQuickOpenChecksBothContainersAndRetainsOverflow() {
+        verifyBoxDelivery(true, false);
+    }
+
+    @Test void resourceBoxChecksBothContainersAndRetainsOverflow() {
+        verifyBoxDelivery(false, true);
+    }
+
+    private void verifyBoxDelivery(boolean quick, boolean resource) {
+        for (int destination = 0; destination < 3; destination++) {
+            List<String> messages = new ArrayList<>();
+            player = new Player(null) {
+                @Override public void sendMessage(String message) { messages.add(message); }
+                @Override public io.zaryx.model.entity.player.PlayerAssistant getPA() {
+                    return new io.zaryx.model.entity.player.PlayerAssistant(this) {
+                        @Override public void mysteryBoxItemOnInterface(int item, int amount, int frame, int slot) { }
+                    };
+                }
+            };
+            player.saveCharacter = false;
+            player.getPerkSytem().gameItems = new ArrayList<>();
+            if (destination > 0) fullInventory();
+            if (destination == 2) fullBank();
+            // Use a stackable box and a reward needing more than the released slot.
+            player.playerItems[0] = 996;
+            player.playerItemsN[0] = 2;
+            Map<LootRarity, List<GameItem>> loot = new EnumMap<>(LootRarity.class);
+            for (LootRarity rarity : LootRarity.values()) loot.put(rarity, List.of(new GameItem(100, 3)));
+            MysteryBoxLootable box = new MysteryBoxLootable(player) {
+                public int getItemId() { return 995; }
+                public Map<LootRarity, List<GameItem>> getLoot() { return loot; }
+            };
+            int before = player.getItems().getItemAmount(100);
+            if (resource) {
+                new ItemLootable() {
+                    public int getLootableItem() { return 995; }
+                    public int getRollCount() { return 2; }
+                    public Map<LootRarity, List<GameItem>> getLoot() {
+                        return Map.of(LootRarity.COMMON, List.of(new GameItem(100, 3)));
+                    }
+                }.roll(player);
+            } else if (quick) {
+                box.quickOpen();
+            } else {
+                box.spin();
+                box.roll(player);
+            }
+            int rewards = quick || resource ? 6 : 3;
+            assertEquals(quick ? 0 : 1, player.getItems().getItemAmount(995));
+            assertEquals(before + (destination == 0 ? rewards : 0), player.getItems().getItemAmount(100));
+            assertEquals(destination == 1 ? rewards : 0,
+                    player.getBank().getBankTab(0).getItemAmount(new BankItem(101)));
+            String pending = new CollectionBox.CollectionBoxSave().encode(player, "collection_box");
+            assertEquals(destination == 2 ? (rewards == 6 ? "100:3;100:3" : "100:3") : "", pending);
+            String notice = destination == 0 ? "delivered to your inventory" : destination == 1
+                    ? "delivered to your bank" : "waiting in your collection box";
+            assertTrue(messages.stream().anyMatch(message -> message.contains(notice)), notice);
+        }
     }
 
     @Test void automaticRewardsAreRetainedAndRoundTripThroughPlayerSave() {

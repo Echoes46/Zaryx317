@@ -20,8 +20,8 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WeaponProgressionTest {
-    Field configuration, definitions, ticks;
-    Object oldConfig, oldDefinitions;
+    Field configuration, definitions, ticks, trackedMonsters;
+    Object oldConfig, oldDefinitions, oldTrackedMonsters;
     long oldTicks;
     Map<Integer, ItemStats> oldStats;
     @BeforeEach void setup() throws Exception {
@@ -37,10 +37,15 @@ class WeaponProgressionTest {
         definitions.set(null, items);
         ticks = Server.class.getDeclaredField("tickCount"); ticks.setAccessible(true);
         oldTicks = ticks.getLong(null); ticks.setLong(null, 100);
+        trackedMonsters = io.zaryx.content.combat.stats.TrackedMonster.class.getDeclaredField("trackedMonsterList");
+        trackedMonsters.setAccessible(true);
+        oldTrackedMonsters = trackedMonsters.get(null);
+        trackedMonsters.set(null, Collections.emptyList());
     }
     @AfterEach void restore() throws Exception {
         configuration.set(null, oldConfig); definitions.set(null, oldDefinitions);
         ticks.setLong(null, oldTicks); ItemStats.itemStatsMap = oldStats;
+        trackedMonsters.set(null, oldTrackedMonsters);
     }
     Player player(int weapon, int mode) {
         Player p = new Player(null);
@@ -94,6 +99,25 @@ class WeaponProgressionTest {
             checked++;
         }
         assertTrue(checked >= 900, "Inventory coverage unexpectedly dropped: " + checked);
+    }
+
+    @Test void corpAllowsScytheProgressionAndPreservesOtherWeaponModifiers() {
+        NPC corp = new NPC(2, io.zaryx.model.Npcs.CORPOREAL_BEAST,
+                NpcDef.builder().name("Corporeal Beast").build(),
+                NpcStats.builder().setName("Corporeal Beast").setHitpoints(2000).createNpcStats());
+        for (int id : new int[]{22325, 25736, 25739, 33203, 11824, 3204, 33204, 33175, 4151}) {
+            Player p = player(id, 0);
+            class CorpHit extends io.zaryx.content.combat.core.HitDispatcherNpc {
+                CorpHit() { super(p, corp); }
+                int max(CombatType type) {
+                    maximumDamage = 100;
+                    beforeDamageCalculated(type);
+                    return maximumDamage;
+                }
+            }
+            int expected = id == 33204 ? 300 : id == 33175 ? 200 : id == 4151 ? 33 : 100;
+            assertEquals(expected, new CorpHit().max(CombatType.MELEE), "Corp modifier for " + id);
+        }
     }
 
     @Test void everyRegisteredSpecialWeaponHasACombatTabSpecialBar() {

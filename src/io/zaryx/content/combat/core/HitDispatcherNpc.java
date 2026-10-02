@@ -69,9 +69,13 @@ public class HitDispatcherNpc extends HitDispatcher {
 
         if (npcId == Npcs.CORPOREAL_BEAST) {
             WeaponInterface weaponInterface = attacker.getCombatConfigs().getWeaponData().getWeaponInterface();
-            if (!(type == CombatType.MELEE && (weaponInterface == WeaponInterface.SPEAR || weaponInterface == WeaponInterface.HALBERD)) && attacker.playerEquipment[Player.playerWeapon] != 33175 && type != CombatType.MAGE && attacker.playerEquipment[Player.playerWeapon] != 33204) {
+            boolean effectiveMeleeWeapon = type == CombatType.MELEE
+                    && (weaponInterface == WeaponInterface.SPEAR
+                    || weaponInterface == WeaponInterface.HALBERD
+                    || weaponInterface == WeaponInterface.SCYTHE);
+            if (!effectiveMeleeWeapon && attacker.playerEquipment[Player.playerWeapon] != 33175 && type != CombatType.MAGE && attacker.playerEquipment[Player.playerWeapon] != 33204) {
                 maximumDamage *= 0.33;
-                attacker.sendMessage("@red@Corporeal beast can only be effectively damaged with spears or halberds!",
+                attacker.sendMessage("@red@Use magic, a spear, halberd, scythe or Axe of Araphel to effectively damage Corporeal Beast!",
                         TimeUnit.MINUTES.toMillis(10));
             }
 

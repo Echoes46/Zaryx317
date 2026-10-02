@@ -49,6 +49,7 @@ import io.zaryx.model.entity.player.mode.Mode;
 import io.zaryx.model.entity.player.mode.ModeType;
 import io.zaryx.model.entity.thrall.ThrallSystem;
 import io.zaryx.model.items.GameItem;
+import io.zaryx.model.items.RewardDelivery;
 import io.zaryx.model.items.ImmutableItem;
 import io.zaryx.model.items.ItemAction;
 import io.zaryx.model.multiplayersession.MultiplayerSessionType;
@@ -1356,18 +1357,13 @@ public class ItemOptionOne implements PacketType {
 
 
             case 6833://yt stream giveaway box tier2
-                if (c.getItems().freeSlots() > 20) {
+                if (c.getItems().playerHasItem(6833) && RewardDelivery.give(c,
+                        new GameItem(6199, 2), new GameItem(6828, 2), new GameItem(13346, 2),
+                        new GameItem(6769, 5), new GameItem(2396, 2))) {
                     c.getItems().deleteItem(6833, 1);
                     c.gfx100(263);
-                    c.getItems().addItem(6199, 2);//normal m box
-                    c.getItems().addItem(6828, 2);//super m box
-                    c.getItems().addItem(13346, 2);//ultra m box
-                    c.getItems().addItem(6769, 5);//5 scroll
-                    c.getItems().addItem(2396, 2);//25 scroll
                     c.getDH().sendStatement("Box has been logged for staff, please give away responsibly!");
                     PlayerHandler.executeGlobalStaffMessage("[@red@Staff Message@bla@] <col=255>" + c.getDisplayName() + " has opened a stream box t2!");
-                } else {
-                    c.sendMessage("Please clear your inventory before opening.");
                 }
                 break;
             case 2697:

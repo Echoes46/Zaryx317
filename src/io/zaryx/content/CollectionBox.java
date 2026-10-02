@@ -2,7 +2,6 @@ package io.zaryx.content;
 
 import io.zaryx.model.items.RewardDelivery;
 
-import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
 import io.zaryx.model.entity.player.save.PlayerSaveEntry;
 import io.zaryx.model.items.GameItem;
@@ -26,11 +25,6 @@ public class CollectionBox {
     public void collect(Player player) {
         if (player.isBusy()) {
             player.sendMessage("Finish what you're doing before collecting your items.");
-            return;
-        }
-
-        if (!Boundary.EDGEVILLE_PERIMETER.in(player)) {
-            player.sendMessage("You must be in Edgeville to collect your items.");
             return;
         }
 
