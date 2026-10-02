@@ -37,11 +37,13 @@ class ForestGuardianBalanceTest {
         try {
             NPC npc=new NPC(1,13201,NpcDef.builder().name("Forest Guardian").build(),stats);
             int magicRoll=new MagicCombatFormula().getEffectiveDefenceLevel(npc)*(npc.getBonus(Bonus.DEFENCE_MAGIC)+64);
-            assertEquals(18126,magicRoll);
+            // September boss-defense rebalance: magic bonus 50 -> 79, magic level stays 150.
+            assertEquals(22737,magicRoll);
             assertTrue(npc.getBonus(Bonus.DEFENCE_MAGIC)<npc.getBonus(Bonus.DEFENCE_SLASH));
             assertTrue(npc.getBonus(Bonus.DEFENCE_MAGIC)<npc.getBonus(Bonus.DEFENCE_RANGED));
             assertEquals(statsRecord.get("magicLevel").getAsInt(),combat.getLevel(NpcCombatSkill.MAGIC));
-            assertEquals(statsRecord.get("magicDef").getAsInt(),npc.getBonus(Bonus.DEFENCE_MAGIC));
+            assertEquals(79,npc.getBonus(Bonus.DEFENCE_MAGIC));
+            assertEquals(188,combat.getLevel(NpcCombatSkill.DEFENCE));
             assertEquals(1000,npc.getHealth().getMaximumHealth());
         } finally {
             config.set(null,previous);
