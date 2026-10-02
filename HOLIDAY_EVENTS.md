@@ -27,7 +27,7 @@ Talk to Jack the Pumpkin King at home (3098, 3512) to visit the Draynor Manor gr
 4. Visit the three ghosts and solve their individual riddles to light their lanterns.
 5. Return to Jack to claim the skeleton outfit on the first completion and five Halloween tokens each round.
 
-The grounds include Aggie, ghosts, a flying pumpkin, jack-o-lantern decorations, spooky stocks and the great cauldron. Repeat rounds earn tokens for a skeleton mask (10), witch outfit (30), or ghostly cloak (15).
+The grounds include Aggie, ghosts, a flying pumpkin, jack-o-lantern decorations, spooky stocks and the great cauldron. Repeat rounds earn tokens for a Grim reaper hood (10), witch outfit (30), ghostly cloak (15), zombie outfit (30), Halloween armor set including cape (75), flying pumpkin pet (100), or Jack-O-Kraken pet (100). The skeleton costume remains the first-completion reward; none of its pieces are sold in the shop. The shop has Previous/Next pages. Armor and pets use their existing stats and pet behavior.
 
 ## Christmas: The Missing Christmas Delivery
 

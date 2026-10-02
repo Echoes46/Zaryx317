@@ -285,22 +285,32 @@ public final class HolidayEvents {
         if(!s.complete())return;
         save(p);
         if(p.getInstance() instanceof HolidayInstance)((HolidayInstance)p.getInstance()).refreshSupplyTracker(p);
-        say(p,"Quest complete: "+npc.holiday.quest,"You earned 5 festival tokens.",first?"Your festive costume has been delivered.":"Thank you for helping the festival again!","Speak to me to replay or browse the cosmetic rewards.");
+        say(p,"Quest complete: "+npc.holiday.quest,"You earned 5 festival tokens.",first?"Your festive costume has been delivered.":"Thank you for helping the festival again!","Speak to me to replay or browse the festival rewards.");
     }
     private static void shop(Player p,HolidayNpc npc) {
+        shop(p,npc,0);
+    }
+    private static void shop(Player p,HolidayNpc npc,int page) {
+        if(!near(p,npc))return;
         Holiday h=npc.holiday;
-        int[][] items=h==Holiday.HALLOWEEN?new int[][]{{9925},{27473,27475,27477,27479,27481},{6111}}:new int[][]{{10507},{20832},{27566}};
-        String[] names=h==Holiday.HALLOWEEN?new String[]{"Skeleton mask","Witch outfit","Ghostly cloak"}:new String[]{"Reindeer hat","Snow globe","Christmas jumper"};
-        int[] costs={10,30,15};
+        List<HolidayShop.Reward> rewards=HolidayShop.rewards(h);
+        int pages=(rewards.size()+HolidayShop.PAGE_SIZE-1)/HolidayShop.PAGE_SIZE;
+        if(page<0||page>=pages)return;
         List<DialogueOption> options=new ArrayList<>();
-        for(int i=0;i<items.length;i++){final int slot=i;options.add(new DialogueOption(names[i]+" - "+costs[i]+" tokens",pl->{
-            if(!near(pl,npc))return;HolidayProgress state=progress(pl,h);
-            if(state.tokens<costs[slot]){say(pl,"You need "+costs[slot]+" festival tokens for that reward.");return;}
-            if(!RewardDelivery.give(pl, java.util.Arrays.stream(items[slot]).mapToObj(id -> new io.zaryx.model.items.GameItem(id, 1)).toArray(io.zaryx.model.items.GameItem[]::new))) return;
-            state.tokens-=costs[slot];save(pl);close(pl);
-            pl.sendMessage("You receive "+names[slot]+". Remaining festival tokens: "+state.tokens);
-        }));}
+        int end=Math.min(rewards.size(),(page+1)*HolidayShop.PAGE_SIZE);
+        for(int i=page*HolidayShop.PAGE_SIZE;i<end;i++){
+            HolidayShop.Reward reward=rewards.get(i);
+            options.add(new DialogueOption(reward.name+" - "+reward.cost+" tokens",pl->{
+                if(!near(pl,npc))return;HolidayProgress state=progress(pl,h);
+                if(state.tokens<reward.cost){say(pl,"You need "+reward.cost+" festival tokens for that reward.");return;}
+                if(!RewardDelivery.give(pl, java.util.Arrays.stream(reward.items).mapToObj(id -> new io.zaryx.model.items.GameItem(id, 1)).toArray(io.zaryx.model.items.GameItem[]::new))) return;
+                state.tokens-=reward.cost;save(pl);close(pl);
+                pl.sendMessage("You receive "+reward.name+". Remaining festival tokens: "+state.tokens);
+            }));
+        }
+        if(page>0)options.add(new DialogueOption("Previous page",pl->shop(pl,npc,page-1)));
+        if(page+1<pages)options.add(new DialogueOption("Next page",pl->shop(pl,npc,page+1)));
         options.add(new DialogueOption("Close",HolidayEvents::close));
-        p.start(new DialogueBuilder(p).option(h.title+" cosmetics | Tokens: "+progress(p,h).tokens,options.toArray(new DialogueOption[0])));
+        p.start(new DialogueBuilder(p).option(h.title+" rewards "+(page+1)+"/"+pages+" | Tokens: "+progress(p,h).tokens,options.toArray(new DialogueOption[0])));
     }
 }
