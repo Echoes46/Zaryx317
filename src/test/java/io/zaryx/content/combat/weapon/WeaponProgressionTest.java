@@ -101,7 +101,7 @@ class WeaponProgressionTest {
         assertTrue(checked >= 900, "Inventory coverage unexpectedly dropped: " + checked);
     }
 
-    @Test void corpAllowsScytheProgressionAndPreservesOtherWeaponModifiers() {
+    @Test void corpReducesScytheDamageByFortyPercentAndPreservesOtherWeaponModifiers() {
         NPC corp = new NPC(2, io.zaryx.model.Npcs.CORPOREAL_BEAST,
                 NpcDef.builder().name("Corporeal Beast").build(),
                 NpcStats.builder().setName("Corporeal Beast").setHitpoints(2000).createNpcStats());
@@ -115,8 +115,10 @@ class WeaponProgressionTest {
                     return maximumDamage;
                 }
             }
-            int expected = id == 33204 ? 300 : id == 33175 ? 200 : id == 4151 ? 33 : 100;
+            boolean scythe = id == 22325 || id == 25736 || id == 25739 || id == 33203;
+            int expected = scythe ? 60 : id == 33204 ? 300 : id == 33175 ? 200 : id == 4151 ? 33 : 100;
             assertEquals(expected, new CorpHit().max(CombatType.MELEE), "Corp modifier for " + id);
+            if (scythe) assertEquals(100, new CorpHit().max(CombatType.MAGE));
         }
     }
 

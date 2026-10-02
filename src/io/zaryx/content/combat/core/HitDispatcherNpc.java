@@ -78,7 +78,9 @@ public class HitDispatcherNpc extends HitDispatcher {
                 attacker.sendMessage("@red@Use magic, a spear, halberd, scythe or Axe of Araphel to effectively damage Corporeal Beast!",
                         TimeUnit.MINUTES.toMillis(10));
             }
-
+            if (type == CombatType.MELEE && weaponInterface == WeaponInterface.SCYTHE) {
+                maximumDamage *= 0.60;
+            }
 
             if (attacker.playerEquipment[Player.playerWeapon] == 33204) {
                 maximumDamage *= 3;
