@@ -233,6 +233,16 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
                             return;
                         }
 
+                        // Reject before RSA decoding, account loading, or installing the game decoder.
+                        // Return the existing code so even legacy clients can display update instructions.
+                        if (version != Configuration.CLIENT_VERSION) {
+                            state = DISCONNECTED;
+                            sendCode(channel, null, LoginReturnCode.CLIENT_OUT_OF_DATE,
+                                    "Client revision mismatch: expected=" + Configuration.CLIENT_VERSION
+                                            + ", received=" + version);
+                            return;
+                        }
+
                         int lowMem = buffer.readByte() & 0xff;
 
                         for (int i = 0; i < 9; i++) {
@@ -531,12 +541,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
             if (Configuration.DISABLE_FRESH_LOGIN) {
                 returnCode = LoginReturnCode.INVALID_USERNAME_OR_PASSWORD;
-            }
-
-            if (version != Configuration.CLIENT_VERSION) {
-                returnCode = LoginReturnCode.CLIENT_OUT_OF_DATE;
-                logger.info("{} was rejected because client version is behind. Expected={}, requested={}",
-                        Misc.formatPlayerName(player.getLoginName()), Configuration.CLIENT_VERSION, version);
             }
 
             if (Server.UpdateServer && PlayerHandler.updateRunning && PlayerHandler.kickAllPlayers) {

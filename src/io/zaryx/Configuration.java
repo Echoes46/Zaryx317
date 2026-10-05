@@ -45,7 +45,8 @@ public class Configuration {
     public static boolean isProd() { return DEPLOYMENT == Deployment.PROD; }
     public static boolean isDev()  { return DEPLOYMENT == Deployment.DEV; }
 
-	public static final int CLIENT_VERSION = 369;
+	// Must match the desktop/mobile login revision; bump for incompatible UI/packet changes.
+	public static final int CLIENT_VERSION = 370;
 
     public static String SERVER_NAME = "Zaryx 317";
 	public static final int PORT_DEFAULT = 43596;
