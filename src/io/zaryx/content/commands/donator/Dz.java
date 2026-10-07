@@ -6,6 +6,7 @@ import io.zaryx.content.commands.Command;
 import io.zaryx.content.dialogue.DialogueBuilder;
 import io.zaryx.content.dialogue.DialogueOption;
 import io.zaryx.model.entity.player.Player;
+import io.zaryx.model.entity.player.RankUpgrade;
 
 /**
  * Teleports the player to the donator zone.
@@ -36,7 +37,10 @@ public class Dz extends Command {
 	}
 
 	private static void teleportToZone(Player player, int requiredDonation, int x, int y) {
-		if (!player.getRights().hasStaffPosition() && player.amDonated < requiredDonation) {
+		RankUpgrade requiredRank = RankUpgrade.forAmount(requiredDonation);
+		boolean hasRequiredRank = requiredRank != null
+				&& player.getRights().isOrInherits(requiredRank.rights);
+		if (!player.getRights().hasStaffPosition() && !hasRequiredRank && player.amDonated < requiredDonation) {
 			player.sendMessage(String.format("You need to have donated at least $%,d to enter this zone.", requiredDonation));
 			return;
 		}
