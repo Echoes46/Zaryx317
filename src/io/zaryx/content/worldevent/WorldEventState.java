@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 public class WorldEventState {
 
     private static String getSaveFile() {
-        return Server.getDataDirectory() + "world_event_state.json";
+        return new File(Server.getDataDirectory(), "world_event_state.json").getPath();
     }
 
     public static WorldEventState load() throws IOException {

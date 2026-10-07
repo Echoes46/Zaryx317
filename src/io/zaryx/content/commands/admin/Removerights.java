@@ -37,9 +37,9 @@ public class Removerights extends Command {
 		}
 		if (player2.getRights().contains(right)) {
 			player2.getRights().remove(right);
-			player.sendMessage("You have removed " + right.name() + " rights from " + player2.getDisplayName());
+			player.sendMessage("You have removed " + right.getFormattedName() + " rights from " + player2.getDisplayName());
 		} else {
-			player.sendMessage("This player does not have " + right.name() + " rights.");
+			player.sendMessage("This player does not have " + right.getFormattedName() + " rights.");
 			return;
 		}
 	}

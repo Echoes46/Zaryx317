@@ -37,7 +37,7 @@ public class Addrights extends Command {
 		}
 		player.getRights().add(right);
 		player.getRights().updatePrimary();
-		c.sendMessage("You have promoted " + args[0] + " to " + right.name() + ".");
+		c.sendMessage("You have promoted " + args[0] + " to " + right.getFormattedName() + ".");
 	}
 
 }
