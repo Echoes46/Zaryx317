@@ -1,12 +1,10 @@
 package io.zaryx.content.skills.firemake;
 
+import io.zaryx.Server;
 import io.zaryx.content.achievement.AchievementType;
 import io.zaryx.content.achievement.Achievements;
 import io.zaryx.content.skills.DoubleExpScroll;
 import io.zaryx.content.skills.Skill;
-import io.zaryx.model.cycleevent.CycleEvent;
-import io.zaryx.model.cycleevent.CycleEventContainer;
-import io.zaryx.model.cycleevent.CycleEventHandler;
 import io.zaryx.model.cycleevent.Event;
 import io.zaryx.model.entity.player.Boundary;
 import io.zaryx.model.entity.player.Player;
@@ -38,9 +36,16 @@ public class Burner extends Event<Player> {
             LogData[] allLogData = LogData.values();
             Arrays.sort(allLogData, Comparator.comparing(LogData::getlevelRequirement).reversed());
 
-            CycleEvent burnLogEvent = new CycleEvent() {
+            player.getPA().stopSkilling();
+            final int startX = player.getX(), startY = player.getY(), startHeight = player.getHeight();
+            Event<Player> burnLogEvent = new Event<Player>("skilling", player, 2) {
                 @Override
-                public void execute(CycleEventContainer container) {
+                public void execute() {
+                    if (player.isDisconnected() || player.isDead || player.getX() != startX
+                            || player.getY() != startY || player.getHeight() != startHeight) {
+                        stop();
+                        return;
+                    }
                     for (LogData logData : allLogData) {
                         if (player.getItems().playerHasItem(logData.getlogId()) && player.playerLevel[11] >= logData.getlevelRequirement()) {
                             player.startAnimation(897);
@@ -80,12 +85,17 @@ public class Burner extends Event<Player> {
                     }
 
                     player.sendMessage("You need logs to add to the bonfire, and you must meet the level requirements to burn them.");
-                    container.stop();
+                    stop();
+                }
+
+                @Override
+                public void stop() {
+                    super.stop();
+                    player.startAnimation(-1);
                 }
             };
 
-            CycleEventContainer container = new CycleEventContainer(-1, player, burnLogEvent, 2);
-            CycleEventHandler.getSingleton().addEvent(container);
+            Server.getEventHandler().submit(burnLogEvent);
 
             return true;
         }
