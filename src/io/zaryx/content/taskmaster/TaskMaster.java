@@ -175,9 +175,13 @@ public class TaskMaster {
         if (!taskMasterKillsList.contains(t) || t.getClaimedReward()) return;
         if (t.announceCompletion()) p.sendMessage("@gre@Task complete: " + clean(t.getDesc()) + ". Claim it with ::taskmanager.");
         if(t.isPinned()) updateTracker();
+        if (p.getOpenInterface() == 38000) render();
+    }
+    private static String normalizeNpcName(String name) {
+        return clean(name).replace('_', ' ').trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
     }
     public static boolean matchesNpc(String objective,String npcName) {
-        String task=clean(objective).toLowerCase(Locale.ROOT), npc=clean(npcName).toLowerCase(Locale.ROOT);
+        String task=normalizeNpcName(objective), npc=normalizeNpcName(npcName);
         // These activities have explicit completion hooks; ordinary NPC deaths must not count twice.
         if(Arrays.asList("nightmare","chambers","theatre of blood","inferno").contains(task)) return false;
         if(task.equals("barrows")) return Arrays.asList("ahrim","dharok","guthan","karil","torag","verac").stream().anyMatch(npc::startsWith);

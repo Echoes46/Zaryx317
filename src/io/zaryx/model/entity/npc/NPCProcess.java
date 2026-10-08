@@ -651,6 +651,11 @@ public class NPCProcess {
                 }
             } else if (npc.actionTimer == 0 && npc.applyDead && !npc.needRespawn) {
                 int killerIndex = npc.killedBy;
+                // Credit the death before reward callbacks can change NPC or killer state.
+                if (killerIndex >= 0 && killerIndex < PlayerHandler.players.length) {
+                    Player taskKiller = PlayerHandler.players[killerIndex];
+                    if (taskKiller != null) taskKiller.getTaskMaster().recordNpcKill(npc);
+                }
                 if (npc.getNpcId() == 5126) {
                     vboss.handleRewards();
 //                } else if (npc.getNpcId() == 655) {
@@ -749,9 +754,6 @@ public class NPCProcess {
                             }
                         }
 
-                        if (target != null) {
-                            target.getTaskMaster().recordNpcKill(npc);
-                        }
                     }
 
                     /**

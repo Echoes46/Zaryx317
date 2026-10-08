@@ -48,6 +48,25 @@ class TaskMasterTest {
             }
         });
     }
+    @Test void regularSandCrabsCountOncePerDeathAndAfterRespawn() throws Exception {
+        player(p -> {
+            TaskMaster board = p.getTaskMaster();
+            TaskMasterKills assignment = new TaskMasterKills(35, 0, new GameItem[0],
+                    TaskDifficulty.EASY, TaskType.COMBAT, false, LocalDateTime.now().plusHours(1), "Sand Crab");
+            board.taskMasterKillsList.add(assignment);
+            for (int id : new int[]{5935, 7206}) {
+                io.zaryx.model.definitions.NpcDef def = io.zaryx.model.definitions.NpcDef.builder().name("Sand Crab").build();
+                io.zaryx.model.definitions.NpcStats stats = io.zaryx.model.definitions.NpcStats.builder().setName("Sand Crab").setHitpoints(60).createNpcStats();
+                io.zaryx.model.entity.npc.NPC crab = new io.zaryx.model.entity.npc.NPC(1, id, def, stats);
+                board.recordNpcKill(crab);
+                board.recordNpcKill(crab);
+                board.recordNpcKill(new io.zaryx.model.entity.npc.NPC(1, id, def, stats));
+            }
+            assertEquals(4, assignment.getAmountKilled());
+            assertTrue(TaskMaster.matchesNpc("Sand Crab", " Sand_Crab "));
+            assertFalse(TaskMaster.matchesNpc("Sand Crab", "King Sand Crab"));
+        });
+    }
     @Test void cyclesRotateSeparatelyAndCompletedRewardsSurviveExpiry() throws Exception {
         player(p -> {
             LocalDateTime now=LocalDateTime.now(); TaskMaster board=p.getTaskMaster(); board.refresh(now);

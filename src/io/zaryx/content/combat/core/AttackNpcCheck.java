@@ -29,10 +29,25 @@ import java.util.Optional;
 
 public class AttackNpcCheck {
 
+    private static final java.util.Map<Player, Rejection> rejections = new java.util.WeakHashMap<>();
+    private static final class Rejection {
+        final String message;
+        final long time;
+        Rejection(String message, long time) { this.message = message; this.time = time; }
+    }
     private static void sendCheckMessage(Player c, boolean sendMessages, String message) {
-        if (sendMessages) {
-            c.sendMessage(message);
-        }
+        if (!sendMessages) return;
+        long now = System.currentTimeMillis();
+        Rejection previous = rejections.get(c);
+        if (previous != null && previous.message.equals(message) && now - previous.time < 3000) return;
+        rejections.put(c, new Rejection(message, now));
+        c.sendMessage(message);
+    }
+
+    static boolean blockedByOtherCombat(boolean multi, int playerAttacker, int npcAttacker,
+                                        int targetIndex, int targetId) {
+        return !multi && (playerAttacker > 0 || (npcAttacker > 0 && npcAttacker != targetIndex
+                && targetId != 1969 && targetId != 7514 && targetId != 7859));
     }
 
     public static boolean check(Player c, Entity targetEntity, boolean sendMessages) {
@@ -111,8 +126,8 @@ public class AttackNpcCheck {
             //!npcs[i].getPosition().inMulti() && ((c.underAttackByPlayer > 0 && c.underAttackByNpc != i)
             //        || (c.underAttackByNpc > 0 && c.underAttackByNpc != i))
 
-            if (!c.getPosition().inMulti() && (c.underAttackByPlayer > 0 && c.underAttackByNpc != npc.getIndex())
-                    || (c.underAttackByNpc > 0 && c.underAttackByNpc != npc.getIndex() && npc.getIndex() != 1969 && npc.getIndex() != 7514 && npc.getIndex() != 7859)) {
+            if (blockedByOtherCombat(c.getPosition().inMulti(), c.underAttackByPlayer,
+                    c.underAttackByNpc, npc.getIndex(), npcId)) {
                 sendCheckMessage(c, sendMessages, "You are already in combat.");
 
                 return false;
@@ -481,6 +496,7 @@ public class AttackNpcCheck {
             }
         }
 
+        rejections.remove(c);
         return true;
     }
 
